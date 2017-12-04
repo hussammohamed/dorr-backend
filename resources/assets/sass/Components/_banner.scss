@@ -1,0 +1,69 @@
+$bannerHeight : 400;
+.l-mainbanner{
+}
+.l-sidebanner{
+	padding-#{$left}:0;
+	.card{
+		margin-bottom:0;
+		height: auto;
+		height:$bannerHeight+px;
+	}
+	.banner-title{
+		padding-top: 15px;
+		margin: 0;
+	}
+	.card-content{
+		border-bottom:1px solid #ccc;
+		&:last-child{
+			border-bottom:0;
+		}
+	}
+}
+.banner{
+	width:100%;
+	margin-bottom:$gutter+px;
+	position:relative;
+	@include breakpoint(mid){
+	    height: $bannerHeight+px;
+	}
+}
+.banner-image{
+	height: 270px;
+    overflow: hidden;
+	margin-#{$left}: ($gutter/2)+px;
+	> img{
+		@extend .ex-shadow;
+	}
+}
+.banner-title{
+	margin-top: $gutter+px;
+	> a{
+		color: inherit;
+		&:hover{
+			color:$secondary-base;
+		}
+	}
+}
+.banner-brief{
+
+}
+.banner-link{
+
+}
+.banner-fluid{
+	width:100%;	
+    overflow: hidden;
+	@extend .ex-shadow;
+	@include breakpoint(mid){
+		height: 355px;
+	}
+}
+.banner-img{
+	> img{
+		width:100%;
+	}
+	> h2{
+		color:#fff;
+		margin-bottom:0;
+	}	
+}

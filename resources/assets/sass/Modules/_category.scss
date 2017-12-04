@@ -1,0 +1,62 @@
+$category-colors: #00d162 #d10000 #a700d1 #ea7208 #d10098 #0036d1;
+
+.category {
+    position: absolute;
+    bottom: 10%;
+    #{$right}: 0;
+    padding: 0.3em 1em;
+    @include font-size(14px);
+	@extend .ex-shadow;
+	
+}
+
+.category-heading{
+	color:#fff;
+}
+.category-content{
+	@include font-size(12px);
+}
+.category-tag{
+	margin-top: 1em;
+    display: inline-block;
+    font-size: 0.8em;
+}
+
+@each $current-color in $category-colors {
+    $i: index($category-colors, $current-color);
+    .category-cat#{$i} { 
+        background-color: $current-color;
+		color:#fff;
+    }
+}
+
+@each $current-color in $category-colors {
+    $i: index($category-colors, $current-color);
+    .category-inv-cat#{$i} { 
+        color: $current-color;
+		background-color:#fff;
+		.category-heading{
+			color: $current-color;
+		}
+    }
+}
+
+
+.category-banner{
+	position:relative;		
+	padding: 0.7em 1em;
+	@include breakpoint(small){
+		#{$right}: 50px;
+		bottom: 50px;
+		max-width: 24em;
+		position:absolute;
+	}
+}
+.category-fluid{
+	width:100%;
+	bottom: 0;
+	#{$right}: 0;
+	> .category-heading{
+		margin-bottom:0;
+	}
+}

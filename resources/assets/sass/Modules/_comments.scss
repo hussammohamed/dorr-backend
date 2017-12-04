@@ -1,0 +1,20 @@
+.commentsform{
+	background-color: #fff;
+    padding: 2em 1.5em;
+	@extend .ex-shadow;
+	margin-bottom:$gutter+px;
+}
+.commentsform-msg{
+	font-size: 0.8em;
+    color: #3a3a3a;
+    margin-bottom: 1.5em;
+}
+
+.author.comment{
+	@include box-shadow(none);
+	background-color:transparent;
+}
+
+.comment-date{
+	font-size:0.8em;
+}

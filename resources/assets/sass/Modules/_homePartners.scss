@@ -1,0 +1,27 @@
+.l-home-partners{
+	height:rem(140);
+	background-color:#fff;
+}
+.homePartners{
+	padding: rem(20) rem(115);
+	.homePartners-image{
+		text-align:center;
+	}
+	.homePartners--link{
+		display:block;
+		> img{
+			margin:auto;
+			height:rem(97);
+		}
+	}
+	.slickArrow{
+		top:50%;
+		@include translate(0,-50%);
+		#{$left}: auto;
+		#{$right}: 30px;
+		&.slickArrow-right{
+			#{$right}: auto;
+			#{$left}: 30px;
+		}
+	}
+}

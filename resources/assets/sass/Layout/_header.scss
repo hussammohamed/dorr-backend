@@ -1,0 +1,15 @@
+// ## variables
+$header-borderColor : #e5ecf6;
+$header-marginButtom : $gutter;
+$header-height : 9rem;
+$header-padding : 0;
+
+// ## ========================================================================
+// ## styles
+.l-header{
+	@include breakpoint(mid){
+		height: rem(145);
+	}
+	padding:$header-padding;
+	margin-bottom:$header-marginButtom+px;
+}

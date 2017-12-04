@@ -1,0 +1,29 @@
+.l-author{
+	margin: $gutter+px 0;
+}
+.author{
+	background-color: #f3f3f3;   
+	@extend .ex-shadow;
+	padding-bottom: 1em;
+}
+.author-img{
+	border: 5px solid #fff;
+    display: block;
+    margin: 1em auto 0;
+	@include border-radius(50%);
+}
+.author-socials{
+	text-align:center;
+	margin-top: 10px;
+	font-size:0.9em;
+}
+.author-name{
+	color: $secondary-base;
+    margin: 1.65em 0 0.35em;
+	padding-left: ($gutter/2)+px;
+}
+.author-brief{
+	color: #3a3a3a;
+    font-size: 0.8em;
+    padding-left: ($gutter/2)+px;
+}

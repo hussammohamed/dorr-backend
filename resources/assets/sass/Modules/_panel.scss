@@ -1,0 +1,112 @@
+$panel-heading-height : 60;
+.panel{
+    margin-bottom: 0;
+    background-color: #fff;
+    border: 0;
+	@include border-radius(3px);
+    @include box-shadow(0px 3px 0px 0px rgb( 229, 229, 229));
+	font-size: 0.9rem;
+}
+.panel-heading {
+    padding: 0;
+    border-bottom: 1px solid transparent;
+	background-color:$primary-base;
+	height: $panel-heading-height+px;
+	position:relative;
+	&:after{
+		content: "";
+		height: 3px;
+		background: #363636;
+		position:absolute;
+		#{$right}:$panel-heading-height + 2 + px;
+		#{$left}:0;
+		margin-top: 1px;
+	}
+	 > h4{
+		color: #fff;
+		margin: 0;
+		font-size: 1rem;
+		line-height: $panel-heading-height - 2+px;
+		min-height: $panel-heading-height+px;
+		> a{
+			color: #fff;
+		}
+	 }
+}
+.panel-heading__icon{
+	background-color:$secondary-base;
+	float: #{$right};
+    width: $panel-heading-height + 2 + px;
+    text-align: center;
+    color: #fff;
+    font-size: 2em;
+    height: $panel-heading-height+px;
+	margin-#{$left}:1.1rem;
+	border-#{$left}:2px solid #fff;
+	@include border-top-right(3px);
+	position:relative;
+	&:after{
+		content: "";
+		height: 3px;
+		background: $secondary-base;
+		position: absolute;
+		right: 0;
+		left: 0;
+		margin-top: 1px;
+		bottom: -4px;
+	}
+}
+.panel-content{
+	border-left: 1px solid #e3e3e3;
+	border-right: 1px solid #e3e3e3;
+	padding:1.9rem;
+}
+.l-profile{
+	.panel + .panel{
+		margin-top:3rem;
+	}
+}
+.panel-subtitle{	
+    border-bottom: 2px solid #ccc;
+	margin-bottom:35px;
+	position: relative;
+	font-weight: 700;
+	color: #363636;
+	> span{
+		font-size: 1rem;
+		padding-bottom: 12px;
+		position: relative;
+		display: inline-block;
+		padding-#{$left}: 10px;
+		&:after{
+			content:"";
+			position: absolute;
+			bottom: -2px;
+			right: 0;
+			left: 0;
+			height: 2px;
+			background: $primary-base;
+		}
+		&:before{
+			content:"";
+			position: absolute;
+			height: 2px;
+			background: #fff;
+			#{$right}: 100%;
+			bottom: -2px;
+			z-index: 10;
+			width: 25px;
+		}
+	}	
+}
+.panel-subtitle__link{
+	font-size: 0.75rem;
+    color: inherit;
+    position: absolute;
+    #{$left}: 20px;
+    bottom: 0;
+	@include translate(0,50%);
+    background-color: #fff;
+    padding: 0 20px;
+}
+

@@ -3,7 +3,27 @@
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
 
 // Variables
-@import "variables";
+@import "Base/_variablesRTL"; 
+@import "Base/_variables"; 
+@import "Base/_mixins";
 
-// Bootstrap
-@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+// Layouts
+
+// Base CSS and typography 
+// @import "Base/_reset"; 
+// //@import "Base/_normalize";
+// @import "Base/_fonts";   
+// @import "Base/_extend";
+// @import "Base/_typography";
+
+// Reusable Components
+ 
+// Modules
+
+
+// Vendors
+	// Bootstrap
+ 		//@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+	//MDL
+	@import "../../../node_modules/material-design-lite/src/material-design-lite";
+	@import "../../../node_modules/material-design-lite/src/material-design-lite-grid";

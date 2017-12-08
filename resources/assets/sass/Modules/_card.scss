@@ -3,107 +3,107 @@ $cardHeightSmall : 320;
 
 $cardImageHeight : 190;
 
-.card{
-	position: relative;
-    margin-bottom: $gutter+px;
-    background-color: #fff;
-	display: inline-block;
-    width: 100%;
-	@include breakpoint(small){
-		height:rem(460);
-	}
-	@include breakpoint(mid){
-		margin-bottom: 0;
-		height:rem(460);
+// .card{
+// 	position: relative;
+//     margin-bottom: $gutter+px;
+//     background-color: #fff;
+// 	display: inline-block;
+//     width: 100%;
+// 	@include breakpoint(small){
+// 		height:rem(460);
+// 	}
+// 	@include breakpoint(mid){
+// 		margin-bottom: 0;
+// 		height:rem(460);
 
-	}
-	.cardImage{
-		position:relative;
-		overflow:hidden;
-		width: 100%;
-		margin-top:rem(30);		
-		@include breakpoint(small){
-			height: 220px;
-		}
-		@include breakpoint(mid){
-			margin-bottom: 0;
-			height:$cardImageHeight+px;
-		}
-		> img{
-			width:100%;
-		}
-	}
-	.cardTitle{
-		font-size:rem(20);
-		padding: rem(10) rem(15) rem(20);	
-		margin: auto;
-		color:#626262;
-		text-align:center;
-		font-weight: 700;
-		> a{
-			color: #626262;
-			@include transition($property:color);
-			&:hover{
-				color:$secondary-darker;
-			}
-		}
-	}
+// 	}
+// 	.cardImage{
+// 		position:relative;
+// 		overflow:hidden;
+// 		width: 100%;
+// 		margin-top:rem(30);		
+// 		@include breakpoint(small){
+// 			height: 220px;
+// 		}
+// 		@include breakpoint(mid){
+// 			margin-bottom: 0;
+// 			height:$cardImageHeight+px;
+// 		}
+// 		> img{
+// 			width:100%;
+// 		}
+// 	}
+// 	.cardTitle{
+// 		font-size:rem(20);
+// 		padding: rem(10) rem(15) rem(20);	
+// 		margin: auto;
+// 		color:#626262;
+// 		text-align:center;
+// 		font-weight: 700;
+// 		> a{
+// 			color: #626262;
+// 			@include transition($property:color);
+// 			&:hover{
+// 				color:$secondary-darker;
+// 			}
+// 		}
+// 	}
 	
-	.cardContent{
-		padding: rem(15);
-		padding-top:0;
-		font-size:rem(13);
-	}
+// 	.cardContent{
+// 		padding: rem(15);
+// 		padding-top:0;
+// 		font-size:rem(13);
+// 	}
 
-	.cardAction {
-		position: relative;
-		background-color: inherit;
-		padding: 1em 1.2em;
-		text-align:center;
-	}
-}
+// 	.cardAction {
+// 		position: relative;
+// 		background-color: inherit;
+// 		padding: 1em 1.2em;
+// 		text-align:center;
+// 	}
+// }
 
-//.card-sm{
-//	@include breakpoint(small){
-//		height:230px;
-//	}
-//	@include breakpoint(mid){
-//		height:280px;
-//	}	
-//	.cardImage{
-//		@include breakpoint(small){
-//			height: 120px;
-//		}
-//		@include breakpoint(mid){
-//			height:200px;
-//		}
-//	}
-//	.cardTitle{
-//		font-size:rem(14);
-//	}
-//}
-//
-//.card-lg{
-//	@include breakpoint(small){
-//		height:505px;
-//	}
-//	@include breakpoint(mid){
-//		height:575px;
-//	}
-//	.cardTitle{
-//		font-size:rem(28);		
-//		padding: rem(20) rem(25) rem(10) rem(25);
-//	}
-//	.cardImage{		
-//		@include breakpoint(small){
-//			height:210px;
-//		}
-//		@include breakpoint(mid){
-//			height: 320px;
-//		}	
-//	}
-//	.cardContent{
-//		padding-left:rem(25);
-//		padding-right:rem(25);
-//	}
-//}
+// //.card-sm{
+// //	@include breakpoint(small){
+// //		height:230px;
+// //	}
+// //	@include breakpoint(mid){
+// //		height:280px;
+// //	}	
+// //	.cardImage{
+// //		@include breakpoint(small){
+// //			height: 120px;
+// //		}
+// //		@include breakpoint(mid){
+// //			height:200px;
+// //		}
+// //	}
+// //	.cardTitle{
+// //		font-size:rem(14);
+// //	}
+// //}
+// //
+// //.card-lg{
+// //	@include breakpoint(small){
+// //		height:505px;
+// //	}
+// //	@include breakpoint(mid){
+// //		height:575px;
+// //	}
+// //	.cardTitle{
+// //		font-size:rem(28);		
+// //		padding: rem(20) rem(25) rem(10) rem(25);
+// //	}
+// //	.cardImage{		
+// //		@include breakpoint(small){
+// //			height:210px;
+// //		}
+// //		@include breakpoint(mid){
+// //			height: 320px;
+// //		}	
+// //	}
+// //	.cardContent{
+// //		padding-left:rem(25);
+// //		padding-right:rem(25);
+// //	}
+// //}

@@ -1,0 +1,23 @@
+// ## variables
+
+
+// Component
+
+
+// ## ========================================================================
+// ## styles
+.filter-map{
+    padding: 15px;
+    .filter-map__item{
+        
+    }
+    .filter-map__button{
+        border: $border-color 1px solid;
+        color: $text-dark-color;
+        border-radius: 2px;
+        &.filter-map__selected{
+            background-color: $primary-base;
+            color: $text-color;
+        }
+    }
+}

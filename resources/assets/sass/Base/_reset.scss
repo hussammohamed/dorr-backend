@@ -147,6 +147,10 @@ ul,ol{
 .main-content{
   min-height: calc(100vh - 399px);
   background-color: $body-bg;
+  padding-bottom: 200px; 
+}
+.content{
+  padding: 30px 45px;
 }
 .mdl-button{
   padding: 0 25px;

@@ -23,6 +23,7 @@ $m-header-height: 75px;
 	background-color: $topbar-bg;
 	padding: $topbar-padding;
 	display: flex;
+	direction: $ltr;
 	.topbar--item{
 		height: 100%;
 		position: relative;
@@ -108,4 +109,7 @@ $m-header-height: 75px;
 	padding: 0 20px;
 	vertical-align: middle;
 	line-height: $m-header-height;
+	.m-header--item__user{
+		float: $left;
+	}
 }

@@ -14,7 +14,7 @@
 	padding: 8px 40px;
 	background-color:  $footer-bg ;
 	.footer-bg{
-	    background-image: url(/fonts/footer-background.svg?fcad874…);
+	    background-image: url(/images/footer-background.svg);
 		position: absolute;
 		top: -140px;
 		left: 0;
@@ -27,8 +27,8 @@
 	.footer__middle{
 		text-align: $right;
 		.footer--item{
-			padding:0 15px;
 			color: $text-color;
+			padding:0 45px;
 			.footer--item__heading{
 				text-align: $right;
 				font-weight: 900;
@@ -44,6 +44,11 @@
 			&.footer-item__center{
 				text-align: center;
 			}
+		}
+		.footer--item__logo{
+			height: 80px;
+			width: auto;
+			margin-bottom: 25px;
 		}
 	}
 	.footer__bottom{

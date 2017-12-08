@@ -2,17 +2,17 @@
 // ## Base
 
 //== Colors
-         $body-bg : #dee1e3;
-    $primary-base : #0462b2;
-  $primary-darker : darken($primary-base,20%);
-  $secondary-base : #ffa800; 
-$secondary-darker : darken($secondary-base,20%);
+         $body-bg : #f5f5f5;
+    $primary-base : #40A6A2;
+  $primary-darker : #303D46;
+  $secondary-base : #F9BF16; 
 
-	  $text-color : #000;
-	 $icons-color : #e5b32a;
+	  $text-color : #fff;
+ $text-dark-color : #303d46;
+	 $icons-color : #303d46;
 
 // selection background color
-$selection-color : darken($secondary-base,15%);
+//$selection-color : darken($secondary-base,15%);
 
 //== font-families
 //

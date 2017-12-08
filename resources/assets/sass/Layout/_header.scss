@@ -1,15 +1,111 @@
 // ## variables
-$header-borderColor : #e5ecf6;
+$header-backgroundColor : #fff;
 $header-marginButtom : $gutter;
-$header-height : 9rem;
+$header-height : auto;
 $header-padding : 0;
+$topbar-bg : $primary-darker;
 
+// Component
+$topbar-height : 35px;
+$topbar-padding: 0 30px;
+$icon-size: 18px;
+$m-header-height: 75px;
 // ## ========================================================================
 // ## styles
 .l-header{
-	@include breakpoint(mid){
-		height: rem(145);
-	}
 	padding:$header-padding;
-	margin-bottom:$header-marginButtom+px;
+	background-color: $header-backgroundColor;
+	height: $header-height;
+	border-bottom: #e4e4e4 1px solid; 
+}
+.topbar{
+	height: $topbar-height;
+	background-color: $topbar-bg;
+	padding: $topbar-padding;
+	display: flex;
+	.topbar--item{
+		height: 100%;
+		position: relative;
+		color: $text-color;
+		min-width: 55px;
+		padding: 0 12px;
+		.topbar--item--bg{
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			@include skew(-30, 0);
+			text-align: center;
+			z-index: 1;
+		}
+		a{
+			color: $text-color;
+			text-decoration: none;
+		}
+		
+		
+	}
+	.topbar--item__lang{
+		.topbar--item--bg{
+			background-color: $primary-base;
+		}
+		a{
+			position: relative;
+			display: block;
+			z-index: 2;
+			text-align: center;
+			width: 100%;
+			height: 100%;
+			vertical-align: middle;
+			line-height: $topbar-height;
+			font-weight: 700;
+		}
+	}
+	.topbar--item__social{
+		.topbar--item--bg{
+			background-color: $secondary-base;
+		}
+		.navigation--social__link{
+			display: block;
+			height: 100%;
+			z-index: 2;
+			position: relative;
+			padding: 0 12px 0 10px;
+			vertical-align: middle;
+			line-height: $topbar-height;
+		}
+		.social--icon{
+			display: inline-block;
+			padding: 0 8px;
+			svg{
+				height:  $icon-size;
+				width:  $icon-size;
+				fill: $icons-color;
+
+			}
+		}
+	}
+	.topbar--item__actions{
+		.mdl-navigation{
+			vertical-align: middle;
+			line-height: $topbar-height;
+		}
+		.action--link{
+			color: $secondary-base;
+			padding: 0 16px;
+			.material-icons{
+				font-size:  $icon-size;
+				padding: 0 5px;
+				vertical-align: text-bottom;
+			}
+		}
+	}
+}
+
+.m-header{
+	min-height: $m-header-height;
+	padding: 0 20px;
+	vertical-align: middle;
+	line-height: $m-header-height;
 }

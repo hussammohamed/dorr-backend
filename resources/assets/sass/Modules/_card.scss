@@ -1,109 +1,109 @@
 $cardHeight : 320;
 $cardHeightSmall : 320;
+$cardFooterHeight: 30px;
+$cardImageHeight : 220px;
 
-$cardImageHeight : 190;
+.v-card{
+    width: auto;
+    .card--item__img{
+        height: $cardImageHeight;
+        overflow: hidden;
+        img{
+            width: 100%;
+            
+        }
+    }
+    .card--item__text{
+        padding: 8px;
+        .card--text__title{
+            color: $primary-base;
+        }
+        .card--text__address{
+            color: $text-normal-color;
+        }
+        .card--text__size{
+            color: $text-normal-color;
+        }
+        
+    }
+    .card-footer{
+        height: $cardFooterHeight;
+        margin: 12px 0;
+        background-color: $primary-darker;
+    }
+    .card-footer__price{
+        float: $left;
+        position: relative;
+        height: $cardFooterHeight;
+        padding: 0 20px;
+        color: $text-dark-color;
+        &::after{
+          content: "";
+          position: absolute;
+          @include skew(-30, 0);
+          top: 0;
+          right: 0;
+          z-index: 1; 
+          background-color: $secondary-base;
+          height: 100%;
+          width: 100%;     
+        }
+        &::before{
+            content: "";
+            position: absolute;
+            top: 0;
+            #{$left}: -12px;
+            z-index: 1; 
+            background-color: $secondary-base;
+            height: 100%;
+            width: 100%;     
+          }
+        .price--text{
+            position: relative;
+            z-index: 2;
+            font-weight: 700;
+            height: $cardFooterHeight;
+            line-height: $cardFooterHeight;
+            vertical-align: middle;
+        }
+    }
+}
 
-// .card{
-// 	position: relative;
-//     margin-bottom: $gutter+px;
-//     background-color: #fff;
-// 	display: inline-block;
-//     width: 100%;
-// 	@include breakpoint(small){
-// 		height:rem(460);
-// 	}
-// 	@include breakpoint(mid){
-// 		margin-bottom: 0;
-// 		height:rem(460);
-
-// 	}
-// 	.cardImage{
-// 		position:relative;
-// 		overflow:hidden;
-// 		width: 100%;
-// 		margin-top:rem(30);		
-// 		@include breakpoint(small){
-// 			height: 220px;
-// 		}
-// 		@include breakpoint(mid){
-// 			margin-bottom: 0;
-// 			height:$cardImageHeight+px;
-// 		}
-// 		> img{
-// 			width:100%;
-// 		}
-// 	}
-// 	.cardTitle{
-// 		font-size:rem(20);
-// 		padding: rem(10) rem(15) rem(20);	
-// 		margin: auto;
-// 		color:#626262;
-// 		text-align:center;
-// 		font-weight: 700;
-// 		> a{
-// 			color: #626262;
-// 			@include transition($property:color);
-// 			&:hover{
-// 				color:$secondary-darker;
-// 			}
-// 		}
-// 	}
-	
-// 	.cardContent{
-// 		padding: rem(15);
-// 		padding-top:0;
-// 		font-size:rem(13);
-// 	}
-
-// 	.cardAction {
-// 		position: relative;
-// 		background-color: inherit;
-// 		padding: 1em 1.2em;
-// 		text-align:center;
-// 	}
-// }
-
-// //.card-sm{
-// //	@include breakpoint(small){
-// //		height:230px;
-// //	}
-// //	@include breakpoint(mid){
-// //		height:280px;
-// //	}	
-// //	.cardImage{
-// //		@include breakpoint(small){
-// //			height: 120px;
-// //		}
-// //		@include breakpoint(mid){
-// //			height:200px;
-// //		}
-// //	}
-// //	.cardTitle{
-// //		font-size:rem(14);
-// //	}
-// //}
-// //
-// //.card-lg{
-// //	@include breakpoint(small){
-// //		height:505px;
-// //	}
-// //	@include breakpoint(mid){
-// //		height:575px;
-// //	}
-// //	.cardTitle{
-// //		font-size:rem(28);		
-// //		padding: rem(20) rem(25) rem(10) rem(25);
-// //	}
-// //	.cardImage{		
-// //		@include breakpoint(small){
-// //			height:210px;
-// //		}
-// //		@include breakpoint(mid){
-// //			height: 320px;
-// //		}	
-// //	}
-// //	.cardContent{
-// //		padding-left:rem(25);
-// //		padding-right:rem(25);
-// //	}
-// //}
+.apps--card{
+    min-height: 350px;
+    margin: 75px -50px 25px -50px;
+    background-color:  $primary-darker;
+    position: relative;
+        .apps--card__bg{
+            background-image: url(/images/mobile-background.svg);
+            height: 100%;
+            width: 65%;
+            #{$left}: 0;
+            top: 0;
+            position: absolute;
+            z-index: 1;
+            background-repeat: no-repeat;
+            background-size: 100%;
+        }
+        .apps--card__mobile{
+            background-image: url(/images/mobile.png);
+            height: 100%;
+            width: 50%;
+            #{$left}: 45px;
+            top: 0;
+            position: absolute;
+            z-index: 2;
+            background-repeat: no-repeat;
+        }
+        .apps--card__header{
+            padding: 50px 0 0;
+            text-align: center;
+            width: 45%;
+            .apps--card__title{
+            
+            }
+            .apps--card__logo{
+            
+            }
+        }
+}

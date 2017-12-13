@@ -13,7 +13,7 @@
     }
     .filter-map__button{
         border: $border-color 1px solid;
-        color: $text-dark-color;
+        color: $text-normal-color;
         border-radius: 2px;
         &.filter-map__selected{
             background-color: $primary-base;

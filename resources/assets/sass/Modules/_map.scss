@@ -1,5 +1,5 @@
 // ## variables
-
+$markerHeight: 24px;
 
 // Component
 
@@ -10,5 +10,25 @@
     .map{
         height: 350px;
         width: 100%;
+    }
+    .map-marker{
+        padding: 0;
+        padding: 0;
+        font-size: 12px;
+        height: $markerHeight;
+        line-height: $markerHeight;
+        font-weight: 700;
+        &:hover{
+            background-color: $primary-base;
+            color: $text-color;
+        }
+    }
+    .map-marker__arrow{
+        width: 0;
+        height: 0;
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        position: absolute;
+        border-top: 6px solid $primary-base;
     }
 }

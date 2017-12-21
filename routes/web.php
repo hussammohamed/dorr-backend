@@ -12,5 +12,16 @@
 */
 
 Route::get('/', function () {
+    return view('home');
+});
+Route::get('/property', function () {
     return view('property');
 });
+Route::get('/search', function () {
+    return view('searchPage');
+});
+Route::get('/add_ad', function () {
+    return view('add_add');
+});
+
+

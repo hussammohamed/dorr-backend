@@ -5,3 +5,52 @@
         clear: both;
       }
 }
+.u-no-padding{
+    padding: 0 !important;
+}
+.u-flip{
+    @if $direction == rtl{
+        -moz-transform: scaleX(-1);
+        -o-transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+        filter: FlipH;
+        -ms-filter: "FlipH";
+    }
+}
+.u-no-mtop{
+    margin-top: 0 !important;
+}
+.u-no-mbottom{
+    margin-bottom: 0 !important;
+}
+.u-mbuttom16{
+    margin-bottom: 16px;
+}
+.u-mrigth-15{
+    margin-#{$right}: 15px 
+}
+.u-center{
+    text-align: center;
+}
+.md-48{
+    font-size: 48px;
+}
+.md-72{
+    font-size: 72px;
+}
+.md-18{
+    font-size: 18px;
+}
+.u-auto-width{
+    width: auto;
+}
+.u-full-width{
+    width: 100%;
+}
+.u-no-border{
+    border: 0 !important;
+}
+.u-no-border-top{
+    border-top: 0 !important;
+}

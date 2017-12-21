@@ -14,7 +14,7 @@ $text-normal-color: #6B8597;
  $text-dark-color : #303d46;
 	 $icons-color : #303d46;
 	 $border-color:#e4e4e4;
-	 
+	 $link-color: #fff !default;
 
 // selection background color
 //$selection-color : darken($secondary-base,15%);
@@ -94,8 +94,8 @@ $btn-cancel-bg	: #ccc;
 $btn-cancel-color : #000;
 $btn-cancel-bg-hover : lighten($btn-cancel-bg,8%);
 $btn-cancel-color-hover : #000;
-
-
+$button-padding: 0 25px !default;
+$button-raised-background: $primary-base;
 
  
 
@@ -123,6 +123,7 @@ $f-error: #ea4646;
 
 // 
 $input-placeholder-color : #d1d1d1;
+$input-focus-color: $primary-base;
 
 //== Tables
 //

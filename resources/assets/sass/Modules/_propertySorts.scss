@@ -1,0 +1,23 @@
+.sort-container{
+    margin: 0px 0 25px 0;
+    .sort-list{
+        li{
+            display: inline;
+            margin-#{$left}: 8px;
+            padding: 4px;
+            &.sort-item__title{
+                color: rgba($color: #000000, $alpha: .87);
+            }
+            a{
+                text-decoration: none;
+                color: rgba($color: #000000, $alpha: .54);
+            }
+            &.active{
+                border-bottom: 1px solid  rgba($color: #000000, $alpha: .87);   
+                a{
+                    color: rgba($color: #000000, $alpha: .87);
+                }
+            }
+        }
+    }
+}

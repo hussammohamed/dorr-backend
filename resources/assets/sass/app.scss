@@ -6,14 +6,18 @@
 @import "Base/_variablesRTL"; 
 @import "Base/_variables"; 
 @import "Base/_mixins";
-
 // Vendors
 	// Bootstrap
  		//@import "~bootstrap-sass/assets/stylesheets/bootstrap";
 	//MDL
 	@import "../../../node_modules/material-design-lite/src/material-design-lite";
 	@import "../../../node_modules/material-design-lite/src/material-design-lite-grid";
-	
+	@import "../../../node_modules/mdl-ext/src/mdl-ext";
+	//materialize
+	//@import "Vendors/materialize/materialize";
+
+
+
 // Layouts
 @import "Layout/_header";
 @import "Layout/_footer";
@@ -25,7 +29,7 @@
 //@import "Base/_normalize";
 // @import "Base/_fonts";   
 // @import "Base/_extend";
-// @import "Base/_typography";
+@import "Base/_typography";
 
 // Reusable Components
  
@@ -33,3 +37,4 @@
  @import "Modules/_filterMap";
  @import "Modules/_map";
  @import "Modules/_card";
+ @import "Modules/_propertySorts";

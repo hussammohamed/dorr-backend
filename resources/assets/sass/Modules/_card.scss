@@ -42,7 +42,7 @@ $cardImageHeight : 220px;
           position: absolute;
           @include skew(-30, 0);
           top: 0;
-          right: 0;
+          #{$right}: -8px;
           z-index: 1; 
           background-color: $secondary-base;
           height: 100%;
@@ -52,7 +52,7 @@ $cardImageHeight : 220px;
             content: "";
             position: absolute;
             top: 0;
-            #{$left}: -12px;
+            #{$left}: -1px;
             z-index: 1; 
             background-color: $secondary-base;
             height: 100%;
@@ -71,7 +71,7 @@ $cardImageHeight : 220px;
 
 .apps--card{
     min-height: 350px;
-    margin: 75px -50px 25px -50px;
+    margin: 75px -75px 25px -75px;
     background-color:  $primary-darker;
     position: relative;
         .apps--card__bg{
@@ -106,4 +106,130 @@ $cardImageHeight : 220px;
             
             }
         }
+}
+.mdl-card__link{
+    width: auto;
+    padding-bottom: 24px;
+    padding-top: 8px; 
+    .mdl-card__title{
+        text-align: center;
+        width: 100%;
+        color: inherit;
+        i{
+            flex: 1;
+        }
+        
+        
+    }
+    .mdl-header__text{
+        color: rgba(0,0,0, 0.87);
+        margin-top: -16px;
+    }
+    .mdl-button{
+        padding: 0 35px;
+    }
+}
+.h-card{
+    width: auto;
+    flex-direction: row;
+    margin-bottom: 25px;
+    .card-image{
+        max-width: 25%;
+        position: relative;
+        img{
+            border-radius: 2px 0 0 2px;
+            max-width: 100%;
+            width: auto;
+            display: block;
+            border-radius: 2px 2px 0 0;
+            position: relative;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+        }
+    }
+    .card-stacked{
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        position: relative;
+        .card-content{
+            -webkit-box-flex: 1;
+            -webkit-flex-grow: 1;
+            -ms-flex-positive: 1;
+            flex-grow: 1;
+            padding: 0 16px;
+            
+        }
+        .card-footer{
+            height: $cardFooterHeight;
+            background-color: $primary-darker;
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+
+        }
+        .card-footer__price{
+            float: $left;
+            position: relative;
+            height: $cardFooterHeight;
+            padding: 0 20px;
+            color: $text-dark-color;
+            &::after{
+              content: "";
+              position: absolute;
+              @include skew(-30, 0);
+              top: 0;
+              #{$right}: -8px;
+              z-index: 1; 
+              background-color: $secondary-base;
+              height: 100%;
+              width: 100%;     
+            }
+            &::before{
+                content: "";
+                position: absolute;
+                top: 0;
+                #{$left}: -1px;
+                z-index: 1; 
+                background-color: $secondary-base;
+                height: 100%;
+                width: 100%;     
+              }
+            .price--text{
+                position: relative;
+                z-index: 2;
+                font-weight: 700;
+                height: $cardFooterHeight;
+                line-height: $cardFooterHeight;
+                vertical-align: middle;
+            }
+        }
+    }
+    .card--title{
+        color: $primary-base;
+        margin-bottom: 0;
+    }
+    .card--sub-title{
+        color: $text-normal-color; 
+        margin-top: 8px;
+    }
+    .card--text{
+        color: $text-normal-color;
+      
+    }
+    .card--text__size{
+        color: $text-normal-color;
+    }
 }

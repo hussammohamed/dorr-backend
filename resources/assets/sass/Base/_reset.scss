@@ -6,7 +6,9 @@
 body {
   margin: 0;
   direction: $rtl;
+  font-family: $font-family;
 }
+
 
 // HTML5 display definitions
 // ==========================================================================
@@ -150,7 +152,7 @@ ul,ol{
   padding-bottom: 200px; 
 }
 .content{
-  padding: 45px 50px;
+  padding: 45px 75px;
 }
 .mdl-button{
   padding: 0 25px;

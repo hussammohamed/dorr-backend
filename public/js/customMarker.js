@@ -16,7 +16,7 @@ CustomMarker.prototype.draw = function() {
 	
 		div = this.div = document.createElement('div');
 		
-		div.className = 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored map-marker';
+		div.className = 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored  map-marker';
 		div.style.position = 'absolute';
 		span = this.span = document.createElement('span');
 		span.className = "map-marker__arrow"
@@ -25,7 +25,7 @@ CustomMarker.prototype.draw = function() {
 		}
 		
 		google.maps.event.addDomListener(div, "click", function(event) {			
-			//console.log("hossam")
+			
 		});
 		
 		var panes = this.getPanes();
@@ -39,9 +39,9 @@ CustomMarker.prototype.draw = function() {
 	
 	if (point) {
 		div.style.left = (point.x - 32) + 'px';
-		div.style.top = (point.y - 32) + 'px';
+		div.style.top = (point.y - 30) + 'px';
 		span.style.left = (point.x - 6) + 'px'
-		span.style.top =  (point.y - 8) + 'px';               
+		span.style.top =  (point.y - 7) + 'px';               
 	}
 	if (typeof(self.args.id) !== 'undefined') {
 		div.dataset.id = self.args.id;
@@ -49,9 +49,12 @@ CustomMarker.prototype.draw = function() {
 };
 
 CustomMarker.prototype.remove = function() {
+	var self = this;
 	if (this.div) {
+		self.span.parentNode.removeChild(self.span)
 		this.div.parentNode.removeChild(this.div);
 		this.div = null;
+		this.span =null;
 	}	
 };
 

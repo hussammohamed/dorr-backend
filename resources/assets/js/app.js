@@ -20,4 +20,6 @@
 // const app = new Vue({
 //     el: '#app'
 // });
-require('./material.min');
+window.$ = window.jQuery = require('jquery');
+require('./material.min')
+require('./../../../node_modules/mdl-ext/lib/mdl-ext')

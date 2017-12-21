@@ -60,7 +60,7 @@
             <div class="m-header">
                 <div class="m-header--item m-header--item__user">
                     @guest
-                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored">
+                        <button  id="loginBtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored">
                             تسجيل دخول
                         </button>
                     @else

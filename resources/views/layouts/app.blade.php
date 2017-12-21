@@ -25,7 +25,6 @@
         <!-- footer -->
         @include('layouts.footer')
     </div>
-
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     @stack('scripts')

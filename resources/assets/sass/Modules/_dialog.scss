@@ -1,0 +1,68 @@
+.dialog{
+    border-radius: 5px;
+    overflow: hidden;
+    min-width: 375px;
+    
+    .mdl-diaglog__head{
+        background-color:$secondary-base;
+        margin: -14px;
+        display: flex;
+        
+        .mdl-dialog__text{
+            width:65%;
+            color: $text-color;
+            padding: 16px;
+            h5{
+                color: $text-color;
+                margin: 0;
+            }
+            P{
+                margin: 0;
+                font-size: 12px;
+
+            }
+            a{
+                color: $text-color;
+                text-decoration: underline;
+                font-weight: 700;
+            }
+        } 
+        .mdl-dialog__logo{
+           
+            width: 35%;
+            position: relative;
+            .bg{
+                height: 100%;
+                width: calc(100% + 27px);
+                position: absolute;
+                left: -27px;
+                top: 0;
+                @include skew(-30, 0);
+                background-color: #303D46;
+                z-index: 1;
+
+            }
+            img{
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                @include translate(-50%, -50%);
+                z-index: 2;
+            }
+        }
+    }
+    .mdl-dialog__content{
+        padding: 25px 50px;
+    }
+    .mdl-dialog__actions{
+        padding: 0 50px;
+        margin-bottom: 15px;
+    }
+    .mdl-dialog__actions--full-width{
+        & > *{
+            height: auto;
+            
+        }
+    }
+    
+}

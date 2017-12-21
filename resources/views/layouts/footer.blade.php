@@ -42,3 +42,48 @@
             </div>
 
     </footer>
+    <!-- dialogs -->
+
+    <dialog class="mdl-dialog dialog" id="loginDialog">
+    <div class="mdl-diaglog__head">
+    <div class="mdl-dialog__text">
+        <h5>تسجيل دخول</h5>
+         <p>سجل حساب جديد فى تطبيق دور</p>
+         <p>إذا كنت غير مسجل قم بـ <a href="#" id="signupBtn">تسجيل حساب جديد</a></p>
+    </div>
+    <div class="mdl-dialog__logo">
+        <div class="bg"></div>
+    <img  src={{ asset('images/dorr-logo.svg') }} alt="Dorr">
+    </div>
+    </div>
+    
+    <div class="mdl-dialog__content">
+         @include('components.loginForm')
+    </div>
+    <div class="mdl-dialog__actions mdl-dialog__actions--full-width">
+        <!-- <button type="button" class="mdl-button">دخول</button> -->
+        <button type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored u-center">دخول</button>
+  </div>
+  </dialog>
+
+  <dialog class="mdl-dialog dialog" id="signupDialog">
+    <div class="mdl-diaglog__head">
+    <div class="mdl-dialog__text">
+        <h5>تسجيل حساب جديد</h5>
+         <p>سجل حساب جديد فى تطبيق دور</p>
+         <p>إذا كنت مسجل مسبقا قم بـ <a href="#" id="reLoginBtn">تسجيل دخول</a></p>
+    </div>
+    <div class="mdl-dialog__logo">
+        <div class="bg"></div>
+    <img  src={{ asset('images/dorr-logo.svg') }} alt="Dorr">
+    </div>
+    </div>
+    
+    <div class="mdl-dialog__content">
+        @include('components.signupForm')
+    </div>
+    <div class="mdl-dialog__actions mdl-dialog__actions--full-width">
+        <!-- <button type="button" class="mdl-button">دخول</button> -->
+        <button type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored u-center">دخول</button>
+  </div>
+  </dialog>

@@ -153,6 +153,9 @@ ul,ol{
 }
 .content{
   padding: 45px 75px;
+  &.content-padding{
+    padding: 45px 130px;
+  }
 }
 .mdl-button{
   padding: 0 25px;

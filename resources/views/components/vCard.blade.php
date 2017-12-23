@@ -1,4 +1,5 @@
 <div class="mdl-card mdl-shadow--2dp v-card">
+    <a href="#" class="card-link"></a>
   <div class="card--item card--item__img">
     <img src={{ asset('images/card1.png') }} alt="">
   </div>
@@ -16,4 +17,5 @@
         </div>
 
     </div>
+    <span class="card-hover--bar"></span>
 </div>

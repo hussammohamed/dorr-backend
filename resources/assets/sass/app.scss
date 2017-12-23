@@ -1,6 +1,6 @@
 
 // Fonts
-@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+//@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 // Variables & Mixins
 @import "Base/_variablesRTL"; 
@@ -11,7 +11,7 @@
  		//@import "~bootstrap-sass/assets/stylesheets/bootstrap";
 	//MDL
 	@import "../../../node_modules/material-design-lite/src/material-design-lite";
-	@import "../../../node_modules/material-design-lite/src/material-design-lite-grid";
+	//@import "../../../node_modules/material-design-lite/src/material-design-lite-grid";
 	//@import "../../../node_modules/mdl-ext/src/mdl-ext";
 	@import "getmdl-select";
 	//materialize

@@ -7,6 +7,10 @@
         padding: 0 14px;
         color:  $headline-color;
         position: relative;
+        h6{
+            color:  $headline-color;
+            font-size: 18px;
+        }
     }
     .group-ad__title{
         font-weight: 700;

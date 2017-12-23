@@ -50,4 +50,19 @@ function initMap() {
   }
   google.maps.event.addDomListener(window, 'load', initMap);
   
+
+  //search area
+  var mapConainer = $('#mapConainer');
+  var searchArea = $('#searchArea');
+  var searchBtn = $('#searchBtn');
+  var hideMap = $('#hideMap');
+  searchBtn.click(function(){
+        mapConainer.toggleClass('no-search');
+    });
+    hideMap.click(function(){
+        mapConainer.toggleClass('no-map');
+    });
+
+
+
  

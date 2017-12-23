@@ -149,22 +149,27 @@ ul,ol{
 .main-content{
   min-height: calc(100vh - 399px);
   background-color: $body-bg;
-  padding-bottom: 200px; 
-}
-.content{
-  padding: 45px 75px;
+
+ .content{
+  padding: 45px 75px 150px 75px;
   &.content-padding{
-    padding: 45px 130px;
+    padding: 150px;
   }
+}
 }
 .mdl-button{
   padding: 0 25px;
   &.mdl-button--colored{
     background-color: $primary-base;
     color: $text-color;
+    
     &:hover{
-      background-color: $primary-darker;
-      color: $secondary-base;
+      background-color: $primary-base;
+      // color: $secondary-base;
+    }
+    &:focus{
+      background-color: $primary-base !important;
+      color: $text-color;
     }
   }
 }
@@ -173,4 +178,39 @@ ul,ol{
 }
 .mdl-textfield__input{
   text-align: $right;
+}
+
+.hover-effect{
+  position: relative;
+  overflow: hidden;
+  &::before{
+    content: "";
+    box-sizing: border-box;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    background: rgba(255,255,255,0.5);
+    content: '';
+    -webkit-transform: scale3d(1.9,1.4,1) rotate3d(0,0,1,45deg) translate3d(0,-220%,0);
+    transform: scale3d(1.9,1.4,1) rotate3d(0,0,1,45deg) translate3d(0,-220%,0);
+  }
+  &:hover{
+    &::before{
+      -webkit-transform: scale3d(1.9,1.4,1) rotate3d(0,0,1,45deg) translate3d(0,230%,0);
+      transform: scale3d(1.9,1.4,1) rotate3d(0,0,1,45deg) translate3d(0,230%,0);
+      transition: transform .6s;
+    }
+  }
+}
+.mdl-textfield--slim{
+  padding: 0;
+  .mdl-textfield__label{
+    top: 0;
+  &:after{
+    bottom: 0;
+  }
+}
 }

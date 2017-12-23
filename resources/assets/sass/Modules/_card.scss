@@ -5,6 +5,34 @@ $cardImageHeight : 220px;
 
 .v-card{
     width: auto;
+    position: relative;
+    .card-link{
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        left:0;
+
+    }
+    .card-hover--bar{
+        background-color: $primary-base;
+        bottom: 0px;
+        height: 3px;
+        left: 45%;
+        position: absolute;
+        -webkit-transition-duration: 0.2s;
+        transition-duration: 0.2s;
+        -webkit-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        visibility: hidden;
+        width: 10px;
+    }
+    &:hover{
+        .card-hover--bar{
+            left: -5%;
+            width: 110%;
+            visibility: visible;
+        }
+    }
     .card--item__img{
         height: $cardImageHeight;
         overflow: hidden;

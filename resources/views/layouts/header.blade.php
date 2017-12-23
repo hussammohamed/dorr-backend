@@ -1,7 +1,7 @@
 <header class="mdl-layout__header l-header">
             <div class="topbar">
-                <div class="topbar--item topbar--item__lang">
-                    <div class="topbar--item--bg"></div>
+                <div class="topbar--item topbar--item__lang ">
+                    <div class="topbar--item--bg "></div>
                     <a href="#">EN</a>
                 </div>
                 <div class="topbar--item topbar--item__social">
@@ -60,7 +60,7 @@
             <div class="m-header">
                 <div class="m-header--item m-header--item__user">
                     @guest
-                        <button  id="loginBtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored">
+                        <button  id="loginBtn" class="mdl-button hover-effect mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored">
                             تسجيل دخول
                         </button>
                     @else

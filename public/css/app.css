@@ -15727,7 +15727,7 @@ fieldset[disabled] .mdl-textfield .mdl-textfield__label,
 }
 
 .getmdl-select.is-focused .mdl-icon-toggle__label {
-  color: #3f51b5;
+  color: #40A6A2;
 }
 
 .getmdl-select .mdl-menu__container {
@@ -15932,6 +15932,18 @@ fieldset[disabled] .mdl-textfield .mdl-textfield__label,
   background-color: #222b31;
 }
 
+.l-footer .footer--item__links {
+  margin-top: 25px;
+}
+
+.l-footer .footer--item__links a {
+  margin: 0 5px;
+}
+
+.l-footer .footer--item__links img {
+  width: 45%;
+}
+
 .group-ad .group-ad__header {
   height: 35px;
   line-height: 35px;
@@ -16093,8 +16105,16 @@ ol {
   color: #fff;
 }
 
+.mdl-textfield--floating-label.is-focused .mdl-textfield__label {
+  color: #40A6A2;
+}
+
 .mdl-textfield__label {
   text-align: right;
+}
+
+.mdl-textfield__label::after {
+  background-color: #40A6A2;
 }
 
 .mdl-textfield__input {
@@ -16674,9 +16694,29 @@ address {
 }
 
 .apps--card .apps--card__header {
-  padding: 50px 0 0;
+  padding: 60px 0 0;
   text-align: center;
   width: 45%;
+  margin-bottom: 25px;
+}
+
+.apps--card .apps--card__header .apps--card__title {
+  display: inline;
+  margin: 0 15px;
+}
+
+.apps--card .apps--card__header .apps--card__content {
+  margin-top: 30px;
+}
+
+.apps--card .apps--card__links {
+  padding: 15px 0 0;
+  text-align: center;
+  width: 45%;
+}
+
+.apps--card .apps--card__links a {
+  margin: 0 20px;
 }
 
 .mdl-card__link {
@@ -16697,8 +16737,12 @@ address {
           flex: 1;
 }
 
+.mdl-card__link i {
+  color: #303d46;
+}
+
 .mdl-card__link .mdl-header__text {
-  color: rgba(0, 0, 0, 0.87);
+  color: #303d46;
   margin-top: -16px;
 }
 

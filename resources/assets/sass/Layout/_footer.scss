@@ -62,5 +62,13 @@
 		text-align: center;
 		background-color: $footer-bottom-bg; 
 	}
-	
+	.footer--item__links{
+		margin-top: 25px;
+		a{
+			margin: 0 5px;
+		}
+		img{
+			width: 45%;
+		}
+	}
 }

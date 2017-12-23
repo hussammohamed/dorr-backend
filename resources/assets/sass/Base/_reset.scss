@@ -173,8 +173,18 @@ ul,ol{
     }
   }
 }
+.mdl-textfield--floating-label{
+  &.is-focused{
+    .mdl-textfield__label{
+      color: $primary-base;
+    }
+  }
+}
 .mdl-textfield__label{
   text-align: $right;
+  &::after{
+    background-color:  $primary-base;
+  }
 }
 .mdl-textfield__input{
   text-align: $right;

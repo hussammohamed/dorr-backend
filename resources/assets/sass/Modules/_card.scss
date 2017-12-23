@@ -102,6 +102,7 @@ $cardImageHeight : 220px;
     margin: 75px -75px 25px -75px;
     background-color:  $primary-darker;
     position: relative;
+    
         .apps--card__bg{
             background-image: url(/images/mobile-background.svg);
             height: 100%;
@@ -124,14 +125,27 @@ $cardImageHeight : 220px;
             background-repeat: no-repeat;
         }
         .apps--card__header{
-            padding: 50px 0 0;
+            padding: 60px 0 0;
             text-align: center;
             width: 45%;
+            margin-bottom: 25px;
+
+            
             .apps--card__title{
-            
+                display: inline;
+                margin: 0 15px;
+               
             }
-            .apps--card__logo{
-            
+            .apps--card__content{
+                margin-top: 30px;
+            }
+        }
+        .apps--card__links{
+            padding: 15px 0 0;
+            text-align: center;
+            width: 45%;
+            a{
+                margin: 0 20px;
             }
         }
 }
@@ -143,14 +157,18 @@ $cardImageHeight : 220px;
         text-align: center;
         width: 100%;
         color: inherit;
+        
         i{
             flex: 1;
         }
         
         
     }
+    i{
+        color:  $text-dark-color;
+    }
     .mdl-header__text{
-        color: rgba(0,0,0, 0.87);
+        color:  $text-dark-color;
         margin-top: -16px;
     }
     .mdl-button{

@@ -32,7 +32,11 @@
                 
                 <div class="mdl-cell mdl-cell--4-col footer--item footer-item__center">
                     <h3>تطبيق دور</h3>
-                    <h6>حمل تطبيق دور على موبايلك وتمتع بجميع خدمات دور</h6>
+                    <h4>حمل تطبيق دور على موبايلك وتمتع بجميع خدمات دور</h4>
+                    <div class="footer--item__links">
+                        <a href="#/"><img src={{ asset('images/playstore.png') }} alt=""></a>
+                        <a href="#/"><img src={{ asset('images/app-store.png') }} alt=""></a>
+                    </div>
                 
                 </div>
             </div>

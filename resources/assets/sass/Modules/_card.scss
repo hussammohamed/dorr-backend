@@ -279,3 +279,56 @@ $cardImageHeight : 220px;
         color: $text-normal-color;
     }
 }
+.card-label{
+    position: absolute;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 12px 20px;
+    &::before{
+        content: "";
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        z-index: -1;
+        top: 0;
+        #{$left}: -25px;
+        padding:0 15px;
+        @include skew(-30, 0);
+        }
+        &.has-secondary-base-bg{
+            &::before{
+                background: $secondary-base;
+            }
+          
+        }
+        &.has-primary-base-bg{
+            color: $text-color;
+            &::before{
+                background: $primary-base;
+            }
+                
+        }
+        &.bottom-label-left{
+            bottom: 0;
+            #{$left}: 0px;
+        }
+        &.top-label-right{
+            top: 0;
+            #{$right}: 0px;
+            &::before{
+                #{$left}: auto;
+                #{$right}: -25px;
+                @include skew(30, 0);
+            }
+        }
+
+}
+.has-actions{
+    display: -webkit-box;
+    text-align: center;
+    .mdl-button{
+        padding: 0 5px;
+        font-size: 12px;
+        min-width: 46%;
+    }
+}

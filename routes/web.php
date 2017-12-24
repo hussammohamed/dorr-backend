@@ -23,5 +23,8 @@ Route::get('/search', function () {
 Route::get('/add_ad', function () {
     return view('add_add');
 });
+Route::get('/report', function () {
+    return view('report');
+});
 
 

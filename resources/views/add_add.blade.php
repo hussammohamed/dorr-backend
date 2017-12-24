@@ -9,7 +9,7 @@
                 <div class="section-header">
                     <h3>أضف اعلان</h3>
                 </div>
-                <div class="mdl-card mdl-shadow--2dp u-full-width mdl-grid">
+                <div class="mdl-card mdl-shadow--2dp u-full-width mdl-grid u-mbuttom30">
                     <div class="mdl-cell mdl-cell--6-col">
                         <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
                             <input class="mdl-textfield__input" type="text" id="sample1" value="" readonly tabIndex="-1">
@@ -135,7 +135,7 @@
                 <div class="section-header">
                     <h3>أضف فيديو</h3>
                 </div>
-                <div class="mdl-card mdl-shadow--2dp u-full-width mdl-grid ">
+                <div class="mdl-card mdl-shadow--2dp u-full-width mdl-grid u-mbuttom30">
                     <div class="mdl-cell mdl-cell--12-col">
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
                             <input class="mdl-textfield__input" type="text" id="youtube">
@@ -157,7 +157,7 @@
             bodyTag: "section",
             transitionEffect: "slideLeft",
             onStepChanging: function (event, currentIndex, newIndex) {
-
+                initMap();
                 return true;
             },
             onFinishing: function (event, currentIndex) {
@@ -170,6 +170,7 @@
             labels: {
                 next: "متابعة",
                 previous: "الرجوع",
+                finish: "حفظ"
 
             }
         });
@@ -270,7 +271,7 @@
         }
 
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCuaq7NJkSDoz9ORGZzVopdHK6X-m8F6qs&libraries=places&callback=initMap"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCuaq7NJkSDoz9ORGZzVopdHK6X-m8F6qs&libraries=places"></script>
     <script>function readUrl(input) {
 
             if (input.files && input.files[0]) {

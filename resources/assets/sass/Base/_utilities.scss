@@ -8,6 +8,21 @@
 .u-no-padding{
     padding: 0 !important;
 }
+.u-padding-bottom-15{
+    padding-bottom: 15px;
+}
+.u-padding-bottom-60{
+    padding-bottom: 60px;
+}
+.u-padding-top-25{
+    padding-top: 25px;
+}
+.u-padding-top-45{
+    padding-top: 45px;
+}
+.u-relative{
+    position: relative;
+}
 .u-flip{
     @if $direction == rtl{
         -moz-transform: scaleX(-1);
@@ -34,7 +49,7 @@
     margin-bottom: 30px 
 }
 .u-center{
-    text-align: center;
+    text-align: center !important;
 }
 .md-48{
     font-size: 48px;
@@ -48,6 +63,10 @@
 .u-auto-width{
     width: auto;
 }
+.u-height-auto{
+    height: auto;
+    min-height: initial;
+}
 .u-full-width{
     width: 100% !important;
 }
@@ -60,4 +79,14 @@
 .u-no-marginUpBottom{
     margin-top: 0;
     margin-bottom: 0;
+}
+.u-padding-side-20{
+    padding-left: 20px;
+    padding-right: 20px; 
+}
+.u-headline-color{
+    color:$headline-color;
+}
+.u-primary-darker-color{
+   color: $primary-darker
 }

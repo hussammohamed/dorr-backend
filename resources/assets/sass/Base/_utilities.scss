@@ -84,9 +84,19 @@
     padding-left: 20px;
     padding-right: 20px; 
 }
+.u-secondary-base-bg{
+ background-color: $secondary-base;
+}
 .u-headline-color{
     color:$headline-color;
 }
 .u-primary-darker-color{
    color: $primary-darker
+}
+.u-text-color{
+    color: $text-color;
+}
+.u-fix-btn{
+    position: relative;
+    top: 15px;
 }

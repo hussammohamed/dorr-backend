@@ -16281,12 +16281,25 @@ td.header {
   padding-right: 20px;
 }
 
+.u-secondary-base-bg {
+  background-color: #F9BF16;
+}
+
 .u-headline-color {
   color: #6B8597;
 }
 
 .u-primary-darker-color {
   color: #303D46;
+}
+
+.u-text-color {
+  color: #fff;
+}
+
+.u-fix-btn {
+  position: relative;
+  top: 15px;
 }
 
 h1,
@@ -17203,5 +17216,59 @@ address {
   -webkit-transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   overflow: hidden;
+}
+
+.report-card {
+  padding-right: 34%;
+}
+
+.report-card .repor-content {
+  position: absolute;
+  height: 100%;
+  width: 26%;
+  right: 0;
+  top: 0;
+  padding: 37px 20px 20px 100px;
+}
+
+.report-card .repor-content:before {
+  content: "";
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+  position: absolute;
+  right: -54px;
+  top: 0;
+  -webkit-transform: skew(-15deg, 0deg);
+  transform: skew(-15deg, 0deg);
+  background-color: #303D46;
+}
+
+.report-card .repor-content h6 {
+  text-align: center;
+}
+
+.report-card .repor-content h6.title {
+  margin-bottom: 5px;
+  text-align: right;
+}
+
+.report-card .repor-content h1 {
+  margin-top: 45px;
+  margin-bottom: 5px;
+  color: #40A6A2;
+  text-align: center;
+}
+
+.report-card .repor-content .report-content-actions {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 60px 0px 0 -30px;
+}
+
+.report-card .repor-content .report-content-actions .mdl-button {
+  margin: 0 15px;
+  font-size: 12px;
 }
 

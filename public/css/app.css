@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/icon?family=Material+Icons);@charset "UTF-8";
+@import url(https://fonts.googleapis.com/icon?family=Material+Icons);@import url(https://fonts.googleapis.com/earlyaccess/notokufiarabic.css);@charset "UTF-8";
 
 /**
  * Copyright 2015 Google Inc. All Rights Reserved.
@@ -15871,6 +15871,11 @@ fieldset[disabled] .mdl-textfield .mdl-textfield__label,
   margin: -16px 16px 16px;
 }
 
+.page-breadcrumb {
+  position: relative;
+  top: 8px;
+}
+
 .l-footer {
   position: relative;
   padding: 8px 40px;
@@ -15977,7 +15982,7 @@ fieldset[disabled] .mdl-textfield .mdl-textfield__label,
 body {
   margin: 0;
   direction: rtl;
-  font-family: "Cairo", sans-serif;
+  font-family: "Noto Kufi Arabic", sans-serif;
 }
 
 article,
@@ -16302,6 +16307,11 @@ td.header {
   top: 15px;
 }
 
+.u-fix-icon-top {
+  position: relative;
+  top: 7px;
+}
+
 h1,
 h2,
 h3,
@@ -16314,7 +16324,7 @@ h6,
 .h4,
 .h5,
 .h6 {
-  font-family: "Cairo", sans-serif;
+  font-family: "Noto Kufi Arabic", sans-serif;
   font-weight: 700;
   line-height: 1.5;
   color: #fff;
@@ -16727,6 +16737,17 @@ address {
   vertical-align: middle;
 }
 
+.v-card .footer-contet {
+  padding: 2px 15px 15px;
+  color: #fff;
+}
+
+.v-card .footer-contet i {
+  margin: 0 5px;
+  position: relative;
+  top: 4px;
+}
+
 .apps--card {
   min-height: 350px;
   margin: 75px -75px 25px -75px;
@@ -16966,6 +16987,11 @@ address {
   left: 0px;
 }
 
+.card-label.top-label-left {
+  top: 15p;
+  left: 0px;
+}
+
 .card-label.top-label-right {
   top: 0;
   right: 0px;
@@ -16987,6 +17013,98 @@ address {
   padding: 0 5px;
   font-size: 12px;
   min-width: 46%;
+}
+
+.gallery-card {
+  padding: 15px;
+}
+
+.gallery-card .gallery-img {
+  height: 350px;
+  width: 100%;
+  margin-bottom: 15px;
+  overflow: hidden;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.gallery-card .gallery-img iframe {
+  width: 100%;
+  height: 100%;
+}
+
+.gallery-card .gallery-img img {
+  height: 100%;
+  width: 100%;
+}
+
+.gallery-card .owl-carousel {
+  padding-right: 8px;
+}
+
+.gallery-card .owl-carousel .owl-click {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+}
+
+.gallery-card .owl-carousel .item {
+  position: relative;
+  max-width: 140px;
+  max-height: 140px;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.gallery-card .owl-carousel .item img {
+  width: 100%;
+}
+
+.gallery-card .owl-carousel .item iframe {
+  width: 100%;
+  height: 100%;
+}
+
+.mdl-avatar {
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  border-radius: 50%;
+  background-color: gray;
+  margin: 8px;
+}
+
+.mdl-avatar img {
+  width: 100%;
+}
+
+.mdl-card--pro {
+  padding: 20px;
+}
+
+.mdl-card--pro .title {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding-top: 10px;
+}
+
+.mdl-card--pro h5 {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  margin: 0;
+}
+
+.mdl-card--pro .mdl-avatar {
+  position: relative;
+  top: -20px;
+  margin-left: 15px;
+}
+
+.mdl-card--pro .contet {
+  margin: -16px 72px 5px 70px;
 }
 
 .sort-container {

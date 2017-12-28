@@ -14,7 +14,17 @@
             <span class="price--text">
                 290,000 ريال
             </span>
+           
+         
         </div>
+        <div class="footer-contet"> 
+            <span>4</span>
+        <i class="material-icons md-18">local_hotel</i>
+        <span>4</span>
+        <i class="material-icons md-18">local_hotel</i>
+
+        </div>
+        
 
     </div>
     <span class="card-hover--bar"></span>

@@ -10,7 +10,7 @@
                 </div>
             </div>
             <div class="mdl-cell mdl-cell--3-col mdl-color-text--grey-500">
-                <i class="material-icons">access_time</i>
+                <i class="material-icons u-fix-icon-top">access_time</i>
                 <span class="page-date"> اخر تحديث فى 26 أكتوبر 2017</span>
             </div>
             <h4 class="page-title mdl-cell mdl-cell--12-col  u-primary-darker-color">شقة للإيجار فى شارع بن الطرائفى</h4>
@@ -19,44 +19,42 @@
     </div>
     <div class="mdl-grid">
         <div class="mdl-cell mdl-cell--9-col">
-            <div class="mdl-card  mdl-shadow--2dp u-auto-width u-mbuttom16">
-                <div class="owl-carousel owl-theme">
+            <div class="mdl-card  mdl-shadow--2dp u-auto-width u-mbuttom16 gallery-card">
+                <div class="gallery-img" id="galleryImg">
+
+                    <iframe src="https://www.youtube.com/embed/rwvmru5JmXk?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" gesture="media"
+                        allow="encrypted-media" allowfullscreen></iframe>
+
+                </div>
+                <div id="owl-example" class="owl-carousel owl-centered">
                     <div class="item">
-                        <h4>1</h4>
+                        <div class="owl-click"></div>
+                        <iframe class="target" src="https://www.youtube.com/embed/rwvmru5JmXk?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0"
+                            gesture="media" allow="encrypted-media" allowfullscreen></iframe>
                     </div>
                     <div class="item">
-                        <h4>2</h4>
+                        <div class="owl-click"></div>
+                        <img class="target" src={{ asset ( 'images/card1.png') }} alt="">
                     </div>
                     <div class="item">
-                        <h4>3</h4>
+                        <div class="owl-click"></div>
+                        <img class="target" src={{ asset ( 'images/card1.png') }} alt="">
                     </div>
                     <div class="item">
-                        <h4>4</h4>
+                        <div class="owl-click"></div>
+                        <img class="target" src={{ asset ( 'images/card1.png') }} alt="">
                     </div>
                     <div class="item">
-                        <h4>5</h4>
+                        <div class="owl-click"></div>
+                        <img class="target" src={{ asset ( 'images/card1.png') }} alt="">
                     </div>
                     <div class="item">
-                        <h4>6</h4>
+                        <div class="owl-click"></div>
+                        <img class="target" src={{ asset ( 'images/card1.png') }} alt="">
                     </div>
-                    <div class="item">
-                        <h4>7</h4>
-                    </div>
-                    <div class="item">
-                        <h4>8</h4>
-                    </div>
-                    <div class="item">
-                        <h4>9</h4>
-                    </div>
-                    <div class="item">
-                        <h4>10</h4>
-                    </div>
-                    <div class="item">
-                        <h4>11</h4>
-                    </div>
-                    <div class="item">
-                        <h4>12</h4>
-                    </div>
+
+
+
                 </div>
             </div>
             <div class="mdl-card  mdl-shadow--2dp u-auto-width u-height-auto u-padding-top-45 u-padding-bottom-15 u-mbuttom16 u-padding-side-20">
@@ -158,9 +156,20 @@
                     <h6 class="group-ad__title">عروض اسعار</h6>
                 </div>
             </div>
-            <div class="mdl-card  mdl-shadow--2dp u-auto-width u-mbuttom16">
+            <div class="mdl-card mdl-card--pro  mdl-shadow--2dp u-auto-width u-mbuttom16 u-height-auto u-padding-top-45">
 
-            </div>
+                <div class="title">
+                    <div class="mdl-avatar">
+                        <img class="" src={{ asset ( 'images/face.png') }} alt="">
+                    </div>
+                    <h5 class="u-primary-darker-color">سليمان بن عدنان الثقفي</h5>
+                </div>
+                <div class="contet">
+                        <p class="u-headline-color">ملحق دور ثالث فى عمارة تجارية بدون مصعد كهرباء مشترك عمارة هادئة جدا مكونة </p>
+                </div>
+
+                <span class="card-label top-label-left has-secondary-base-bg">عرض السعر 3,180,000 ريال</span>
+            </div>  
 
         </div>
         <div class="mdl-cell mdl-cell--3-col">
@@ -172,21 +181,21 @@
                             <td class="u-no-border-top" width="2%">
                                 <i class="material-icons">space_bar</i>
                             </td>
-                            <td class="u-no-border-top">المساحة</td>
+                            <td class="u-no-border-top  header">المساحة</td>
                         </tr>
                         <tr>
                             <td class="u-no-border-top u-center" width="8%">4</td>
                             <td class="u-no-border-top" width="2%">
                                 <i class="material-icons">space_bar</i>
                             </td>
-                            <td class="u-no-border-top">الغرف</td>
+                            <td class="u-no-border-top  header">الغرف</td>
                         </tr>
                         <tr>
                             <td class="u-no-border-top u-center" width="8%">4</td>
                             <td class="u-no-border-top" width="2%">
                                 <i class="material-icons">space_bar</i>
                             </td>
-                            <td class="u-no-border-top">الحمامات</td>
+                            <td class="u-no-border-top  header">الحمامات</td>
                         </tr>
                     </tbody>
                 </table>
@@ -196,8 +205,11 @@
                 <table class="mdl-data-table u-full-width u-no-border u-mbuttom16">
                     <tbody>
                         <tr>
-                            <td class="u-no-border-top u-center" width="8%">
-                                <img class="mdl-avatar" src="" alt="">
+                            <td class="u-no-border-top u-center u-no-padding" width="8%">
+                                <div class="mdl-avatar">
+                                    <img class="" src={{ asset ( 'images/face.png') }} alt="">
+                                </div>
+
                             </td>
                             <td class="u-no-border-top" width="2%">
                                 سليمان بن عدنان الثقفى
@@ -256,24 +268,24 @@
         </div>
     </div>
 </div>
-
 @endsection @push('scripts')
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script>
-<script>$('.owl-carousel').owlCarousel({
-        loop: true,
-        margin: 10,
-        nav: true,
-        responsive: {
-            0: {
-                items: 1
-            },
-            600: {
-                items: 3
-            },
-            1000: {
-                items: 5
-            }
-        }
-    })</script> @endpush @push('styles')
+<script type="text/javascript" src={{ asset( 'js/owl.carousel.rtl.js')}} /></script>
+<script>$(".owl-carousel").owlCarouselRtl({
+        margin: 0,
+        loop: false,
+        items: 5,
+        center: true,
+    });
+    $(".owl-click").each(function () {
+        $(this).click(function () {
+            var self = $(this);
+            $('#galleryImg').empty();
+            self.parent().find('.target').clone().appendTo('#galleryImg');
+
+        })
+
+    });
+</script> @endpush @push('styles')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.theme.min.css"> @endpush

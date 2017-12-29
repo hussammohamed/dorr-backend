@@ -155,13 +155,9 @@
         form.children("div").steps({
             headerTag: "h3",
             bodyTag: "section",
-            transitionEffect: "slideLeft",
-            onStepChanging: function (event, currentIndex, newIndex) {
+            transitionEffect: "fade",
+            onStepChanged: function (event, currentIndex, newIndex) {
                 initMap();
-                return true;
-            },
-            onFinishing: function (event, currentIndex) {
-
                 return true;
             },
             onFinished: function (event, currentIndex) {

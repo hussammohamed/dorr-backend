@@ -16309,6 +16309,10 @@ td.header {
   padding-bottom: 15px;
 }
 
+.u-padding-top-15 {
+  padding-top: 15px;
+}
+
 .u-padding-bottom-60 {
   padding-bottom: 60px;
 }
@@ -16447,6 +16451,10 @@ td.header {
 
 .u-mdl-textfield--center .mdl-textfield__label {
   text-align: center;
+}
+
+.u-min-width-180 {
+  min-width: 180px;
 }
 
 h1,
@@ -17181,7 +17189,7 @@ address {
 .has-actions .mdl-button {
   padding: 0 5px;
   font-size: 12px;
-  min-width: 46%;
+  min-width: 44%;
 }
 
 .gallery-card {
@@ -17220,8 +17228,8 @@ address {
 
 .gallery-card .owl-carousel .item {
   position: relative;
-  max-width: 140px;
-  max-height: 140px;
+  max-width: 80px;
+  max-height: 80px;
   overflow: hidden;
   border-radius: 8px;
 }
@@ -17323,6 +17331,18 @@ address {
 .card-result {
   font-weight: 700;
   color: #6B8597;
+}
+
+.sticky-container {
+  position: relative;
+}
+
+.sticky-container .sticky-item {
+  position: absolute;
+  left: 0;
+  top: 0;
+  -webkit-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
 }
 
 .sort-container {

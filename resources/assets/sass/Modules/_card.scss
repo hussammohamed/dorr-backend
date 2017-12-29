@@ -360,7 +360,7 @@ $cardImageHeight : 220px;
     .mdl-button{
         padding: 0 5px;
         font-size: 12px;
-        min-width: 46%;
+        min-width: 44%;
     }
 }
 .gallery-card{
@@ -392,8 +392,8 @@ $cardImageHeight : 220px;
         padding-#{$right}: 8px;
         .item{
             position: relative;
-            max-width: 140px;
-            max-height: 140px;
+            max-width: 80px;
+            max-height: 80px;
             overflow: hidden;
             border-radius: 8px; 
     
@@ -485,4 +485,17 @@ $cardImageHeight : 220px;
 .card-result{
     font-weight: 700;
     color: $headline-color;
+}
+.sticky-container{
+    position: relative;
+    .sticky-item{
+        position: absolute;
+        #{$left}: 0;
+        top:0;
+        -webkit-transition: all .2s ease-in-out;
+-moz-transition: all .2s ease-in-out;
+-ms-transition: all .2s ease-in-out;
+-o-transition: all .2s ease-in-out;
+transition: all .2s ease-in-out;
+    }
 }

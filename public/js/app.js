@@ -10999,6 +10999,21 @@ $("#zakah").on("change paste keyup", function () {
   }
 });
 
+$(window).scroll(function (e) {
+  var stickyContainer = $('.sticky-container');
+  var stickyEl = $('.sticky-item');
+  var Position = stickyContainer.offset();
+  var scrollTop = $(this).scrollTop();
+  if (stickyContainer.length) {
+    if (scrollTop > Position.top + 100 && scrollTop - Position.top < stickyContainer.height() - stickyEl.height() + 204) {
+      stickyEl.css({ 'top': scrollTop - Position.top - 200 });
+    }
+    if ($(this).scrollTop() < Position.top) {
+      stickyEl.css({ 'top': 8 });
+    }
+  }
+});
+
 /***/ }),
 /* 5 */
 /***/ (function(module, exports, __webpack_require__) {

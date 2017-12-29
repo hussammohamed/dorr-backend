@@ -3,7 +3,7 @@
 
 <div class="content">
     <div class="page-header">
-        <div class="mdl-grid">
+        <div class="mdl-grid ">
             <div class="mdl-cell mdl-cell--9-col">
                 <div class="mdl-color-text--grey-500 page-breadcrumb">
                     شقق للإيجار&gt; الرياض &gt; حى المروج
@@ -17,7 +17,7 @@
         </div>
 
     </div>
-    <div class="mdl-grid">
+    <div class="mdl-grid sticky-container">
         <div class="mdl-cell mdl-cell--9-col">
             <div class="mdl-card  mdl-shadow--2dp u-auto-width u-mbuttom16 gallery-card">
                 <div class="gallery-img" id="galleryImg">
@@ -155,24 +155,30 @@
                 <div class="group-ad__header">
                     <h6 class="group-ad__title">عروض اسعار</h6>
                 </div>
-            </div>
-            <div class="mdl-card mdl-card--pro  mdl-shadow--2dp u-auto-width u-mbuttom16 u-height-auto u-padding-top-45">
 
-                <div class="title">
-                    <div class="mdl-avatar">
-                        <img class="" src={{ asset ( 'images/face.png') }} alt="">
+                <div class="mdl-card mdl-card--pro  mdl-shadow--2dp u-auto-width u-mbuttom16 u-height-auto u-padding-top-45">
+
+                    <div class="title">
+                        <div class="mdl-avatar">
+                            <img class="" src={{ asset ( 'images/face.png') }} alt="">
+                        </div>
+                        <h5 class="u-primary-darker-color">سليمان بن عدنان الثقفي</h5>
                     </div>
-                    <h5 class="u-primary-darker-color">سليمان بن عدنان الثقفي</h5>
-                </div>
-                <div class="contet">
+                    <div class="contet">
                         <p class="u-headline-color">ملحق دور ثالث فى عمارة تجارية بدون مصعد كهرباء مشترك عمارة هادئة جدا مكونة </p>
+                    </div>
+
+                    <span class="card-label top-label-left has-secondary-base-bg">عرض السعر 3,180,000 ريال</span>
                 </div>
+              
+              
+           
+               
+             
 
-                <span class="card-label top-label-left has-secondary-base-bg">عرض السعر 3,180,000 ريال</span>
-            </div>  
-
+            </div>
         </div>
-        <div class="mdl-cell mdl-cell--3-col">
+        <div class="mdl-cell mdl-cell--3-col sticky-item">
             <div class="mdl-card  mdl-shadow--2dp u-auto-width u-mbuttom16 u-padding-bottom-60 u-relative">
                 <table class="mdl-data-table u-full-width u-no-border">
                     <tbody>
@@ -230,6 +236,14 @@
             <div class="mdl-card  mdl-shadow--2dp  u-padding-top-45 u-auto-width u-mbuttom16  u-padding-side-20 u-padding-bottom-15">
                 <form action="#">
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="sample25">
+                        <label class="mdl-textfield__label" for="sample25">الأسم</label>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="sample26">
+                        <label class="mdl-textfield__label" for="sample26">رقم الجوال</label>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <input class="mdl-textfield__input" type="text" id="sample3">
                         <label class="mdl-textfield__label" for="sample3">السعر</label>
                     </div>
@@ -274,12 +288,14 @@
 <script>$(".owl-carousel").owlCarouselRtl({
         margin: 0,
         loop: false,
-        items: 5,
+        autoWidth: true,
+        items: 6,
         center: true,
     });
     $(".owl-click").each(function () {
         $(this).click(function () {
             var self = $(this);
+
             $('#galleryImg').empty();
             self.parent().find('.target').clone().appendTo('#galleryImg');
 

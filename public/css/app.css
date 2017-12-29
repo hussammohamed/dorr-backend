@@ -16291,6 +16291,8 @@ td.header {
   color: #6B8597;
 }
 
+.mdl-textfield--floating-label.is-focused .mdl-textfield__label,
+.mdl-textfield--floating-label.is-dirty .mdl-textfield__label,
 .mdl-textfield--floating-label.has-placeholder .mdl-textfield__label {
   color: #40A6A2;
 }
@@ -16450,6 +16452,10 @@ td.header {
 }
 
 .u-mdl-textfield--center .mdl-textfield__label {
+  text-align: center;
+}
+
+.u-mdl-textfield--center .mdl-textfield__input {
   text-align: center;
 }
 
@@ -16691,6 +16697,12 @@ address {
   border-radius: 4px;
   padding: 15px;
   overflow: visible;
+}
+
+@media (min-width: 767px) and (max-width: 991px) {
+  .map-container .map-serach {
+    min-width: 250px;
+  }
 }
 
 .map-container .map-serach .search-icon {
@@ -17331,6 +17343,8 @@ address {
 .card-result {
   font-weight: 700;
   color: #6B8597;
+  font-size: 20px;
+  margin-top: 5px;
 }
 
 .sticky-container {
@@ -17453,6 +17467,7 @@ address {
 
 .wizard-form .mdl-card {
   overflow: visible;
+  z-index: auto;
 }
 
 .wizard-form .steps {
@@ -17572,6 +17587,41 @@ address {
   -webkit-transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   overflow: hidden;
+}
+
+.pip {
+  max-height: 80px;
+  max-width: 80px;
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
+  display: inline-block;
+  margin: 16px;
+}
+
+.pip img {
+  width: 100%;
+}
+
+.pip .remove {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  color: #fff;
+  line-height: 80px;
+  vertical-align: middle;
+  text-align: center;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.pip:hover .remove {
+  visibility: visible;
+  opacity: 1;
 }
 
 .report-card {

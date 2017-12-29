@@ -12,16 +12,16 @@
 
             </div>
             <div class="mdl-grid">
-                <div class="mdl-cell mdl-cell--3-col">
+                <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet">
                     @include('components.vCard')
                 </div>
-                <div class="mdl-cell mdl-cell--3-col">
+                <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet">
                     @include('components.vCard')
                 </div>
-                <div class="mdl-cell mdl-cell--3-col">
+                <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet">
                     @include('components.vCard')
                 </div>
-                <div class="mdl-cell mdl-cell--3-col">
+                <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet">
                     @include('components.vCard')
                 </div>
             </div>
@@ -32,16 +32,16 @@
                 <a href="#" class="group-ad__more">المزيد</a>
             </div>
             <div class="mdl-grid">
-                <div class="mdl-cell mdl-cell--3-col">
+                <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet">
                     @include('components.vCard')
                 </div>
-                <div class="mdl-cell mdl-cell--3-col">
+                <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet">
                     @include('components.vCard')
                 </div>
-                <div class="mdl-cell mdl-cell--3-col">
+                <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet">
                     @include('components.vCard')
                 </div>
-                <div class="mdl-cell mdl-cell--3-col">
+                <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet">
                     @include('components.vCard')
                 </div>
             </div>

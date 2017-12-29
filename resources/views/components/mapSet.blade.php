@@ -21,7 +21,7 @@
       </div>
     </div>
     <div class="mdl-grid ">
-      <div class="mdl-cell mdl-cell--6-col">
+      <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet">
         <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
           <input class="mdl-textfield__input" type="text" id="city" value="" readonly tabIndex="-1">
           <label for="city">
@@ -35,7 +35,7 @@
           </ul>
         </div>
       </div>
-      <div class="mdl-cell mdl-cell--6-col">
+      <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet">
         <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
           <input class="mdl-textfield__input" type="text" id="sample12" value="" readonly tabIndex="-1">
           <label for="sample1">
@@ -49,13 +49,13 @@
           </ul>
         </div>
       </div>
-      <div class="mdl-cell mdl-cell--6-col">
+      <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet">
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
           <input class="mdl-textfield__input" type="text" id="lowPrice">
           <label class="mdl-textfield__label" for="lowPrice">أقل سعر</label>
         </div>
       </div>
-      <div class="mdl-cell mdl-cell--6-col">
+      <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet">
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
           <input class="mdl-textfield__input" type="text" id="hPrice">
           <label class="mdl-textfield__label" for="hPrice">أعلى سعر</label>

@@ -4,6 +4,7 @@
     }
     .mdl-card{
         overflow: visible;
+        z-index: auto;
     }
     .steps{
         display: none;
@@ -122,5 +123,39 @@
       &:hover {
        
       }
+    }
+  }
+  .pip{
+    max-height: 80px;
+    max-width: 80px;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+    display: inline-block;
+    margin: 16px;
+    img{
+        width: 100%;
+
+    }
+    .remove{
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background-color: rgba(0, 0, 0, .2);
+        cursor: pointer;
+        color: $text-color;
+        line-height: 80px;
+        vertical-align: middle;
+        text-align: center;
+        visibility: hidden;
+        opacity: 0;
+    }
+    &:hover{
+        .remove{
+            visibility: visible;
+            opacity: 1;
+        }
     }
   }

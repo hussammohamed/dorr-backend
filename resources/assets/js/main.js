@@ -43,7 +43,7 @@ $("#zakah").on("change paste keyup", function () {
   let value = $(this).val()
   let result = $('#zakahResult');
   if (!isNaN(value)) {
-    result.empty().append((value * .25) + ' ' + 'ريال')
+    result.empty().append((value * .025).toFixed(2) + ' ' + 'ريال')
   }
 });
 

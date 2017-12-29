@@ -268,7 +268,8 @@
 
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCuaq7NJkSDoz9ORGZzVopdHK6X-m8F6qs&libraries=places"></script>
-    <script>function readUrl(input) {
+    <script>
+    function readUrl(input) {
 
             if (input.files && input.files[0]) {
                 let reader = new FileReader();
@@ -281,4 +282,5 @@
                 reader.readAsDataURL(input.files[0]);
             }
 
-        }</script> @endpush
+        }</script>
+         @endpush

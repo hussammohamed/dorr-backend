@@ -32,5 +32,8 @@ Route::get('/myAccount', function () {
 Route::get('/zakah', function () {
     return view('zakah');
 });
+Route::get('/sucsess', function () {
+    return view('sucsess');
+});
 
 

@@ -64,10 +64,6 @@
     <div class="mdl-dialog__content">
          @include('components.loginForm')
     </div>
-    <div class="mdl-dialog__actions mdl-dialog__actions--full-width">
-        <!-- <button type="button" class="mdl-button">دخول</button> -->
-        <button type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored u-center">دخول</button>
-  </div>
   </dialog>
 
   <dialog class="mdl-dialog dialog" id="signupDialog">
@@ -86,8 +82,5 @@
     <div class="mdl-dialog__content">
         @include('components.signupForm')
     </div>
-    <div class="mdl-dialog__actions mdl-dialog__actions--full-width">
-        <!-- <button type="button" class="mdl-button">دخول</button> -->
-        <button type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored u-center">دخول</button>
-  </div>
+    
   </dialog>

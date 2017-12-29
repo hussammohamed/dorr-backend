@@ -1,5 +1,6 @@
+<div class="group-ad">
 <div class="group-ad__header">
-                <h6 class="group-ad__title">إحدث العروض</h6>      
+                <h6 class="group-ad__title">خدماتنا</h6>      
             </div>
 <div class="mdl-grid">
     <div class="mdl-cell mdl mdl-cell--4-col ">
@@ -112,4 +113,5 @@
             </div>
         </div>
     </div>
+</div>
 </div>

@@ -151,7 +151,7 @@ ul,ol{
   background-color: $body-bg;
 
  .content{
-  padding: 45px 75px 150px 75px;
+  padding: 45px 75px 200px 75px;
   &.content-padding{
     padding: 45px 200px 200px 200px;
   }
@@ -233,4 +233,7 @@ ul,ol{
 }
 td.header{
   color: $headline-color;
+}
+.mdl-textfield--floating-label.has-placeholder .mdl-textfield__label {
+  color: $primary-base;
 }

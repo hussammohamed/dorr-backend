@@ -44,11 +44,11 @@
                         <span>حساب الذكاه</span>
                         <i class="material-icons">%</i>
                     </a>
-                    <a href="#" class="action--link">
+                    <a href={{ asset('/report')}} class="action--link">
                         <span>التقرير العقارى</span>
                         <i class="material-icons">insert_chart</i>
                     </a>
-                    <a href="#" class="action--link">
+                    <a href={{ asset('/add_ad')}} class="action--link">
                         <span>أضف عقار</span>
                         <i class="material-icons">add_box</i>
                     </a>
@@ -64,6 +64,37 @@
                             تسجيل دخول
                         </button>
                     @else
+                    <div class="user-menu" id="userMenu">
+                            <div class="user-menu--overlay"></div>
+                            <div class="user-menu--header">
+                                <i class="material-icons collapse-icon"></i>
+                                <div class="user-menu--avatar mdl-avatar">
+                                    <img class="" src={{ asset ( 'images/face.png') }} alt="">
+                                </div>
+                                    <div class="user-info">
+                                        <div class="user-name">سليمان بن عدنان الثقفي</div>
+                                        <div class="user-mony">
+                                        <i class="material-icons">fiber_smart_record</i>
+                                        <span>10,000</span>
+                                        </div>
+                                    </div>
+                            </div>
+                            <ul class="user-action-list">
+                                <li>
+                                    <a href="#">حسابي</a>
+                                </li>
+                                <li>
+                                    <a href="#">إعلانتي</a>
+                                </li>
+                                <li>
+                                    <a href="#">إدارة العقارات</a>
+                                </li>
+                                <li>
+                                    <a href="#">خروج</a>
+                                </li>
+
+                            </ul>
+                        </div>
                     @endguest
                  </div>
                  <div class="m-header--item m-header--item__logo">

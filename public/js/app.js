@@ -10956,9 +10956,12 @@ var loginDialog = document.querySelector('#loginDialog');
 var signup = document.querySelector('#signupBtn');
 var signupDialog = document.querySelector('#signupDialog');
 var reLoginBtn = document.querySelector('#reLoginBtn');
-login.addEventListener('click', function () {
-  loginDialog.showModal();
-});
+var userMenu = document.querySelector('#userMenu');
+if (login) {
+  login.addEventListener('click', function () {
+    loginDialog.showModal();
+  });
+}
 signup.addEventListener('click', function () {
   loginDialog.close();
   signupDialog.showModal();
@@ -10982,6 +10985,11 @@ signupDialog.addEventListener('click', function (event) {
     signupDialog.close();
   }
 });
+if (userMenu) {
+  userMenu.addEventListener('click', function () {
+    $(this).toggleClass('extended');
+  });
+}
 
 /***/ }),
 /* 5 */

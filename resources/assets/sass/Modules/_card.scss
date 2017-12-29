@@ -6,6 +6,7 @@ $cardImageHeight : 220px;
 .v-card{
     width: auto;
     position: relative;
+    margin: 0 8px;
     .card-link{
         position: absolute;
         height: 100%;
@@ -48,6 +49,7 @@ $cardImageHeight : 220px;
         }
         .card--text__address{
             color: $text-normal-color;
+            margin-bottom: 8px;
         }
         .card--text__size{
             color: $text-normal-color;
@@ -99,7 +101,7 @@ $cardImageHeight : 220px;
     .footer-contet{
         padding: 2px 15px 15px;
         color: $text-color;
-        i{
+        i, svg{
             margin: 0 5px;
             position: relative; 
             top: 4px;
@@ -164,6 +166,7 @@ $cardImageHeight : 220px;
     width: auto;
     padding-bottom: 24px;
     padding-top: 8px; 
+    margin: 0 8px;
     .mdl-card__title{
         text-align: center;
         width: 100%;
@@ -226,7 +229,7 @@ $cardImageHeight : 220px;
             -webkit-flex-grow: 1;
             -ms-flex-positive: 1;
             flex-grow: 1;
-            padding: 0 16px;
+            padding: 16px;
             
         }
         .card-footer{
@@ -288,6 +291,19 @@ $cardImageHeight : 220px;
     }
     .card--text__size{
         color: $text-normal-color;
+    }
+    .footer-contet{
+        padding: 2px 15px 15px;
+        color: $text-color;
+        i, img{
+            margin: 0 5px; 
+            position: relative; 
+           
+        }
+        i{
+           
+            top: 4px;
+        }
     }
 }
 .card-label{
@@ -423,4 +439,39 @@ $cardImageHeight : 220px;
     .contet{
         margin:-16px 72px 5px 70px;
     }
+}
+
+
+.property-card{
+    max-width: 400px;
+    position: absolute;
+    min-height: inherit;
+    max-height: 150px;
+    padding-bottom: 8px;
+    overflow: visible; 
+    .card-image {
+        max-width: 35%;
+        overflow: hidden;
+        max-height: 150px;
+        flex: 1;
+    }
+    .card-arrow{
+        width: 0;
+        height: 0;
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        position: inherit;
+        border-top: 6px solid $text-color;
+        bottom: -14px;
+        #{$left}:-25%;
+        transform: translate(90%);
+    }
+    .footer-contet{
+         img{
+           
+           top: -3px;
+        }
+        
+    }
+    
 }

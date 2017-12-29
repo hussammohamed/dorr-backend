@@ -38,3 +38,11 @@ if(userMenu){
     $(this).toggleClass('extended');
   });
 }
+
+$("#zakah").on("change paste keyup", function() {
+  let value = $(this).val()
+  let result = $('#zakahResult');
+  if(!isNaN(value)){
+    result.empty().append(  (value * .25) + ' ' + 'ريال')
+  }
+});

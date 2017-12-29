@@ -14,11 +14,17 @@
 .u-padding-bottom-60{
     padding-bottom: 60px;
 }
+.u-padding-bottom-25{
+    padding-bottom: 25px;
+}
 .u-padding-top-25{
     padding-top: 25px;
 }
 .u-padding-top-45{
     padding-top: 45px;
+}
+.u-padding-bottom-45{
+    padding-bottom: 45px;
 }
 .u-relative{
     position: relative;
@@ -41,6 +47,9 @@
 }
 .u-mbuttom16{
     margin-bottom: 16px;
+}
+.u-mtop16{
+    margin-top: 16px;
 }
 .u-mrigth-15{
     margin-#{$right}: 15px 
@@ -103,4 +112,12 @@
 .u-fix-icon-top{
     position: relative;
     top: 7px;
+}
+.u-mdl-textfield--center{
+    margin-right: 50%;
+   @include translate(50%, 0);
+   width: auto;
+   .mdl-textfield__label{
+       text-align: center;
+   }
 }

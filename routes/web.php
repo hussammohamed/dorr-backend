@@ -26,5 +26,11 @@ Route::get('/add_ad', function () {
 Route::get('/report', function () {
     return view('report');
 });
+Route::get('/myAccount', function () {
+    return view('myAccount');
+});
+Route::get('/zakah', function () {
+    return view('zakah');
+});
 
 

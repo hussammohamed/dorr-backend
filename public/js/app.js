@@ -10991,6 +10991,14 @@ if (userMenu) {
   });
 }
 
+$("#zakah").on("change paste keyup", function () {
+  var value = $(this).val();
+  var result = $('#zakahResult');
+  if (!isNaN(value)) {
+    result.empty().append(value * .25 + ' ' + 'ريال');
+  }
+});
+
 /***/ }),
 /* 5 */
 /***/ (function(module, exports, __webpack_require__) {

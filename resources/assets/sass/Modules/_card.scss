@@ -475,3 +475,14 @@ $cardImageHeight : 220px;
     }
     
 }
+.mdl-card__title{
+    color: $headline-color;
+}
+.card-sub--title{
+    font-size: 12px;
+    color: $headline-color;
+}
+.card-result{
+    font-weight: 700;
+    color: $headline-color;
+}

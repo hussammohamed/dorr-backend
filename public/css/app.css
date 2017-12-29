@@ -16313,12 +16313,20 @@ td.header {
   padding-bottom: 60px;
 }
 
+.u-padding-bottom-25 {
+  padding-bottom: 25px;
+}
+
 .u-padding-top-25 {
   padding-top: 25px;
 }
 
 .u-padding-top-45 {
   padding-top: 45px;
+}
+
+.u-padding-bottom-45 {
+  padding-bottom: 45px;
 }
 
 .u-relative {
@@ -16343,6 +16351,10 @@ td.header {
 
 .u-mbuttom16 {
   margin-bottom: 16px;
+}
+
+.u-mtop16 {
+  margin-top: 16px;
 }
 
 .u-mrigth-15 {
@@ -16424,6 +16436,17 @@ td.header {
 .u-fix-icon-top {
   position: relative;
   top: 7px;
+}
+
+.u-mdl-textfield--center {
+  margin-right: 50%;
+  -webkit-transform: translateX(50%) translateY(0);
+  transform: translateX(50%) translateY(0);
+  width: auto;
+}
+
+.u-mdl-textfield--center .mdl-textfield__label {
+  text-align: center;
 }
 
 h1,
@@ -17286,6 +17309,20 @@ address {
 
 .property-card .footer-contet img {
   top: -3px;
+}
+
+.mdl-card__title {
+  color: #6B8597;
+}
+
+.card-sub--title {
+  font-size: 12px;
+  color: #6B8597;
+}
+
+.card-result {
+  font-weight: 700;
+  color: #6B8597;
 }
 
 .sort-container {

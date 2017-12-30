@@ -9,11 +9,11 @@
                 <div class="mdl-cell mdl-cell--2-col  footer--item">
                 <h1 class="mdl-mega-footer__heading footer--item__heading">خدماتنا</h1>
                 <ul class="mdl-mega-footer__link-list">
-                    <li><a href="#">بحث عن عقارات</a></li>
-                    <li><a href="#">إعلن عن عقارات</a></li>
-                    <li><a href="#">إدارة العقارات</a></li>
-                    <li><a href="#">تقارير الإسعار</a></li>
-                    <li><a href="#">وساطة عقارية</a></li>
+                    <li><a href="#">الأشتراكات</a></li>
+                    <li><a href="#">وظائف</a></li>
+                    <li><a href="#">أعلن معنا</a></li>
+                    <li><a href="#">تواصل معنا</a></li>
+                    <li><a href="#">الأحكام والشروط</a></li>
                 </ul>
                
                 </div>

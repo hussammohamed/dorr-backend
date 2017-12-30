@@ -16982,6 +16982,8 @@ address {
   padding-bottom: 24px;
   padding-top: 8px;
   margin: 0 8px;
+  min-height: 100%;
+  padding-bottom: 45px;
 }
 
 .mdl-card__link .mdl-card__title {
@@ -17007,6 +17009,11 @@ address {
 
 .mdl-card__link .mdl-button {
   padding: 0 35px;
+  position: absolute;
+  bottom: 25px;
+  left: 50%;
+  -webkit-transform: translateX(-50%) translateY(0);
+  transform: translateX(-50%) translateY(0);
 }
 
 .h-card {

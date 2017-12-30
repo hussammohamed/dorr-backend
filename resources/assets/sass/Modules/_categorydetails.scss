@@ -1,0 +1,25 @@
+.categorydetails-img{	
+	@extend .ex-shadow;
+	position:relative;
+	margin-bottom: $gutter+px;
+	> figcaption{
+		right: 50px;
+		@include font-size(18px);
+	}
+}
+
+.categorydetails-details{
+	background-color: #fff;
+    padding: 1.2em;
+	@extend .ex-shadow;
+}
+
+.categorydetails-writer{
+	margin-top: 1.5em;
+    font-size: 0.8em;
+    color: #858585;
+    display: block;
+}
+.categorydetails-content{
+	margin-top:1.5em;
+}

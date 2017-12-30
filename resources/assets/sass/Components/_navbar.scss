@@ -1,0 +1,219 @@
+// ## variables
+$navBar-brand-width : 140px;
+
+
+// ## ========================================================================
+// ## styles
+
+.navbar-default{
+	border:0;
+	background-color:#ffffff;
+	border-radius: 0;
+	margin-bottom:0;
+	@include breakpoint(mid){
+	height:144px;
+	}
+	.navbar-brand{
+		float:#{$right};
+		height:auto;
+		padding-#{$right}:rem(65);
+		padding-#{$left}:rem(40);
+		padding-top:rem(35);
+		padding-bottom:rem(35);		
+		background-image: -moz-linear-gradient(90deg, rgb(249, 249, 249) 0%, #f6f6f6 100%);
+		background-image: -webkit-linear-gradient(90deg, rgb(249, 249, 249) 0%, #f6f6f6 100%);
+		background-image: -ms-linear-gradient(90deg, rgb(249, 249, 249) 0%, #f6f6f6 100%);
+		@include breakpoint(isCommon){
+			width:100%;
+		}
+	}
+	.navbar-collapse{
+		padding:0;
+	}
+	.navbar--img{
+		width : $navBar-brand-width;
+	}
+	.navbar-nav{
+	
+	}
+}
+.navComponents{
+	display:inline-block;
+	width:100%;
+	
+	@include breakpoint(small){
+		padding-#{$right}:rem(35);
+	}
+	@include breakpoint(mid){
+		width:calc(100% - 277px);
+	}
+}
+.siteNav{
+	float:$right;
+	width: 100%;
+	margin-top:rem(25);
+	border-bottom:1px solid #f1f1f1;
+	.navbar-nav{
+		@include breakpoint(isMobile){
+			margin:0;
+		}
+		> li{
+			>a{
+				color:#000;
+				font-weight:700;
+				font-size:rem(16);
+				&:hover{
+					background-color:#ffcb17
+				}
+			}
+			&.active{
+				> a{
+					background-color:#ffcb17;
+				}
+			}
+			+ li{
+				margin-#{$right}:rem(15);
+			}
+		}
+	}
+}
+.navbar-search{
+	padding-#{$right}:0;
+	margin-top: 15px;
+	.navbar-search--control{
+		border: 0;
+		box-shadow: none;
+		background: #dee1e3;
+		border-radius: 0 !important;
+		color: #737373;
+	}
+	.navbar-search--action{
+		border: 0;
+		border-radius: 0;
+		background: $primary-base;
+		&:hover{
+			background: $primary-darker;
+		}
+		> input{
+			position: absolute;
+			top: 0;
+			left: 0;
+			padding: 0;
+			width: 100%;
+			height: 100%;
+			opacity: 0;
+		}
+		> img{
+			width:20px;
+			height:20px;
+		}
+	}
+}
+
+.navbar-socials{
+	background: $primary-base;
+    height: 68px;
+    padding-#{$left}: 60px;
+    padding-#{$right}: 30px;
+	float:#{$left};
+	@include breakpoint(isMobile){
+		float:#{$right};	
+	}
+	li{
+		float:#{$right};
+	}
+	.navbar-socials--link{
+		padding-top: rem(23);
+		padding-bottom: rem(23);
+		&:hover{
+			background-color:$primary-darker !important;
+		}
+	}
+	img{
+		width:20px;
+		height:20px;
+	}
+}
+.navbar-changeLanguage{
+	float:#{$left};
+	color:#747474;
+	font-size:rem(15);
+	padding: rem(17);
+    margin-#{$left}:rem(20);
+    margin-top: rem(4);
+	&:hover{
+		color:$secondary-base;
+	}
+}
+
+.navbar-header{
+	@include breakpoint(isCommon){
+		width:100%;
+	}
+}
+
+.navbar-socialsRight{
+	@include breakpoint(isTablet){
+		position: absolute;
+		top: 0;
+		#{$left}: 0;
+	}
+}
+.navbar-default{
+	.navbar-toggle{
+		float:$left;
+		background-color: $secondary-base;
+		border-radius: 0;
+		border-color: $secondary-base;
+		margin-top: 10px;
+		min-width:10px;
+		overflow:hidden;
+		margin-#{$left}: 10px;
+		position:absolute;
+		#{$left}: 10px;
+		.icon-bar {
+			background-color: #fff;
+			@include transition();
+			position: relative;
+			&:nth-child(2) {
+				-moz-transform: rotate(45deg);
+				-webkit-transform: rotate(45deg);
+				-o-transform: rotate(45deg);
+				-ms-transform: rotate(45deg);
+				transform: rotate(45deg);
+				top: 7px;
+			}
+			&:nth-child(3) {
+				opacity: 0;
+				visibility: hidden;
+				left: -90px;
+			}
+			&:nth-child(4) {
+				-moz-transform: rotate(-45deg);
+				-webkit-transform: rotate(-45deg);
+				-o-transform: rotate(-45deg);
+				-ms-transform: rotate(-45deg);
+				transform: rotate(-45deg);
+				top: -5px;
+			}
+		}
+		&.collapsed{
+			.icon-bar {
+				opacity: 1;
+				visibility: visible;
+				-moz-transform: rotate(0);
+				-webkit-transform: rotate(0);
+				-o-transform: rotate(0);
+				-ms-transform: rotate(0);
+				transform: rotate(0);
+				top: auto;
+				left: 0;
+			}
+		}
+		&:hover,
+		&:focus{
+			background-color: $secondary-base !important;
+		}
+
+	}
+}

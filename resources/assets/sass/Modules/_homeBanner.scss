@@ -1,0 +1,102 @@
+
+.l-home-banner{
+	@include breakpoint(mid){
+		height:$homeBannerHeight;
+	}
+	@include breakpoint(isCommon){
+		padding-bottom:rem(80);
+	}
+	background-image: -moz-linear-gradient( -90deg, rgb(183,195,199) 0%, rgb(215,217,217) 100%);
+	background-image: -webkit-linear-gradient( -90deg, rgb(183,195,199) 0%, rgb(215,217,217) 100%);
+	background-image: -ms-linear-gradient( -90deg, rgb(183,195,199) 0%, rgb(215,217,217) 100%);
+	.slick-dots{
+	#{$right}:0;
+		@include breakpoint(mid){
+			#{$right}:58.33333333%;
+		 }
+		 &:before{
+			content: "";
+			right: 35px;
+			left: 35px;
+			height: 10px;
+			background-color: #9ba8b2;
+			display: inline-block;
+			position: absolute;
+			top: 5px;
+		 }
+		 > li{
+			z-index: 1;
+			position: relative;
+		}
+		> li.slick-active .slick-dot{
+			background-color:#fff;
+		    box-shadow: 0 0 6px 0px rgba(103, 103, 103, 0.62);
+			> svg{
+				fill:#ffcb17;
+				margin-top: 8px;
+				width: 4px;
+			}
+		}
+	}
+
+	.slick-dot{
+		background: #9aa7b1;
+		border-radius: 50%;
+		width: 20px;
+		height: 20px;
+		margin: 0 15px;
+		@include transition();
+		> svg{
+			fill:#ffcb17;
+			margin-top: 8px;
+			width: 4px;
+			height: 4px;
+		}
+		&:hover{
+			background-color:#fff;
+		    box-shadow: 0 0 6px 0px rgba(103, 103, 103, 0.62);
+			> svg{
+				fill:#ffcb17;
+				margin-top: 8px;
+				width: 4px;
+			}
+		}
+	}
+	
+}
+.homeBanner{
+	height:$homeBannerHeight;	
+	background-position: center 100%;
+    background-repeat: no-repeat;
+	.homeBanner-details{
+		padding-top:rem(80);
+		padding-#{$left}:rem(50);
+	}
+	.homeBanner-title{
+		width:rem(250);
+		font-size:rem(40);
+		line-height: 1.1;
+		margin-bottom:rem(40);
+	}
+	.homeBanner-meta{
+		font-size:rem(14);
+		font-weight: 700;
+	}
+	.homeBanner-btn{
+		margin-top:rem(30);
+		background-color:#ffcb17;
+		color:#000;
+		font-weight:700;
+	}
+	.homeBanner-image{
+	margin-top:rem(20);
+		@include breakpoint(small){
+			margin-top:rem(110);
+		}
+		> img{
+			float:#{$left};
+			width:100%;
+		}
+	}
+	
+}

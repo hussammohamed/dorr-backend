@@ -1,0 +1,47 @@
+.report-card{
+    padding-#{$right}: 34%;
+    .report-chart{
+        // height: 250px !important;
+        // width:500px !important;
+    }
+    .repor-content{
+        position: absolute;
+        height: 100%;
+        width: 26%;
+        #{$right}: 0;
+        top: 0;
+        padding: 37px 20px 20px 100px;
+        &:before{
+            content: "";
+            height: 100%;
+            width: 100%;
+            z-index: -1;
+            position: absolute;
+            #{$right}: -54px;
+            top: 0;
+            @include skew(-15, 0);
+            background-color: $primary-darker;
+        }
+        h6{
+            text-align: center;
+        }
+        h6.title{
+            margin-bottom: 5px;
+            text-align: $right;
+        }
+        h1{
+            margin-top: 45px;
+            margin-bottom: 5px;
+            color: $primary-base;
+            text-align: center; 
+        }
+        .report-content-actions{
+            display: flex;
+            margin: 60px 0px 0 -30px;
+            .mdl-button{
+                margin: 0 15px;
+                font-size: 12px;
+            }
+        }
+    }
+}

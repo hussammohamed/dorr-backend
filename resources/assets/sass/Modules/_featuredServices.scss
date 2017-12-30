@@ -1,0 +1,63 @@
+.l-home-featuredServices,
+.l-home-featuredComputers{
+	height:rem(383);
+	position:relative;
+}
+
+.featuredServices{
+	padding:rem(40) rem(40) rem(30);
+	color:#fff;	
+	background-repeat:no-repeat;
+	background-position: 0 80%;
+	position:relative;
+	@include breakpoint(isCommon){
+		background-size:80%;
+	}
+	.featuredServices-title{
+		font-weight:700;
+		font-size:rem(35);
+		color:#fff;
+		margin-bottom:rem(20);
+		position:relative;
+		z-index:2;
+	}
+	.featuredServices-list{
+		font-size:rem(14);
+		padding-#{$right}:rem(30);
+		font-weight:700;
+		position:relative;
+		z-index:2;
+	}
+	.featuredServices--item + .featuredServices--item{
+		margin-top:rem(10);		
+	}
+	.featuredServices-actions{
+		text-align:#{$left};
+		margin-top:rem(36);
+	}
+}
+.featuredServices-orange{
+	background-color:$secondary-base;
+}
+.featuredServices-blue{
+	background-color:$primary-base;
+}
+.featuredServices:after{
+	position: absolute;
+    content: "";
+    left: rem(40);
+    right: rem(40);
+    top: rem(40);
+    bottom: rem(95);
+    border: 4px solid rgba(255, 255, 255, 0.65);
+}
+.featuredServices:before{
+	position: absolute;
+    content: "";
+    width: 45%;
+    height: 40%;
+    background-color: inherit;
+    z-index: 2;
+	top:rem(38);
+	#{$right}:rem(38);
+}

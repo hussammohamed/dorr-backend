@@ -1,0 +1,152 @@
+// ## variables
+$markerHeight: 24px;
+
+// Component
+
+
+// ## ========================================================================
+// ## styles
+.map-container{
+    position: relative;
+    .map{
+        height: 450px;
+        width: 100%;
+        
+    }
+    .hide-map-btn{
+        position: absolute;
+        bottom: 35px;
+        #{$left}: 20px;
+        background-color: $primary-darker;
+        color: $text-color;
+        padding: 0 15px;
+    }
+    .map-marker{
+        padding: 0;
+        font-size: 12px;
+        height: $markerHeight;
+        line-height: $markerHeight;
+        font-weight: 700;
+        overflow: visible;
+        &:hover{
+            background-color: $primary-base;
+            color: $text-color;
+        }
+    }
+    .map-marker__arrow{
+        width: 0;
+        height: 0;
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        position: inherit;
+        border-top: 6px solid $primary-base;
+        bottom: -6px;
+        #{$left}:50%;
+        transform: translate(-50%);
+    }
+    .map-serach{
+        position: absolute;
+        #{$left}: 40px;
+        top: 20px;
+        height: auto;
+        min-height: initial;
+        min-width: 400px;
+        border-radius: 4px;
+        padding: 15px;
+        overflow: visible;
+        @include breakpoint(isTablet){
+            min-width: 250px;
+        }
+        //@include transition(all, .2s , ease);
+        .search-icon{
+            position: absolute;
+            top: 15px;
+            #{$left}: 0;
+        }
+        .serach-textfield{
+            width: 90%;
+            display: inline-flex;
+            .mdl-textfield{
+                width: 100%;
+            }
+            i{
+                position: absolute;
+                #{$left}: 0;
+                top: 0;
+                color: rgba(0, 0, 0, .54);
+            }
+        }
+        .collapse-btn{
+            border-#{$right}: 1px solid #9e9e9e;
+            width: 5%;
+            display: inline-flex;
+            text-align: center;
+            position: relative;
+            min-height: 18px;
+            cursor: pointer;
+            text-align: center;
+            i{
+                position: absolute;
+                color: rgba(0, 0, 0, .54);
+                top: calc(50% + 2px);
+                left: calc(50% - 10px);
+                @include translate(-50%, -50%);
+                &::before{
+                    content: "expand_less
+                    "
+    
+                }
+            }
+        }
+
+    }
+    .search-area--s{
+        height: 0;
+        display: none;
+        padding: 0 75px;
+        margin-top: 15px;
+        .mdl-button{
+            position: relative;
+            top: 15px;
+        }
+
+    }
+    &.no-search{
+        .map-serach{
+            height: 55px;
+            overflow: hidden;
+        }
+        .collapse-btn{
+            i{
+            &::before{
+                content: "expand_more"
+
+            }
+        }
+        }
+        
+    }
+    &.no-map{
+        .map{
+            height: 150px;
+        }
+        .map-serach{
+            height: 0;
+            overflow: hidden;
+            visibility: hidden;
+            opacity: 0;
+        }
+        .search-area--s{
+            height: auto;
+            display: flex;
+        }
+        .hide-map-btn{
+            bottom: 135px;
+        }
+    }
+    
+}
+.marker-hidden{
+    visibility: hidden;
+    opacity: 0;
+}

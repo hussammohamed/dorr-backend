@@ -1,0 +1,42 @@
+.l-home-featuredTabs{
+	height:$homeBannerHeight;
+}
+.homeTabs{
+	.homeTabs--link{
+		padding-#{$right} : 40px;
+		background-image:url("../../images/tabsIcons.png");
+		background-repeat:no-repeat;
+		background-position:calc(100% - 12px) 10px;
+		&.homeTabs--service{
+			background-position:calc(100% - 15px) -48px;
+		}
+	}
+	.homeTabs-list{
+		margin-bottom:0;
+		height:rem(416);
+		padding-top:rem(20);
+	}
+	.homeTabs--item{
+		padding:rem(10) rem(25);
+		display: inline-block;
+		width: 100%;
+		font-size:rem(14);
+		color:#000;
+		font-weight:700;
+		&:before{
+			content:"";
+			width: 5px;
+			height: 5px;
+			background: #000;
+			display: inline-block;
+			margin-#{$left}: 5px;
+		}
+		&:hover{
+			background-color:#000;
+			color:#fff;
+			&:before{
+				background: #fff;
+			}
+		}
+	}
+}	

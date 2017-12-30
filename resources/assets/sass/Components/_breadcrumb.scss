@@ -1,0 +1,66 @@
+// ## Markup -- SP Breadcrumb
+// <span class="breadcrumb">
+//     <span>
+//         <a class="breadcrumb-root" href="#">breadcrumb-root</a>
+//     </span>
+//     <span class="breadcrumb-separator"></span>
+//     <span>
+//         <a class="breadcrumb-link" href="/sites/gsa/profile/Pages/default.aspx">breadcrumb-link</a>
+//     </span>
+//     <span class="breadcrumb-separator"></span>
+//     <span>
+//         <a class="breadcrumb-link" href="/sites/gsa/profile/Pages/default.aspx">breadcrumb-link</a>
+//     </span>
+//     <span class="breadcrumb-separator"></span>
+//     <span class="breadcrumb-current">breadcrumb-current</span>
+// </span>
+
+
+.breadcrumb{
+	background-color:$breadCrumb-bg;
+	display: inline-block;
+	margin-bottom: 0;
+	padding: 0;
+	font-size: rem(14);
+	position:relative; 
+	margin-top: 15px; 
+    font-weight: 700;
+	&:before{				// add home icon before the first node using font awesome
+		content: "\f015";
+		font-family:$fa;
+		float:#{$right};
+		margin-#{$left}: 10px;
+	}  
+	> a{
+		float:#{$right};
+		+ a{
+			margin-#{$right}:10px;
+		}
+	}
+	a{
+		color:$breadcrumb-link-color;
+	}
+}
+
+.breadcrumb-root{		// breadcrumb root node
+	
+}
+.breadcrumb-separator{		// breadcrumb separator
+	&:before{
+		content: $arrow-dir;
+		font-family:$fa;
+		color: inherit;
+		display:block;
+	}
+}
+.breadcrumb-link{}
+.breadcrumb-current{	// breadcrumb current node
+	color: $breadcrumb-current-color;
+	margin-#{$right}: 10px;
+}
+
+.pageTitle{
+	font-size:rem(35)	;
+	color:$primary-base;
+	margin-bottom:rem(35);
+}

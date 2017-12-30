@@ -1,0 +1,26 @@
+.ripple{
+  overflow:hidden;
+  position: relative;
+  cursor:pointer;
+}
+
+.ripple-effect{
+  position: absolute;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  background: white;    
+  animation: ripple-animation 3s;
+}
+
+
+@keyframes ripple-animation {
+    from {
+		@include scale(1);
+		@include opacity(0.4);
+    }
+    to {
+      @include scale(100);
+	  @include opacity(0);
+    }
+}

@@ -1,0 +1,33 @@
+.l-home-about{
+	@include breakpoint(mid){
+	
+	height:rem(465);
+	}
+	background-color:#2c2e30;
+	overflow:hidden;
+}
+.homeAbout{
+	color:#bababa;
+	font-size:rem(14);
+	padding:rem(60) rem(70);
+	.homeAbout-title{
+		color:#fff;
+	}
+	.homeAbout-meta{
+		margin-bottom:rem(30);
+	}
+	.homeAbout-vision{
+		margin:rem(20) auto 0;
+		width: 90%;
+		position:relative;
+		padding-#{$right}:60px;
+	}
+	.homeAbout--icon{
+		position:absolute;
+		top:8px;
+		#{$right}:0;
+	}
+	.homeAbout--subtitle{
+		color:#fff;
+	}
+}

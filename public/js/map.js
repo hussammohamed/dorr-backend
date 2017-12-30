@@ -103,15 +103,25 @@ function initMap() {
         center: uluru,
         disableDefaultUI: true
     });
+    // $.get('/regions', function (data) {
+    //     //success data
+      
+    // }) 
     regions.forEach(function (el) {
         var overlay = new CustomMarker(new google.maps.LatLng(el.location.lat, el.location.long), map, el, 'region');
     });
     map.addListener('zoom_changed', function () {
         let zoom = map.getZoom();
         let center = map.getCenter().lat();
+        let url;
         removerMarkers();
-        console.log(zoom)
+  
         if (zoom < 7) {
+            // url = '/regions/?center='+center+'';
+            // $.get(url, function (data) {
+            //         //success data
+                  
+            //     }) 
             regions.forEach(function (el) {
                 var overlay = new CustomMarker(new google.maps.LatLng(el.location.lat, el.location.long), map, el, 'region');
             });

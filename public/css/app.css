@@ -15968,6 +15968,9 @@ fieldset[disabled] .mdl-textfield .mdl-textfield__label,
   font-size: 12px;
   color: #303d46;
   font-weight: 400;
+  display: block;
+  height: 100%;
+  width: 100%;
 }
 
 .user-menu .user-menu--overlay {

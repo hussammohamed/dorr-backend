@@ -18,9 +18,10 @@
                             </label>
                             <label for="sample1" class="mdl-textfield__label">النوع</label>
                             <ul for="sample1" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                                <li class="mdl-menu__item" data-val="DE">أيجار</li>
-                                <li class="mdl-menu__item" data-val="BY">تمليك</li>
-                                <li class="mdl-menu__item" data-val="RU">بيع</li>
+                                <li class="mdl-menu__item" data-val="DE">شقة </li>
+                                <li class="mdl-menu__item" data-val="BY">فيلا</li>
+                                <li class="mdl-menu__item" data-val="RU">مبني</li>
+                                <li class="mdl-menu__item" data-val="RU">محل</li>
                             </ul>
                         </div>
                     </div>
@@ -34,7 +35,32 @@
                             <ul for="sample2" class="mdl-menu mdl-menu--bottom-left u-full-width mdl-js-menu">
                                 <li class="mdl-menu__item" data-val="DE">أيجار</li>
                                 <li class="mdl-menu__item" data-val="BY">تمليك</li>
-                                <li class="mdl-menu__item" data-val="RU">بيع</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mdl-cell mdl-cell--6-col">
+                        <div class="mdl-textfield mdl-js-textfield u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
+                            <input class="mdl-textfield__input" type="text" id="sample28" value="" readonly tabIndex="-1">
+                            <label for="sample28">
+                                <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                            </label>
+                            <label for="sample28" class="mdl-textfield__label">المدينة</label>
+                            <ul for="sample28" class="mdl-menu mdl-menu--bottom-left u-full-width mdl-js-menu">
+                                <li class="mdl-menu__item" data-val="DE">الرياض</li>
+                                <li class="mdl-menu__item" data-val="BY">مكة</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mdl-cell mdl-cell--6-col">
+                        <div class="mdl-textfield mdl-js-textfield u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
+                            <input class="mdl-textfield__input" type="text" id="sample29" value="" readonly tabIndex="-1">
+                            <label for="sample29">
+                                <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                            </label>
+                            <label for="sample29" class="mdl-textfield__label">الحي</label>
+                            <ul for="sample29" class="mdl-menu mdl-menu--bottom-left u-full-width mdl-js-menu">
+                                <li class="mdl-menu__item" data-val="DE">أيجار</li>
+                                <li class="mdl-menu__item" data-val="BY">تمليك</li>
                             </ul>
                         </div>
                     </div>
@@ -91,8 +117,8 @@
                             </label>
                             <label for="sample12" class="mdl-textfield__label">طريقة الدفع</label>
                             <ul for="sample12" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                                <li class="mdl-menu__item" data-val="DE">أيجار</li>
-                                <li class="mdl-menu__item" data-val="BY">تمليك</li>
+                                <li class="mdl-menu__item" data-val="DE">كاش</li>
+                                <li class="mdl-menu__item" data-val="BY">تقسيط</li>
                                 <li class="mdl-menu__item" data-val="RU">بيع</li>
                             </ul>
                         </div>
@@ -105,9 +131,8 @@
                             </label>
                             <label for="sampl1" class="mdl-textfield__label">تطل علي</label>
                             <ul for="sampl1" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                                <li class="mdl-menu__item" data-val="DE">أيجار</li>
-                                <li class="mdl-menu__item" data-val="BY">تمليك</li>
-                                <li class="mdl-menu__item" data-val="RU">بيع</li>
+                                <li class="mdl-menu__item" data-val="DE">شارع رئيسي</li>
+                                <li class="mdl-menu__item" data-val="BY">شاطئ</li>
                             </ul>
                         </div>
                     </div>
@@ -141,20 +166,11 @@
                         </div>
                     </div>
                     <div class="mdl-cell mdl-cell--3-col">
-                            <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
+                            <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label ">
                                 <input class="mdl-textfield__input" type="text" id="sampl6" value="" readonly tabIndex="-1">
-                                <label for="sampl6">
-                                    <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-                                </label>
+                               
                                 <label for="sampl6" class="mdl-textfield__label">سنة البناء</label>
-                                <ul for="sampl6" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                                    <li class="mdl-menu__item" data-val="DE">1</li>
-                                    <li class="mdl-menu__item" data-val="BY">2</li>
-                                    <li class="mdl-menu__item" data-val="RU">3</li>
-                                    <li class="mdl-menu__item" data-val="RU">4</li>
-                                    <li class="mdl-menu__item" data-val="RU">5</li>
-                                    <li class="mdl-menu__item" data-val="RU">6</li>
-                                </ul>
+                                
                             </div>
                         </div>
                         <div class="mdl-cell mdl-cell--3-col">
@@ -200,7 +216,7 @@
                 <div class="section-header">
                     <h3>أضف فيديو</h3>
                 </div>
-                <div class="mdl-card mdl-shadow--2dp u-full-width mdl-grid u-mbuttom30">
+                <div class="mdl-card mdl-shadow--2dp u-full-width mdl-grid u-mbuttom30 u-height-auto">
                     <div class="mdl-cell mdl-cell--12-col">
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
                             <input class="mdl-textfield__input" type="text" id="youtube">

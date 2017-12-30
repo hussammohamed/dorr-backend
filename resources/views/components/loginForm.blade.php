@@ -1,4 +1,4 @@
-<form method="POST">
+<form method="POST" action="{{ route('login') }}">
 {{ csrf_field() }}
   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
     <input class="mdl-textfield__input" type="text" name="email" value="{{ old('email') }}"  id="email">

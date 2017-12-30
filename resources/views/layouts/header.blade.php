@@ -82,7 +82,7 @@
                         <img class="" src={{ asset ( 'images/face.png') }} alt="">
                     </div>
                     <div class="user-info">
-                        <div class="user-name">سليمان بن عدنان الثقفي</div>
+                        <div class="user-name"> {{ Auth::user()->name }}</div>
                         <div class="user-mony">
                             <i class="material-icons">fiber_smart_record</i>
                             <span>10,000</span>
@@ -91,7 +91,7 @@
                 </div>
                 <ul class="user-action-list">
                     <li>
-                        <a href="#">حسابي</a>
+                        <a href="{{ asset('/myAccount')}}">حسابي</a>
                     </li>
                     <li>
                         <a href="#">إعلانتي</a>
@@ -100,7 +100,11 @@
                         <a href="#">إدارة العقارات</a>
                     </li>
                     <li>
-                        <a href="#">خروج</a>
+                        <a href="{{ route('logout') }}"  onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();">خروج</a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                {{ csrf_field() }}
+                            </form>
                     </li>
 
                 </ul>

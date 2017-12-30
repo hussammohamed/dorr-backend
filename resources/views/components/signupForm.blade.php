@@ -1,4 +1,4 @@
-<form action="#"  method="POST">
+<form   method="POST" action="{{ route('register') }}">
 {{ csrf_field() }}
 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
     <input class="mdl-textfield__input" type="text" name="name" value="{{ old('name') }}"   id="signupName">

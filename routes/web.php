@@ -42,5 +42,5 @@ Route::get('/sucsess', function () {
 });
 
 
-Route::get('/addt', 'TypesController@allTypes');
+Route::get('Properties/create', 'PropertiesController@create');
 

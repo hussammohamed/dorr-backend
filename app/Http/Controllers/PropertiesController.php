@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Properties;
+use App\Types;
+use App\Purposes;
+use App\Regions;
+
 use Illuminate\Http\Request;
 
 class PropertiesController extends Controller
@@ -25,6 +29,14 @@ class PropertiesController extends Controller
     public function create()
     {
         //
+
+        $types = Types::where('active',1)->where('deleted',0)->orderby('order')->get();
+        $purposes = Purposes::where('active',1)->where('deleted',0)->orderby('order')->get();
+        $cities = Regions::where('type',1)->where('active',1)->where('deleted',0)->orderby('order')->get();
+        
+
+
+        return view('add_add',['types'=>$types, 'purposes'=>$purposes, 'cities'=>$cities]);
     }
 
     /**

@@ -18,8 +18,8 @@
                             </label>
                             <label for="sample1" class="mdl-textfield__label">النوع</label>
                             <ul for="sample1" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                                @foreach ($types as $type)
-                                <li class="mdl-menu__item" data-val="{{$type->id}}">{{$type->name}} </li>
+                                @foreach($types as $type)
+                                <li class="mdl-menu__item" data-val="{{$type->id}}">{{$type->name}}</li>
                                 @endforeach
 
                             </ul>
@@ -33,8 +33,9 @@
                             </label>
                             <label for="sample2" class="mdl-textfield__label">القسم</label>
                             <ul for="sample2" class="mdl-menu mdl-menu--bottom-left u-full-width mdl-js-menu">
-                                <li class="mdl-menu__item" data-val="DE">أيجار</li>
-                                <li class="mdl-menu__item" data-val="BY">تمليك</li>
+                                @foreach($purposes as $purpose)
+                                <li class="mdl-menu__item" data-val="{{$purpose->id}}">{{$purpose->name}}</li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>
@@ -46,8 +47,9 @@
                             </label>
                             <label for="sample28" class="mdl-textfield__label">المدينة</label>
                             <ul for="sample28" class="mdl-menu mdl-menu--bottom-left u-full-width mdl-js-menu">
-                                <li class="mdl-menu__item" data-val="DE">الرياض</li>
-                                <li class="mdl-menu__item" data-val="BY">مكة</li>
+                                @foreach($cities as $city)
+                                <li class="mdl-menu__item" data-val="{{$city->id}}">{{$city->name}}</li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>

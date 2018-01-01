@@ -2,7 +2,7 @@
 {{ csrf_field() }}
   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
     <input class="mdl-textfield__input" type="text" name="email" value="{{ old('email') }}"  id="email">
-    <label class="mdl-textfield__label"  for="email">البريد الألكترونى</label>
+    <label class="mdl-textfield__label"  for="email">البريد الألكترونى أو رقم الجوال</label>
     <!-- <span class="mdl-textfield__error">Input is not a number!</span> -->
   </div>
   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">

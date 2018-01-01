@@ -18,10 +18,10 @@
                             </label>
                             <label for="sample1" class="mdl-textfield__label">النوع</label>
                             <ul for="sample1" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                                <li class="mdl-menu__item" data-val="DE">شقة </li>
-                                <li class="mdl-menu__item" data-val="BY">فيلا</li>
-                                <li class="mdl-menu__item" data-val="RU">مبني</li>
-                                <li class="mdl-menu__item" data-val="RU">محل</li>
+                                @foreach ($types as $type)
+                                <li class="mdl-menu__item" data-val="{{$type->id}}">{{$type->name}} </li>
+                                @endforeach
+
                             </ul>
                         </div>
                     </div>

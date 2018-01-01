@@ -42,3 +42,5 @@ Route::get('/sucsess', function () {
 });
 
 
+Route::get('/addt', 'TypesController@allTypes');
+

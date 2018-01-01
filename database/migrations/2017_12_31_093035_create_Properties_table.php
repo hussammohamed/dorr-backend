@@ -13,33 +13,35 @@ class CreatePropertiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('tbl_properties', function (Blueprint $table) {
+        Schema::create('properties', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
+		    $table->integer('type');
 		    $table->integer('purpose');
+            $table->string('title');
 		    $table->integer('ownerID');
+		    $table->string('address');
 		    $table->integer('region');
 		    $table->decimal('lat', 9, 6);
 		    $table->decimal('long', 9, 6);
-		    $table->integer('type');
 		    $table->text('description');
-		    $table->integer('price');
-		    $table->integer('pricePerMeter');
+		    $table->integer('price')->default('0');
+		    $table->integer('pricePerMeter')->default('0');
 		    $table->date('dateOfConstruction');
-		    $table->integer('area');
-		    $table->integer('advertiserType');
-		    $table->integer('floor');
+		    $table->integer('area')->default('0');
+		    $table->integer('floor')->default('0');
 		    $table->integer('finishType');
-		    $table->integer('bathrooms');
-		    $table->integer('rooms');
+		    $table->integer('rooms')->default('0');
+		    $table->integer('bathrooms')->default('0');
 		    $table->integer('adID');
+		    $table->integer('hits')->default('0');
 		    $table->string('youtube');
-		    $table->string('address');
+		    $table->integer('advertiserType');
+		    $table->date('dateOfPublication');
 		    $table->date('startDate');
 		    $table->date('endDate');
-		    $table->boolean('featured');
-		    $table->boolean('published');
-		    $table->boolean('deleted');
+		    $table->boolean('featured')->default('0');
+		    $table->boolean('active')->default('1');
+		    $table->boolean('deleted')->default('0');
             $table->timestamps();
         });
     }
@@ -51,6 +53,6 @@ class CreatePropertiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tbl_properties');
+        Schema::dropIfExists('properties');
     }
 }

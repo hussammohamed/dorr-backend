@@ -62,3 +62,27 @@ $(window).scroll(function (e) {
     }
   }
 });
+//login 
+$('#loginForm').submit(function( event ) {
+  debugger
+  event.preventDefault();
+  $.ajax({
+    url: "/login",
+    type: 'post',
+    data: $('#loginForm').serialize(), // Remember that you need to have your csrf token included
+    dataType: 'json',
+    success: function(  ){
+      debugger
+      console.log(_response)
+      loginDialog.close();
+      location.reload();
+    },
+    complete: function(){
+
+    },
+    error: function( _response ){
+      console.log(_response)
+        // Handle error
+    }
+});
+});

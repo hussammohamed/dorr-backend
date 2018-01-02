@@ -9,7 +9,7 @@ use App\FinishTypes;
 use App\Regions;
 use App\Overlooks;
 use App\PaymentMethods;
-
+use Auth;
 use Illuminate\Http\Request;
 
 class PropertiesController extends Controller

@@ -11,7 +11,7 @@
     <!-- <span class="mdl-textfield__error">Input is not a number!</span> -->
   </div>
   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
-    <input class="mdl-textfield__input " type="password"  name="password" name="password"  id="signupPassword">
+    <input class="mdl-textfield__input " type="password"  name="password"   id="signupPassword">
     <label class="mdl-textfield__label" for="signupPassword">كلمة المرور</label>
     <!-- <span class="mdl-textfield__error">Input is not a number!</span> -->
   </div>
@@ -21,7 +21,7 @@
     <!-- <span class="mdl-textfield__error">Input is not a number!</span> -->
   </div>
   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
-    <input class="mdl-textfield__input " type="password" name="phone"  id="signupPhone">
+    <input class="mdl-textfield__input " type="text" name="phone"  id="signupPhone">
     <label class="mdl-textfield__label" for="signupPhone">رقم الجوال</label>
     <!-- <span class="mdl-textfield__error">Input is not a number!</span> -->
   </div>

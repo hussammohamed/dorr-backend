@@ -1,9 +1,10 @@
-<form method="POST" action="{{ route('login') }}">
+<form  id="loginForm" >
 {{ csrf_field() }}
   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
-    <input class="mdl-textfield__input" type="text" name="email" value="{{ old('email') }}"  id="email">
+    <input class="mdl-textfield__input" type="email" name="email" value="{{ old('email') }}"  id="email">
     <label class="mdl-textfield__label"  for="email">البريد الألكترونى</label>
-    <!-- <span class="mdl-textfield__error">Input is not a number!</span> -->
+    <span class="mdl-textfield__error">Input is not a number!</span>
+    <span class="mdl-textfield__error server-error"></span>
   </div>
   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
     <input class="mdl-textfield__input " name="password" type="password"  id="password">

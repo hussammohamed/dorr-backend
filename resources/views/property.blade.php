@@ -13,7 +13,7 @@
                 <i class="material-icons u-fix-icon-top">access_time</i>
                 <span class="page-date"> اخر تحديث فى 26 أكتوبر 2017</span>
             </div>
-            <h4 class="page-title mdl-cell mdl-cell--12-col  u-primary-darker-color">شقة للإيجار فى شارع بن الطرائفى</h4>
+            <h4 class="page-title mdl-cell mdl-cell--12-col  u-primary-darker-color">{{ $property->title }}</h4>
         </div>
 
     </div>
@@ -58,7 +58,7 @@
                 </div>
             </div>
             <div class="mdl-card  mdl-shadow--2dp u-auto-width u-height-auto u-padding-top-45 u-padding-bottom-15 u-mbuttom16 u-padding-side-20">
-                <p class="u-padding-top-25 u-headline-color">ملحق دور ثالث فى عمارة تجارية بدون مصعد كهرباء مشترك عمارة هادئة جدا مكونة </p>
+                <p class="u-padding-top-25 u-headline-color">{{ $property->description }}</p>
                 <span class="card-label top-label-right has-primary-base-bg">التفاصيل</span>
 
             </div>
@@ -67,82 +67,82 @@
                     <tbody>
                         <tr>
                             <td class="u-no-border-top header">رقم الأعلان</td>
-                            <td class="u-no-border-top ">195145</td>
+                            <td class="u-no-border-top ">{{ $property->id }}</td>
                         </tr>
                         <tr>
                             <td class="u-no-border-top header" width="8%">السعر</td>
                             <td class="u-no-border-top">
-
+                            {{ $property->price }}
                             </td>
 
                         </tr>
                         <tr>
                             <td class="u-no-border-top header" width="8%">سعر المتر</td>
                             <td class="u-no-border-top">
-
+                            {{ $property->pricePerMeter }}
                             </td>
 
                         </tr>
                         <tr>
                             <td class="u-no-border-top header" width="8%">تاريخ النشر</td>
                             <td class="u-no-border-top">
-
+                            {{ $property->dateOfPublication }}
                             </td>
 
                         </tr>
                         <tr>
                             <td class="u-no-border-top header" width="8%">النوع</td>
                             <td class="u-no-border-top">
-
+                            {{ $property->type }}
                             </td>
 
                         </tr>
                         <tr>
                             <td class="u-no-border-top header" width="8%">الساحة بالمتر</td>
                             <td class="u-no-border-top">
-
+                            {{ $property->area }}
                             </td>
 
                         </tr>
                         <tr>
                             <td class="u-no-border-top header" width="8%">نوع الملن</td>
                             <td class="u-no-border-top">
-
+                            {{ $property->advertiserType }}
                             </td>
 
                         </tr>
                         <tr>
                             <td class="u-no-border-top header" width="8%">الغرف</td>
                             <td class="u-no-border-top">
-
+                            {{ $property->rooms }}
                             </td>
 
                         </tr>
                         <tr>
                             <td class="u-no-border-top header" width="8%">الطابق</td>
                             <td class="u-no-border-top">
-
+                            {{ $property->floor }}
                             </td>
 
                         </tr>
                         <tr>
                             <td class="u-no-border-top header" width="8%">الحمامات</td>
                             <td class="u-no-border-top">
-
+                            {{ $property->bathrooms }}
                             </td>
 
                         </tr>
                         <tr>
                             <td class="u-no-border-top header" width="8%">سنة البناء</td>
                             <td class="u-no-border-top">
-
+                            {{ $property->dateOfConstruction }}
                             </td>
 
                         </tr>
                         <tr>
                             <td class="u-no-border-top header" width="8%">نوع التشطيب</td>
                             <td class="u-no-border-top">
-
+                            {{ $property->finishType }}
                             </td>
 
                         </tr>
@@ -183,21 +183,21 @@
                 <table class="mdl-data-table u-full-width u-no-border">
                     <tbody>
                         <tr>
-                            <td class="u-no-border-top u-center" width="8%">145م</td>
+                            <td class="u-no-border-top u-center" width="8%">{{ $property->area }}م</td>
                             <td class="u-no-border-top" width="2%">
                                 <i class="material-icons">space_bar</i>
                             </td>
                             <td class="u-no-border-top  header">المساحة</td>
                         </tr>
                         <tr>
-                            <td class="u-no-border-top u-center" width="8%">4</td>
+                            <td class="u-no-border-top u-center" width="8%">{{ $property->rooms }}</td>
                             <td class="u-no-border-top" width="2%">
                                 <i class="material-icons">space_bar</i>
                             </td>
                             <td class="u-no-border-top  header">الغرف</td>
                         </tr>
                         <tr>
-                            <td class="u-no-border-top u-center" width="8%">4</td>
+                            <td class="u-no-border-top u-center" width="8%">{{ $property->bathrooms }}</td>
                             <td class="u-no-border-top" width="2%">
                                 <i class="material-icons">space_bar</i>
                             </td>
@@ -205,7 +205,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <span class="card-label bottom-label-left has-secondary-base-bg">3,180,000 ريال</span>
+                <span class="card-label bottom-label-left has-secondary-base-bg">{{ $property->price }} ريال</span>
             </div>
             <div class="mdl-card  mdl-shadow--2dp u-padding-side-20 u-auto-width u-padding-bottom-15 u-mbuttom16 u-height-auto has-actions">
                 <table class="mdl-data-table u-full-width u-no-border u-mbuttom16">

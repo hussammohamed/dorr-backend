@@ -18,7 +18,7 @@ class CreateRegionsTable extends Migration
             $table->integer('parent');
             $table->integer('type');
 		    $table->string('name');
-            $table->integar('order')->default('0');
+            $table->integer('order')->default('0');
 		    $table->boolean('active')->default('1');
 		    $table->boolean('deleted')->default('0');
             $table->timestamps();

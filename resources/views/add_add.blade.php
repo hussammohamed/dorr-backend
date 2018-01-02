@@ -2,7 +2,8 @@
 
 <div class="content content-padding">
 
-    <form id="example-form" class="wizard-form" action="#">
+    <form id="example-form" class="wizard-form" action="properties/store"  method="post" enctype="multipart/form-data">
+        {{ csrf_field() }}
         <div>
             <h3 class="hidden"></h3>
             <section>
@@ -60,7 +61,7 @@
                                 <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
                             </label>
                             <label for="sample29" class="mdl-textfield__label">الحي</label>
-                            <ul for="sample29" class="mdl-menu mdl-menu--bottom-left u-full-width mdl-js-menu">
+                            <ul for="sample29" class="mdl-menu mdl-menu--bottom-left u-full-width mdl-js-menu" id="distric_list">
                                 <li class="mdl-menu__item" data-val="DE">أيجار</li>
                                 <li class="mdl-menu__item" data-val="BY">تمليك</li>
                             </ul>
@@ -119,9 +120,9 @@
                             </label>
                             <label for="sample12" class="mdl-textfield__label">طريقة الدفع</label>
                             <ul for="sample12" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                                <li class="mdl-menu__item" data-val="DE">كاش</li>
-                                <li class="mdl-menu__item" data-val="BY">تقسيط</li>
-                                <li class="mdl-menu__item" data-val="RU">بيع</li>
+                                @foreach($paymentMethods as $paymentMethod)
+                                <li class="mdl-menu__item" data-val="{{$paymentMethod->id}}">{{$paymentMethod->name}}</li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>
@@ -133,8 +134,9 @@
                             </label>
                             <label for="sampl1" class="mdl-textfield__label">تطل علي</label>
                             <ul for="sampl1" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                                <li class="mdl-menu__item" data-val="DE">شارع رئيسي</li>
-                                <li class="mdl-menu__item" data-val="BY">شاطئ</li>
+                                @foreach($overlooks as $overlook)
+                                <li class="mdl-menu__item" data-val="{{$overlook->id}}">{{$overlook->name}}</li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>
@@ -177,8 +179,18 @@
                         </div>
                         <div class="mdl-cell mdl-cell--3-col">
                                 <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label">
+                                    
                                     <input class="mdl-textfield__input" type="text" id="sampl7" value="" readonly tabIndex="-1">
+                                    <label for="sampl7">
+                                        <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                                    </label>
                                     <label for="sampl7" class="mdl-textfield__label">نوع التشطيب</label>
+                                    <ul for="sampl7" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                                        @foreach($finishTypes as $finishType)
+                                        <li class="mdl-menu__item" data-val="{{$finishType->id}}">{{$finishType->name}}</li>
+                                        @endforeach
+                                    </ul>
+
                                 </div>
                             </div>
                 </div>

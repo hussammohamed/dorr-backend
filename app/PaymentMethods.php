@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Regions extends Model
+class PaymentMethods extends Model
 {
     //
     protected $fillable = [
-        'name', 'parent', 'type', 'order','active','deleted'
+        'name', 'order','active','deleted'
     ];
 }

@@ -16,7 +16,7 @@ class CreatePurposesTable extends Migration
         Schema::create('purposes', function (Blueprint $table) {
             $table->increments('id');
 		    $table->string('name');
-            $table->integar('order')->default('0');
+            $table->integer('order')->default('0');
 		    $table->boolean('active')->default('1');
 		    $table->boolean('deleted')->default('0');
             $table->timestamps();

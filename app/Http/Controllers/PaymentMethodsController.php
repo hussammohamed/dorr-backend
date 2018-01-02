@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Regions;
+use App\PaymentMethods;
 use Illuminate\Http\Request;
 
-class RegionsController extends Controller
+class PaymentMethodsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class RegionsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Regions  $regions
+     * @param  \App\PaymentMethods  $paymentMethods
      * @return \Illuminate\Http\Response
      */
-    public function show(Regions $regions)
+    public function show(PaymentMethods $paymentMethods)
     {
         //
     }
@@ -52,10 +52,10 @@ class RegionsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Regions  $regions
+     * @param  \App\PaymentMethods  $paymentMethods
      * @return \Illuminate\Http\Response
      */
-    public function edit(Regions $regions)
+    public function edit(PaymentMethods $paymentMethods)
     {
         //
     }
@@ -64,10 +64,10 @@ class RegionsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Regions  $regions
+     * @param  \App\PaymentMethods  $paymentMethods
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Regions $regions)
+    public function update(Request $request, PaymentMethods $paymentMethods)
     {
         //
     }
@@ -75,17 +75,11 @@ class RegionsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Regions  $regions
+     * @param  \App\PaymentMethods  $paymentMethods
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Regions $regions)
+    public function destroy(PaymentMethods $paymentMethods)
     {
         //
-    }
-
-    public function getDistricts($city)
-    {
-        $districts = Regions::where('parent','=', 1)->get();
-        return \Response::json($districts);
     }
 }

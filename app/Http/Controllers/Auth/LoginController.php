@@ -42,7 +42,7 @@ class LoginController extends Controller
         if(filter_var(request()->email,FILTER_VALIDATE_EMAIL)){
             return 'email';
         }else{
-            return 'phone';
+            return 'mobile1';
         }
     } 
         
@@ -50,7 +50,7 @@ class LoginController extends Controller
         if(Auth::attempt([$this->userlogin() => request()->email , 'password' => request()->password])){
             return redirect()->intended('/');
         }else{
-            return 'erroe';
+            return 'error';
         }
     }
 }

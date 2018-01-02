@@ -5,11 +5,7 @@ var signup = document.querySelector('#signupBtn');
 var signupDialog = document.querySelector('#signupDialog');
 var reLoginBtn = document.querySelector('#reLoginBtn');
 var userMenu = document.querySelector('#userMenu');
-if (login) {
-  login.addEventListener('click', function () {
-    loginDialog.showModal();
-  });
-}
+var url = null;
 signup.addEventListener('click', function () {
   loginDialog.close();
   signupDialog.showModal();
@@ -63,6 +59,13 @@ $(window).scroll(function (e) {
   }
 });
 //login 
+
+function loginShow(currentUrl){
+  if(currentUrl){
+    url = currentUrl;
+  }
+  loginDialog.showModal();
+}
 $('#loginForm').submit(function( event ) {
   debugger
   event.preventDefault();

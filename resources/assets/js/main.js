@@ -1,27 +1,8 @@
 //login dailog
-var login = document.querySelector('#loginBtn');
 var loginDialog = document.querySelector('#loginDialog');
-var signup = document.querySelector('#signupBtn');
 var signupDialog = document.querySelector('#signupDialog');
-var reLoginBtn = document.querySelector('#reLoginBtn');
 var userMenu = document.querySelector('#userMenu');
 var url = null;
-signup.addEventListener('click', function () {
-  loginDialog.close();
-  signupDialog.showModal();
-});
-reLoginBtn.addEventListener('click', function () {
-  signupDialog.close();
-  loginDialog.showModal();
-});
-
-loginDialog.addEventListener('click', function (event) {
-  var rect = loginDialog.getBoundingClientRect();
-  var isInDialog = (rect.top <= event.clientY && event.clientY <= rect.top + rect.height && rect.left <= event.clientX && event.clientX <= rect.left + rect.width);
-  if (!isInDialog) {
-    loginDialog.close();
-  }
-});
 signupDialog.addEventListener('click', function (event) {
   var rect = signupDialog.getBoundingClientRect();
   var isInDialog = (rect.top <= event.clientY && event.clientY <= rect.top + rect.height && rect.left <= event.clientX && event.clientX <= rect.left + rect.width);
@@ -29,6 +10,7 @@ signupDialog.addEventListener('click', function (event) {
     signupDialog.close();
   }
 });
+
 if (userMenu) {
   userMenu.addEventListener('click', function () {
     $(this).toggleClass('extended');
@@ -66,26 +48,3 @@ function loginShow(currentUrl){
   }
   loginDialog.showModal();
 }
-$('#loginForm').submit(function( event ) {
-  debugger
-  event.preventDefault();
-  $.ajax({
-    url: "/login",
-    type: 'post',
-    data: $('#loginForm').serialize(), // Remember that you need to have your csrf token included
-    dataType: 'json',
-    success: function(  ){
-      debugger
-      console.log(_response)
-      loginDialog.close();
-      location.reload();
-    },
-    complete: function(){
-
-    },
-    error: function( _response ){
-      console.log(_response)
-        // Handle error
-    }
-});
-});

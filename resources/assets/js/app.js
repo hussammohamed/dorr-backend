@@ -7,7 +7,7 @@
 
 //require('./bootstrap');
 
-//window.Vue = require('vue');
+window.Vue = require('vue');
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -16,10 +16,30 @@
  */
 
 //Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component('login-component', require('./components/loginComponent.vue'));
+Vue.component('signup-component', require('./components/signupComponent.vue'));
+const app = new Vue({
+    el: '#app',
+    methods:{
+        loginDialog: function(url){
+            signupDialog.close();
+            loginDialog.showModal();
 
-// const app = new Vue({
-//     el: '#app'
-// });
+        },
+        signupDialog: function(url){
+            loginDialog.close();
+            signupDialog.showModal();
+
+        },
+        closeDialog: function(el){
+            let rect = el.getBoundingClientRect();
+            let isInDialog = (rect.top <= event.clientY && event.clientY <= rect.top + rect.height && rect.left <= event.clientX && event.clientX <= rect.left + rect.width);
+            if (!isInDialog) {
+                el.close();
+              }
+          }
+    }
+});
 window.$ = window.jQuery = require('jquery');
 require('./material.min')
 require('./main')

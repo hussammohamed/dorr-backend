@@ -70,7 +70,7 @@
     <div class="m-header">
         <div class="m-header--item m-header--item__user">
             @guest
-            <button id="loginBtn" onClick="javascript:loginShow();" class="mdl-button hover-effect mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored">
+            <button @click="loginDialog" id="loginBtn" class="mdl-button hover-effect mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored">
                 تسجيل دخول
             </button>
             @else

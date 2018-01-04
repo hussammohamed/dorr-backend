@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Purposes extends Model
+class SocialMedia extends Model
 {
     //
     protected $fillable = [
-        'name_ar','name_en', 'order','active','deleted'
+        'name','alias','link','target','order','active','deleted'
     ];
 }

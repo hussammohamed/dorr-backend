@@ -12,6 +12,10 @@ use App\Http\Controllers\Response;
 |
 */
 
+
+Route::get('lang/{lang}','HomeController@lang');
+
+
 Route::get('/', function () {
     return view('home');
 });

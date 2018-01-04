@@ -15,7 +15,8 @@ class CreateOverlooksTable extends Migration
     {
         Schema::create('overlooks', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+		    $table->string('name_ar');
+		    $table->string('name_en');
             $table->integer('order')->default('0');
 		    $table->boolean('active')->default('1');
 		    $table->boolean('deleted')->default('0');

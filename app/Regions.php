@@ -8,6 +8,6 @@ class Regions extends Model
 {
     //
     protected $fillable = [
-        'name', 'parent', 'type', 'order','active','deleted'
+        'name_ar','name_en', 'parent', 'type', 'order','active','deleted'
     ];
 }

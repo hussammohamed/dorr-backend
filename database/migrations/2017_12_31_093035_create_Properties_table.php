@@ -41,6 +41,7 @@ class CreatePropertiesTable extends Migration
 		    $table->date('dateOfPublication');
 		    $table->date('startDate')->nullable();
 		    $table->date('endDate')->nullable();
+		    $table->integer('lang')->default('1');
 		    $table->boolean('featured')->default('0');
 		    $table->boolean('active')->default('1');
 		    $table->boolean('deleted')->default('0');

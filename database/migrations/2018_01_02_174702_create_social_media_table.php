@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFinishTypesTable extends Migration
+class CreateSocialMediaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreateFinishTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('finish_types', function (Blueprint $table) {
+        Schema::create('social_media', function (Blueprint $table) {
             $table->increments('id');
-		    $table->string('name_ar');
-		    $table->string('name_en');
-            $table->integer('order')->default('0');
+		    $table->string('name');
+		    $table->string('alias');
+		    $table->string('link');
+		    $table->string('target');
+		    $table->integer('order');
 		    $table->boolean('active')->default('1');
 		    $table->boolean('deleted')->default('0');
             $table->timestamps();
@@ -31,6 +33,6 @@ class CreateFinishTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('finish_types');
+        Schema::dropIfExists('social_media');
     }
 }

@@ -8,6 +8,6 @@ class Types extends Model
 {
     //
     protected $fillable = [
-        'name', 'order', 'password', 'phone','active','deleted'
+        'name_ar','name_en', 'order', 'password', 'phone','active','deleted'
     ];
 }

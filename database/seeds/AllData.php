@@ -10,6 +10,9 @@ use App\RegionsTypes;
 use App\Regions;
 use App\Overlooks;
 use App\PaymentMethods;
+use App\Language;
+use App\SocialMedia;
+use App\Settings;
 use App\User;
 
 class AllData extends Seeder
@@ -23,66 +26,128 @@ class AllData extends Seeder
     {
         
         //Seed Types
-        $types=['شقة','فيلا','شاليه','محل'];
-        foreach($types as $key=>$value){
+        $types_ar=['شقة','فيلا','شاليه','محل'];
+        $types_en=['Appartment','Villa','Chalete','Shop'];
+        foreach($types_ar as $key=>$value){
             $add = new Types;
-            $add->name = $value;
+            $add->name_ar = $value;
+            $add->name_en = $types_en[$key];
             $add->order = $key+1;
             $add->save();
         }
         
         //Seed Purposes
-        $purposes=['شراء','بيع','مطلوب للايجار','عرض للايجار'];
-        foreach($purposes as $key=>$value){
+        $purposes_ar=['شراء','بيع','مطلوب للايجار','عرض للايجار'];
+        $purposes_en=['Sell','Buy','For Rent','To Rent'];
+        foreach($purposes_ar as $key=>$value){
             $add = new Purposes;
-            $add->name = $value;
+            $add->name_ar = $value;
+            $add->name_en = $purposes_en[$key];
             $add->order = $key+1;
             $add->save();
         }
         
         //Seed FinishTypes
-        $finishTypes=['بدون تشطيب','نص تشطيب','تشطيب كامل','سوبر لوكس'];
-        foreach($finishTypes as $key=>$value){
+        $finishTypes_ar=['بدون تشطيب','نص تشطيب','تشطيب كامل','سوبر لوكس'];
+        $finishTypes_en=['Not Finished','Semi Finish','Full Finish','Super Lux'];
+        foreach($finishTypes_ar as $key=>$value){
             $add = new FinishTypes;
-            $add->name = $value;
+            $add->name_ar = $value;
+            $add->name_en = $finishTypes_en[$key];
             $add->order = $key+1;
             $add->save();
         }
         
         //Seed Overlooks
-        $overlooks=['شاطئ','شارع رئيسى','ميدان','حديقة'];
-        foreach($overlooks as $key=>$value){
+        $overlooks_ar=['شاطئ','شارع رئيسى','ميدان','حديقة'];
+        $overlooks_en=['Beach','Main Street','Square','Garden'];
+        foreach($overlooks_ar as $key=>$value){
             $add = new Overlooks;
-            $add->name = $value;
+            $add->name_ar = $value;
+            $add->name_en = $overlooks_en[$key];
             $add->order = $key+1;
             $add->save();
         }
         
         //Seed PaymentMethods
-        $paymentMethods=['كاش','تقسيط','استثمار عقارى'];
-        foreach($paymentMethods as $key=>$value){
+        $paymentMethods_ar=['كاش','تقسيط','استثمار عقارى'];
+        $paymentMethods_en=['Cash','Installment','Real Estate Investment'];
+        foreach($paymentMethods_ar as $key=>$value){
             $add = new PaymentMethods;
-            $add->name = $value;
+            $add->name_ar = $value;
+            $add->name_en = $paymentMethods_en[$key];
             $add->order = $key+1;
             $add->save();
         }
 
-        //Seed RegionsTypes
-        $regionsTypes=['مدينة','حى'];
-        foreach($regionsTypes as $key=>$value){
-            $add = new RegionsTypes;
+        //Seed Languages
+        $languages=['عربى','English'];
+        $languages_short_name=['ع','En'];
+        $languages_code=['ar','en'];
+        foreach($languages as $key=>$value){
+            $add = new Language;
             $add->name = $value;
+            $add->short_name = $languages_short_name[$key];
+            $add->code = $languages_code[$key];
+            $add->order = $key+1;
+            $add->save();
+        }
+
+        //Seed SocialMedia
+        $social_media=['Facebook','Instagram','Twitter'];
+        $social_media_alias=['facebook','instagram','twitter'];
+        $social_media_link=['http://facebook.com','http://instagram.com','http://twitter.com'];
+        foreach($social_media as $key=>$value){
+            $add = new SocialMedia;
+            $add->name = $value;
+            $add->alias = $social_media_alias[$key];
+            $add->link = $social_media_link[$key];
+            $add->target = "_blank";
+            $add->order = $key+1;
+            $add->save();
+        }
+
+        //Seed Settings
+        $add = new Settings;
+        $add->site_name = "Dorr";
+        $add->site_title_ar = "دوُر للتسويق العقارى";
+        $add->site_title_en = "Dorr Real Estate";
+        $add->full_domain = "http://www.dorr.com";
+        $add->meta_keywords_ar = "";
+        $add->meta_keywords_en = "";
+        $add->meta_description_ar = "";
+        $add->meta_description_en = "";
+        $add->email_no_reply = "no_reply@dorr.com";
+        $add->email_contact = "contact@dorr.com";
+        $add->copy_right_ar = "جميع الحقوق محفوظة - تطبيق دوُر 2017";
+        $add->copy_right_en = "All rights reserved - Dorr App 2017";
+        $add->website_status = "1";
+        $add->multilingual = "1";
+        $add->basic_language = "1";
+        $add->save();
+
+
+
+        //Seed RegionsTypes
+        $regionsTypes_ar=['مدينة','حى'];
+        $regionsTypes_en=['City','District'];
+        foreach($regionsTypes_ar as $key=>$value){
+            $add = new RegionsTypes;
+            $add->name_ar = $value;
+            $add->name_en = $regionsTypes_en[$key];
             $add->order = $key+1;
             $add->save();
         }
         
         //Seed Regions
-        $regions=['الرياض','الدرعية','المونسية','المشاعل','المدينة المنورة','ابيار على','شوران','طيبة'];
+        $regions_ar=['الرياض','الدرعية','المونسية','المشاعل','المدينة المنورة','ابيار على','شوران','طيبة'];
+        $regions_en=['Riyadh','Diriyah','Munsiyah','Mishal','Medina','Abyar Ali','Shuran','Teba'];
         $parent=[0,1,1,1,0,5,5,5];
         $types=[1,2,2,2,1,2,2,2];
-        foreach($regions as $key=>$value){
+        foreach($regions_ar as $key=>$value){
             $add = new Regions;
-            $add->name = $value;
+            $add->name_ar = $value;
+            $add->name_en = $regions_en[$key];
             $add->parent = $parent[$key];
             $add->type = $types[$key];
             $add->order = $key+1;

@@ -25,4 +25,33 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+    public function lang()
+    {
+        if(in_array($lang,['ar','en'])){
+            if(auth()->user()){
+                $user = auth()->user();
+                $user->lang = $lang;
+                $user->save();
+            }else{
+                if(session()->has('lang')){
+                    session()->forget('lang');
+                }
+                session()->put('lang',$lang);
+            }
+        }else{
+            if(auth()->user()){
+                $user = auth()->user();
+                $user->lang = 'ar';
+                $user->save();
+            }else{
+                if(session()->has('lang')){
+                    session()->forget('lang');
+                }
+                session()->put('lang','ar');
+            }
+        }
+        
+        return back();
+    }
 }

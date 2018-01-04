@@ -15,9 +15,10 @@ class CreateRegionsTable extends Migration
     {
         Schema::create('regions', function (Blueprint $table) {
             $table->increments('id');
+		    $table->string('name_ar');
+		    $table->string('name_en');
             $table->integer('parent');
             $table->integer('type');
-		    $table->string('name');
             $table->integer('order')->default('0');
 		    $table->boolean('active')->default('1');
 		    $table->boolean('deleted')->default('0');

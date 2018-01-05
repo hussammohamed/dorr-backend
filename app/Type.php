@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class FinishTypes extends Model
+class Type extends Model
 {
     //
     protected $fillable = [
-        'name_ar','name_en', 'order','active','deleted'
+        'name_ar','name_en', 'order', 'password', 'phone','active','deleted'
     ];
 }

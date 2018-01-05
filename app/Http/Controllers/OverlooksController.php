@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Overlooks;
+use App\Overlook;
 use Illuminate\Http\Request;
 
 class OverlooksController extends Controller

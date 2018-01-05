@@ -2,18 +2,22 @@
 
 use Illuminate\Database\Seeder;
 
-use App\Properties;
-use App\Types;
-use App\Purposes;
-use App\FinishTypes;
-use App\RegionsTypes;
-use App\Regions;
-use App\Overlooks;
-use App\PaymentMethods;
+use App\Property;
+use App\Type;
+use App\Purpose;
+use App\FinishType;
+use App\RegionType;
+use App\Region;
+use App\Overlook;
+use App\PaymentMethod;
 use App\Language;
 use App\SocialMedia;
-use App\Settings;
+use App\Setting;
 use App\User;
+use App\FilterMenu;
+use App\Menu;
+use App\MenuLink;
+use App\Page;
 
 class AllData extends Seeder
 {
@@ -29,7 +33,7 @@ class AllData extends Seeder
         $types_ar=['شقة','فيلا','شاليه','محل'];
         $types_en=['Appartment','Villa','Chalete','Shop'];
         foreach($types_ar as $key=>$value){
-            $add = new Types;
+            $add = new Type;
             $add->name_ar = $value;
             $add->name_en = $types_en[$key];
             $add->order = $key+1;
@@ -40,7 +44,7 @@ class AllData extends Seeder
         $purposes_ar=['شراء','بيع','مطلوب للايجار','عرض للايجار'];
         $purposes_en=['Sell','Buy','For Rent','To Rent'];
         foreach($purposes_ar as $key=>$value){
-            $add = new Purposes;
+            $add = new Purpose;
             $add->name_ar = $value;
             $add->name_en = $purposes_en[$key];
             $add->order = $key+1;
@@ -51,7 +55,7 @@ class AllData extends Seeder
         $finishTypes_ar=['بدون تشطيب','نص تشطيب','تشطيب كامل','سوبر لوكس'];
         $finishTypes_en=['Not Finished','Semi Finish','Full Finish','Super Lux'];
         foreach($finishTypes_ar as $key=>$value){
-            $add = new FinishTypes;
+            $add = new FinishType;
             $add->name_ar = $value;
             $add->name_en = $finishTypes_en[$key];
             $add->order = $key+1;
@@ -62,7 +66,7 @@ class AllData extends Seeder
         $overlooks_ar=['شاطئ','شارع رئيسى','ميدان','حديقة'];
         $overlooks_en=['Beach','Main Street','Square','Garden'];
         foreach($overlooks_ar as $key=>$value){
-            $add = new Overlooks;
+            $add = new Overlook;
             $add->name_ar = $value;
             $add->name_en = $overlooks_en[$key];
             $add->order = $key+1;
@@ -73,7 +77,7 @@ class AllData extends Seeder
         $paymentMethods_ar=['كاش','تقسيط','استثمار عقارى'];
         $paymentMethods_en=['Cash','Installment','Real Estate Investment'];
         foreach($paymentMethods_ar as $key=>$value){
-            $add = new PaymentMethods;
+            $add = new PaymentMethod;
             $add->name_ar = $value;
             $add->name_en = $paymentMethods_en[$key];
             $add->order = $key+1;
@@ -107,8 +111,71 @@ class AllData extends Seeder
             $add->save();
         }
 
+        //Seed FilterMenus
+        $filter_menu_ar=['شقق للبيع','فيلل للبيع','شاليهات للبيع','محلات للبيع'];
+        $filter_menu_en=['Appartment for Sale','Villa for Sale','Chalete for Sale','Shop for Sale'];
+        $types=['1','2','3','4'];
+        foreach($filter_menu_ar as $key=>$value){
+            $add = new FilterMenu;
+            $add->name_ar = $value;
+            $add->name_en = $filter_menu_en[$key];
+            $add->type = $types[$key];;
+            $add->purpose = 1;
+            $add->order = $key+1;
+            $add->save();
+        }
+
+        //Seed Menus
+        $menu_ar=['خدماتنا','وصول سريع'];
+        $menu_en=['Services','Quick Links'];
+        foreach($menu_ar as $key=>$value){
+            $add = new Menu;
+            $add->name_ar = $value;
+            $add->name_en = $menu_en[$key];
+            $add->save();
+        }
+
+        //Seed MenusLinks
+        $menu_ar=['الأشتراكات','وظائف','أعلن معنا','تواصل معنا','الأحكام والشروط', 'بحث عن عقارات','إعلن عن عقارات','إدارة العقارات','تقارير الإسعار','وساطة عقارية','تقييم'];
+        $menu_en=['Subcription','Jobs','Advertise With Us','Contact Us','Terms','Properties Search','Advertise for Property','Properties Managment','Report','Brokking','Rate'];
+        $menu_ids=['1','1','1','1','1','2','2','2','2','2','2'];
+        foreach($menu_ar as $key=>$value){
+            $add = new MenuLink;
+            $add->menu_id = $menu_ids[$key];
+            $add->name_ar = $value;
+            $add->name_en = $menu_en[$key];
+            $add->link = "#";
+            $add->target = "_blank";
+            $add->order = $key+1;
+            $add->save();
+        }
+
+
+        //Seed Pages
+        $pages_ar=['أبحث عن عقارات','أعلن عن عقارك','إدارة عقاراتك','التقارير العقارية','وساطة عقارية', 'تقييم'];
+        $pages_en=['Properties Search','Advertise for Property','Properties Managment','Report','Brokking','Rate'];
+        $pages_short=[
+            'ابحث عن الشقة المناسبة ليك, حدد المنطقة وسعر وشاهد الاف العقارات للبيع والإيجار',
+            'أعلن عن عقارك بسهولة , صور عقارك وأعرضه للبيع او للأيجار بسرعة وسهولة',
+            'يمكنك إدارة عقاراتك وأملاكك عن طريق التطبيق ومتابعة المستأجرين ومديري العقارات وإدارة طلبات الصيانة والتحصيل',
+            'تعرف على اسعار الأحياء والمناطق فى كل المملكة',
+            'تابع اعمال الوساطة العقارية من خلال تطبيق دور',
+            'اعرف قيمة عقارك عن طريق معرفة اسعار العقارات المحيطة بك'
+        ];
+        foreach($pages_ar as $key=>$value){
+            $add = new Page;
+            $add->title_ar = $value;
+            $add->title_en = $pages_en[$key];
+            $add->full_content_ar = $pages_short[$key];
+            $add->full_content_en = $pages_short[$key];
+            $add->short_content_ar = $pages_short[$key];
+            $add->short_content_en = $pages_short[$key];
+            $add->order = $key+1;
+            $add->save();
+        }
+
         //Seed Settings
-        $add = new Settings;
+        $add = new Setting;
         $add->site_name = "Dorr";
         $add->site_title_ar = "دوُر للتسويق العقارى";
         $add->site_title_en = "Dorr Real Estate";
@@ -132,7 +199,7 @@ class AllData extends Seeder
         $regionsTypes_ar=['مدينة','حى'];
         $regionsTypes_en=['City','District'];
         foreach($regionsTypes_ar as $key=>$value){
-            $add = new RegionsTypes;
+            $add = new RegionType;
             $add->name_ar = $value;
             $add->name_en = $regionsTypes_en[$key];
             $add->order = $key+1;
@@ -145,7 +212,7 @@ class AllData extends Seeder
         $parent=[0,1,1,1,0,5,5,5];
         $types=[1,2,2,2,1,2,2,2];
         foreach($regions_ar as $key=>$value){
-            $add = new Regions;
+            $add = new Region;
             $add->name_ar = $value;
             $add->name_en = $regions_en[$key];
             $add->parent = $parent[$key];
@@ -168,16 +235,17 @@ class AllData extends Seeder
         }
         
         //Seed Properties
-        $property = new Properties;
+        $property = new Property;
+        $property->user_id = 1;
         $property->type = 1;
         $property->purpose = 1;
         $property->title = "شقة فى احسن ضواحى الرياض";
-        $property->ownerID = 1;
+        $property->ownerName = "محمد محمود";
         $property->address = "شارع 5";
         $property->region = "2";
         $property->lat = "2.2222";
         $property->long = "3.222";
-        $property->description = "اى كلام";
+        $property->description = "وصف للوحدة";
         $property->price = 5000000;
         $property->pricePerMeter = 50000;
         $property->dateOfConstruction = "2000-01-02";
@@ -196,16 +264,17 @@ class AllData extends Seeder
         $property->save();
 
         //Seed Properties
-        $property = new Properties;
+        $property = new Property;
+        $property->user_id = 2;
         $property->type = 2;
         $property->purpose = 2;
         $property->title = "فيلا سوبر لوكس";
-        $property->ownerID = 1;
+        $property->ownerName = "سليمان بن عدنان الثقفي";
         $property->address = "شارع 4";
         $property->region = "6";
         $property->lat = "5.2222";
         $property->long = "6.222";
-        $property->description = "اى كلام";
+        $property->description = "وصف للوحدة";
         $property->price = 7000000;
         $property->pricePerMeter = 70000;
         $property->dateOfConstruction = "2000-01-02";

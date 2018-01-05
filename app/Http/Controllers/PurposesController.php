@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Purposes;
+use App\Purpose;
 use Illuminate\Http\Request;
 
 class PurposesController extends Controller

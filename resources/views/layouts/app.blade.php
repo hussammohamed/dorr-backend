@@ -10,7 +10,12 @@
     <title>Dorr @yield('title')</title>
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @if(App::getLocale()=="en" )
+        <link href="{{ asset('css/app_en.css') }}" rel="stylesheet">
+            @else
+            <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+            @endif
+    
     @stack('styles')
 </head>
 <body>

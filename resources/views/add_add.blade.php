@@ -20,7 +20,7 @@
                             <label for="sample1" class="mdl-textfield__label">النوع</label>
                             <ul for="sample1" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
                                 @foreach($types as $type)
-                                <li class="mdl-menu__item" data-val="{{$type->id}}">{{$type->name}}</li>
+                                <li class="mdl-menu__item" data-val="{{$type->id}}">{{$type->$name}}</li>
                                 @endforeach
 
                             </ul>
@@ -35,7 +35,7 @@
                             <label for="sample2" class="mdl-textfield__label">القسم</label>
                             <ul for="sample2" class="mdl-menu mdl-menu--bottom-left u-full-width mdl-js-menu">
                                 @foreach($purposes as $purpose)
-                                <li class="mdl-menu__item" data-val="{{$purpose->id}}">{{$purpose->name}}</li>
+                                <li class="mdl-menu__item" data-val="{{$purpose->id}}">{{$purpose->$name}}</li>
                                 @endforeach
                             </ul>
                         </div>
@@ -49,7 +49,7 @@
                             <label for="sample28" class="mdl-textfield__label">المدينة</label>
                             <ul for="sample28" class="mdl-menu mdl-menu--bottom-left u-full-width mdl-js-menu">
                                 @foreach($cities as $city)
-                                <li class="mdl-menu__item" data-val="{{$city->id}}">{{$city->name}}</li>
+                                <li class="mdl-menu__item" data-val="{{$city->id}}">{{$city->$name}}</li>
                                 @endforeach
                             </ul>
                         </div>
@@ -121,7 +121,7 @@
                             <label for="sample12" class="mdl-textfield__label">طريقة الدفع</label>
                             <ul for="sample12" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
                                 @foreach($paymentMethods as $paymentMethod)
-                                <li class="mdl-menu__item" data-val="{{$paymentMethod->id}}">{{$paymentMethod->name}}</li>
+                                <li class="mdl-menu__item" data-val="{{$paymentMethod->id}}">{{$paymentMethod->$name}}</li>
                                 @endforeach
                             </ul>
                         </div>
@@ -135,7 +135,7 @@
                             <label for="sampl1" class="mdl-textfield__label">تطل علي</label>
                             <ul for="sampl1" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
                                 @foreach($overlooks as $overlook)
-                                <li class="mdl-menu__item" data-val="{{$overlook->id}}">{{$overlook->name}}</li>
+                                <li class="mdl-menu__item" data-val="{{$overlook->id}}">{{$overlook->$name}}</li>
                                 @endforeach
                             </ul>
                         </div>
@@ -187,7 +187,7 @@
                                     <label for="sampl7" class="mdl-textfield__label">نوع التشطيب</label>
                                     <ul for="sampl7" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
                                         @foreach($finishTypes as $finishType)
-                                        <li class="mdl-menu__item" data-val="{{$finishType->id}}">{{$finishType->name}}</li>
+                                        <li class="mdl-menu__item" data-val="{{$finishType->id}}">{{$finishType->$name}}</li>
                                         @endforeach
                                     </ul>
 

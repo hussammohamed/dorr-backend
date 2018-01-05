@@ -1,7 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+
+
 use Auth;
+use App;
 use App\Property;
 use App\Type;
 use App\Purpose;
@@ -9,7 +12,7 @@ use App\FinishType;
 use App\Region;
 use App\Overlook;
 use App\PaymentMethod;
-use App;
+use App\Advertiser;
 
 use Illuminate\Http\Request;
 
@@ -40,8 +43,9 @@ class PropertiesController extends Controller
             $finishTypes = FinishType::where('active',1)->where('deleted',0)->orderby('order')->get();
             $overlooks = Overlook::where('active',1)->where('deleted',0)->orderby('order')->get();
             $paymentMethods = PaymentMethod::where('active',1)->where('deleted',0)->orderby('order')->get();
+            $advertiserTypes = AdvertiserType::where('active',1)->where('deleted',0)->orderby('order')->get();
             
-            return view('add_add',['name'=>'name_'.App::getLocale(),'types'=>$types, 'purposes'=>$purposes, 'cities'=>$cities, 'finishTypes'=>$finishTypes, 'overlooks'=>$overlooks, 'paymentMethods'=>$paymentMethods]);
+            return view('add_add',['name'=>'name_'.App::getLocale(),'types'=>$types, 'purposes'=>$purposes, 'cities'=>$cities, 'finishTypes'=>$finishTypes, 'overlooks'=>$overlooks, 'paymentMethods'=>$paymentMethods, 'advertiserTypes'=>$advertiserTypes]);
         }else{
             return redirect('/');
         }
@@ -58,6 +62,7 @@ class PropertiesController extends Controller
         //
         if (Auth::check()) {
             $property = new Property;
+            $property->user_id = Auth()::user()->id;
             $property->type = $request->type;
             $property->purpose = $request->purpose;
             $property->title = $request->title;
@@ -67,7 +72,7 @@ class PropertiesController extends Controller
             $property->long = $request->long;
             $property->description = $request->description;
             $property->price = $request->price;
-            $property->date_of_construction = $request->year_of_construction;
+            $property->year_of_construction = $request->year_of_construction;
             $property->advertiser_type = $request->advertiser_type;
             $property->area = $request->area;
             $property->floor = $request->floor;

@@ -22,7 +22,8 @@ const app = new Vue({
     el: '#app',
     data() {
         return {
-          url: ""
+          url: "",
+          userinput: ''
         };
       },
     methods:{
@@ -45,7 +46,7 @@ const app = new Vue({
             if (!isInDialog) {
                 el.close();
               }
-          }
+          },
     },
     mounted() {}
 });

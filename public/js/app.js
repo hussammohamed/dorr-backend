@@ -235,7 +235,8 @@ var app = new Vue({
     el: '#app',
     data: function data() {
         return {
-            url: ""
+            url: "",
+            userinput: ''
         };
     },
 
@@ -21838,7 +21839,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           data: $("#loginForm").serialize(),
           dataType: "json",
           success: function success(_response) {
-            location.pathname = self.$parent.url;
+            if (self.$parent.url.length) {
+              location.pathname = self.$parent.url;
+            } else {
+              location.reload();
+            }
           },
           complete: function complete(_response) {},
           error: function error(_response) {
@@ -21985,7 +21990,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "mdl-dialog__logo" }, [
       _c("div", { staticClass: "bg" }),
       _vm._v(" "),
-      _c("img", { attrs: { src: "images/dorr-logo.svg", alt: "Dorr" } })
+      _c("img", { attrs: { src: "/images/dorr-logo.svg", alt: "Dorr" } })
     ])
   }
 ]
@@ -22387,7 +22392,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "mdl-dialog__logo" }, [
       _c("div", { staticClass: "bg" }),
       _vm._v(" "),
-      _c("img", { attrs: { src: "images/dorr-logo.svg", alt: "Dorr" } })
+      _c("img", { attrs: { src: "/images/dorr-logo.svg", alt: "Dorr" } })
     ])
   }
 ]

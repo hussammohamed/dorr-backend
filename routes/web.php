@@ -22,8 +22,12 @@ Route::group(['middleware'=>'language'],function(){
 
     Route::get('/home', 'HomeController@index')->name('home');
 
-    Route::get('/property', function () {
-        return view('property');
+    // Route::get('/property', function () {
+    //     return view('property');
+    // });
+
+    Route::get('/myProperties', function () {
+        return view('myProperties');
     });
     Route::get('/search', function () {
         return view('searchPage');

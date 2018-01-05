@@ -311,6 +311,13 @@ $cardImageHeight : 220px;
             top: 4px;
         }
     }
+    .h-card-actions{
+        position: absolute;
+        left: 15px;
+        top: 15px;
+        z-index: 999;
+        color:rgba(0, 0, 0, .54)
+    }
 }
 .card-label{
     position: absolute;
@@ -512,4 +519,25 @@ transition: all .2s ease-in-out;
     margin-bottom: 25px;
     font-size: 20px;
     font-weight: 600;
+}
+.mdl-menu--custom{
+    min-width: 200px;
+    li{
+        direction: $rtl;
+        text-align: $right;
+    }
+    i{
+        color: rgba(0, 0, 0, .54);
+        vertical-align: middle;
+        margin: 0 4px;
+    }
+}
+.owl-cards{
+    .owl-wrapper-outer{
+        padding: 8px;
+    }
+    .v-card{
+        margin: 0 16px;
+    }
+    
 }

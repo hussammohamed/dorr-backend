@@ -57,33 +57,30 @@ class PropertiesController extends Controller
     {
         //
         if (Auth::check()) {
-            $property = new Properties;
+
+            $property = new Property;
             $property->type = $request->type;
             $property->purpose = $request->purpose;
             $property->title = $request->title;
-            $property->ownerID = Auth::user();
             $property->address = $request->address;
             $property->region = $request->region;
             $property->lat = $request->lat;
             $property->long = $request->long;
             $property->description = $request->description;
             $property->price = $request->price;
-            $property->pricePerMeter = $request->pricePerMeter;
-            $property->dateOfConstruction = $request->dateOfConstruction;
+            $property->date_of_construction = $request->year_of_construction;
+            $property->advertiser_type = $request->advertiser_type;
             $property->area = $request->area;
             $property->floor = $request->floor;
-            $property->finishType = $request->finishType;
+            $property->finish_type = $request->finish_type;
             $property->overlooks = $request->overlooks;
-            $property->paymentMethods = $request->paymentMethods;
+            $property->payment_methods = $request->payment_methods;
             $property->rooms = $request->rooms;
             $property->bathrooms = $request->bathrooms;
-            $property->adID = $request->adID;
+            $property->ad_id = time();
             $property->hits = $request->hits;
             $property->youtube = $request->youtube;
-            $property->advertiserType = $request->advertiserType;
-            $property->dateOfPublication = $request->dateOfPublication;
             $property->startDate = $request->startDate;
-            $property->endDate = $request->endDate;
 
             $property->save();
 

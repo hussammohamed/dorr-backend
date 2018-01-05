@@ -6,7 +6,7 @@
  */
 
 //require('./bootstrap');
-
+window.$ = window.jQuery = require('jquery');
 window.Vue = require('vue');
 
 /**
@@ -20,8 +20,16 @@ Vue.component('login-component', require('./components/loginComponent.vue'));
 Vue.component('signup-component', require('./components/signupComponent.vue'));
 const app = new Vue({
     el: '#app',
+    data() {
+        return {
+          url: ""
+        };
+      },
     methods:{
         loginDialog: function(url){
+            if (url){
+                this.url = url;
+            }
             signupDialog.close();
             loginDialog.showModal();
 
@@ -38,9 +46,10 @@ const app = new Vue({
                 el.close();
               }
           }
-    }
+    },
+    mounted() {}
 });
-window.$ = window.jQuery = require('jquery');
+
 require('./material.min')
 require('./main')
 require('./getmdl-select.min');

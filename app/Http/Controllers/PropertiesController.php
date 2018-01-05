@@ -39,8 +39,8 @@ class PropertiesController extends Controller
             $finishTypes = FinishTypes::where('active',1)->where('deleted',0)->orderby('order')->get();
             $overlooks = Overlooks::where('active',1)->where('deleted',0)->orderby('order')->get();
             $paymentMethods = PaymentMethods::where('active',1)->where('deleted',0)->orderby('order')->get();
-            
             return view('add_add',['name'=>'name_'.App::getLocale(),'types'=>$types, 'purposes'=>$purposes, 'cities'=>$cities, 'finishTypes'=>$finishTypes, 'overlooks'=>$overlooks, 'paymentMethods'=>$paymentMethods]);
+
         }else{
             return redirect('/');
         }
@@ -57,32 +57,32 @@ class PropertiesController extends Controller
         //
         if (Auth::check()) {
             $property = new Properties;
-            $property->type = $request('type');
-            $property->purpose = $request('purpose');
-            $property->title = $request('title');
-            $property->ownerID = $request('ownerID');
-            $property->address = $request('address');
-            $property->region = $request('region');
-            $property->lat = $request('lat');
-            $property->long = $request('long');
-            $property->description = $request('description');
-            $property->price = $request('price');
-            $property->pricePerMeter = $request('pricePerMeter');
-            $property->dateOfConstruction = $request('dateOfConstruction');
-            $property->area = $request('area');
-            $property->floor = $request('floor');
-            $property->finishType = $request('finishType');
-            $property->overlooks = $request('overlooks');
-            $property->paymentMethods = $request('paymentMethods');
-            $property->rooms = $request('rooms');
-            $property->bathrooms = $request('bathrooms');
-            $property->adID = $request('adID');
-            $property->hits = $request('hits');
-            $property->youtube = $request('youtube');
-            $property->advertiserType = $request('advertiserType');
-            $property->dateOfPublication = $request('dateOfPublication');
-            $property->startDate = $request('startDate');
-            $property->endDate = $request('endDate');
+            $property->type = $request->type;
+            $property->purpose = $request->purpose;
+            $property->title = $request->title;
+            $property->ownerID = Auth::user();
+            $property->address = $request->address;
+            $property->region = $request->region;
+            $property->lat = $request->lat;
+            $property->long = $request->long;
+            $property->description = $request->description;
+            $property->price = $request->price;
+            $property->pricePerMeter = $request->pricePerMeter;
+            $property->dateOfConstruction = $request->dateOfConstruction;
+            $property->area = $request->area;
+            $property->floor = $request->floor;
+            $property->finishType = $request->finishType;
+            $property->overlooks = $request->overlooks;
+            $property->paymentMethods = $request->paymentMethods;
+            $property->rooms = $request->rooms;
+            $property->bathrooms = $request->bathrooms;
+            $property->adID = $request->adID;
+            $property->hits = $request->hits;
+            $property->youtube = $request->youtube;
+            $property->advertiserType = $request->advertiserType;
+            $property->dateOfPublication = $request->dateOfPublication;
+            $property->startDate = $request->startDate;
+            $property->endDate = $request->endDate;
 
             $property->save();
 

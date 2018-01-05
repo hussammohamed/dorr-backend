@@ -48,14 +48,13 @@ Route::group(['middleware'=>'language'],function(){
     Route::post('/myAccount/update', 'UserController@update');
     Route::post('/myAccount/updatePassword', 'UserController@updatePassword');
 
-    Route::get('Properties/create', 'PropertiesController@create')->name('createProperty');
-    Route::get('Properties/store', 'PropertiesController@store');
-    Route::get('Properties/show/{id}', 'PropertiesController@show');
-
+    // Route::get('Properties/create', 'PropertiesController@create')->name('createProperty');
+    // Route::get('Properties/store', 'PropertiesController@store');
+    // Route::get('Properties/show/{id}', 'PropertiesController@show');
+    Route::resource('Properties', 'PropertiesController');
     Route::get('/ajax-district/{city}', 'RegionsController@getDistricts');
 
 
 });
-
 
 Route::get('lang/{lang}','HomeController@lang');

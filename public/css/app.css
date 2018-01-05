@@ -15846,6 +15846,7 @@ fieldset[disabled] .mdl-textfield .mdl-textfield__label,
 .topbar .topbar--item__actions .action--link {
   color: #F9BF16;
   padding: 0 16px;
+  cursor: pointer;
 }
 
 .topbar .topbar--item__actions .action--link .material-icons {

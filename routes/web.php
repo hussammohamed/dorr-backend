@@ -50,9 +50,9 @@ Route::get('/myAccount', 'UserController@edit');
 Route::post('/myAccount/update', 'UserController@update');
 Route::post('/myAccount/updatePassword', 'UserController@updatePassword');
 
-Route::get('Properties/create', 'PropertiesController@create');
-Route::get('Properties/store', 'PropertiesController@store');
-Route::get('Properties/show/{id}', 'PropertiesController@show');
-
+// Route::get('Properties/create', 'PropertiesController@create');
+// Route::post('Properties/store', 'PropertiesController@store');
+// Route::get('Properties/show/{id}', 'PropertiesController@show');
+Route::resource('Properties', 'PropertiesController');
 Route::get('/ajax-district/{city}', 'RegionsController@getDistricts');
 

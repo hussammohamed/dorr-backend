@@ -17,16 +17,15 @@
     <div class="mdl-dialog__content">
       <form id="loginForm">
         <input type="hidden" name="_token" :value="csrf">
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
+        <div :class="[errors.email ? errorClass : '']" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
           <input class="mdl-textfield__input" type="email" name="email" id="email">
           <label class="mdl-textfield__label" for="email">البريد الألكترونى</label>
-          <span class="mdl-textfield__error">Input is not a number!</span>
-          <span class="mdl-textfield__error server-error"></span>
+          <span class="mdl-textfield__error"  v-for="email in errors.email" v-text="email"></span>
         </div>
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
+        <div :class="[errors.email ? errorClass : '']" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
           <input class="mdl-textfield__input " name="password" type="password" id="password">
           <label class="mdl-textfield__label" for="password">كلمة المرور</label>
-          <!-- <span class="mdl-textfield__error">Input is not a number!</span> -->
+         <span class="mdl-textfield__error"  v-for="email in errors.email" v-text="email"></span>
         </div>
         <div class="">
 
@@ -46,7 +45,8 @@ export default {
       csrf: document
         .querySelector('meta[name="csrf-token"]')
         .getAttribute("content"),
-      errors: []
+         errorClass: "is-invalid",
+      errors: {}
     };
   },
   methods: {
@@ -54,9 +54,12 @@ export default {
       this.$root.signupDialog();
     },
     closeDialog: function() {
+      this.errors = {};
       this.$root.closeDialog(this.$el);
     },
     submit: function() {
+      var self = this;
+      
       $("#loginForm").submit(function(event) {
         event.preventDefault();
         $.ajax({
@@ -64,13 +67,18 @@ export default {
           type: "post",
           data: $("#loginForm").serialize(), 
           dataType: "json",
-          success: function() {
-            loginDialog.close();
-            location.reload();
+          success: function(_response) {
+            location.pathname = self.$parent.url
           },
-          complete: function() {},
+          complete: function(_response) {
+              
+         
+          },
           error: function(_response) {
-            console.log(_response);
+            //this.errors = JSON.parse(_response.responseText).errors
+            self.errors = {
+              email:["wrong credentials"]
+            }
             // Handle error
           }
         });

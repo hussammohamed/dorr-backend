@@ -48,9 +48,10 @@ class LoginController extends Controller
         
     public function login(){
         if(Auth::attempt([$this->userlogin() => request()->email , 'password' => request()->password])){
-            return redirect()->intended('/');
+            //return redirect()->intended('/');
+            return Auth::user();
         }else{
-            return 'error';
+            return response()->json("wrong credentials", 422);
         }
     }
 }

@@ -8,10 +8,10 @@ class Property extends Model
 {
     //
     protected $fillable = [
-        'type','purpose','title','ownerID','address','region','lat','long','description','price',
-        'pricePerMeter','dateOfConstruction','area','floor','finishType','overlooks','paymentMethods',
-        'rooms','bathrooms','adID','hits','youtube','advertiserType','dateOfPublication','startDate',
-        'endDate','featured','active','deleted'
+        'user_id','type','purpose','title','address','region','lat','long','description','price',
+        'year_of_construction','area','floor','finish_type','overlooks','payment_methods',
+        'rooms','bathrooms','ad_id','hits','youtube','advertiser_type','startDate','endDate','featured',
+        'active','deleted'
     ];
 }
 

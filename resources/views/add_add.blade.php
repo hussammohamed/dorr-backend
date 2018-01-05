@@ -105,7 +105,7 @@
                     </div>
                     <div class="mdl-cell mdl-cell--3-col">
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
-                            <input class="mdl-textfield__input" name="area" type="text" id="sample9">
+                            <input class="mdl-textfield__input" name="area" type="number" id="sample9">
                             <label class="mdl-textfield__label" for="sample9">المساحة بالمتر المربع</label>
                         </div>
                     </div>

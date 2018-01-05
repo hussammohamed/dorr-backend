@@ -2,7 +2,14 @@
     <div class="topbar">
         <div class="topbar--item topbar--item__lang ">
             <div class="topbar--item--bg "></div>
-            <a href="#">EN</a>
+            
+            @if(App::getLocale()=="en" )
+            <a href="/lang/ar">ع</a>
+            @else
+            <a href="/lang/en">EN</a>
+            @endif
+
+
         </div>
         <div class="topbar--item topbar--item__social">
             <div class="topbar--item--bg"></div>
@@ -51,15 +58,15 @@
         <div class="topbar--item topbar--item__actions">
             <nav class="mdl-navigation">
                 <a href={{ asset( '/zakah')}} class="action--link">
-                    <span>حساب الذكاه</span>
+                    <span>{{ trans('ui.zkaka-link')}}</span>
                     <i class="material-icons">%</i>
                 </a>
                 <a href={{ asset( '/report')}} class="action--link">
-                    <span>التقرير العقارى</span>
+                    <span>{{ trans('ui.report-link')}}</span>
                     <i class="material-icons">insert_chart</i>
                 </a>
-                <a href={{ asset( '/add_ad')}} class="action--link">
-                    <span>أضف عقار</span>
+                <a href={{ route('createProperty')}} class="action--link">
+                    <span>{{ trans('ui.add-ad-link')}}</span>
                     <i class="material-icons">add_box</i>
                 </a>
 

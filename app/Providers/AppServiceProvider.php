@@ -20,18 +20,22 @@ class AppServiceProvider extends ServiceProvider
         app()->singleton('lang', function(){
             if(auth()->user()){
                 if(empty(auth()->user()->lang)){
+                    //session()->put('lang','ar');
                     return 'ar';
                 }else{
+                    //session()->put('lang',auth()->user()->lang) ;
                     return auth()->user()->lang;
                 }
             }else{
                 if(session()->has('lang')){
                     return session()->get('lang');
                 }else{
+                    //session()->put('lang','ar');
                     return 'ar';
                 }
             }
         });
+        
 
         // to fix migration error
         Schema::defaultStringLength(250);

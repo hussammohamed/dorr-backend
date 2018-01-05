@@ -13,46 +13,49 @@ use App\Http\Controllers\Response;
 */
 
 
+
+Route::group(['middleware'=>'language'],function(){
+    Route::get('/', function () {
+        return view('home');
+    });
+    Auth::routes();
+
+    Route::get('/home', 'HomeController@index')->name('home');
+
+    Route::get('/property', function () {
+        return view('property');
+    });
+    Route::get('/search', function () {
+        return view('searchPage');
+    });
+    Route::get('/add_ad', function () {
+        return view('add_add');
+    });
+    Route::get('/report', function () {
+        return view('report');
+    });
+    /*Route::get('/myAccount', function () {
+        return view('myAccount');
+    });*/
+    Route::get('/zakah', function () {
+        return view('zakah');
+    });
+    Route::get('/sucsess', function () {
+        return view('sucsess');
+    });
+
+    Route::get('/myAccount', 'UserController@edit');
+    Route::post('/myAccount/update', 'UserController@update');
+    Route::post('/myAccount/updatePassword', 'UserController@updatePassword');
+
+    Route::get('Properties/create', 'PropertiesController@create')->name('createProperty');
+    Route::get('Properties/store', 'PropertiesController@store');
+    Route::get('Properties/show/{id}', 'PropertiesController@show');
+
+    Route::get('/ajax-district/{city}', 'RegionsController@getDistricts');
+
+
+});
+
+
 Route::get('lang/{lang}','HomeController@lang');
-
-
-Route::get('/', function () {
-    return view('home');
-});
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Route::get('/property', function () {
-    return view('property');
-});
-Route::get('/search', function () {
-    return view('searchPage');
-});
-Route::get('/add_ad', function () {
-    return view('add_add');
-});
-Route::get('/report', function () {
-    return view('report');
-});
-/*Route::get('/myAccount', function () {
-    return view('myAccount');
-});*/
-Route::get('/zakah', function () {
-    return view('zakah');
-});
-Route::get('/sucsess', function () {
-    return view('sucsess');
-});
-
-Route::get('/myAccount', 'UserController@edit');
-Route::post('/myAccount/update', 'UserController@update');
-Route::post('/myAccount/updatePassword', 'UserController@updatePassword');
-
-Route::get('Properties/create', 'PropertiesController@create');
-Route::get('Properties/store', 'PropertiesController@store');
-Route::get('Properties/show/{id}', 'PropertiesController@show');
-
-Route::get('/ajax-district/{city}', 'RegionsController@getDistricts');
-

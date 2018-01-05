@@ -26,7 +26,7 @@ class HomeController extends Controller
         return view('home');
     }
 
-    public function lang()
+    public function lang($lang)
     {
         if(in_array($lang,['ar','en'])){
             if(auth()->user()){

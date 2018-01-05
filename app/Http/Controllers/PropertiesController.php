@@ -9,7 +9,7 @@ use App\FinishTypes;
 use App\Regions;
 use App\Overlooks;
 use App\PaymentMethods;
-use Auth;
+use App;
 use Illuminate\Http\Request;
 
 class PropertiesController extends Controller
@@ -40,7 +40,7 @@ class PropertiesController extends Controller
             $overlooks = Overlooks::where('active',1)->where('deleted',0)->orderby('order')->get();
             $paymentMethods = PaymentMethods::where('active',1)->where('deleted',0)->orderby('order')->get();
             
-            return view('add_add',['types'=>$types, 'purposes'=>$purposes, 'cities'=>$cities, 'finishTypes'=>$finishTypes, 'overlooks'=>$overlooks, 'paymentMethods'=>$paymentMethods]);
+            return view('add_add',['name'=>'name_'.App::getLocale(),'types'=>$types, 'purposes'=>$purposes, 'cities'=>$cities, 'finishTypes'=>$finishTypes, 'overlooks'=>$overlooks, 'paymentMethods'=>$paymentMethods]);
         }else{
             return redirect('/');
         }

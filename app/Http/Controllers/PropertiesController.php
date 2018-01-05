@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 use Auth;
-use App\Properties;
-use App\Types;
-use App\Purposes;
-use App\FinishTypes;
-use App\Regions;
-use App\Overlooks;
-use App\PaymentMethods;
+use App\Property;
+use App\Type;
+use App\Purpose;
+use App\FinishType;
+use App\Region;
+use App\Overlook;
+use App\PaymentMethod;
 use App;
 
 use Illuminate\Http\Request;
@@ -34,12 +34,12 @@ class PropertiesController extends Controller
     {
         //
         if (Auth::check()) {
-            $types = Types::where('active',1)->where('deleted',0)->orderby('order')->get();
-            $purposes = Purposes::where('active',1)->where('deleted',0)->orderby('order')->get();
-            $cities = Regions::where('type',1)->where('active',1)->where('deleted',0)->orderby('order')->get();
-            $finishTypes = FinishTypes::where('active',1)->where('deleted',0)->orderby('order')->get();
-            $overlooks = Overlooks::where('active',1)->where('deleted',0)->orderby('order')->get();
-            $paymentMethods = PaymentMethods::where('active',1)->where('deleted',0)->orderby('order')->get();
+            $types = Type::where('active',1)->where('deleted',0)->orderby('order')->get();
+            $purposes = Purpose::where('active',1)->where('deleted',0)->orderby('order')->get();
+            $cities = Region::where('type',1)->where('active',1)->where('deleted',0)->orderby('order')->get();
+            $finishTypes = FinishType::where('active',1)->where('deleted',0)->orderby('order')->get();
+            $overlooks = Overlook::where('active',1)->where('deleted',0)->orderby('order')->get();
+            $paymentMethods = PaymentMethod::where('active',1)->where('deleted',0)->orderby('order')->get();
             
             return view('add_add',['name'=>'name_'.App::getLocale(),'types'=>$types, 'purposes'=>$purposes, 'cities'=>$cities, 'finishTypes'=>$finishTypes, 'overlooks'=>$overlooks, 'paymentMethods'=>$paymentMethods]);
         }else{

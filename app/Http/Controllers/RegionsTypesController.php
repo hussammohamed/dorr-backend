@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\RegionsTypes;
+use App\RegionType;
 use Illuminate\Http\Request;
 
 class RegionsTypesController extends Controller

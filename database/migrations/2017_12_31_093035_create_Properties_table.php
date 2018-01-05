@@ -15,10 +15,11 @@ class CreatePropertiesTable extends Migration
     {
         Schema::create('properties', function (Blueprint $table) {
             $table->increments('id');
+		    $table->integer('user_id');
 		    $table->integer('type');
 		    $table->integer('purpose');
             $table->string('title');
-		    $table->integer('ownerID');
+		    $table->string('ownerName');
 		    $table->string('address');
 		    $table->integer('region');
 		    $table->decimal('lat', 9, 6);

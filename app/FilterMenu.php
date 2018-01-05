@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PaymentMethods extends Model
+class FilterMenu extends Model
 {
     //
     protected $fillable = [
-        'name_ar','name_en', 'order','active','deleted'
+        'name_ar','name_en','purpose','type','order','active','deleted'
     ];
 }

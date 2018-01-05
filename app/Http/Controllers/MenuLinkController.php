@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Type;
+use App\MenuLink;
 use Illuminate\Http\Request;
 
-class TypesController extends Controller
+class MenuLinkController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class TypesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Test  $test
+     * @param  \App\MenuLink  $menuLink
      * @return \Illuminate\Http\Response
      */
-    public function show(Test $test)
+    public function show(MenuLink $menuLink)
     {
         //
     }
@@ -52,10 +52,10 @@ class TypesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Test  $test
+     * @param  \App\MenuLink  $menuLink
      * @return \Illuminate\Http\Response
      */
-    public function edit(Test $test)
+    public function edit(MenuLink $menuLink)
     {
         //
     }
@@ -64,10 +64,10 @@ class TypesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Test  $test
+     * @param  \App\MenuLink  $menuLink
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Test $test)
+    public function update(Request $request, MenuLink $menuLink)
     {
         //
     }
@@ -75,18 +75,11 @@ class TypesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Test  $test
+     * @param  \App\MenuLink  $menuLink
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Test $test)
+    public function destroy(MenuLink $menuLink)
     {
         //
-    }
-
-    //
-    public function allTypes(){
-        $types = Types::all();
-        //$types = Types::where('active', true)->orderBy('order')->pluck('name', 'id');
-        return view('add_add', compact('types'));
     }
 }

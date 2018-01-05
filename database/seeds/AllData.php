@@ -18,6 +18,7 @@ use App\FilterMenu;
 use App\Menu;
 use App\MenuLink;
 use App\Page;
+use App\Advertiser;
 
 class AllData extends Seeder
 {
@@ -135,6 +136,29 @@ class AllData extends Seeder
             $add->save();
         }
 
+        //Seed Advertisers
+        $advertiser_ar=['مالك','وسيط'];
+        $advertiser_en=['Owner','Brocker'];
+        foreach($advertiser_ar as $key=>$value){
+            $add = new Advertiser;
+            $add->name_ar = $value;
+            $add->name_en = $advertiser_en[$key];
+            $add->order = $key+1;
+            $add->save();
+        }
+
+        
+
+        //Seed Menus
+        $menu_ar=['خدماتنا','وصول سريع'];
+        $menu_en=['Services','Quick Links'];
+        foreach($menu_ar as $key=>$value){
+            $add = new Menu;
+            $add->name_ar = $value;
+            $add->name_en = $menu_en[$key];
+            $add->save();
+        }
+
         //Seed MenusLinks
         $menu_ar=['الأشتراكات','وظائف','أعلن معنا','تواصل معنا','الأحكام والشروط', 'بحث عن عقارات','إعلن عن عقارات','إدارة العقارات','تقارير الإسعار','وساطة عقارية','تقييم'];
         $menu_en=['Subcription','Jobs','Advertise With Us','Contact Us','Terms','Properties Search','Advertise for Property','Properties Managment','Report','Brokking','Rate'];
@@ -192,8 +216,6 @@ class AllData extends Seeder
         $add->multilingual = "1";
         $add->basic_language = "1";
         $add->save();
-
-
 
         //Seed RegionsTypes
         $regionsTypes_ar=['مدينة','حى'];

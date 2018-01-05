@@ -24,6 +24,7 @@
       <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet">
         <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
           <input class="mdl-textfield__input" type="text" id="city" value="" readonly tabIndex="-1">
+          <input  type="hidden"  value="" >
           <label for="city">
             <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
           </label>
@@ -38,6 +39,7 @@
       <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet">
         <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
           <input class="mdl-textfield__input" type="text" id="sample12" value="" readonly tabIndex="-1">
+          <input  type="hidden"  value="" >
           <label for="sample1">
             <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
           </label>
@@ -78,6 +80,7 @@
       <div class="mdl-cell mdl-cell--2-col">
         <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
           <input class="mdl-textfield__input" type="text" id="city2" value="" readonly tabIndex="-1">
+          <input  type="hidden"  value="" >
           <label for="city2">
             <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
           </label>
@@ -92,6 +95,7 @@
       <div class="mdl-cell mdl-cell--2-col">
         <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
           <input class="mdl-textfield__input" type="text" id="sample13" value="" readonly tabIndex="-1">
+          <input  type="hidden"  value="" >
           <label for="sample13">
             <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
           </label>

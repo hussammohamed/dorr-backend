@@ -44,8 +44,8 @@
                     </div>
                     <div class="mdl-cell mdl-cell--6-col">
                         <div class="mdl-textfield mdl-js-textfield u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-                            <input class="mdl-textfield__input" name="region" type="text" id="sample28" value="" readonly tabIndex="-1">
-                            <input value="" type="hidden"  name="region"/>
+                            <input class="mdl-textfield__input"  name="region" type="text" id="sample28" value="" readonly tabIndex="-1">
+                            <input value="" type="hidden" name="region"/>
                             <label for="sample28">
                                 <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
                             </label>
@@ -166,12 +166,12 @@
                             </label>
                             <label for="sampl4" class="mdl-textfield__label">الحمامات</label>
                             <ul for="sampl4" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                                <li class="mdl-menu__item" data-val="DE">1</li>
-                                <li class="mdl-menu__item" data-val="BY">2</li>
-                                <li class="mdl-menu__item" data-val="RU">3</li>
-                                <li class="mdl-menu__item" data-val="RU">4</li>
-                                <li class="mdl-menu__item" data-val="RU">5</li>
-                                <li class="mdl-menu__item" data-val="RU">6</li>
+                                <li class="mdl-menu__item" data-val="1">1</li>
+                                <li class="mdl-menu__item" data-val="2">2</li>
+                                <li class="mdl-menu__item" data-val="3">3</li>
+                                <li class="mdl-menu__item" data-val="4">4</li>
+                                <li class="mdl-menu__item" data-val="5">5</li>
+                                <li class="mdl-menu__item" data-val="6">6</li>
                             </ul>
                         </div>
                     </div>

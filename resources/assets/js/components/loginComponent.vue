@@ -10,7 +10,7 @@
       </div>
       <div class="mdl-dialog__logo">
         <div class="bg"></div>
-        <img src='images/dorr-logo.svg' alt="Dorr">
+        <img src="/images/dorr-logo.svg" alt="Dorr">
       </div>
     </div>
 
@@ -68,7 +68,12 @@ export default {
           data: $("#loginForm").serialize(), 
           dataType: "json",
           success: function(_response) {
+            if(self.$parent.url.length){
             location.pathname = self.$parent.url
+            }
+            else{
+              location.reload();
+            }
           },
           complete: function(_response) {
               

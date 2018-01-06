@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Response;
+use App\Http\Controllers\Auth\RegisterController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,6 +15,7 @@ use App\Http\Controllers\Response;
 
 
 
+Route::get('lang/{lang}','HomeController@lang');
 Route::group(['middleware'=>'language'],function(){
     Route::get('/', function () {
         return view('home');
@@ -54,8 +56,22 @@ Route::group(['middleware'=>'language'],function(){
 
     Route::get('/ajax-district/{city}', 'RegionsController@getDistricts');
 
+    
+
 
 });
 
 
-Route::get('lang/{lang}','HomeController@lang');
+//API
+Route::get('api/v1/user', 'UserController@getUser');
+Route::post('api/v1/users/create', 'Auth\RegisterController@newUser');
+
+Route::post('api/v1/users/createx', function(Illuminate\Http\Request $request){
+    return $request->all();
+});
+
+Route::post('Properties/search', 'PropertiesController@search');
+
+Route::get('api/v1/regions', 'RegionsController@getDistricts');
+Route::get('api/v1/cities', 'RegionsController@getDistricts');
+Route::get('api/v1/districts', 'RegionsController@getDistricts');

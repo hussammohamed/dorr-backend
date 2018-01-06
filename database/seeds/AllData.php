@@ -253,6 +253,7 @@ class AllData extends Seeder
             $add->email = $emails[$key];
             $add->mobile1 = $mobiles[$key];
             $add->password = bcrypt('123456');
+            $add->api_token = str_random(60);
             $add->save();
         }
         

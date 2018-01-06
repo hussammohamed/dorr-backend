@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App;
 use App\Region;
 use Illuminate\Http\Request;
 
@@ -85,7 +86,7 @@ class RegionsController extends Controller
 
     public function getDistricts($city)
     {
-        $districts = Regions::where('parent','=', 1)->get();
-        return \Response::json($districts);
+        $districts = Region::select('id', 'name_'.App::getLocale().' as name')->where('parent','=', $city)->get();
+        return \Response::json($districts, 200, [], JSON_UNESCAPED_UNICODE);
     }
 }

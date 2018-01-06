@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\PropertyImage;
 use Illuminate\Http\Request;
 
-class PropertyImageController extends Controller
+class PropertyImagesController extends Controller
 {
     /**
      * Display a listing of the resource.

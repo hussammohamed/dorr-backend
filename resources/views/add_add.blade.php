@@ -2,7 +2,8 @@
 
 <div class="content content-padding">
 
-    <form id="properties-form" class="wizard-form" action="{{ route('Properties.store') }}"  method="POST">
+    
+    <form id="properties-form" class="wizard-form" action="/Properties/store"  method="POST" enctype="multipart/form-data">
         {{ csrf_field() }}
         <div>
             <h3 class="hidden"></h3>

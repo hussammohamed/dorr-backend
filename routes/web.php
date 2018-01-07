@@ -56,9 +56,12 @@ Route::group(['middleware'=>'language'],function(){
 
 
     Route::get('Properties/create', 'PropertiesController@create')->name('createProperty');
-    Route::post('Properties', 'PropertiesController@store')->name('Properties.store');
-    Route::get('Properties/show/{id}', 'PropertiesController@show');
 
+    Route::post('Properties/store', 'PropertiesController@store');
+
+    Route::get('Properties/show/{id}', 'PropertiesController@show');
+    Route::post('Properties/addImages', 'PropertiesController@addImages');
+    
     Route::get('ajax-district/{city}', 'RegionsController@getDistricts');
 
 

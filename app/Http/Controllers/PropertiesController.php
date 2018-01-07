@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use Auth;
 use App;
 use App\Property;
+use App\PropertyImage;
 use App\Type;
 use App\Purpose;
 use App\FinishType;
@@ -128,31 +129,42 @@ class PropertiesController extends Controller
 
             $property = new Property;
             $property->user_id = Auth::user()->id;
-            $property->type = $request->type;
-            $property->purpose = $request->purpose;
-            $property->title = $request->title;
-            $property->address = $request->address;
-            $property->region = $request->region;
-            $property->lat = $request->lat;
-            $property->long = $request->long;
-            $property->description = $request->description;
-            $property->price = $request->price;
-            $property->year_of_construction = $request->year_of_construction;
-            $property->advertiser_type = $request->advertiser_type;
-            $property->area = $request->area;
-            $property->floor = $request->floor;
-            $property->finish_type = $request->finish_type;
-            $property->overlooks = $request->overlooks;
-            $property->payment_methods = $request->payment_methods;
-            $property->rooms = $request->rooms;
-            $property->bathrooms = $request->bathrooms;
+            $property->type = 1;
+            $property->purpose = 1;
+            $property->title = "qqq";
+            $property->address = "asd";
+            $property->region = 1;
+            $property->lat = 24.567108;
+            $property->long = 46.40625;
+            $property->description = "asd";
+            $property->price = 34;
+            $property->year_of_construction = 2342;
+            $property->advertiser_type = 3;
+            $property->area = 2;
+            $property->floor = 2;
+            $property->finish_type = 1;
+            $property->overlooks = 2;
+            $property->payment_methods = 9;
+            $property->rooms = 9;
+            $property->bathrooms = 3;
             $property->ad_id = time();
+
             $property->youtube = $request->youtube;
             $property->startDate = $request->startDate;
 
+
+
             $property->save();
 
+            
+            if ($request->hasFile('attachment')) {
+                
+                app('App\Http\Controllers\PropertyImagesController')->store($property->id, $request->file('attachment'));
+                
+            }
+
             return view('sucsess',['property'=>$property]);
+
         }else{
             return redirect('/');
         }

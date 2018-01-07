@@ -5,7 +5,7 @@
     </div>
     <div class="card--item card--item__text">
         <h5 class="card--text__title">{{$property->title}}</h5>
-        <p class="card--text__address">{{$property->description}}</p>
+        <p class="card--text__address">{{$property->address}}</p>
         <span class="card--text__size"> {{$property->area}} م
             <sup>2</sup>
         </span>

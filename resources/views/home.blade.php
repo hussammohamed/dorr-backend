@@ -10,30 +10,11 @@
             <a href="#" class="group-ad__more">المزيد</a>
         </div>
         <div id="owl-example" class="owl-carousel owl-centered owl-cards">
+            @foreach($featuredProperties as $property)
             <div class="item">
                 @include('components.vCard')
             </div>
-            <div class="item">
-                @include('components.vCard')
-            </div>
-            <div class="item">
-                @include('components.vCard')
-            </div>
-            <div class="item">
-                @include('components.vCard')
-            </div>
-            <div class="item">
-                @include('components.vCard')
-            </div>
-            <div class="item">
-                @include('components.vCard')
-            </div>
-            <div class="item">
-                @include('components.vCard')
-            </div>
-            <div class="item">
-                @include('components.vCard')
-            </div>
+            @endforeach
         </div>
     </div>
     <div class="group-ad">
@@ -42,30 +23,11 @@
             <a href="#" class="group-ad__more">المزيد</a>
         </div>
         <div id="owl-example" class="owl-carousel owl-centered owl-cards">
+            @foreach($latestProperties as $property)
             <div class="item">
                 @include('components.vCard')
             </div>
-            <div class="item">
-                @include('components.vCard')
-            </div>
-            <div class="item">
-                @include('components.vCard')
-            </div>
-            <div class="item">
-                @include('components.vCard')
-            </div>
-            <div class="item">
-                @include('components.vCard')
-            </div>
-            <div class="item">
-                @include('components.vCard')
-            </div>
-            <div class="item">
-                @include('components.vCard')
-            </div>
-            <div class="item">
-                @include('components.vCard')
-            </div>
+            @endforeach
         </div>
     </div>
     @include('components.appsDownload') @include('components.ourServices')

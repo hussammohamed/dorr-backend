@@ -169,19 +169,11 @@ class PropertiesController extends Controller
     {
         //
         $property = Property::find($id);
-        $type = Type::find($property->type);
-        $finishType = FinishType::find($property->finish_type);
-        $advertiserType = Advertiser::find($property->advertiser_type);
-        $user = User::find($property->user_id);
         $similarProperties = Property::where('region','=', $property->region)->
         where('type','=', $property->type)->
         where('active','=', 1)->where('deleted','=', 0)->limit(4)->get();
-        $propertyOffers = PropertyOffer::where('property_id', '=', $property->id)->get();
-        foreach ($propertyOffers as $propertyOffer) {
-            $propertyOffer->$user = User::find($propertyOffer->user_id);
-        }
-        
-        return view('/property',['name'=>'name_'.App::getLocale(),'property'=>$property, 'type'=>$type, 'advertiserType'=>$advertiserType, 'finishType'=>$finishType, 'user'=>$user, 'similarProperties'=>$similarProperties, 'propertyOffers'=>$propertyOffers]);
+        $propertyOffers = PropertyOffer::where('property_id', '=', $property->id)->get();   
+        return view('/property',['name'=>'name_'.App::getLocale(),'property'=>$property, 'similarProperties'=>$similarProperties, 'propertyOffers'=>$propertyOffers]);
     }
 
     /**

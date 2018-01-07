@@ -33,11 +33,24 @@ class PropertyImagesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store( $property_id, $files )
     {
         //
+        foreach($files as $key=>$file){
+            $extension = $file->getClientOriginalExtension();
+            $fileName = $property_id."-".time()."-".str_random().".".$extension;
+            $folderpath  = 'upload/properties/';
+            $file->move($folderpath , $fileName);
+
+            $img = new PropertyImage;
+            $img->property_id = 1;
+            $img->path = $fileName;
+            $img->order = $key+1;
+            $img->save();
+        }
     }
 
+    
     /**
      * Display the specified resource.
      *

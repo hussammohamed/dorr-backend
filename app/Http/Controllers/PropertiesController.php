@@ -14,6 +14,7 @@ use App\Overlook;
 use App\PaymentMethod;
 use App\Advertiser;
 use App\User;
+use App\PropertyOffer;
 
 use App\Http\Resources\PropertyResource;
 //use App\Http\Resources\PropertyCollection;
@@ -172,7 +173,15 @@ class PropertiesController extends Controller
         $finishType = FinishType::find($property->finish_type);
         $advertiserType = Advertiser::find($property->advertiser_type);
         $user = User::find($property->user_id);
-        return view('/property',['name'=>'name_'.App::getLocale(),'property'=>$property, 'type'=>$type, 'advertiserType'=>$advertiserType, 'finishType'=>$finishType, 'user'=>$user]);
+        $similarProperties = Property::where('region','=', $property->region)->
+        where('type','=', $property->type)->
+        where('active','=', 1)->where('deleted','=', 0)->limit(4)->get();
+        $propertyOffers = PropertyOffer::where('property_id', '=', $property->id)->get();
+        foreach ($propertyOffers as $propertyOffer) {
+            $propertyOffer->$user = User::find($propertyOffer->user_id);
+        }
+        
+        return view('/property',['name'=>'name_'.App::getLocale(),'property'=>$property, 'type'=>$type, 'advertiserType'=>$advertiserType, 'finishType'=>$finishType, 'user'=>$user, 'similarProperties'=>$similarProperties, 'propertyOffers'=>$propertyOffers]);
     }
 
     /**

@@ -34,9 +34,9 @@ Route::group(['middleware'=>'language'],function(){
     Route::get('/search', function () {
         return view('searchPage');
     });
-    Route::get('/add_ad', function () {
-        return view('add_add');
-    });
+    // Route::get('/add_ad', function () {
+    //     return view('add_add');
+    // });
     Route::get('/report', function () {
         return view('report');
     });

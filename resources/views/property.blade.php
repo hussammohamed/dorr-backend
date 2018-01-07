@@ -156,14 +156,14 @@
                 <div class="group-ad__header">
                     <h6 class="group-ad__title">عروض اسعار</h6>
                 </div>
-
+                @foreach($propertyOffers as $offer)
                 <div class="mdl-card mdl-card--pro  mdl-shadow--2dp u-auto-width u-mbuttom16 u-height-auto u-padding-top-45">
 
                     <div class="title">
                         <div class="mdl-avatar">
                             <img class="" src={{ asset ( 'images/face.png') }} alt="">
                         </div>
-                        <h5 class="u-primary-darker-color">سليمان بن عدنان الثقفي</h5>
+                        <h5 class="u-primary-darker-color"></h5>
                     </div>
                     <div class="contet">
                         <p class="u-headline-color">ملحق دور ثالث فى عمارة تجارية بدون مصعد كهرباء مشترك عمارة هادئة جدا مكونة </p>
@@ -172,7 +172,7 @@
                     <span class="card-label top-label-left has-secondary-base-bg">عرض السعر 3,180,000 ريال</span>
                 </div>
               
-              
+              @endforeach
            
                
              
@@ -268,18 +268,11 @@
 
         </div>
         <div class="mdl-grid">
+        @foreach($similarProperties as $property)
             <div class="mdl-cell mdl-cell--3-col">
                 @include('components.vCard')
             </div>
-            <div class="mdl-cell mdl-cell--3-col">
-                @include('components.vCard')
-            </div>
-            <div class="mdl-cell mdl-cell--3-col">
-                @include('components.vCard')
-            </div>
-            <div class="mdl-cell mdl-cell--3-col">
-                @include('components.vCard')
-            </div>
+            @endforeach
         </div>
     </div>
 </div>

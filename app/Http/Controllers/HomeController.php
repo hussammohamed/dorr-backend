@@ -13,7 +13,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        //$this->middleware('auth');
     }
 
     /**
@@ -28,6 +28,7 @@ class HomeController extends Controller
 
     public function lang($lang)
     {
+        
         if(in_array($lang,['ar','en'])){
             if(auth()->user()){
                 $user = auth()->user();
@@ -38,6 +39,7 @@ class HomeController extends Controller
                     session()->forget('lang');
                 }
                 session()->put('lang',$lang);
+                
             }
         }else{
             if(auth()->user()){

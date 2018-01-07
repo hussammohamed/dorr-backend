@@ -27,6 +27,32 @@ class PropertiesController extends Controller
         //
     }
 
+    public function search(Request $request)
+    {
+        //
+        //$purpose = $request->purpose;
+        //$type = $request->type;
+        $city = $request->city;
+        $district = $request->district;
+        $priceFrom = $request->priceFrom;
+        $priceTo = $request->priceTo;
+        $q = Property::query();
+        if($city!=""){$q->where('region','=', $city);}
+        if($district!=""){$q->where('region','=', $district);}
+        
+        $q->whereBetween('price', [$priceFrom, $priceTo]);
+        $property = $q->get();
+
+
+        /*$property = Property::
+                    where('region','=', $city)->
+                    where('region','=', $district)->
+                    whereBetween('price', [$priceFrom, $priceTo])->
+                    get();*/
+        return $property;
+
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -45,7 +71,6 @@ class PropertiesController extends Controller
             $paymentMethods = PaymentMethod::where('active',1)->where('deleted',0)->orderby('order')->get();
             $advertiserTypes = Advertiser::where('active',1)->where('deleted',0)->orderby('order')->get();
             return view('add_add',['name'=>'name_'.App::getLocale(),'types'=>$types, 'purposes'=>$purposes, 'cities'=>$cities, 'finishTypes'=>$finishTypes, 'overlooks'=>$overlooks, 'paymentMethods'=>$paymentMethods, 'advertiserTypes'=>$advertiserTypes]);
-
         }else{
             return redirect('/');
         }
@@ -88,8 +113,8 @@ class PropertiesController extends Controller
 
             $property->save();
 
-            //$this->show($property->id);
-            return redirect('/Properties/'.$property->id);
+
+            return redirect('/property/'.$property->id);
         }else{
             return redirect('/');
         }

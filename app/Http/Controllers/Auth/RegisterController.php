@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
+use App;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
+use Illuminate\Http\Request;
 class RegisterController extends Controller
 {
     /*
@@ -68,6 +69,20 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
             'mobile1' => $data['mobile1'],
+            'api_token' => str_random(60),
+        ]);
+    }
+
+    
+    public function newUser(Request $request)
+    {   
+        $data = $request->all();
+        return User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => bcrypt($data['password']),
+            'mobile1' => $data['mobile1'],
+            'api_token' => str_random(60),
         ]);
     }
     

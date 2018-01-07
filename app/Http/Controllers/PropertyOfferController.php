@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App;
-use App\FilterMenu;
-use App\Http\Resources\FilterMenuResource;
+use App\PropertyOffer;
 use Illuminate\Http\Request;
+use App\Http\Resources\PropertyOfferResource;
 
-class FilterMenuController extends Controller
+class PropertyOfferController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,6 +16,13 @@ class FilterMenuController extends Controller
     public function index()
     {
         //
+    }
+
+    public function getPropertyOffers($id){
+        //
+
+        $property_offers = PropertyOffer::all();
+        return PropertyOfferResource::collection($property_offers);
     }
 
     /**
@@ -43,10 +49,10 @@ class FilterMenuController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\FilterMenu  $filterMenu
+     * @param  \App\PropertyOffer  $propertyOffer
      * @return \Illuminate\Http\Response
      */
-    public function show(FilterMenu $filterMenu)
+    public function show(PropertyOffer $propertyOffer)
     {
         //
     }
@@ -54,10 +60,10 @@ class FilterMenuController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\FilterMenu  $filterMenu
+     * @param  \App\PropertyOffer  $propertyOffer
      * @return \Illuminate\Http\Response
      */
-    public function edit(FilterMenu $filterMenu)
+    public function edit(PropertyOffer $propertyOffer)
     {
         //
     }
@@ -66,10 +72,10 @@ class FilterMenuController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\FilterMenu  $filterMenu
+     * @param  \App\PropertyOffer  $propertyOffer
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, FilterMenu $filterMenu)
+    public function update(Request $request, PropertyOffer $propertyOffer)
     {
         //
     }
@@ -77,18 +83,11 @@ class FilterMenuController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\FilterMenu  $filterMenu
+     * @param  \App\PropertyOffer  $propertyOffer
      * @return \Illuminate\Http\Response
      */
-    public function destroy(FilterMenu $filterMenu)
+    public function destroy(PropertyOffer $propertyOffer)
     {
         //
-    }
-
-    public function getFilterMenus()
-    {
-        $filters = FilterMenu::select('id', 'name_'.App::getLocale().' as name', 'type', 'purpose')
-        ->where('active','=', 1)->where('deleted','=', 0)->orderby('order')->get();
-        return FilterMenuResource::collection($filters);
     }
 }

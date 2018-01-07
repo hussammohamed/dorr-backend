@@ -46,15 +46,15 @@ Route::group(['middleware'=>'language'],function(){
         return view('sucsess');
     });
 
-    Route::get('/myAccount', 'UserController@edit');
-    Route::post('/myAccount/update', 'UserController@update');
-    Route::post('/myAccount/updatePassword', 'UserController@updatePassword');
+    Route::get('myAccount', 'UserController@edit');
+    Route::post('myAccount/update', 'UserController@update');
+    Route::post('myAccount/updatePassword', 'UserController@updatePassword');
 
     Route::get('Properties/create', 'PropertiesController@create')->name('createProperty');
     Route::get('Properties/store', 'PropertiesController@store');
     Route::get('Properties/show/{id}', 'PropertiesController@show');
 
-    Route::get('/ajax-district/{city}', 'RegionsController@getDistricts');
+    Route::get('ajax-district/{city}', 'RegionsController@getDistricts');
 
     
 
@@ -64,14 +64,20 @@ Route::group(['middleware'=>'language'],function(){
 
 //API
 Route::get('api/v1/user', 'UserController@getUser');
+Route::post('api/v1/ooo', 'Auth\LoginController@iii');
+
 Route::post('api/v1/users/create', 'Auth\RegisterController@newUser');
-
-Route::post('api/v1/users/createx', function(Illuminate\Http\Request $request){
-    return $request->all();
-});
-
-Route::post('Properties/search', 'PropertiesController@search');
-
-Route::get('api/v1/regions', 'RegionsController@getDistricts');
-Route::get('api/v1/cities', 'RegionsController@getDistricts');
-Route::get('api/v1/districts', 'RegionsController@getDistricts');
+Route::post('api/v1/users/login', 'Auth\LoginController@setLogin');
+Route::post('api/v1/properties/search', 'PropertiesController@getSearch');
+Route::get('api/v1/properties/featured', 'PropertiesController@getFeatured');
+Route::get('api/v1/properties/latest', 'PropertiesController@getLatest');
+Route::get('api/v1/properties/district/{id}', 'PropertiesController@getListByDistrict');
+Route::get('api/v1/property/{id}', 'PropertiesController@getProperty');
+Route::get('api/v1/property/similer/{id}', 'PropertiesController@getSimilerProperties');
+Route::get('api/v1/property/offers/{id}', 'PropertyOfferController@getPropertyOffers');
+Route::get('api/v1/properties', 'PropertiesController@getList');
+Route::get('api/v1/regions', 'RegionsController@getRegions');
+Route::get('api/v1/regions/districts', 'RegionsController@getDistricts');
+Route::get('api/v1/regions/{city}', 'RegionsController@getDistrictsByCity');
+Route::get('api/v1/regions', 'RegionsController@getCities');
+Route::get('api/v1/filters', 'FilterMenuController@getFilterMenus');

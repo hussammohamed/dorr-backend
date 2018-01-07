@@ -48,6 +48,21 @@ class LoginController extends Controller
         
     public function login(){
         if(Auth::attempt([$this->userlogin() => request()->email , 'password' => request()->password])){
+            return "iii";
+        }else{
+            return 'error';
+        }
+    }
+
+    public function iii(){
+        
+            return '777';
+    }
+
+
+    
+    public function setLogin(Request $request){
+        if(Auth::attempt([$this->userlogin() => $request->email , 'password' => $request->password])){
             return redirect()->intended('/');
         }else{
             return 'error';

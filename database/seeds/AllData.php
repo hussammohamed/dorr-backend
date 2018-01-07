@@ -19,6 +19,7 @@ use App\Menu;
 use App\MenuLink;
 use App\Page;
 use App\Advertiser;
+use App\PropertyOffer;
 
 class AllData extends Seeder
 {
@@ -121,7 +122,7 @@ class AllData extends Seeder
             $add->name_ar = $value;
             $add->name_en = $filter_menu_en[$key];
             $add->type = $types[$key];;
-            $add->purpose = 1;
+            $add->purpose = 2;
             $add->order = $key+1;
             $add->save();
         }
@@ -171,6 +172,21 @@ class AllData extends Seeder
             $add->link = "#";
             $add->target = "_blank";
             $add->order = $key+1;
+            $add->save();
+        }
+
+
+        //Seed PropertyOffers
+        $property_id=['1','1','2','1','1','2','2','3','3','2'];
+        $description=['تعليق 1','تعليق 2','3','تعليق 4','5','تعليق 6','تعليق 7','تعليق 8','9','تعليق 10'];
+        $price=['500000','520000','700000','530000','490000','710000','750000','1000000','1050000','800000'];
+        $user_id=['1','0','0','2','0','0','0','1','0','0','2'];
+        foreach($property_id as $key=>$value){
+            $add = new PropertyOffer;
+            $add->property_id = $value;
+            $add->description = $description[$key];
+            $add->price = $price[$key];
+            $add->user_id = $user_id[$key];
             $add->save();
         }
 
@@ -233,12 +249,16 @@ class AllData extends Seeder
         $regions_en=['Riyadh','Diriyah','Munsiyah','Mishal','Medina','Abyar Ali','Shuran','Teba'];
         $parent=[0,1,1,1,0,5,5,5];
         $types=[1,2,2,2,1,2,2,2];
+        $lats=['24.7241503','24.7584749','24.6540674','24.7584739','24.4710078','24.4135686','24.4235686','24.5235686'];
+        $longs=['46.2620343','46.7278451','46.8213479','46.7409774','39.47747','39.5367147','39.5067147','39.5567147'];
         foreach($regions_ar as $key=>$value){
             $add = new Region;
             $add->name_ar = $value;
             $add->name_en = $regions_en[$key];
             $add->parent = $parent[$key];
             $add->type = $types[$key];
+            $add->lat = $lats[$key];
+            $add->long = $longs[$key];
             $add->order = $key+1;
             $add->save();
         }
@@ -266,8 +286,8 @@ class AllData extends Seeder
         $property->title = "شقة فى احسن ضواحى الرياض";
         $property->address = "شارع 5";
         $property->region = "2";
-        $property->lat = "2.2222";
-        $property->long = "3.222";
+        $property->lat = "24.770387";
+        $property->long = "46.7129167";
         $property->description = "وصف للوحدة";
         $property->price = 5000000;
         $property->year_of_construction = "2000";
@@ -292,8 +312,8 @@ class AllData extends Seeder
         $property->title = "فيلا سوبر لوكس";
         $property->address = "شارع 4";
         $property->region = "6";
-        $property->lat = "5.2222";
-        $property->long = "6.222";
+        $property->lat = "24.413797";
+        $property->long = "39.545961";
         $property->description = "وصف للوحدة";
         $property->price = 7000000;
         $property->year_of_construction = "1980";

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRegionsTable extends Migration
+class CreatePropertyOffersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,12 @@ class CreateRegionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('regions', function (Blueprint $table) {
+        Schema::create('property_offers', function (Blueprint $table) {
             $table->increments('id');
-		    $table->string('name_ar');
-		    $table->string('name_en');
-            $table->integer('parent');
-		    $table->decimal('lat', 9, 6);
-		    $table->decimal('long', 9, 6);
-            $table->integer('type');
-            $table->integer('order')->default('0');
+		    $table->integer('property_id');
+		    $table->text('description');
+		    $table->integer('price');
+            $table->integer('user_id')->default('0');
 		    $table->boolean('active')->default('1');
 		    $table->boolean('deleted')->default('0');
             $table->timestamps();
@@ -35,6 +32,6 @@ class CreateRegionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('regions');
+        Schema::dropIfExists('property_offers');
     }
 }

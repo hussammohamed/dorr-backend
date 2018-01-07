@@ -13,6 +13,10 @@ use App\Region;
 use App\Overlook;
 use App\PaymentMethod;
 use App\Advertiser;
+
+use App\Http\Resources\PropertyResource;
+//use App\Http\Resources\PropertyCollection;
+
 use Illuminate\Http\Request;
 
 class PropertiesController extends Controller
@@ -27,32 +31,65 @@ class PropertiesController extends Controller
         //
     }
 
-    public function search(Request $request)
+    public function getSearch(Request $request)
     {
         //
         //$purpose = $request->purpose;
         //$type = $request->type;
+        $keyword = $request->keyword;
         $city = $request->city;
         $district = $request->district;
-        $priceFrom = $request->priceFrom;
-        $priceTo = $request->priceTo;
+        ($request->priceFrom=="")? $priceFrom=0 :$priceFrom=$request->priceFrom ;
+        ($request->priceTo=="")? $priceTo=99999999999 :$priceTo=$request->priceTo ;
         $q = Property::query();
+        if($keyword!=""){$q->where('title','like', '%'.$keyword.'%');}
         if($city!=""){$q->where('region','=', $city);}
         if($district!=""){$q->where('region','=', $district);}
-        
         $q->whereBetween('price', [$priceFrom, $priceTo]);
-        $property = $q->get();
+        $property = $q->where('active','=', 1)->where('deleted','=', 0)->get();
 
+        return PropertyResource::collection($property);
 
-        /*$property = Property::
-                    where('region','=', $city)->
-                    where('region','=', $district)->
-                    whereBetween('price', [$priceFrom, $priceTo])->
-                    get();*/
+    }
+
+    public function getLatest(Request $request)
+    {
+        //
+        $property = Property::where('active','=', 1)->where('deleted','=', 0)->orderBy('created_at', 'desc')->limit(4)->get();
         return $property;
 
     }
 
+    public function getList(Request $request)
+    {
+        //
+        $property = Property::where('active','=', 1)->where('deleted','=', 0)->get();
+        return PropertyResource::collection($property);
+    }
+
+    public function getListByDistrict($id)
+    {
+        //
+        $property = Property::where('region','=', $id)->where('active','=', 1)->where('deleted','=', 0)->get();
+        return PropertyResource::collection($property);
+    }
+
+    public function getFeatured()
+    {
+        //
+        $property = Property::where('active','=', 1)->where('deleted','=', 0)->where('featured','=', 1)->limit(4)->get();
+        return $property;
+        
+    }
+
+    public function getSimilerProperties($id){
+        //
+
+        $similar_property = Property::where('region','=', Property::find($id)->region)->
+        where('type','=', Property::find($id)->type)->
+        where('active','=', 1)->where('deleted','=', 0)->limit(10)->get();
+        return PropertyResource::collection($similar_property);
+    }
     /**
      * Show the form for creating a new resource.
      *

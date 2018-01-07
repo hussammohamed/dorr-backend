@@ -70,8 +70,6 @@ Route::group(['middleware'=>'language'],function(){
 
 //API
 Route::get('api/v1/user', 'UserController@getUser');
-Route::post('api/v1/ooo', 'Auth\LoginController@iii');
-
 Route::post('api/v1/users/create', 'Auth\RegisterController@newUser');
 Route::post('api/v1/users/login', 'Auth\LoginController@setLogin');
 Route::post('api/v1/properties/search', 'PropertiesController@getSearch');
@@ -88,3 +86,10 @@ Route::get('api/v1/regions/{city}', 'RegionsController@getDistrictsByCity');
 Route::get('api/v1/regions', 'RegionsController@getCities');
 Route::get('api/v1/filters', 'FilterMenuController@getFilterMenus');
 
+
+
+Route::group(['middleware'=>'auth:api'], function(){
+	Route::get('test', function(){
+        return "hi";
+    });
+});

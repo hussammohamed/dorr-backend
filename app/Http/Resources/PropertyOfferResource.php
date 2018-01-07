@@ -20,9 +20,9 @@ class PropertyOfferResource extends Resource
             'description' => $this->description,
             'price' => $this->price,
             'offerOwner' => [
-                "id"=> 1,
-                "name"=> User::find(1)->name,
-                "phone"=> User::find(1)->phone,
+                'id'=> $this->user_id,
+                'name'=> ($this->user_id == 0 ) ? 'Unkowen' : User::find(1)->name,
+                'phone'=> ($this->user_id == 0 ) ? 'Unkowen' : User::find(1)->phone,
             ],
         ];
     }

@@ -76,12 +76,11 @@ class RegisterController extends Controller
     
     public function newUser(Request $request)
     {   
-        $data = $request->all();
         return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-            'mobile1' => $data['mobile1'],
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'mobile1' => $request->mobile1,
             'api_token' => str_random(60),
         ]);
     }

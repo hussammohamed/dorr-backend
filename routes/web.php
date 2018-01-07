@@ -17,12 +17,12 @@ use App\Http\Controllers\Auth\RegisterController;
 
 Route::get('lang/{lang}','HomeController@lang');
 Route::group(['middleware'=>'language'],function(){
-    Route::get('/', function () {
-        return view('home');
-    });
+    // Route::get('/', function () {
+    //     return view('home');
+    // });
     Auth::routes();
 
-    Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/', 'HomeController@index')->name('home');
 
     // Route::get('/property', function () {
     //     return view('property');
@@ -51,6 +51,7 @@ Route::group(['middleware'=>'language'],function(){
     });
 
     Route::get('myAccount', 'UserController@edit');
+    Route::get('myAccount/Properties','UserController@getUserProperties');
     Route::post('myAccount/update', 'UserController@update');
     Route::post('myAccount/updatePassword', 'UserController@updatePassword');
 

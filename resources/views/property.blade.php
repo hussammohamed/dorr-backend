@@ -93,7 +93,7 @@
                         <tr>
                             <td class="u-no-border-top header" width="8%">النوع</td>
                             <td class="u-no-border-top">
-                            {{ $type->$name}}
+                            {{ \App\Type::find($property->type)->$name }}
                             </td>
 
                         </tr>
@@ -107,7 +107,7 @@
                         <tr>
                             <td class="u-no-border-top header" width="8%">نوع المعلن</td>
                             <td class="u-no-border-top">
-                            {{ $advertiserType->$name }}
+                            {{ \App\Advertiser::find($property->advertiser_type)->$name }}
                             </td>
 
                         </tr>
@@ -142,7 +142,7 @@
                         <tr>
                             <td class="u-no-border-top header" width="8%">نوع التشطيب</td>
                             <td class="u-no-border-top">
-                            {{ $finishType->$name }}    
+                            {{ \App\FinishType::find($property->finish_type)->$name }}  
                             
                             </td>
 
@@ -163,13 +163,16 @@
                         <div class="mdl-avatar">
                             <img class="" src={{ asset ( 'images/face.png') }} alt="">
                         </div>
-                        <h5 class="u-primary-darker-color"></h5>
+                        <h5 class="u-primary-darker-color">
+                        
+                        {{ ($offer->user_id == 0 ) ? 'Unkowen' :\App\User::find($offer->user_id)->name }}
+                        </h5>
                     </div>
                     <div class="contet">
-                        <p class="u-headline-color">ملحق دور ثالث فى عمارة تجارية بدون مصعد كهرباء مشترك عمارة هادئة جدا مكونة </p>
+                        <p class="u-headline-color">{{$offer->description}} </p>
                     </div>
 
-                    <span class="card-label top-label-left has-secondary-base-bg">عرض السعر 3,180,000 ريال</span>
+                    <span class="card-label top-label-left has-secondary-base-bg">عرض السعر {{$offer->price}} ريال</span>
                 </div>
               
               @endforeach
@@ -219,7 +222,7 @@
 
                             </td>
                             <td class="u-no-border-top" width="2%">
-                            {{$user->name}}
+                            {{ \App\User::find($property->user_id)->name }}  
                             </td>
 
                         </tr>

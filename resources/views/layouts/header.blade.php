@@ -116,7 +116,7 @@
                         <a href="{{ asset('/myAccount')}}">حسابي</a>
                     </li>
                     <li>
-                        <a href="#">إعلانتي</a>
+                        <a href="{{asset('myAccount/Properties')}}">إعلانتي</a>
                     </li>
                     <li>
                         <a href="#">إدارة العقارات</a>

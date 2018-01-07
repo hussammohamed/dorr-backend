@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App;
 use App\FilterMenu;
+use App\Property;
 
 class HomeController extends Controller
 {
@@ -26,7 +27,9 @@ class HomeController extends Controller
     public function index()
     {
         $filterMenus = FilterMenu::all();
-        return view('home', ['name'=>'name_'.App::getLocale(), 'filterMenus'=>$filterMenus,]);
+        $latestProperties = Property::where('active','=', 1)->where('deleted','=', 0)->orderBy('created_at', 'desc')->limit(4)->get();
+        $featuredProperties = Property::where('active','=', 1)->where('deleted','=', 0)->where('featured','=', 1)->limit(4)->get();
+        return view('home', ['name'=>'name_'.App::getLocale(), 'filterMenus'=>$filterMenus, 'latestProperties'=>$latestProperties, 'featuredProperties'=>$featuredProperties]);
     }
 
     public function lang($lang)

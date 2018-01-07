@@ -65,9 +65,6 @@ Route::group(['middleware'=>'language'],function(){
 
 });
 
-<<<<<<< HEAD
-Route::get('lang/{lang}','HomeController@lang');
-=======
 
 //API
 Route::get('api/v1/user', 'UserController@getUser');
@@ -82,4 +79,4 @@ Route::post('Properties/search', 'PropertiesController@search');
 Route::get('api/v1/regions', 'RegionsController@getDistricts');
 Route::get('api/v1/cities', 'RegionsController@getDistricts');
 Route::get('api/v1/districts', 'RegionsController@getDistricts');
->>>>>>> development
+

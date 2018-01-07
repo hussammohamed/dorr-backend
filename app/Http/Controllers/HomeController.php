@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App;
+use App\FilterMenu;
 
 class HomeController extends Controller
 {
@@ -23,7 +25,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $filterMenus = FilterMenu::all();
+        return view('home', ['name'=>'name_'.App::getLocale(), 'filterMenus'=>$filterMenus,]);
     }
 
     public function lang($lang)

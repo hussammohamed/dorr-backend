@@ -103,10 +103,10 @@ function initMap() {
         center: uluru,
         disableDefaultUI: true
     });
-    // $.get('/regions', function (data) {
-    //     //success data
+    $.get('/api/v1/regions/cities', function (data) {
+        console.log(data)
       
-    // }) 
+    }) 
     regions.forEach(function (el) {
         var overlay = new CustomMarker(new google.maps.LatLng(el.location.lat, el.location.long), map, el, 'region');
     });

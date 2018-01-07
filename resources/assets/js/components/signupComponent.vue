@@ -78,7 +78,7 @@ export default {
       $("#signupForm").submit(function(event) {
         event.preventDefault();
         $.ajax({
-          url: "/register",
+          url: "/api/v1/users/create",
           type: "post",
           data: $("#signupForm").serialize(),
           dataType: "json",
@@ -87,6 +87,7 @@ export default {
             location.reload();
           },
           complete: function(_response) {
+            location.reload();
             if(_response.state() == "rejected"){
                 self.errors = JSON.parse(_response.responseText).errors
             }

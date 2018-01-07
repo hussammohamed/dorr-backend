@@ -65,7 +65,7 @@ Route::group(['middleware'=>'language'],function(){
     
     Route::get('ajax-district/{city}', 'RegionsController@getDistricts');
 
-
+    Route::post('properties/search', 'PropertiesController@porpertySearch')->name('searchProperty');;
     
 
 

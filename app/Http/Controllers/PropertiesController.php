@@ -16,6 +16,7 @@ use App\PaymentMethod;
 use App\Advertiser;
 use App\User;
 use App\PropertyOffer;
+use App\FilterMenu;
 
 use App\Http\Resources\PropertyResource;
 //use App\Http\Resources\PropertyCollection;
@@ -54,6 +55,28 @@ class PropertiesController extends Controller
         return PropertyResource::collection($property);
 
     }
+    public function porpertySearch(Request $request)
+    {
+        //
+        //$purpose = $request->purpose;
+        //$type = $request->type;
+        $filterMenus = FilterMenu::all();
+        $keyword = $request->keyword;
+        $city = $request->city;
+        $district = $request->district;
+        ($request->priceFrom=="")? $priceFrom=0 :$priceFrom=$request->priceFrom ;
+        ($request->priceTo=="")? $priceTo=99999999999 :$priceTo=$request->priceTo ;
+        $q = Property::query();
+        if($keyword!=""){$q->where('title','like', '%'.$keyword.'%');}
+        if($city!=""){$q->where('region','=', $city);}
+        if($district!=""){$q->where('region','=', $district);}
+        $q->whereBetween('price', [$priceFrom, $priceTo]);
+        $property = $q->where('active','=', 1)->where('deleted','=', 0)->get();
+
+        return view('searchPage',['name'=>'name_'.App::getLocale(), 'filterMenus'=>$filterMenus, 'properties'=>PropertyResource::collection($property), ]); ;
+
+    }
+
 
     public function getLatest(Request $request)
     {
@@ -183,8 +206,9 @@ class PropertiesController extends Controller
         $similarProperties = Property::where('region','=', $property->region)->
         where('type','=', $property->type)->
         where('active','=', 1)->where('deleted','=', 0)->limit(4)->get();
-        $propertyOffers = PropertyOffer::where('property_id', '=', $property->id)->get();   
-        return view('/property',['name'=>'name_'.App::getLocale(),'property'=>$property, 'similarProperties'=>$similarProperties, 'propertyOffers'=>$propertyOffers]);
+        $propertyOffers = PropertyOffer::where('property_id', '=', $property->id)->get();
+        $propertyImages = PropertyImage::where('property_id', '=', $property->id)->get();   
+        return view('/property',['name'=>'name_'.App::getLocale(),'property'=>$property, 'similarProperties'=>$similarProperties, 'propertyOffers'=>$propertyOffers, 'propertyImages'=>$propertyImages]);
     }
 
     /**

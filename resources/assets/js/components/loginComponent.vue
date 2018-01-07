@@ -63,7 +63,7 @@ export default {
       $("#loginForm").submit(function(event) {
         event.preventDefault();
         $.ajax({
-          url: "/login",
+          url: "/api/v1/users/login",
           type: "post",
           data: $("#loginForm").serialize(), 
           dataType: "json",

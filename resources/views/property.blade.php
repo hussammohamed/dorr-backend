@@ -21,38 +21,20 @@
         <div class="mdl-cell mdl-cell--9-col">
             <div class="mdl-card  mdl-shadow--2dp u-auto-width u-mbuttom16 gallery-card">
                 <div class="gallery-img" id="galleryImg">
-
-                    <iframe src="https://www.youtube.com/embed/rwvmru5JmXk?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" gesture="media"
-                        allow="encrypted-media" allowfullscreen></iframe>
-
+                @foreach($propertyImages as $propertyImage => $value)
+                @if($propertyImage == 0)
+                <img  src="{{ asset ('/upload/properties') }}/{{$value->path}}" alt="">
+                     
+                        @endif
+                @endforeach
                 </div>
                 <div id="owl-example" class="owl-carousel owl-centered">
+                    @foreach($propertyImages as $propertyImage)
                     <div class="item">
                         <div class="owl-click"></div>
-                        <iframe class="target" src="https://www.youtube.com/embed/rwvmru5JmXk?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0"
-                            gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+                        <img class="target" src="{{ asset ('/upload/properties') }}/{{$propertyImage->path}}" alt="">
                     </div>
-                    <div class="item">
-                        <div class="owl-click"></div>
-                        <img class="target" src={{ asset ( 'images/card1.png') }} alt="">
-                    </div>
-                    <div class="item">
-                        <div class="owl-click"></div>
-                        <img class="target" src={{ asset ( 'images/card1.png') }} alt="">
-                    </div>
-                    <div class="item">
-                        <div class="owl-click"></div>
-                        <img class="target" src={{ asset ( 'images/card1.png') }} alt="">
-                    </div>
-                    <div class="item">
-                        <div class="owl-click"></div>
-                        <img class="target" src={{ asset ( 'images/card1.png') }} alt="">
-                    </div>
-                    <div class="item">
-                        <div class="owl-click"></div>
-                        <img class="target" src={{ asset ( 'images/card1.png') }} alt="">
-                    </div>
-
+                    @endforeach
 
 
                 </div>

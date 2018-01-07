@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App;
 use App\Region;
+use App\Http\Resources\RegionResource;
+use App\Http\Resources\RegionCollection;
 use Illuminate\Http\Request;
 
 class RegionsController extends Controller
@@ -84,9 +86,29 @@ class RegionsController extends Controller
         //
     }
 
-    public function getDistricts($city)
+    public function getDistrictsByCity($city)
     {
-        $districts = Region::select('id', 'name_'.App::getLocale().' as name')->where('parent','=', $city)->get();
-        return \Response::json($districts, 200, [], JSON_UNESCAPED_UNICODE);
+        $regions = Region::select('id', 'name_'.App::getLocale().' as name', 'lat', 'long')->where('parent','=', $city)
+        ->where('active','=', 1)->where('deleted','=', 0)->orderby('order')->get();
+        return RegionResource::collection($regions);
+        
     }
+
+    public function getDistricts()
+    {
+        $regions = Region::select('id as value', 'name_'.App::getLocale().' as name' )
+        ->where('type','=', 2)
+        ->where('active','=', 1)->where('deleted','=', 0)->orderby('name')->get();
+        return $regions;
+        
+    }
+
+    public function getCities()
+    {
+        $regions = Region::select('id', 'name_'.App::getLocale().' as name', 'lat', 'long')
+        ->where('type','=', 1)
+        ->where('active','=', 1)->where('deleted','=', 0)->orderby('order')->get();
+        return RegionResource::collection($regions);
+    }
+
 }

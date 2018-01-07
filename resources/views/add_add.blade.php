@@ -98,9 +98,18 @@
 
                 <div class="mdl-card mdl-shadow--2dp u-full-width mdl-grid u-mbuttom30">
                     <div class="mdl-cell mdl-cell--3-col">
-                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
-                            <input class="mdl-textfield__input" name="ownerID" type="text" id="sample8">
-                            <label class="mdl-textfield__label" for="sample8">مالك العقار</label>
+                        <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
+                            <input class="mdl-textfield__input"  type="text" id="advertiser_type" value="" readonly tabIndex="-1">
+                            <input value="" type="hidden"  name="advertiser_type"/>
+                            <label for="advertiser_type">
+                                <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                            </label>
+                            <label for="advertiser_type" class="mdl-textfield__label">طريقة الدفع</label>
+                            <ul for="advertiser_type" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                                @foreach($advertiserTypes as $advertiserType)
+                                <li class="mdl-menu__item" data-val="{{$advertiserType->id}}">{{$advertiserType->$name}}</li>
+                                @endforeach
+                            </ul>
                         </div>
                     </div>
                     <div class="mdl-cell mdl-cell--3-col">
@@ -118,7 +127,7 @@
                     <div class="mdl-cell mdl-cell--3-col">
                         <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
                             <input class="mdl-textfield__input"  type="text" id="sample12" value="" readonly tabIndex="-1">
-                            <input value="" type="hidden"  name="paymentMethods"/>
+                            <input value="" type="hidden"  name="payment_methods"/>
                             <label for="sample1">
                                 <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
                             </label>
@@ -177,7 +186,7 @@
                     </div>
                     <div class="mdl-cell mdl-cell--3-col">
                             <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label ">
-                                <input class="mdl-textfield__input" name="dateOfConstruction" type="number" id="sampl6" value="" >
+                                <input class="mdl-textfield__input" name="year_of_construction" type="number" id="sampl6" value="" >
                                
                                 <label for="sampl6" class="mdl-textfield__label">سنة البناء</label>
                                 
@@ -187,7 +196,7 @@
                                 <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
                                     
                                     <input class="mdl-textfield__input"  type="text" id="sampl7" value="" readonly tabIndex="-1">
-                                    <input value="" type="hidden"  name="finishType"/>
+                                    <input value="" type="hidden"  name="finish_type"/>
                                     <label for="sampl7">
                                         <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
                                     </label>

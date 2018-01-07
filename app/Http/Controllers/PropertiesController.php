@@ -13,6 +13,7 @@ use App\Region;
 use App\Overlook;
 use App\PaymentMethod;
 use App\Advertiser;
+use App\User;
 
 use App\Http\Resources\PropertyResource;
 //use App\Http\Resources\PropertyCollection;
@@ -150,8 +151,7 @@ class PropertiesController extends Controller
 
             $property->save();
 
-
-            return redirect('/property/'.$property->id);
+            return view('sucsess',['property'=>$property]);
         }else{
             return redirect('/');
         }
@@ -168,7 +168,11 @@ class PropertiesController extends Controller
     {
         //
         $property = Property::find($id);
-        return view('/property',['property'=>$property]);
+        $type = Type::find($property->type);
+        $finishType = FinishType::find($property->finish_type);
+        $advertiserType = Advertiser::find($property->advertiser_type);
+        $user = User::find($property->user_id);
+        return view('/property',['name'=>'name_'.App::getLocale(),'property'=>$property, 'type'=>$type, 'advertiserType'=>$advertiserType, 'finishType'=>$finishType, 'user'=>$user]);
     }
 
     /**

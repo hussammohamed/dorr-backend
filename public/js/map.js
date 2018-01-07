@@ -1,29 +1,4 @@
-var regions = [
-    {
-        "id": 1,
-        "title": "الرياض",
-        "location": {
-            "lat": "24.713481",
-            "long": "46.6752"
-        }
-    },
-    {
-        "id": 2,
-        "title": "المدينة",
-        "location": {
-            "lat": "24.523575",
-            "long": "39.568892"
-        }
-    },
-    {
-        "id": 3,
-        "title": "مكة",
-        "location": {
-            "lat": "21.388093",
-            "long": "39.858227"
-        }
-    },
-]
+
 var districts = [
     {
         "id": 1,
@@ -103,13 +78,13 @@ function initMap() {
         center: uluru,
         disableDefaultUI: true
     });
-    $.get('/api/v1/regions/cities', function (data) {
-        console.log(data)
+    $.get('/api/v1/regions', function (data) {
+        data.data.forEach(function (el) {
+            var overlay = new CustomMarker(new google.maps.LatLng(el.location.lat, el.location.long), map, el, 'region');
+        });
       
     }) 
-    regions.forEach(function (el) {
-        var overlay = new CustomMarker(new google.maps.LatLng(el.location.lat, el.location.long), map, el, 'region');
-    });
+    
     map.addListener('zoom_changed', function () {
         let zoom = map.getZoom();
         let center = map.getCenter().lat();
@@ -117,24 +92,28 @@ function initMap() {
         removerMarkers();
   
         if (zoom < 7) {
-            // url = '/regions/?center='+center+'';
-            // $.get(url, function (data) {
-            //         //success data
-                  
-            //     }) 
-            regions.forEach(function (el) {
-                var overlay = new CustomMarker(new google.maps.LatLng(el.location.lat, el.location.long), map, el, 'region');
-            });
+            $.get('/api/v1/regions', function (data) {
+                console.log(data)
+                data.data.forEach(function (el) {
+                    var overlay = new CustomMarker(new google.maps.LatLng(el.location.lat, el.location.long), map, el, 'region');
+                });
+              
+            }) 
         }
         if (zoom >= 7 && zoom < 12) {
-            districts.forEach(function (el) {
-                var overlay = new CustomMarker(new google.maps.LatLng(el.location.lat, el.location.long), map, el, 'district');
-            });
+            
+            // $.get('/api/v1/regions/districts', function (data) {
+            //     console.log(data)
+            //     data.forEach(function (el) {
+            //         var overlay = new CustomMarker(new google.maps.LatLng(el.location.lat, el.location.long), map, el, 'region');
+            //     });
+              
+            // }) 
         }
         else if (zoom >= 12) {
-            properties.forEach(function (el) {
-                var overlay = new CustomMarker(new google.maps.LatLng(el.location.lat, el.location.long), map, el, 'property');
-            });
+            // properties.forEach(function (el) {
+            //     var overlay = new CustomMarker(new google.maps.LatLng(el.location.lat, el.location.long), map, el, 'property');
+            // });
         }
 
     });

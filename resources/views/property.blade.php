@@ -76,38 +76,38 @@
                             </td>
 
                         </tr>
-                        <tr>
+                        <!-- <tr>
                             <td class="u-no-border-top header" width="8%">سعر المتر</td>
                             <td class="u-no-border-top">
-                            {{ $property->pricePerMeter }}
+                            {{ $property->price_per_meter }}
                             </td>
 
-                        </tr>
+                        </tr> -->
                         <tr>
                             <td class="u-no-border-top header" width="8%">تاريخ النشر</td>
                             <td class="u-no-border-top">
-                            {{ $property->dateOfPublication }}
+                            {{ $property->created_at }}
                             </td>
 
                         </tr>
                         <tr>
                             <td class="u-no-border-top header" width="8%">النوع</td>
                             <td class="u-no-border-top">
-                            {{ $property->type }}
+                            {{ $type->$name}}
                             </td>
 
                         </tr>
                         <tr>
-                            <td class="u-no-border-top header" width="8%">الساحة بالمتر</td>
+                            <td class="u-no-border-top header" width="8%">المساحة بالمتر</td>
                             <td class="u-no-border-top">
                             {{ $property->area }}
                             </td>
 
                         </tr>
                         <tr>
-                            <td class="u-no-border-top header" width="8%">نوع الملن</td>
+                            <td class="u-no-border-top header" width="8%">نوع المعلن</td>
                             <td class="u-no-border-top">
-                            {{ $property->advertiserType }}
+                            {{ $advertiserType->$name }}
                             </td>
 
                         </tr>
@@ -135,14 +135,15 @@
                         <tr>
                             <td class="u-no-border-top header" width="8%">سنة البناء</td>
                             <td class="u-no-border-top">
-                            {{ $property->dateOfConstruction }}
+                            {{ $property->year_of_construction }}
                             </td>
 
                         </tr>
                         <tr>
                             <td class="u-no-border-top header" width="8%">نوع التشطيب</td>
                             <td class="u-no-border-top">
-                            {{ $property->finishType }}
+                            {{ $finishType->$name }}    
+                            
                             </td>
 
                         </tr>
@@ -218,7 +219,7 @@
 
                             </td>
                             <td class="u-no-border-top" width="2%">
-                                سليمان بن عدنان الثقفى
+                            {{$user->name}}
                             </td>
 
                         </tr>

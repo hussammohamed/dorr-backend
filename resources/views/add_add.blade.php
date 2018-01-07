@@ -104,7 +104,7 @@
                             <label for="advertiser_type">
                                 <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
                             </label>
-                            <label for="advertiser_type" class="mdl-textfield__label">طريقة الدفع</label>
+                            <label for="advertiser_type" class="mdl-textfield__label">صاحب العقار</label>
                             <ul for="advertiser_type" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
                                 @foreach($advertiserTypes as $advertiserType)
                                 <li class="mdl-menu__item" data-val="{{$advertiserType->id}}">{{$advertiserType->$name}}</li>

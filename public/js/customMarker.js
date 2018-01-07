@@ -31,17 +31,30 @@ CustomMarker.prototype.draw = function () {
 		google.maps.event.addDomListener(div, "click", function (event) {
 			google.maps.event.trigger(self, "click");
 			let type = this.dataset.type;
+			let id = this.dataset.id;
 			if (type == "region") {
-				self.map.setZoom(7);
-				self.map.setCenter(new google.maps.LatLng(self.latlng.lat(), (self.latlng.lng() - 3)));
+				
+				
+				$.get('/api/v1/regions/'+id+'', function (data) {
+					data.data.forEach(function (el) {
+						var overlay = new CustomMarker(new google.maps.LatLng(el.location.lat, el.location.long), self.map, el, 'district');
+					});
+					self.map.setCenter(new google.maps.LatLng(self.latlng.lat(), (self.latlng.lng())));
+					self.map.setZoom(12);
+				}) 
 			}
 			if (type == "district") {
-				self.map.setZoom(12);
-				self.map.setCenter(new google.maps.LatLng(self.latlng.lat(), (self.latlng.lng() - .08)));
+				$.get('api/v1/properties/district/'+id+'', function (data) {
+					data.data.forEach(function (el) {
+						var overlay = new CustomMarker(new google.maps.LatLng(el.location.lat, el.location.long), self.map, el, 'property');
+					});
+					self.map.setCenter(new google.maps.LatLng(self.latlng.lat(), (self.latlng.lng())));
+					self.map.setZoom(12);
+				}) 
 			}
 			if (type === "property") {
 				self.map.setCenter(new google.maps.LatLng(self.latlng.lat(), (self.latlng.lng() - .02)));
-				setTimeout(function(){ self.drawProperty(); }, 10);
+				setTimeout(function(){ self.drawProperty(id); }, 10);
 				
 			}
 		});
@@ -81,7 +94,7 @@ CustomMarker.prototype.remove = function () {
 CustomMarker.prototype.getPosition = function () {
 	return this.latlng;
 };
-CustomMarker.prototype.drawProperty = function () {
+CustomMarker.prototype.drawProperty = function (id) {
 	var self = this;
 	self.div.classList.add('marker-hidden')
 	var propertyCard = this.propertyCard =  document.createElement('div');
@@ -113,9 +126,16 @@ CustomMarker.prototype.drawProperty = function () {
 	propertyCard.innerHTML = content;
 	var panes = this.getPanes();
 		panes.overlayImage.appendChild(propertyCard);
+		propertyCard.dataset.id = id;
+		google.maps.event.addDomListener(propertyCard, "click", function (event) {
+			google.maps.event.trigger(self, "click");
+			let id = this.dataset.id;
+			location.pathname = '/Properties/show/' + id +''
+			
+		});
 		var point = this.getProjection().fromLatLngToDivPixel(this.latlng);
 		if (point) {
-			propertyCard.style.left = (point.x - 200) + 'px';
-			propertyCard.style.top = (point.y  - 153) + 'px';
+			propertyCard.style.left = (point.x - 190) + 'px';
+			propertyCard.style.top = (point.y  - 155) + 'px';
 		}
 }

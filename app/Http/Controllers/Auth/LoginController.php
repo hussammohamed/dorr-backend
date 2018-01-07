@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
+use Illuminate\Http\Request;
 class LoginController extends Controller
 {
     /*
@@ -35,7 +36,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        //$this->middleware('guest')->except('logout');
     }
 
     public function userlogin(){
@@ -48,22 +49,16 @@ class LoginController extends Controller
         
     public function login(){
         if(Auth::attempt([$this->userlogin() => request()->email , 'password' => request()->password])){
-            return "iii";
+            return redirect()->intended('/');
         }else{
             return 'error';
         }
     }
 
-    public function iii(){
-        
-            return '777';
-    }
-
-
     
     public function setLogin(Request $request){
         if(Auth::attempt([$this->userlogin() => $request->email , 'password' => $request->password])){
-            return redirect()->intended('/');
+            return Auth::User();
         }else{
             return 'error';
         }

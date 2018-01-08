@@ -1,4 +1,3 @@
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -8,7 +7,6 @@
 //require('./bootstrap');
 window.$ = window.jQuery = require('jquery');
 window.Vue = require('vue');
-
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -23,7 +21,8 @@ const app = new Vue({
     data() {
         return {
           url: "",
-          userinput: ''
+          cities: [],
+
         };
       },
     methods:{
@@ -48,9 +47,37 @@ const app = new Vue({
               }
           },
     },
-    mounted() {}
+
+    mounted() {
+        var self = this;
+        setTimeout(() => { $(".city_id_js").change(function(){
+         var value = $(this).parent().find(".hidden-input").val();
+         $.ajax({
+            url: 'api/v1/regions/'+value +'',
+            type: "GET",
+            success: function(_response) {
+                self.cities = _response.data
+                var districtContianer = $('#districtContianer')
+                if(districtContianer.length){
+                    districtContianer.empty();
+                    for (let i = 0; i < self.cities.length; i++) {
+                        districtContianer.append( '<li class="mdl-menu__item" data-val='+self.cities[i].id +'>'+self.cities[i].title+'</li>' );
+                        
+                    }
+                }
+                
+            },
+            complete: function(_response) {
+                setTimeout(() => {
+                    getmdlSelect.init('.getmdl-select__city');
+                }, 10);
+                
+            },
+        });
+        });}, 50);
+    }
+
 });
 
 require('./material.min')
 require('./main')
-require('./getmdl-select.min');

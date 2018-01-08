@@ -6063,8 +6063,8 @@ fieldset[disabled] .mdl-checkbox .mdl-checkbox__box-outline,
   left: 0;
   height: 100%;
   width: 100%;
-  -webkit-mask: url("/images/tick-mask.svg?embed");
-          mask: url("/images/tick-mask.svg?embed");
+  -webkit-mask: url("../images/tick-mask.svg?embed");
+          mask: url("../images/tick-mask.svg?embed");
   background: transparent;
   -webkit-transition-duration: 0.28s;
           transition-duration: 0.28s;
@@ -6075,12 +6075,12 @@ fieldset[disabled] .mdl-checkbox .mdl-checkbox__box-outline,
 }
 
 .mdl-checkbox.is-checked .mdl-checkbox__tick-outline {
-  background: rgb(63,81,181) url("/images/tick.svg?embed");
+  background: rgb(63,81,181) url("../images/tick.svg?embed");
 }
 
 fieldset[disabled] .mdl-checkbox.is-checked .mdl-checkbox__tick-outline,
 .mdl-checkbox.is-checked.is-disabled .mdl-checkbox__tick-outline {
-  background: rgba(0,0,0, 0.26) url("/images/tick.svg?embed");
+  background: rgba(0,0,0, 0.26) url("../images/tick.svg?embed");
 }
 
 .mdl-checkbox__label {
@@ -9470,8 +9470,8 @@ fieldset[disabled] .mdl-checkbox .mdl-checkbox__ripple-container .mdl-ripple,
   .mdl-progress:not(.mdl-progress__indeterminate):not(.mdl-progress__indeterminate) > .auxbar {
     background-image: -webkit-gradient(linear, left top, right top, from(rgba(255,255,255, 0.7)), to(rgba(255,255,255, 0.7))), -webkit-gradient(linear, left top, right top, from(rgb(63,81,181)), to(rgb(63,81,181)));
     background-image: linear-gradient(to right, rgba(255,255,255, 0.7), rgba(255,255,255, 0.7)), linear-gradient(to right, rgb(63,81,181), rgb(63,81,181));
-    -webkit-mask: url("/images/buffer.svg?embed");
-            mask: url("/images/buffer.svg?embed");
+    -webkit-mask: url("../images/buffer.svg?embed");
+            mask: url("../images/buffer.svg?embed");
   }
 }
 
@@ -15989,7 +15989,7 @@ fieldset[disabled] .mdl-textfield .mdl-textfield__label,
 }
 
 .l-footer .footer-bg {
-  background-image: url(/images/footer-background.svg);
+  background-image: url("../images/footer-background.svg");
   position: absolute;
   top: -130px;
   left: 0;
@@ -16843,6 +16843,7 @@ address {
 
 .v-card .card--item__img img {
   width: 100%;
+  min-height: 100%;
 }
 
 .v-card .card--item__text {
@@ -16929,7 +16930,7 @@ address {
 }
 
 .apps--card .apps--card__bg {
-  background-image: url(/images/mobile-background.svg);
+  background-image: url("../images/mobile-background.svg");
   height: 100%;
   width: 65%;
   left: 0;
@@ -16941,7 +16942,7 @@ address {
 }
 
 .apps--card .apps--card__mobile {
-  background-image: url(/images/mobile.png);
+  background-image: url("../images/mobile.png");
   height: 100%;
   width: 50%;
   left: 45px;
@@ -17023,6 +17024,15 @@ address {
       -ms-flex-direction: row;
           flex-direction: row;
   margin-bottom: 25px;
+  max-height: 200px;
+}
+
+.h-card .card-link {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  z-index: 99;
 }
 
 .h-card .card-image {
@@ -17263,6 +17273,7 @@ address {
 
 .gallery-card .owl-carousel .item img {
   width: 100%;
+  height: 80px;
 }
 
 .gallery-card .owl-carousel .item iframe {
@@ -17725,4 +17736,3 @@ address {
   margin: 0 15px;
   font-size: 12px;
 }
-

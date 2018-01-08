@@ -7,9 +7,9 @@
     <div class="content">
     @include('components.propertySorts')
     <div class="grid">
+    @foreach ($properties as $property)
         @include('components.hCard')
-        @include('components.hCard')
-        @include('components.hCard')
+        @endforeach
     </div>
     </div>
 

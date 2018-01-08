@@ -15,7 +15,7 @@ function initMap() {
         rotateControl: false,
         fullscreenControl: true
     });
-    $.get('/api/v1/regions', function (data) {
+    $.get(url + '/api/v1/regions', function (data) {
         data.data.forEach(function (el) {
             var overlay = new CustomMarker(new google.maps.LatLng(el.location.lat, el.location.long), map, el, 'region');
         });
@@ -29,7 +29,7 @@ function initMap() {
         removerMarkers();
   
         if (zoom < 7) {
-            $.get('/api/v1/regions', function (data) {
+            $.get(url + '/api/v1/regions', function (data) {
                 console.log(data)
                 data.data.forEach(function (el) {
                     var overlay = new CustomMarker(new google.maps.LatLng(el.location.lat, el.location.long), map, el, 'region');

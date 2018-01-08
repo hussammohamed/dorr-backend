@@ -3,32 +3,36 @@
     <form action="#">
         <div class="mdl-grid search-area--s">
             <div class="mdl-cell mdl-cell--3-col">
-                <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-                    <input class="mdl-textfield__input" type="text" id="city2" value="" readonly tabIndex="-1">
-                    <label for="city2">
-                        <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-                    </label>
-                    <label for="city2" class="mdl-textfield__label">المدينة </label>
-                    <ul for="city2" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                        <li class="mdl-menu__item" data-val="DE">مكة</li>
-                        <li class="mdl-menu__item" data-val="BY">المدينة</li>
-                        <li class="mdl-menu__item" data-val="RU">الرياض</li>
-                    </ul>
+            <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
+            
+                  <input id="cityId" class="mdl-textfield__input city_id_js" type="text" value="" readonly tabIndex="-1">
+                  <input  type="hidden" class="hidden-input"  name="city"  value="" >
+                  <label for="cityId">
+            
+            
+                    <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                  </label>
+                  <label for="cityId" class="mdl-textfield__label">المدينة</label>
+                  <ul for="cityId" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                  @foreach ($cities as $city)
+                    <li class="mdl-menu__item" data-val="{{$city->id}}">{{$city->$name}}</li>
+                    @endforeach
+                  </ul>
                 </div>
             </div>
             <div class="mdl-cell mdl-cell--3-col">
-                <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-                    <input class="mdl-textfield__input" type="text" id="sample13" value="" readonly tabIndex="-1">
-                    <label for="sample13">
-                        <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-                    </label>
-                    <label for="sample13" class="mdl-textfield__label">الحي</label>
-                    <ul for="sample13" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                        <li class="mdl-menu__item" data-val="DE">مكة</li>
-                        <li class="mdl-menu__item" data-val="BY">المدينة</li>
-                        <li class="mdl-menu__item" data-val="RU">الرياض</li>
-                    </ul>
-                </div>
+            <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label  getmdl-select__city  getmdl-select getmdl-select__fix-height">
+            <input class="mdl-textfield__input" type="text" id="district" value="" readonly tabIndex="-1">
+            <input  type="hidden" name="district"  value="" >
+            <label for="district">
+      
+              <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+            </label>
+            <label for="district" class="mdl-textfield__label">الحي</label>
+            <ul for="district" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+              <li  v-for="city in cities" v-text="city.title" tabindex="-1" class="mdl-menu__item" :data-val="city.id"></li>
+            </ul>
+          </div>
             </div>
             <div class="mdl-cell mdl-cell--2-col">
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
@@ -43,9 +47,9 @@
                 </div>
             </div>
             <div class="mdl-cell mdl-cell--2-col">
-                <button id="" class="mdl-button u-fix-btn u-full-width mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored">
+                <a id="" class="mdl-button u-fix-btn u-full-width mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored">
                     عرض التقرير
-                </button>
+                </a>
             </div>
 
         </div>
@@ -58,10 +62,10 @@
                 <h1>180,000</h1>
                 <h6>متوسط السعرالمتر</h6>
                 <div class="report-content-actions">
-                    <button id="" class="mdl-button u-full-width mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored">
+                    <a id=""  href="{{ asset('/search')}}" class="mdl-button u-full-width mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored">
                         ابحث عن عقار 
-                    </button>
-                    <button id="" class="mdl-button u-text-color u-secondary-base-bg u-full-width mdl-js-button mdl-js-ripple-effect mdl-button--raised ">
+                    </a>
+                    <button id="" @click="loginDialog('dorr/public/Properties/create')" class="mdl-button u-text-color u-secondary-base-bg u-full-width mdl-js-button mdl-js-ripple-effect mdl-button--raised ">
                         أضف عقار
                     </button>
                 </div>
@@ -80,14 +84,27 @@
             <a href="#" class="group-ad__more">المزيد</a>
 
         </div>
-        
+        <div class="mdl-grid">
+        @foreach($featuredProperties as $property)
+            <div class="mdl-cell mdl-cell--3-col">
+                
+                @include('components.vCard')
+            </div>
+            @endforeach
+        </div>
     </div>
     <div class="group-ad">
         <div class="group-ad__header">
             <h6 class="group-ad__title">إحدث العروض</h6>
             <a href="#" class="group-ad__more">المزيد</a>
         </div>
-        
+        <div class="mdl-grid">
+        @foreach($latestProperties as $property)
+            <div class="mdl-cell mdl-cell--3-col">
+                @include('components.vCard')
+            </div>
+            @endforeach
+        </div>
     </div>
     @include('components.appsDownload') @include('components.ourServices')
 </div>

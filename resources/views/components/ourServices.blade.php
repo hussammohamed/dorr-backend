@@ -33,7 +33,7 @@
             </p>
             </div>
             <div class="mdl-card__actions u-center">
-                <a href="{{ asset('/add_ad')}}" class="mdl-button  mdl-shadow--2dp mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                <a @click="loginDialog('dorr/public/Properties/create')" class="mdl-button  mdl-shadow--2dp mdl-button--colored mdl-js-button mdl-js-ripple-effect">
                 أعلن الأعلان
                 </a>
             </div>

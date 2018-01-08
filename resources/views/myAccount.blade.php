@@ -4,7 +4,7 @@
         <div class="group-ad__header">
             <h6 class="group-ad__title">حسابي</h6>
         </div>
-        <form id="example-form" class="wizard-form" action="/myAccount/update" method="post">
+        <form id="example-form" class="wizard-form" action="myAccount/update" method="post">
             {{ csrf_field() }}
             <div class="mdl-card mdl-shadow--2dp u-full-width u-mbuttom30 u-padding-bottom-25 u-padding-top-15">
                 <div class="mdl-card__title">
@@ -62,7 +62,7 @@
             </div>
 
         </form>
-        <form id="example-form" class="wizard-form"  method="POST" action="/myAccount/updatePassword">
+        <form id="example-form" class="wizard-form"  method="POST" action="myAccount/updatePassword">
             {{ csrf_field() }}
             <div class="mdl-card mdl-shadow--2dp u-full-width u-mbuttom30 u-padding-bottom-25 u-padding-top-15">
                 <div class="mdl-card__title">

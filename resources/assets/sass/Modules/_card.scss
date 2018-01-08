@@ -117,7 +117,7 @@ $cardImageHeight : 220px;
     position: relative;
     
         .apps--card__bg{
-            background-image: url(/images/mobile-background.svg);
+            background-image: url("/images/mobile-background.svg");
             height: 100%;
             width: 65%;
             #{$left}: 0;
@@ -128,7 +128,7 @@ $cardImageHeight : 220px;
             background-size: 100%;
         }
         .apps--card__mobile{
-            background-image: url(/images/mobile.png);
+            background-image: url("/images/mobile.png");
             height: 100%;
             width: 50%;
             #{$left}: 45px;
@@ -199,6 +199,14 @@ $cardImageHeight : 220px;
     width: auto;
     flex-direction: row;
     margin-bottom: 25px;
+    max-height: 200px;
+    .card-link{
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        left:0;
+        z-index: 99;
+    }
     .card-image{
         max-width: 25%;
         position: relative;

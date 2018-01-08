@@ -5,6 +5,7 @@
         <div class="mdl-cell mdl-cell--12-col">
         @foreach($properties as $property)
             <div class="card horizontal mdl-card mdl-shadow--2dp h-card">
+            <a href="/Properties/show/{{$property->id}}" class="card-link"></a>
                 <button id="{{$property->id}}"
                     class="mdl-button  h-card-actions mdl-js-button mdl-button--icon">
                     <i class="material-icons">settings</i>
@@ -16,7 +17,11 @@
               <li class="mdl-menu__item mdl-menu__item--full-bleed-divider"> <i class="material-icons md-18">delete</i><span>حذف</span> </li>
             </ul>
                 <div class="card-image">
-                    <img src={{ asset( 'images/card1.png') }}>
+                @foreach(App\PropertyImage::where('property_id','=', $property->id)->get() as  $image => $value)
+                    @if($image == 0)
+                        <img src={{ asset ('/upload/properties') }}/{{$value->path}} alt="">
+                    @endif
+                    @endforeach
                 </div>
                 <div class="card-stacked">
                     <div class="card-content">

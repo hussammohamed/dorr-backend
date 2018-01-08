@@ -4,9 +4,9 @@
             <div class="topbar--item--bg "></div>
             
             @if(App::getLocale()=="en" )
-            <a href="/lang/ar">ع</a>
+            <a href="lang/ar">ع</a>
             @else
-            <a href="/lang/en">EN</a>
+            <a href="lang/en">EN</a>
             @endif
 
 
@@ -58,29 +58,29 @@
         <div class="topbar--item topbar--item__actions">
             <nav class="mdl-navigation">
             @guest
-            <a  @click="loginDialog('/zakah')"class="action--link">
+            <a  href={{ asset( 'zakah')}} class="action--link">
                     <span>حساب الذكاه</span>
                     <i class="material-icons">%</i>
                 </a>
-                <a  @click="loginDialog('/report')" class="action--link">
+                <a  href={{ asset( 'report')}} class="action--link">
                     <span>التقرير العقارى</span>
                     <i class="material-icons">insert_chart</i>
                 </a>
-                <a  @click="loginDialog('/Properties/create')" class="action--link">
+                <a  @click="loginDialog('dorr/public/Properties/create')" class="action--link">
                     <span>أضف عقار</span>
                     <i class="material-icons">add_box</i>
                 </a>
             @else
-                <a href={{ asset( '/zakah')}} class="action--link">
+                <a href={{ asset( 'zakah')}} class="action--link">
                     <span>{{ trans('ui.zkaka-link')}}</span>
                     <i class="material-icons">%</i>
                 </a>
-                <a href={{ asset( '/report')}} class="action--link">
+                <a href={{ asset( 'report')}} class="action--link">
                     <span>{{ trans('ui.report-link')}}</span>
                     <i class="material-icons">insert_chart</i>
                 </a>
 
-                <a href={{ asset( '/Properties/create')}} class="action--link">
+                <a href={{ asset( 'Properties/create')}} class="action--link">
                     <span>أضف عقار</span>
                     <i class="material-icons">add_box</i>
                 </a>

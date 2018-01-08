@@ -35,7 +35,7 @@ CustomMarker.prototype.draw = function () {
 			if (type == "region") {
 				
 				
-				$.get('/api/v1/regions/'+id+'', function (data) {
+				$.get('http://bareeqstudio.com/dorr/public/api/v1/regions/'+id+'', function (data) {
 					data.data.forEach(function (el) {
 						var overlay = new CustomMarker(new google.maps.LatLng(el.location.lat, el.location.long), self.map, el, 'district');
 					});
@@ -44,7 +44,7 @@ CustomMarker.prototype.draw = function () {
 				}) 
 			}
 			if (type == "district") {
-				$.get('/api/v1/properties/district/'+id+'', function (data) {
+				$.get('http://bareeqstudio.com/dorr/public/api/v1/properties/district/'+id+'', function (data) {
 					console.log(data)
 					data.data.forEach(function (el) {
 						var overlay = new CustomMarker(new google.maps.LatLng(el.location.lat, el.location.long), self.map, el, 'property');
@@ -101,7 +101,7 @@ CustomMarker.prototype.drawProperty = function (id) {
 	var propertyCard = this.propertyCard =  document.createElement('div');
 	propertyCard.className = "card horizontal mdl-card mdl-shadow--2dp h-card property-card"
 	var content ='<div class="card-image">'
-	+ ' <img src='+ self.args.pictures[0] +'>' 
+	+ ' <img src='+ self.args.pictures[0].path +'>' 
 	+ '</div>' 
 	+ ' <div class="card-stacked">' 
 	+ ' <div class="card-content">' 
@@ -131,7 +131,7 @@ CustomMarker.prototype.drawProperty = function (id) {
 		google.maps.event.addDomListener(propertyCard, "click", function (event) {
 			google.maps.event.trigger(self, "click");
 			let id = this.dataset.id;
-			location.pathname = '/Properties/show/' + id +''
+			location = url + "/Properties/show/" + id ;
 			
 		});
 		var point = this.getProjection().fromLatLngToDivPixel(this.latlng);

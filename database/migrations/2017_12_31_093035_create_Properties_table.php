@@ -22,8 +22,8 @@ class CreatePropertiesTable extends Migration
             $table->string('title');
 		    $table->string('address');
 		    $table->integer('region');
-		    $table->decimal('lat', 9, 6);
-		    $table->decimal('long', 9, 6);
+		    $table->decimal('lat', 20, 18);
+		    $table->decimal('long', 20, 18);
 		    $table->text('description')->nullable();
 		    $table->integer('price')->default('0');
 		    $table->integer('year_of_construction');
@@ -34,7 +34,7 @@ class CreatePropertiesTable extends Migration
 		    $table->integer('payment_methods');
 		    $table->integer('rooms')->default('0');
 		    $table->integer('bathrooms')->default('0');
-		    $table->integer('ad_id')->unique();
+		    $table->bigInteger('ad_id')->unique();
 		    $table->integer('hits')->default('0');
 		    $table->string('youtube')->nullable();
 		    $table->date('startDate')->nullable();

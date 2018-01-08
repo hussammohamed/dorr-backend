@@ -43,8 +43,8 @@ class AllData extends Seeder
         }
         
         //Seed Purposes
-        $purposes_ar=['شراء','بيع','مطلوب للايجار','عرض للايجار'];
-        $purposes_en=['Sell','Buy','For Rent','To Rent'];
+        $purposes_ar=['بيع','ايجار'];
+        $purposes_en=['Sale','Rent'];
         foreach($purposes_ar as $key=>$value){
             $add = new Purpose;
             $add->name_ar = $value;
@@ -122,7 +122,7 @@ class AllData extends Seeder
             $add->name_ar = $value;
             $add->name_en = $filter_menu_en[$key];
             $add->type = $types[$key];;
-            $add->purpose = 2;
+            $add->purpose = 1;
             $add->order = $key+1;
             $add->save();
         }
@@ -180,7 +180,7 @@ class AllData extends Seeder
         $property_id=['1','1','2','1','1','2','2','3','3','2'];
         $description=['تعليق 1','تعليق 2','3','تعليق 4','5','تعليق 6','تعليق 7','تعليق 8','9','تعليق 10'];
         $price=['500000','520000','700000','530000','490000','710000','750000','1000000','1050000','800000'];
-        $user_id=['1','0','0','2','0','0','0','1','0','0','2'];
+        $user_id=['1','0','1','2','0','3','0','1','2','0','2'];
         foreach($property_id as $key=>$value){
             $add = new PropertyOffer;
             $add->property_id = $value;
@@ -279,13 +279,13 @@ class AllData extends Seeder
         
         //Seed Properties
         $property = new Property;
-        $property->ad_id = "123456789";
+        $property->ad_id = time().rand(0,9).rand(0,9);
         $property->user_id = 1;
         $property->type = 1;
         $property->purpose = 1;
         $property->title = "شقة فى احسن ضواحى الرياض";
         $property->address = "شارع 5";
-        $property->region = "2";
+        $property->region = 2;
         $property->lat = "24.770387";
         $property->long = "46.7129167";
         $property->description = "وصف للوحدة";
@@ -302,16 +302,16 @@ class AllData extends Seeder
         $property->youtube = "http://youtube.com";
         $property->advertiser_type = 1;
         $property->save();
-
+        
         //Seed Properties
         $property = new Property;
-        $property->ad_id = "123456780";
+        $property->ad_id = time().rand(0,9).rand(0,9);
         $property->user_id = 2;
         $property->type = 2;
         $property->purpose = 2;
         $property->title = "فيلا سوبر لوكس";
         $property->address = "شارع 4";
-        $property->region = "6";
+        $property->region = 3;
         $property->lat = "24.413797";
         $property->long = "39.545961";
         $property->description = "وصف للوحدة";
@@ -327,6 +327,111 @@ class AllData extends Seeder
         $property->hits = 12;
         $property->youtube = "";
         $property->advertiser_type = 1;
-        $property->save();        
+        $property->save();
+        
+        //Seed Properties
+        $property = new Property;
+        $property->ad_id = time().rand(0,9).rand(0,9);
+        $property->user_id = 2;
+        $property->type = 2;
+        $property->purpose = 2;
+        $property->title = "فيلا سوبر لوكس";
+        $property->address = "شارع 4";
+        $property->region = 4;
+        $property->lat = "24.413797";
+        $property->long = "39.545961";
+        $property->description = "وصف للوحدة";
+        $property->price = 7000000;
+        $property->year_of_construction = "1980";
+        $property->area = 100;
+        $property->floor = 1;
+        $property->finish_type = 3;
+        $property->overlooks = 1;
+        $property->payment_methods = 1;
+        $property->rooms = 6;
+        $property->bathrooms = 3;
+        $property->hits = 12;
+        $property->youtube = "";
+        $property->advertiser_type = 1;
+        $property->save(); 
+        
+        //Seed Properties
+        $property = new Property;
+        $property->ad_id = time().rand(0,9).rand(0,9);
+        $property->user_id = 2;
+        $property->type = 2;
+        $property->purpose = 2;
+        $property->title = "فيلا سوبر لوكس";
+        $property->address = "شارع 4";
+        $property->region = 6;
+        $property->lat = "24.413797";
+        $property->long = "39.545961";
+        $property->description = "وصف للوحدة";
+        $property->price = 7000000;
+        $property->year_of_construction = "1980";
+        $property->area = 100;
+        $property->floor = 1;
+        $property->finish_type = 3;
+        $property->overlooks = 1;
+        $property->payment_methods = 1;
+        $property->rooms = 6;
+        $property->bathrooms = 3;
+        $property->hits = 12;
+        $property->youtube = "";
+        $property->advertiser_type = 1;
+        $property->save(); 
+        
+        //Seed Properties
+        $property = new Property;
+        $property->ad_id = time().rand(0,9).rand(0,9);
+        $property->user_id = 2;
+        $property->type = 2;
+        $property->purpose = 2;
+        $property->title = "فيلا سوبر لوكس";
+        $property->address = "شارع 4";
+        $property->region = 7;
+        $property->lat = "24.413797";
+        $property->long = "39.545961";
+        $property->description = "وصف للوحدة";
+        $property->price = 7000000;
+        $property->year_of_construction = "1980";
+        $property->area = 100;
+        $property->floor = 1;
+        $property->finish_type = 3;
+        $property->overlooks = 1;
+        $property->payment_methods = 1;
+        $property->rooms = 6;
+        $property->bathrooms = 3;
+        $property->hits = 12;
+        $property->youtube = "";
+        $property->advertiser_type = 1;
+        $property->save(); 
+        
+        //Seed Properties
+        $property = new Property;
+        $property->ad_id = time().rand(0,9).rand(0,9);
+        $property->user_id = 2;
+        $property->type = 2;
+        $property->purpose = 2;
+        $property->title = "فيلا سوبر لوكس";
+        $property->address = "شارع 4";
+        $property->region = 8;
+        $property->lat = "24.413797";
+        $property->long = "39.545961";
+        $property->description = "وصف للوحدة";
+        $property->price = 7000000;
+        $property->year_of_construction = "1980";
+        $property->area = 100;
+        $property->floor = 1;
+        $property->finish_type = 3;
+        $property->overlooks = 1;
+        $property->payment_methods = 1;
+        $property->rooms = 6;
+        $property->bathrooms = 3;
+        $property->hits = 12;
+        $property->youtube = "";
+        $property->advertiser_type = 1;
+        $property->save(); 
+                       
     }
 }

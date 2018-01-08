@@ -63,6 +63,16 @@ class UserController extends Controller
         //
     }
 
+    public function getUser()
+    {
+        //
+        if(Auth::user()){
+            return Auth::user();
+        }else{
+            return "no logined user";
+        }
+        
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -93,22 +103,44 @@ class UserController extends Controller
      {
          //
          if (Auth::check()) {
-         $user = User::find(Auth::user()->id);
-         $user->name = $request->name;
-         $user->first_name = $request->first_name;
-         $user->family_name = $request->family_name;
-         $user->email = $request->email;
-         $user->phone = $request->phone;
-         $user->mobile1 = $request->mobile1;
-         $user->mobile2 = $request->mobile2;
-         $user->save();
-         return redirect('myAccount');
+            $user = User::find(Auth::user()->id);
+            $user->name = $request->name;
+            $user->first_name = $request->first_name;
+            $user->family_name = $request->family_name;
+            $user->email = $request->email;
+            $user->phone = $request->phone;
+            $user->mobile1 = $request->mobile1;
+            $user->mobile2 = $request->mobile2;
+            $user->save();
+            return redirect('myAccount');
         }else{
-            return redirect('/');
+            return "no logined user";
         }
  
      }
-    
+
+
+
+     public function updateUser(Request $request)
+     {
+         //
+         if (Auth::check()) {
+            $user = User::find(Auth::user()->id);
+            $user->name = $request->name;
+            $user->first_name = $request->first_name;
+            $user->family_name = $request->family_name;
+            $user->email = $request->email;
+            $user->phone = $request->phone;
+            $user->mobile1 = $request->mobile1;
+            $user->mobile2 = $request->mobile2;
+            $user->save();
+            return $user;
+        }else{
+            return "no logined user";
+        }
+ 
+     }
+
      public function updatePassword(Request $request)
      {
         //
@@ -125,7 +157,7 @@ class UserController extends Controller
                 return "your old password is wrong";
             }
         }else{
-            return redirect('/');
+            return "no logined user";
         }
 
         //return bcrypt("123456")."<br><br><br>".bcrypt("123456")."<br><br><br>".bcrypt("123456");
@@ -144,14 +176,4 @@ class UserController extends Controller
         //
     }
 
-    public function getUser()
-    {
-        //
-        if(Auth::user()){
-            return Auth::user();
-        }else{
-            return "no logined user";
-        }
-    
-    }
 }

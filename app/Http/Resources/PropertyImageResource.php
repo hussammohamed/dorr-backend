@@ -3,8 +3,8 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\Resource;
-use App\User;
-class PropertyOfferResource extends Resource
+
+class PropertyImageResource extends Resource
 {
     /**
      * Transform the resource into an array.
@@ -14,11 +14,9 @@ class PropertyOfferResource extends Resource
      */
     public function toArray($request)
     {
-        //return parent::toArray($request);
-        return [
-            'offer_id' => $this->id,
-            'description' => $this->description,
-            'price' => $this->price
+        return[
+            'id' => $this->id,
+            "path" => url('/').'/upload/properties/'.$this->path
         ];
     }
 }

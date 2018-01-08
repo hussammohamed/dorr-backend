@@ -18,8 +18,8 @@ class CreateRegionsTable extends Migration
 		    $table->string('name_ar');
 		    $table->string('name_en');
             $table->integer('parent');
-		    $table->decimal('lat', 9, 6);
-		    $table->decimal('long', 9, 6);
+		    $table->decimal('lat', 20, 18);
+		    $table->decimal('long', 20, 18);
             $table->integer('type');
             $table->integer('order')->default('0');
 		    $table->boolean('active')->default('1');

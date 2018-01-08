@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\PropertyImage;
+use App\Property;
 use Illuminate\Http\Request;
 
 class PropertyImagesController extends Controller
@@ -49,6 +50,27 @@ class PropertyImagesController extends Controller
             $img->save();
         }
     }
+
+    public function storeNew( $property_id, $files )
+    {
+        //
+        foreach($files as $key=>$file){
+            $extension = $file->getClientOriginalExtension();
+            $fileName = $property_id."-".time()."-".str_random().".".$extension;
+            $folderpath  = 'upload/properties/';
+            $file->move($folderpath , $fileName);
+
+            $img = new PropertyImage;
+            $img->property_id = 1;
+            $img->path = $fileName;
+            $img->order = $key+1;
+            $img->save();
+        }
+
+        return PropertyImageResource::collection(Property::fing($property_id)->images);
+    }
+
+
 
     
     /**

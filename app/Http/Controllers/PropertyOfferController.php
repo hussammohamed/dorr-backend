@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\PropertyOffer;
+use App\User;
+use Auth;
 use Illuminate\Http\Request;
-use App\Http\Resources\PropertyOfferResource;
+use App\Http\Resources\PropertyOfferCollection;
 
 class PropertyOfferController extends Controller
 {
@@ -22,7 +24,7 @@ class PropertyOfferController extends Controller
         //
 
         $property_offers = PropertyOffer::all();
-        return PropertyOfferResource::collection($property_offers);
+        return PropertyOfferCollection::collection($property_offers);
     }
 
     /**
@@ -44,6 +46,41 @@ class PropertyOfferController extends Controller
     public function store(Request $request)
     {
         //
+        
+            $offer = new PropertyOffer;
+            $offer->property_id = $request->property_id;
+            $offer->description = $request->description;
+            $offer->price = $request->price;
+            (Auth::check())? $offer->user_id = Auth::user()->id : $offer->user_id = 0 ;
+            
+            $offer->save();
+
+            return redirect('/Properties/show/'.$property_id);
+        
+    }
+
+
+    public function storeAPI(Request $request)
+    {
+        //
+        $offer = new PropertyOffer;
+        $offer->property_id = $request->property_id;
+        $offer->description = $request->description;
+        $offer->price = $request->price;
+        (Auth::check())? $offer->user_id = Auth::user()->id : $offer->user_id = 0 ;
+        
+        $offer->save();
+
+        return [
+            'offer_id' => $offer->id,
+            'description' => $offer->description,
+            'price' => $offer->price,
+            'offerOwner' =>[
+                'id'=> $offer->user_id,
+                'name'=> ($offer->user_id == 0 ) ? 'Unkowen' : User::find(1)->name,
+                'phone'=> ($offer->user_id == 0 ) ? 'Unkowen' : User::find(1)->phone,
+            ],
+        ];
     }
 
     /**
@@ -55,6 +92,7 @@ class PropertyOfferController extends Controller
     public function show(PropertyOffer $propertyOffer)
     {
         //
+
     }
 
     /**

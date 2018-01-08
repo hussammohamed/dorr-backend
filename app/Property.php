@@ -13,5 +13,15 @@ class Property extends Model
         'rooms','bathrooms','ad_id','hits','youtube','advertiser_type','startDate','endDate','featured',
         'active','deleted'
     ];
+    
+        public function images()
+        {
+            return $this->hasMany('App\PropertyImage');
+        }
+        
+        public function offers()
+        {
+            return $this->hasMany('App\PropertyOffer');
+        }
 }
 

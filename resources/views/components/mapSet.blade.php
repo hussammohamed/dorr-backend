@@ -22,43 +22,41 @@
     <div class="mdl-grid ">
       <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet">
         <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-          <input class="mdl-textfield__input" type="text" id="city" value="" readonly tabIndex="-1">
-          <input  type="hidden"  value="" >
-          <label for="city">
+          <input id="cityId" class="mdl-textfield__input" type="text" value="" readonly tabIndex="-1">
+          <input  type="hidden" class="hidden-input"  name="city"  value="" >
+          <label for="cityId">
             <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
           </label>
-          <label for="city" class="mdl-textfield__label">المدينة </label>
-          <ul for="city" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-            <li class="mdl-menu__item" data-val="DE">مكة</li>
-            <li class="mdl-menu__item" data-val="BY">المدينة</li>
-            <li class="mdl-menu__item" data-val="RU">الرياض</li>
+          <label for="cityId" class="mdl-textfield__label">المدينة</label>
+          <ul for="cityId" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+          @foreach ($cities as $city)
+            <li class="mdl-menu__item" data-val="{{$city->id}}">{{$city->$name}}</li>
+            @endforeach
           </ul>
         </div>
       </div>
       <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet">
-        <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-          <input class="mdl-textfield__input" type="text" id="sample12" value="" readonly tabIndex="-1">
-          <input  type="hidden"  value="" >
-          <label for="sample1">
+        <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label  getmdl-select__city  getmdl-select getmdl-select__fix-height">
+          <input class="mdl-textfield__input" type="text" id="district" value="" readonly tabIndex="-1">
+          <input  type="hidden" name="district"  value="" >
+          <label for="district">
             <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
           </label>
-          <label for="sample12" class="mdl-textfield__label">الحي</label>
-          <ul for="sample12" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-            <li class="mdl-menu__item" data-val="DE">مكة</li>
-            <li class="mdl-menu__item" data-val="BY">المدينة</li>
-            <li class="mdl-menu__item" data-val="RU">الرياض</li>
+          <label for="district" class="mdl-textfield__label">الحي</label>
+          <ul for="district" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+            <li  v-for="city in cities" v-text="city.title" tabindex="-1" class="mdl-menu__item" :data-val="city.id"></li>
           </ul>
         </div>
       </div>
       <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet">
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
-          <input class="mdl-textfield__input" type="text" id="lowPrice">
+          <input class="mdl-textfield__input" name="priceFrom" type="text" id="lowPrice">
           <label class="mdl-textfield__label" for="lowPrice">أقل سعر</label>
         </div>
       </div>
       <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet">
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
-          <input class="mdl-textfield__input" type="text" id="hPrice">
+          <input class="mdl-textfield__input" name="priceTo" type="text" id="hPrice">
           <label class="mdl-textfield__label" for="hPrice">أعلى سعر</label>
         </div>
       </div>

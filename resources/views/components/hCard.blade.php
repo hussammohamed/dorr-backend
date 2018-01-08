@@ -1,28 +1,30 @@
 <div class="mdl-cell mdl-cell--12-col">
     <div class="card horizontal mdl-card mdl-shadow--2dp h-card">
+    <a href="/Properties/show/{{$property->id}}" class="card-link"></a>
         <div class="card-image">
             <img src={{ asset( 'images/card1.png') }}>
+            
         </div>
         <div class="card-stacked">
             <div class="card-content">
-                <h5 class="card--title">فيلا للبيع في حي الراشدية</h5>
-                <h6 class="card--sub-title">الراشدية ,مكة الكرمة</h6>
-                <p class="card--text">ملحق دور ثالث فى عمارة تجارية بدون مصعد كهرباء مشترك عمارة هادئة جدا مكونة من غرفتين صغار</p>
+                <h5 class="card--title">{{$property->title}}</h5>
+                <h6 class="card--sub-title">{{$property->address}}</h6>
+                <p class="card--text">{{$property->description}}</p>
                 <p>
-                    <span class="card--text__size"> 405 م
+                    <span class="card--text__size"> {{$property->area}} م
                         <sup>2</sup>
                     </span>
             </div>
             <div class="card-footer">
                 <div class="card-footer__price">
                     <span class="price--text">
-                        290,000 ريال
+                    {{$property->price}} ريال
                     </span>
                 </div>
                 <div class="footer-contet">
-                    <span>4</span>
+                    <span>{{$property->bathrooms}}</span>
                     <img src={{ asset( 'images/bathroom.svg')}} alt="">
-                    <span>4</span>
+                    <span>{{$property->rooms}}</span>
                     <i class="material-icons md-18">local_hotel</i>
                 </div>
             </div>

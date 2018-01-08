@@ -81,18 +81,12 @@
 
         </div>
         <div class="mdl-grid">
+        @foreach($featuredProperties as $property)
             <div class="mdl-cell mdl-cell--3-col">
+                
                 @include('components.vCard')
             </div>
-            <div class="mdl-cell mdl-cell--3-col">
-                @include('components.vCard')
-            </div>
-            <div class="mdl-cell mdl-cell--3-col">
-                @include('components.vCard')
-            </div>
-            <div class="mdl-cell mdl-cell--3-col">
-                @include('components.vCard')
-            </div>
+            @endforeach
         </div>
     </div>
     <div class="group-ad">
@@ -101,18 +95,11 @@
             <a href="#" class="group-ad__more">المزيد</a>
         </div>
         <div class="mdl-grid">
+        @foreach($latestProperties as $property)
             <div class="mdl-cell mdl-cell--3-col">
                 @include('components.vCard')
             </div>
-            <div class="mdl-cell mdl-cell--3-col">
-                @include('components.vCard')
-            </div>
-            <div class="mdl-cell mdl-cell--3-col">
-                @include('components.vCard')
-            </div>
-            <div class="mdl-cell mdl-cell--3-col">
-                @include('components.vCard')
-            </div>
+            @endforeach
         </div>
     </div>
     @include('components.appsDownload') @include('components.ourServices')

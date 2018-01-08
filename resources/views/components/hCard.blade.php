@@ -2,7 +2,11 @@
     <div class="card horizontal mdl-card mdl-shadow--2dp h-card">
     <a href="/Properties/show/{{$property->id}}" class="card-link"></a>
         <div class="card-image">
-            <img src={{ asset( 'images/card1.png') }}>
+        @foreach(App\PropertyImage::where('property_id','=', $property->id)->get() as  $image => $value)
+       @if($image == 0)
+        <img src={{ asset ('/upload/properties') }}/{{$value->path}} alt="">
+        @endif
+       @endforeach
             
         </div>
         <div class="card-stacked">

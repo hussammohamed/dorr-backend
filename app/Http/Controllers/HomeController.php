@@ -33,7 +33,14 @@ class HomeController extends Controller
         $cities = Region::where('type',1)->where('active',1)->where('deleted',0)->orderby('order')->get();
         return view('home', ['name'=>'name_'.App::getLocale(), 'filterMenus'=>$filterMenus, 'latestProperties'=>$latestProperties, 'featuredProperties'=>$featuredProperties, 'cities'=>$cities ]);
     }
-
+    public function report()
+    {
+        $filterMenus = FilterMenu::all();
+        $latestProperties = Property::where('active','=', 1)->where('deleted','=', 0)->orderBy('created_at', 'desc')->limit(4)->get();
+        $featuredProperties = Property::where('active','=', 1)->where('deleted','=', 0)->where('featured','=', 1)->limit(4)->get();
+        $cities = Region::where('type',1)->where('active',1)->where('deleted',0)->orderby('order')->get();
+        return view('report', ['name'=>'name_'.App::getLocale(), 'filterMenus'=>$filterMenus, 'latestProperties'=>$latestProperties, 'featuredProperties'=>$featuredProperties, 'cities'=>$cities ]);
+    }
     public function lang($lang)
     {
         

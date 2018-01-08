@@ -23,6 +23,7 @@ Route::group(['middleware'=>'language'],function(){
     Auth::routes();
 
     Route::get('/', 'HomeController@index')->name('home');
+    Route::get('/report', 'HomeController@report');
 
     // Route::get('/property', function () {
     //     return view('property');
@@ -37,9 +38,9 @@ Route::group(['middleware'=>'language'],function(){
     // Route::get('/add_ad', function () {
     //     return view('add_add');
     // });
-    Route::get('/report', function () {
-        return view('report');
-    });
+    // Route::get('/report', function () {
+    //     return view('report');
+    // });
     /*Route::get('/myAccount', function () {
         return view('myAccount');
     });*/

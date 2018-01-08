@@ -30,7 +30,8 @@
         @include('layouts.footer')
     </div>
     <!-- Scripts -->
-    <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
+    <script  src="{{ asset('js/app.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/getmdl-select.min.js') }}"></script>
     @stack('scripts')
 </body>
 </html>

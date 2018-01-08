@@ -8,7 +8,7 @@
 //require('./bootstrap');
 window.$ = window.jQuery = require('jquery');
 window.Vue = require('vue');
-
+//window.getmdlSelect =  require('./getmdl-select.min');
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -23,7 +23,7 @@ const app = new Vue({
     data() {
         return {
           url: "",
-          userinput: ''
+          cities: "",
         };
       },
     methods:{
@@ -48,9 +48,28 @@ const app = new Vue({
               }
           },
     },
-    mounted() {}
+    mounted() {
+        var self = this;
+        setTimeout(() => { $("#cityId").change(function(){
+         var value = $(this).parent().find(".hidden-input").val();
+         console.log(value);
+         $.ajax({
+            url: '/api/v1/regions/'+value +'',
+            type: "GET",
+            success: function(_response) {
+                self.cities = _response.data
+                
+            },
+            complete: function(_response) {
+                setTimeout(() => {
+                    getmdlSelect.init('.getmdl-select__city');
+                }, 10);
+                
+            },
+        });
+        });}, 50);
+    }
 });
 
 require('./material.min')
 require('./main')
-require('./getmdl-select.min');

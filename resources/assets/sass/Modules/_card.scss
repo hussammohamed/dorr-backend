@@ -199,6 +199,13 @@ $cardImageHeight : 220px;
     width: auto;
     flex-direction: row;
     margin-bottom: 25px;
+    .card-link{
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        left:0;
+        z-index: 99;
+    }
     .card-image{
         max-width: 25%;
         position: relative;

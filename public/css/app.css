@@ -17025,6 +17025,14 @@ address {
   margin-bottom: 25px;
 }
 
+.h-card .card-link {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  z-index: 99;
+}
+
 .h-card .card-image {
   max-width: 25%;
   position: relative;

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\PropertyOffer;
 use Illuminate\Http\Request;
-use App\Http\Resources\PropertyOfferResource;
+use App\Http\Resources\PropertyOfferCollection;
 
 class PropertyOfferController extends Controller
 {
@@ -22,7 +22,7 @@ class PropertyOfferController extends Controller
         //
 
         $property_offers = PropertyOffer::all();
-        return PropertyOfferResource::collection($property_offers);
+        return PropertyOfferCollection::collection($property_offers);
     }
 
     /**

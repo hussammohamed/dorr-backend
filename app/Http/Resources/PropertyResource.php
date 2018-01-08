@@ -11,6 +11,7 @@ use App\Region;
 use App\Overlook;
 use App\PaymentMethod;
 use App\Advertiser;
+use App\Http\Resources\PropertyImageResource;
 
 use Illuminate\Http\Resources\Json\Resource;
 
@@ -68,9 +69,9 @@ class PropertyResource extends Resource
                 "overlooks"=> Overlook::find($this->overlooks)->$name,
                 "payment_methods"=> PaymentMethod::find($this->payment_methods)->$name,
             ],
-            "pictures" => [
-                "path"
-            ]
+            "pictures" => PropertyImageResource::collection($this->images),
+
+            "offers" => PropertyOfferResource::collection($this->offers)
         ];
     }
 }

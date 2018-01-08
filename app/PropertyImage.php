@@ -7,4 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class PropertyImage extends Model
 {
     //
+    protected $fillable = [
+        'property_id','path','order','active','deleted'
+    ];
+
+    
 }

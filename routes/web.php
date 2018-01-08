@@ -57,6 +57,7 @@ Route::group(['middleware'=>'language'],function(){
     
     Route::get('ajax-district/{city}', 'RegionsController@getDistricts');
 
+    Route::get('getImages', 'PropertiesController@getImages');
     
 
 
@@ -68,10 +69,12 @@ Route::get('api/v1/user', 'UserController@getUser');
 Route::post('api/v1/users/create', 'Auth\RegisterController@newUser');
 Route::post('api/v1/users/login', 'Auth\LoginController@setLogin');
 Route::post('api/v1/properties/search', 'PropertiesController@getSearch');
+Route::post('api/v1/properties/store', 'PropertiesController@storeAPI');
 Route::get('api/v1/properties/featured', 'PropertiesController@getFeatured');
 Route::get('api/v1/properties/latest', 'PropertiesController@getLatest');
 Route::get('api/v1/properties/district/{id}', 'PropertiesController@getListByDistrict');
 Route::get('api/v1/property/{id}', 'PropertiesController@getProperty');
+Route::get('api/v1/property/images/{id}', 'PropertiesController@getImages');
 Route::get('api/v1/property/similer/{id}', 'PropertiesController@getSimilerProperties');
 Route::get('api/v1/property/offers/{id}', 'PropertyOfferController@getPropertyOffers');
 Route::get('api/v1/properties', 'PropertiesController@getList');

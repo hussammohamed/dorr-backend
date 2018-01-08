@@ -10,7 +10,7 @@
       </div>
       <div class="mdl-dialog__logo">
         <div class="bg"></div>
-        <img src="/images/dorr-logo.svg" alt="Dorr">
+        <img src="http://bareeqstudio.com/dorr/public/images/dorr-logo.svg" alt="Dorr">
       </div>
     </div>
 

@@ -61,7 +61,7 @@ class PropertyImagesController extends Controller
             $file->move($folderpath , $fileName);
 
             $img = new PropertyImage;
-            $img->property_id = 1;
+            $img->property_id = $property_id;
             $img->path = $fileName;
             $img->order = $key+1;
             $img->save();

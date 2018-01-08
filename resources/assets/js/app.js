@@ -22,7 +22,7 @@ const app = new Vue({
     data() {
         return {
           url: "",
-          cities: "",
+          cities: [],
 
         };
       },
@@ -51,14 +51,21 @@ const app = new Vue({
 
     mounted() {
         var self = this;
-        setTimeout(() => { $("#cityId").change(function(){
+        setTimeout(() => { $(".city_id_js").change(function(){
          var value = $(this).parent().find(".hidden-input").val();
-         console.log(value);
          $.ajax({
-            url: '/api/v1/regions/'+value +'',
+            url: 'http://bareeqstudio.com/dorr/public/api/v1/regions/'+value +'',
             type: "GET",
             success: function(_response) {
                 self.cities = _response.data
+                var districtContianer = $('#districtContianer')
+                if(districtContianer.length){
+                    districtContianer.empty();
+                    for (let i = 0; i < self.cities.length; i++) {
+                        districtContianer.append( '<li class="mdl-menu__item" data-val='+self.cities[i].id +'>'+self.cities[i].title+'</li>' );
+                        
+                    }
+                }
                 
             },
             complete: function(_response) {

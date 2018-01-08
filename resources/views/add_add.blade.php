@@ -45,8 +45,8 @@
                     </div>
                     <div class="mdl-cell mdl-cell--6-col">
                         <div class="mdl-textfield mdl-js-textfield u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-                            <input class="mdl-textfield__input"  type="text" id="cityId" value="" readonly tabIndex="-1">
-                            <input value="" class="hidden-input" name="region" type="hidden" />
+                            <input class="mdl-textfield__input city_id_js"  type="text" id="cityId" value="" readonly tabIndex="-1">
+                            <input value="" class="hidden-input"  type="hidden" />
                             <label for="cityId">
                                 <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
                             </label>
@@ -61,13 +61,13 @@
                     <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet">
                         <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label  getmdl-select__city  getmdl-select getmdl-select__fix-height">
                           <input class="mdl-textfield__input" type="text" id="district" value="" readonly tabIndex="-1">
-                          <input  type="hidden"   value="" >
+                          <input  type="hidden" name="region"  value="" >
                           <label for="district">
                             <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
                           </label>
                           <label for="district" class="mdl-textfield__label">الحي</label>
-                          <ul for="district" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                            <li  v-for="city in cities" v-text="city.title" tabindex="-1" class="mdl-menu__item" :data-val="city.id"></li>
+                          <ul for="district" id="districtContianer" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                            
                           </ul>
                         </div>
                       </div>

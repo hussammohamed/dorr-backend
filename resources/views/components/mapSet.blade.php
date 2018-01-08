@@ -8,7 +8,7 @@
       إخفاء الخريطة
     </button>
   <div id="searchArea" class="map-serach mdl-card mdl-shadow--2dp">
-    <form action="/properties/search" method="POST">
+    <form action="properties/search" method="POST">
       <div class="serach-textfield">
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--slim">
           <input class="mdl-textfield__input" name="keyword" type="text" id="mapSearch">
@@ -23,7 +23,7 @@
       <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet">
         <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
 
-          <input id="cityId" class="mdl-textfield__input" type="text" value="" readonly tabIndex="-1">
+          <input id="cityId" class="mdl-textfield__input city_id_js" type="text" value="" readonly tabIndex="-1">
           <input  type="hidden" class="hidden-input"  name="city"  value="" >
           <label for="cityId">
 
@@ -72,31 +72,31 @@
   </div>
   
   
-  <form action="/properties/search" method="POST">
+  <form action="properties/search" method="POST">
     <div class="mdl-grid search-area--s">
       <div class="mdl-cell mdl-cell--2-col">
         <div class="mdl-textfield mdl-js-textfield ">
-          <input class="mdl-textfield__input" type="text" id="mapSearch2">
+          <input class="mdl-textfield__input" name="keyword" type="text" id="mapSearch2">
           <label class="mdl-textfield__label" for="mapSerach2">بحث</label>
         </div>
       </div>
       <div class="mdl-cell mdl-cell--2-col">
-        <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-          <input class="mdl-textfield__input" type="text" id="city2" value="" readonly tabIndex="-1">
-          <input  type="hidden"  value="" >
+        <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label  getmdl-select getmdl-select__fix-height">
+          <input class="mdl-textfield__input  city_id_js" type="text" id="city2" value="" readonly tabIndex="-1">
+          <input  type="hidden" class="hidden-input"  value=""  name="city">
           <label for="city2">
             <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
           </label>
           <label for="city2" class="mdl-textfield__label">المدينة </label>
           <ul for="city2" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-            <li class="mdl-menu__item" data-val="DE">مكة</li>
-            <li class="mdl-menu__item" data-val="BY">المدينة</li>
-            <li class="mdl-menu__item" data-val="RU">الرياض</li>
+          @foreach ($cities as $city)
+          <li class="mdl-menu__item" data-val="{{$city->id}}">{{$city->$name}}</li>
+          @endforeach
           </ul>
         </div>
       </div>
       <div class="mdl-cell mdl-cell--2-col">
-        <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
+        <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select__city getmdl-select getmdl-select__fix-height">
           <input class="mdl-textfield__input" type="text" id="sample13" value="" readonly tabIndex="-1">
           <input  type="hidden"  value="" >
           <label for="sample13">
@@ -104,21 +104,19 @@
           </label>
           <label for="sample13" class="mdl-textfield__label">الحي</label>
           <ul for="sample13" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-            <li class="mdl-menu__item" data-val="DE">مكة</li>
-            <li class="mdl-menu__item" data-val="BY">المدينة</li>
-            <li class="mdl-menu__item" data-val="RU">الرياض</li>
+          <li  v-for="city in cities" v-text="city.title" tabindex="-1" class="mdl-menu__item" :data-val="city.id"></li>
           </ul>
         </div>
       </div>
       <div class="mdl-cell mdl-cell--2-col">
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
-          <input class="mdl-textfield__input" type="text" id="lowPrice2">
+          <input class="mdl-textfield__input" name="priceFrom" type="text" id="lowPrice2">
           <label class="mdl-textfield__label" for="lowPrice2">أقل سعر</label>
         </div>
       </div>
       <div class="mdl-cell mdl-cell--2-col">
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
-          <input class="mdl-textfield__input" type="text" id="hPrice2">
+          <input class="mdl-textfield__input" name="priceTo"  type="text" id="hPrice2">
           <label class="mdl-textfield__label" for="hPrice2">أعلى سعر</label>
         </div>
       </div>

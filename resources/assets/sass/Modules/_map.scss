@@ -22,7 +22,7 @@ $markerHeight: 24px;
         padding: 0 15px;
     }
     .map-marker{
-        padding: 0;
+        padding: 0 8px;
         font-size: 12px;
         height: $markerHeight;
         line-height: $markerHeight;
@@ -89,7 +89,7 @@ $markerHeight: 24px;
                 position: absolute;
                 color: rgba(0, 0, 0, .54);
                 top: calc(50% + 2px);
-                left: calc(50% - 10px);
+                #{$left}: calc(50% - 10px);
                 @include translate(-50%, -50%);
                 &::before{
                     content: "expand_less

@@ -21,38 +21,20 @@
         <div class="mdl-cell mdl-cell--9-col">
             <div class="mdl-card  mdl-shadow--2dp u-auto-width u-mbuttom16 gallery-card">
                 <div class="gallery-img" id="galleryImg">
-
-                    <iframe src="https://www.youtube.com/embed/rwvmru5JmXk?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" gesture="media"
-                        allow="encrypted-media" allowfullscreen></iframe>
-
+                @foreach($propertyImages as $propertyImage => $value)
+                @if($propertyImage == 0)
+                <img  src="{{ asset ('/upload/properties') }}/{{$value->path}}" alt="">
+                     
+                        @endif
+                @endforeach
                 </div>
                 <div id="owl-example" class="owl-carousel owl-centered">
+                    @foreach($propertyImages as $propertyImage)
                     <div class="item">
                         <div class="owl-click"></div>
-                        <iframe class="target" src="https://www.youtube.com/embed/rwvmru5JmXk?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0"
-                            gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+                        <img class="target" src="{{ asset ('/upload/properties') }}/{{$propertyImage->path}}" alt="">
                     </div>
-                    <div class="item">
-                        <div class="owl-click"></div>
-                        <img class="target" src={{ asset ( 'images/card1.png') }} alt="">
-                    </div>
-                    <div class="item">
-                        <div class="owl-click"></div>
-                        <img class="target" src={{ asset ( 'images/card1.png') }} alt="">
-                    </div>
-                    <div class="item">
-                        <div class="owl-click"></div>
-                        <img class="target" src={{ asset ( 'images/card1.png') }} alt="">
-                    </div>
-                    <div class="item">
-                        <div class="owl-click"></div>
-                        <img class="target" src={{ asset ( 'images/card1.png') }} alt="">
-                    </div>
-                    <div class="item">
-                        <div class="owl-click"></div>
-                        <img class="target" src={{ asset ( 'images/card1.png') }} alt="">
-                    </div>
-
+                    @endforeach
 
 
                 </div>
@@ -76,38 +58,38 @@
                             </td>
 
                         </tr>
-                        <tr>
+                        <!-- <tr>
                             <td class="u-no-border-top header" width="8%">سعر المتر</td>
                             <td class="u-no-border-top">
-                            {{ $property->pricePerMeter }}
+                            {{ $property->price_per_meter }}
                             </td>
 
-                        </tr>
+                        </tr> -->
                         <tr>
                             <td class="u-no-border-top header" width="8%">تاريخ النشر</td>
                             <td class="u-no-border-top">
-                            {{ $property->dateOfPublication }}
+                            {{ $property->created_at }}
                             </td>
 
                         </tr>
                         <tr>
                             <td class="u-no-border-top header" width="8%">النوع</td>
                             <td class="u-no-border-top">
-                            {{ $property->type }}
+                            {{ \App\Type::find($property->type)->$name }}
                             </td>
 
                         </tr>
                         <tr>
-                            <td class="u-no-border-top header" width="8%">الساحة بالمتر</td>
+                            <td class="u-no-border-top header" width="8%">المساحة بالمتر</td>
                             <td class="u-no-border-top">
                             {{ $property->area }}
                             </td>
 
                         </tr>
                         <tr>
-                            <td class="u-no-border-top header" width="8%">نوع الملن</td>
+                            <td class="u-no-border-top header" width="8%">نوع المعلن</td>
                             <td class="u-no-border-top">
-                            {{ $property->advertiserType }}
+                            {{ \App\Advertiser::find($property->advertiser_type)->$name }}
                             </td>
 
                         </tr>
@@ -135,14 +117,15 @@
                         <tr>
                             <td class="u-no-border-top header" width="8%">سنة البناء</td>
                             <td class="u-no-border-top">
-                            {{ $property->dateOfConstruction }}
+                            {{ $property->year_of_construction }}
                             </td>
 
                         </tr>
                         <tr>
                             <td class="u-no-border-top header" width="8%">نوع التشطيب</td>
                             <td class="u-no-border-top">
-                            {{ $property->finishType }}
+                            {{ \App\FinishType::find($property->finish_type)->$name }}  
+                            
                             </td>
 
                         </tr>
@@ -155,23 +138,26 @@
                 <div class="group-ad__header">
                     <h6 class="group-ad__title">عروض اسعار</h6>
                 </div>
-
+                @foreach($propertyOffers as $offer)
                 <div class="mdl-card mdl-card--pro  mdl-shadow--2dp u-auto-width u-mbuttom16 u-height-auto u-padding-top-45">
 
                     <div class="title">
                         <div class="mdl-avatar">
                             <img class="" src={{ asset ( 'images/face.png') }} alt="">
                         </div>
-                        <h5 class="u-primary-darker-color">سليمان بن عدنان الثقفي</h5>
+                        <h5 class="u-primary-darker-color">
+                        
+                        {{ ($offer->user_id == 0 ) ? 'Unkowen' :\App\User::find($offer->user_id)->name }}
+                        </h5>
                     </div>
                     <div class="contet">
-                        <p class="u-headline-color">ملحق دور ثالث فى عمارة تجارية بدون مصعد كهرباء مشترك عمارة هادئة جدا مكونة </p>
+                        <p class="u-headline-color">{{$offer->description}} </p>
                     </div>
 
-                    <span class="card-label top-label-left has-secondary-base-bg">عرض السعر 3,180,000 ريال</span>
+                    <span class="card-label top-label-left has-secondary-base-bg">عرض السعر {{$offer->price}} ريال</span>
                 </div>
               
-              
+              @endforeach
            
                
              
@@ -218,7 +204,7 @@
 
                             </td>
                             <td class="u-no-border-top" width="2%">
-                                سليمان بن عدنان الثقفى
+                            {{ \App\User::find($property->user_id)->name }}  
                             </td>
 
                         </tr>
@@ -267,18 +253,11 @@
 
         </div>
         <div class="mdl-grid">
+        @foreach($similarProperties as $property)
             <div class="mdl-cell mdl-cell--3-col">
                 @include('components.vCard')
             </div>
-            <div class="mdl-cell mdl-cell--3-col">
-                @include('components.vCard')
-            </div>
-            <div class="mdl-cell mdl-cell--3-col">
-                @include('components.vCard')
-            </div>
-            <div class="mdl-cell mdl-cell--3-col">
-                @include('components.vCard')
-            </div>
+            @endforeach
         </div>
     </div>
 </div>

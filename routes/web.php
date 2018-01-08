@@ -17,36 +17,41 @@ use App\Http\Controllers\Auth\RegisterController;
 
 Route::get('lang/{lang}','HomeController@lang');
 Route::group(['middleware'=>'language'],function(){
-    Route::get('/', function () {
-        return view('home');
-    });
+    //Route::get('/', function () {
+    //    return view('home');
+    //});
     Auth::routes();
 
-    Route::get('/home', 'HomeController@index')->name('home');
-
-    Route::get('/property', function () {
-        return view('property');
-    });
-    Route::get('/search', function () {
-        return view('searchPage');
-    });
-    Route::get('/add_ad', function () {
-        return view('add_add');
-    });
-    Route::get('/report', function () {
-        return view('report');
-    });
-    /*Route::get('/myAccount', function () {
-        return view('myAccount');
-    });*/
-    Route::get('/zakah', function () {
-        return view('zakah');
-    });
-    Route::get('/sucsess', function () {
-        return view('sucsess');
-    });
+    Route::get('/', 'HomeController@index')->name('home');
+    
+        // Route::get('/property', function () {
+        //     return view('property');
+        // });
+    
+        Route::get('/myProperties', function () {
+            return view('myProperties');
+        });
+        Route::get('/search', function () {
+            return view('searchPage');
+        });
+        // Route::get('/add_ad', function () {
+        //     return view('add_add');
+        // });
+        Route::get('/report', function () {
+            return view('report');
+        });
+        /*Route::get('/myAccount', function () {
+            return view('myAccount');
+        });*/
+        Route::get('/zakah', function () {
+            return view('zakah');
+        });
+        Route::get('/sucsess', function () {
+            return view('sucsess');
+        });
 
     Route::get('myAccount', 'UserController@edit');
+    Route::get('myAccount/Properties','UserController@getUserProperties');
     Route::post('myAccount/update', 'UserController@update');
     Route::post('myAccount/updatePassword', 'UserController@updatePassword');
 
@@ -57,6 +62,8 @@ Route::group(['middleware'=>'language'],function(){
     
     Route::get('ajax-district/{city}', 'RegionsController@getDistricts');
 
+    Route::post('properties/search', 'PropertiesController@porpertySearch')->name('searchProperty');;
+    
     Route::get('getImages', 'PropertiesController@getImages');
     
 

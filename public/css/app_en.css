@@ -1122,7 +1122,7 @@ h3 small,
 h4 small,
 h5 small,
 h6 small {
-  font-family: "Noto Kufi Arabic", sans-serif;
+  font-family: "droidnaskh", sans-serif;
   font-size: 56px;
   font-weight: 400;
   line-height: 1.35;
@@ -1132,7 +1132,7 @@ h6 small {
 }
 
 h1 {
-  font-family: "Noto Kufi Arabic", sans-serif;
+  font-family: "droidnaskh", sans-serif;
   font-size: 56px;
   font-weight: 400;
   line-height: 1.35;
@@ -1142,7 +1142,7 @@ h1 {
 }
 
 h2 {
-  font-family: "Noto Kufi Arabic", sans-serif;
+  font-family: "droidnaskh", sans-serif;
   font-size: 45px;
   font-weight: 400;
   line-height: 48px;
@@ -1151,7 +1151,7 @@ h2 {
 }
 
 h3 {
-  font-family: "Noto Kufi Arabic", sans-serif;
+  font-family: "droidnaskh", sans-serif;
   font-size: 34px;
   font-weight: 400;
   line-height: 40px;
@@ -1160,7 +1160,7 @@ h3 {
 }
 
 h4 {
-  font-family: "Noto Kufi Arabic", sans-serif;
+  font-family: "droidnaskh", sans-serif;
   font-size: 24px;
   font-weight: 400;
   line-height: 32px;
@@ -1170,7 +1170,7 @@ h4 {
 }
 
 h5 {
-  font-family: "Noto Kufi Arabic", sans-serif;
+  font-family: "droidnaskh", sans-serif;
   font-size: 20px;
   font-weight: 500;
   line-height: 1;
@@ -1180,7 +1180,7 @@ h5 {
 }
 
 h6 {
-  font-family: "Noto Kufi Arabic", sans-serif;
+  font-family: "droidnaskh", sans-serif;
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
@@ -1203,7 +1203,7 @@ a {
 }
 
 blockquote {
-  font-family: "Noto Kufi Arabic", sans-serif;
+  font-family: "droidnaskh", sans-serif;
   position: relative;
   font-size: 24px;
   font-weight: 300;
@@ -1252,7 +1252,7 @@ ol {
  */
 
 .mdl-typography--display-4 {
-  font-family: "Noto Kufi Arabic", sans-serif;
+  font-family: "droidnaskh", sans-serif;
   font-size: 112px;
   font-weight: 300;
   line-height: 1;
@@ -1260,7 +1260,7 @@ ol {
 }
 
 .mdl-typography--display-4-color-contrast {
-  font-family: "Noto Kufi Arabic", sans-serif;
+  font-family: "droidnaskh", sans-serif;
   font-size: 112px;
   font-weight: 300;
   line-height: 1;
@@ -1269,7 +1269,7 @@ ol {
 }
 
 .mdl-typography--display-3 {
-  font-family: "Noto Kufi Arabic", sans-serif;
+  font-family: "droidnaskh", sans-serif;
   font-size: 56px;
   font-weight: 400;
   line-height: 1.35;
@@ -1277,7 +1277,7 @@ ol {
 }
 
 .mdl-typography--display-3-color-contrast {
-  font-family: "Noto Kufi Arabic", sans-serif;
+  font-family: "droidnaskh", sans-serif;
   font-size: 56px;
   font-weight: 400;
   line-height: 1.35;
@@ -1286,14 +1286,14 @@ ol {
 }
 
 .mdl-typography--display-2 {
-  font-family: "Noto Kufi Arabic", sans-serif;
+  font-family: "droidnaskh", sans-serif;
   font-size: 45px;
   font-weight: 400;
   line-height: 48px;
 }
 
 .mdl-typography--display-2-color-contrast {
-  font-family: "Noto Kufi Arabic", sans-serif;
+  font-family: "droidnaskh", sans-serif;
   font-size: 45px;
   font-weight: 400;
   line-height: 48px;
@@ -1301,14 +1301,14 @@ ol {
 }
 
 .mdl-typography--display-1 {
-  font-family: "Noto Kufi Arabic", sans-serif;
+  font-family: "droidnaskh", sans-serif;
   font-size: 34px;
   font-weight: 400;
   line-height: 40px;
 }
 
 .mdl-typography--display-1-color-contrast {
-  font-family: "Noto Kufi Arabic", sans-serif;
+  font-family: "droidnaskh", sans-serif;
   font-size: 34px;
   font-weight: 400;
   line-height: 40px;
@@ -1316,7 +1316,7 @@ ol {
 }
 
 .mdl-typography--headline {
-  font-family: "Noto Kufi Arabic", sans-serif;
+  font-family: "droidnaskh", sans-serif;
   font-size: 24px;
   font-weight: 400;
   line-height: 32px;
@@ -1324,7 +1324,7 @@ ol {
 }
 
 .mdl-typography--headline-color-contrast {
-  font-family: "Noto Kufi Arabic", sans-serif;
+  font-family: "droidnaskh", sans-serif;
   font-size: 24px;
   font-weight: 400;
   line-height: 32px;
@@ -1333,7 +1333,7 @@ ol {
 }
 
 .mdl-typography--title {
-  font-family: "Noto Kufi Arabic", sans-serif;
+  font-family: "droidnaskh", sans-serif;
   font-size: 20px;
   font-weight: 500;
   line-height: 1;
@@ -1341,7 +1341,7 @@ ol {
 }
 
 .mdl-typography--title-color-contrast {
-  font-family: "Noto Kufi Arabic", sans-serif;
+  font-family: "droidnaskh", sans-serif;
   font-size: 20px;
   font-weight: 500;
   line-height: 1;
@@ -1350,7 +1350,7 @@ ol {
 }
 
 .mdl-typography--subhead {
-  font-family: "Noto Kufi Arabic", sans-serif;
+  font-family: "droidnaskh", sans-serif;
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
@@ -1358,7 +1358,7 @@ ol {
 }
 
 .mdl-typography--subhead-color-contrast {
-  font-family: "Noto Kufi Arabic", sans-serif;
+  font-family: "droidnaskh", sans-serif;
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
@@ -1397,7 +1397,7 @@ ol {
 }
 
 .mdl-typography--body-2-force-preferred-font {
-  font-family: "Noto Kufi Arabic", sans-serif;
+  font-family: "droidnaskh", sans-serif;
   font-size: 14px;
   font-weight: 500;
   line-height: 24px;
@@ -1405,7 +1405,7 @@ ol {
 }
 
 .mdl-typography--body-2-force-preferred-font-color-contrast {
-  font-family: "Noto Kufi Arabic", sans-serif;
+  font-family: "droidnaskh", sans-serif;
   font-size: 14px;
   font-weight: 500;
   line-height: 24px;
@@ -1414,7 +1414,7 @@ ol {
 }
 
 .mdl-typography--body-1-force-preferred-font {
-  font-family: "Noto Kufi Arabic", sans-serif;
+  font-family: "droidnaskh", sans-serif;
   font-size: 14px;
   font-weight: 400;
   line-height: 24px;
@@ -1422,7 +1422,7 @@ ol {
 }
 
 .mdl-typography--body-1-force-preferred-font-color-contrast {
-  font-family: "Noto Kufi Arabic", sans-serif;
+  font-family: "droidnaskh", sans-serif;
   font-size: 14px;
   font-weight: 400;
   line-height: 24px;
@@ -1438,7 +1438,7 @@ ol {
 }
 
 .mdl-typography--caption-force-preferred-font {
-  font-family: "Noto Kufi Arabic", sans-serif;
+  font-family: "droidnaskh", sans-serif;
   font-size: 12px;
   font-weight: 400;
   line-height: 1;
@@ -1454,7 +1454,7 @@ ol {
 }
 
 .mdl-typography--caption-force-preferred-font-color-contrast {
-  font-family: "Noto Kufi Arabic", sans-serif;
+  font-family: "droidnaskh", sans-serif;
   font-size: 12px;
   font-weight: 400;
   line-height: 1;
@@ -1463,7 +1463,7 @@ ol {
 }
 
 .mdl-typography--menu {
-  font-family: "Noto Kufi Arabic", sans-serif;
+  font-family: "droidnaskh", sans-serif;
   font-size: 14px;
   font-weight: 500;
   line-height: 1;
@@ -1471,7 +1471,7 @@ ol {
 }
 
 .mdl-typography--menu-color-contrast {
-  font-family: "Noto Kufi Arabic", sans-serif;
+  font-family: "droidnaskh", sans-serif;
   font-size: 14px;
   font-weight: 500;
   line-height: 1;
@@ -1480,7 +1480,7 @@ ol {
 }
 
 .mdl-typography--button {
-  font-family: "Noto Kufi Arabic", sans-serif;
+  font-family: "droidnaskh", sans-serif;
   font-size: 14px;
   font-weight: 500;
   text-transform: uppercase;
@@ -1489,7 +1489,7 @@ ol {
 }
 
 .mdl-typography--button-color-contrast {
-  font-family: "Noto Kufi Arabic", sans-serif;
+  font-family: "droidnaskh", sans-serif;
   font-size: 14px;
   font-weight: 500;
   text-transform: uppercase;
@@ -4803,7 +4803,7 @@ ol {
   position: absolute;
   top: -11px;
   right: -24px;
-  font-family: "Noto Kufi Arabic", sans-serif;
+  font-family: "droidnaskh", sans-serif;
   font-weight: 600;
   font-size: 12px;
   width: 22px;
@@ -5097,7 +5097,7 @@ ol {
   min-width: 64px;
   padding: 0 0 25px;
   display: inline-block;
-  font-family: "Noto Kufi Arabic", sans-serif;
+  font-family: "droidnaskh", sans-serif;
   font-size: 14px;
   font-weight: 500;
   text-transform: uppercase;
@@ -6381,7 +6381,7 @@ fieldset[disabled] .mdl-checkbox .mdl-checkbox__ripple-container .mdl-ripple,
 
 .mdl-chip {
   height: 32px;
-  font-family: "Noto Kufi Arabic", sans-serif;
+  font-family: "droidnaskh", sans-serif;
   line-height: 32px;
   padding: 0 12px;
   border: 0;
@@ -8577,7 +8577,7 @@ fieldset[disabled] .mdl-checkbox .mdl-checkbox__ripple-container .mdl-ripple,
 }
 
 .mdl-list__item {
-  font-family: "Noto Kufi Arabic", sans-serif;
+  font-family: "droidnaskh", sans-serif;
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
@@ -9898,7 +9898,7 @@ fieldset[disabled] .mdl-checkbox .mdl-checkbox__ripple-container .mdl-ripple,
 .mdl-layout-title {
   display: block;
   position: relative;
-  font-family: "Noto Kufi Arabic", sans-serif;
+  font-family: "droidnaskh", sans-serif;
   font-size: 20px;
   font-weight: 500;
   line-height: 1;
@@ -11812,7 +11812,7 @@ _:-ms-input-placeholder,
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  font-family: "Noto Kufi Arabic", sans-serif;
+  font-family: "droidnaskh", sans-serif;
   will-change: transform;
   -webkit-transform: translate(0, 80px);
           transform: translate(0, 80px);
@@ -11873,7 +11873,7 @@ _:-ms-input-placeholder,
   float: right;
   text-transform: uppercase;
   padding: 14px 24px 14px 12px;
-  font-family: "Noto Kufi Arabic", sans-serif;
+  font-family: "droidnaskh", sans-serif;
   font-size: 14px;
   font-weight: 500;
   text-transform: uppercase;
@@ -15717,7 +15717,7 @@ fieldset[disabled] .mdl-textfield .mdl-textfield__label,
 }
 
 .getmdl-select .mdl-icon-toggle__label {
-  float: left;
+  float: right;
   margin-top: -30px;
   color: rgba(0, 0, 0, 0.4);
 }
@@ -15765,7 +15765,7 @@ fieldset[disabled] .mdl-textfield .mdl-textfield__label,
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  direction: ltr;
+  direction: rtl;
 }
 
 .topbar .topbar--item {
@@ -15860,7 +15860,7 @@ fieldset[disabled] .mdl-textfield .mdl-textfield__label,
 }
 
 .m-header .m-header--item__user {
-  float: left;
+  float: right;
 }
 
 .page-header {
@@ -15876,13 +15876,13 @@ fieldset[disabled] .mdl-textfield .mdl-textfield__label,
 .user-menu {
   line-height: normal;
   max-width: 350px;
-  margin-left: 45px;
+  margin-right: 45px;
   position: absolute;
-  left: 0;
+  right: 0;
   top: 40px;
   height: 65px;
-  padding-left: 40px;
-  padding-right: 8px;
+  padding-right: 40px;
+  padding-left: 8px;
   border-radius: 4px;
   background-color: #fff;
   z-index: 999;
@@ -15910,7 +15910,7 @@ fieldset[disabled] .mdl-textfield .mdl-textfield__label,
   position: absolute;
   color: rgba(0, 0, 0, 0.4);
   top: 18px;
-  right: calc(100% - 40px);
+  left: calc(100% - 40px);
   -webkit-transform: translateX(-50%) translateY(-50%);
   transform: translateX(-50%) translateY(-50%);
 }
@@ -15951,7 +15951,7 @@ fieldset[disabled] .mdl-textfield .mdl-textfield__label,
 }
 
 .user-menu .user-action-list {
-  margin-left: -32px;
+  margin-right: -32px;
   padding: 8px;
   margin-bottom: 0;
 }
@@ -16001,7 +16001,7 @@ fieldset[disabled] .mdl-textfield .mdl-textfield__label,
 }
 
 .l-footer .footer__middle {
-  text-align: right;
+  text-align: left;
 }
 
 .l-footer .footer__middle .footer--item {
@@ -16010,7 +16010,7 @@ fieldset[disabled] .mdl-textfield .mdl-textfield__label,
 }
 
 .l-footer .footer__middle .footer--item .footer--item__heading {
-  text-align: right;
+  text-align: left;
   font-weight: 900;
   font-size: 18px;
   padding: 0;
@@ -16083,7 +16083,7 @@ fieldset[disabled] .mdl-textfield .mdl-textfield__label,
   height: 35px;
   line-height: 35px;
   vertical-align: middle;
-  left: 18px;
+  right: 18px;
   text-decoration: none;
   color: #6B8597;
   display: none;
@@ -16091,8 +16091,8 @@ fieldset[disabled] .mdl-textfield .mdl-textfield__label,
 
 body {
   margin: 0;
-  direction: rtl;
-  font-family: "Noto Kufi Arabic", sans-serif;
+  direction: ltr;
+  font-family: "droidnaskh", sans-serif;
 }
 
 article,
@@ -16230,7 +16230,7 @@ ol {
 }
 
 .mdl-textfield__label {
-  text-align: right;
+  text-align: left;
 }
 
 .mdl-textfield__label::after {
@@ -16238,7 +16238,7 @@ ol {
 }
 
 .mdl-textfield__input {
-  text-align: right;
+  text-align: left;
 }
 
 .hover-effect {
@@ -16339,14 +16339,6 @@ td.header {
   position: relative;
 }
 
-.u-flip {
-  -webkit-transform: scaleX(-1);
-  transform: scaleX(-1);
-  -webkit-filter: FlipH;
-          filter: FlipH;
-  -ms-filter: "FlipH";
-}
-
 .u-no-mtop {
   margin-top: 0 !important;
 }
@@ -16364,7 +16356,7 @@ td.header {
 }
 
 .u-mrigth-15 {
-  margin-right: 15px;
+  margin-left: 15px;
 }
 
 .u-mbuttom30 {
@@ -16475,7 +16467,7 @@ h6,
 .h4,
 .h5,
 .h6 {
-  font-family: "Noto Kufi Arabic", sans-serif;
+  font-family: "droidnaskh", sans-serif;
   font-weight: 700;
   line-height: 1.5;
   color: #fff;
@@ -16570,18 +16562,18 @@ a:focus {
 
 .contentEditor ul li:before {
   content: "\25A0";
-  right: 0;
+  left: 0;
   position: absolute;
   top: 0;
   font-size: 0.8em;
 }
 
 .text-dir {
-  text-align: right;
+  text-align: left;
 }
 
 .text-dirInv {
-  text-align: left;
+  text-align: right;
 }
 
 .text-center {
@@ -16654,7 +16646,7 @@ address {
 .map-container .hide-map-btn {
   position: absolute;
   bottom: 35px;
-  left: 20px;
+  right: 20px;
   background-color: #303D46;
   color: #fff;
   padding: 0 15px;
@@ -16682,14 +16674,14 @@ address {
   position: inherit;
   border-top: 6px solid #40A6A2;
   bottom: -6px;
-  left: 50%;
+  right: 50%;
   -webkit-transform: translate(-50%);
           transform: translate(-50%);
 }
 
 .map-container .map-serach {
   position: absolute;
-  left: 40px;
+  right: 40px;
   top: 20px;
   height: auto;
   min-height: initial;
@@ -16708,7 +16700,7 @@ address {
 .map-container .map-serach .search-icon {
   position: absolute;
   top: 15px;
-  left: 0;
+  right: 0;
 }
 
 .map-container .map-serach .serach-textfield {
@@ -16724,13 +16716,13 @@ address {
 
 .map-container .map-serach .serach-textfield i {
   position: absolute;
-  left: 0;
+  right: 0;
   top: 0;
   color: rgba(0, 0, 0, 0.54);
 }
 
 .map-container .map-serach .collapse-btn {
-  border-right: 1px solid #9e9e9e;
+  border-left: 1px solid #9e9e9e;
   width: 5%;
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
@@ -16746,7 +16738,7 @@ address {
   position: absolute;
   color: rgba(0, 0, 0, 0.54);
   top: calc(50% + 2px);
-  left: calc(50% - 10px);
+  right: calc(50% - 10px);
   -webkit-transform: translateX(-50%) translateY(-50%);
   transform: translateX(-50%) translateY(-50%);
 }
@@ -16869,7 +16861,7 @@ address {
 }
 
 .v-card .card-footer__price {
-  float: left;
+  float: right;
   position: relative;
   height: 30px;
   padding: 0 20px;
@@ -16882,7 +16874,7 @@ address {
   -webkit-transform: skew(-30deg, 0deg);
   transform: skew(-30deg, 0deg);
   top: 0;
-  right: -8px;
+  left: -8px;
   z-index: 1;
   background-color: #F9BF16;
   height: 100%;
@@ -16893,7 +16885,7 @@ address {
   content: "";
   position: absolute;
   top: 0;
-  left: -1px;
+  right: -1px;
   z-index: 1;
   background-color: #F9BF16;
   height: 100%;
@@ -16932,7 +16924,7 @@ address {
   background-image: url(/images/mobile-background.svg);
   height: 100%;
   width: 65%;
-  left: 0;
+  right: 0;
   top: 0;
   position: absolute;
   z-index: 1;
@@ -16944,7 +16936,7 @@ address {
   background-image: url(/images/mobile.png);
   height: 100%;
   width: 50%;
-  left: 45px;
+  right: 45px;
   top: 0;
   position: absolute;
   z-index: 2;
@@ -17011,7 +17003,7 @@ address {
   padding: 0 35px;
   position: absolute;
   bottom: 25px;
-  left: 50%;
+  right: 50%;
   -webkit-transform: translateX(-50%) translateY(0);
   transform: translateX(-50%) translateY(0);
 }
@@ -17073,7 +17065,7 @@ address {
 }
 
 .h-card .card-stacked .card-footer__price {
-  float: left;
+  float: right;
   position: relative;
   height: 30px;
   padding: 0 20px;
@@ -17086,7 +17078,7 @@ address {
   -webkit-transform: skew(-30deg, 0deg);
   transform: skew(-30deg, 0deg);
   top: 0;
-  right: -8px;
+  left: -8px;
   z-index: 1;
   background-color: #F9BF16;
   height: 100%;
@@ -17097,7 +17089,7 @@ address {
   content: "";
   position: absolute;
   top: 0;
-  left: -1px;
+  right: -1px;
   z-index: 1;
   background-color: #F9BF16;
   height: 100%;
@@ -17168,7 +17160,7 @@ address {
   position: absolute;
   z-index: -1;
   top: 0;
-  left: -25px;
+  right: -25px;
   padding: 0 15px;
   -webkit-transform: skew(-30deg, 0deg);
   transform: skew(-30deg, 0deg);
@@ -17188,22 +17180,22 @@ address {
 
 .card-label.bottom-label-left {
   bottom: 0;
-  left: 0px;
+  right: 0px;
 }
 
 .card-label.top-label-left {
   top: 15p;
-  left: 0px;
+  right: 0px;
 }
 
 .card-label.top-label-right {
   top: 0;
-  right: 0px;
+  left: 0px;
 }
 
 .card-label.top-label-right::before {
-  left: auto;
-  right: -25px;
+  right: auto;
+  left: -25px;
   -webkit-transform: skew(30deg, 0deg);
   transform: skew(30deg, 0deg);
 }
@@ -17243,7 +17235,7 @@ address {
 }
 
 .gallery-card .owl-carousel {
-  padding-right: 8px;
+  padding-left: 8px;
 }
 
 .gallery-card .owl-carousel .owl-click {
@@ -17304,7 +17296,7 @@ address {
 .mdl-card--pro .mdl-avatar {
   position: relative;
   top: -20px;
-  margin-left: 15px;
+  margin-right: 15px;
 }
 
 .mdl-card--pro .contet {
@@ -17340,7 +17332,7 @@ address {
   position: inherit;
   border-top: 6px solid #fff;
   bottom: -14px;
-  left: -25%;
+  right: -25%;
   -webkit-transform: translate(90%);
           transform: translate(90%);
 }
@@ -17371,7 +17363,7 @@ address {
 
 .sticky-container .sticky-item {
   position: absolute;
-  left: 0;
+  right: 0;
   top: 0;
   -webkit-transition: all .2s ease-in-out;
   transition: all .2s ease-in-out;
@@ -17389,8 +17381,8 @@ address {
 }
 
 .mdl-menu--custom li {
-  direction: rtl;
-  text-align: right;
+  direction: ltr;
+  text-align: left;
 }
 
 .mdl-menu--custom i {
@@ -17413,7 +17405,7 @@ address {
 
 .sort-container .sort-list li {
   display: inline;
-  margin-left: 8px;
+  margin-right: 8px;
   padding: 4px;
 }
 
@@ -17524,7 +17516,7 @@ address {
 
 .wizard-form .actions ul {
   text-align: center;
-  direction: ltr;
+  direction: rtl;
 }
 
 .wizard-form .actions li {
@@ -17673,14 +17665,14 @@ address {
 }
 
 .report-card {
-  padding-right: 34%;
+  padding-left: 34%;
 }
 
 .report-card .repor-content {
   position: absolute;
   height: 100%;
   width: 26%;
-  right: 0;
+  left: 0;
   top: 0;
   padding: 37px 20px 20px 100px;
 }
@@ -17691,7 +17683,7 @@ address {
   width: 100%;
   z-index: -1;
   position: absolute;
-  right: -54px;
+  left: -54px;
   top: 0;
   -webkit-transform: skew(-15deg, 0deg);
   transform: skew(-15deg, 0deg);
@@ -17704,7 +17696,7 @@ address {
 
 .report-card .repor-content h6.title {
   margin-bottom: 5px;
-  text-align: right;
+  text-align: left;
 }
 
 .report-card .repor-content h1 {

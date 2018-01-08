@@ -6,8 +6,8 @@
  */
 
 //require('./bootstrap');
-
-//window.Vue = require('vue');
+window.$ = window.jQuery = require('jquery');
+window.Vue = require('vue');
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -16,11 +16,41 @@
  */
 
 //Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component('login-component', require('./components/loginComponent.vue'));
+Vue.component('signup-component', require('./components/signupComponent.vue'));
+const app = new Vue({
+    el: '#app',
+    data() {
+        return {
+          url: "",
+          userinput: ''
+        };
+      },
+    methods:{
+        loginDialog: function(url){
+            if (url){
+                this.url = url;
+            }
+            signupDialog.close();
+            loginDialog.showModal();
 
-// const app = new Vue({
-//     el: '#app'
-// });
-window.$ = window.jQuery = require('jquery');
+        },
+        signupDialog: function(url){
+            loginDialog.close();
+            signupDialog.showModal();
+
+        },
+        closeDialog: function(el){
+            let rect = el.getBoundingClientRect();
+            let isInDialog = (rect.top <= event.clientY && event.clientY <= rect.top + rect.height && rect.left <= event.clientX && event.clientX <= rect.left + rect.width);
+            if (!isInDialog) {
+                el.close();
+              }
+          },
+    },
+    mounted() {}
+});
+
 require('./material.min')
 require('./main')
 require('./getmdl-select.min');

@@ -10,7 +10,12 @@
     <title>Dorr @yield('title')</title>
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @if(App::getLocale()=="en" )
+        <link href="{{ asset('css/app_en.css') }}" rel="stylesheet">
+            @else
+            <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+            @endif
+    
     @stack('styles')
 </head>
 <body>
@@ -25,7 +30,7 @@
         @include('layouts.footer')
     </div>
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
     @stack('scripts')
 </body>
 </html>

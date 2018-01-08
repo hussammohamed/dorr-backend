@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
+use App;
 use App\User;
 use Hash;
+use App\Property;
 
 use Illuminate\Http\Request;
 
@@ -24,6 +26,28 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+     
+    public function getUser()
+    {
+        //
+        if(Auth::user()){
+            return Auth::user();
+        }else{
+            return "no logined user";
+        }
+        
+    }
+    
+    public function getUserProperties(Request $request)
+     {
+         if (Auth::check()) {
+             $Properties = Property::where('user_id',Auth::user()->id)->get();
+             return view('myProperties',['name'=>'name_'.App::getLocale(), 'properties'=>$Properties]);
+         }else{
+             return redirect('/');
+         }
+         
+     }
     public function create()
     {
         //
@@ -51,16 +75,6 @@ class UserController extends Controller
         //
     }
 
-    public function getUser()
-    {
-        //
-        if(Auth::user()){
-            return Auth::user();
-        }else{
-            return "no logined user";
-        }
-        
-    }
     /**
      * Show the form for editing the specified resource.
      *

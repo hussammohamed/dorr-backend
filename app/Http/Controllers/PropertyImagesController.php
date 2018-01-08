@@ -39,7 +39,7 @@ class PropertyImagesController extends Controller
         //
         foreach($files as $key=>$file){
             $extension = $file->getClientOriginalExtension();
-            $fileName = $property_id."-".time()."-".str_random().".".$extension;
+            $fileName = $property_id."-".time()."-".str_random(6).".".$extension;
             $folderpath  = 'upload/properties/';
             $file->move($folderpath , $fileName);
 

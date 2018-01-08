@@ -6,7 +6,7 @@
         </div>
         <img src={{ asset( '/images/checked.svg')}} alt="">
         <div class="card-footer">
-                <a href="#" class="mdl-button u-mtop16  mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored ">إذهب للأعلان</a>
+                <a href="/Properties/show/{{$property->id}}" class="mdl-button u-mtop16  mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored ">إذهب للأعلان</a>
         </div>
        
     </div>

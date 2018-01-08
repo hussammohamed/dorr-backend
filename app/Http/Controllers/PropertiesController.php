@@ -14,6 +14,10 @@ use App\Region;
 use App\Overlook;
 use App\PaymentMethod;
 use App\Advertiser;
+use App\User;
+use App\PropertyOffer;
+use App\FilterMenu;
+
 use App\Http\Resources\PropertyResource;
 use App\Http\Resources\PropertyImageResource;
 //use App\Http\Resources\PropertyCollection;
@@ -148,27 +152,26 @@ class PropertiesController extends Controller
         if (Auth::check()) {
             $property = new Property;
             $property->user_id = Auth::user()->id;
-            $property->type = 1;
-            $property->purpose = 1;
-            $property->title = "qqq";
-            $property->address = "asd";
-            $property->region = 1;
-            $property->lat = 24.567108;
-            $property->long = 46.40625;
-            $property->description = "asd";
-            $property->price = 34;
-            $property->year_of_construction = 2342;
-            $property->advertiser_type = 3;
-            $property->area = 2;
-            $property->floor = 2;
-            $property->finish_type = 1;
-            $property->overlooks = 2;
-            $property->payment_methods = 9;
-            $property->rooms = 9;
-            $property->bathrooms = 3;
+            $property->type = $request->type;
+            $property->purpose = $request->purpose;
+            $property->title = $request->title;
+            $property->address = $request->address;
+            $property->region = $request->region;
+            $property->lat = $request->lat;
+            $property->long = $request->long;
+            $property->description = $request->description;
+            $property->price = $request->price;
+            $property->year_of_construction = $request->year_of_construction;
+            $property->advertiser_type = $request->advertiser_type;
+            $property->area = $request->area;
+            $property->floor = $request->floor;
+            $property->finish_type = $request->finish_type;
+            $property->overlooks = $request->overlooks;
+            $property->payment_methods = $request->payment_methods;
+            $property->rooms = $request->rooms;
+            $property->bathrooms = $request->bathrooms;
             $property->ad_id = time();
-            $property->hits = 3;
-            $property->youtube = "321";
+            $property->youtube = $request->youtube;
             $property->startDate = date("Y-m-d h:i:s");
 
             $property->save();
@@ -180,7 +183,7 @@ class PropertiesController extends Controller
                 
             }
 
-            return redirect('/Properties/show/'.$property->id);
+            return view('sucsess',['property'=>$property]);
         }else{
             return redirect('/');
         }
@@ -235,12 +238,17 @@ class PropertiesController extends Controller
      * @param  \App\Test  $test
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
-        $property = Property::find($id);
-        return view('/property',['property'=>$property]);
-    }
+     public function show($id)
+     {
+         //
+         $property = Property::find($id);
+         $similarProperties = Property::where('region','=', $property->region)->
+         where('type','=', $property->type)->
+         where('active','=', 1)->where('deleted','=', 0)->limit(4)->get();
+         $propertyOffers = PropertyOffer::where('property_id', '=', $property->id)->get();
+         $propertyImages = PropertyImage::where('property_id', '=', $property->id)->get();   
+         return view('/property',['name'=>'name_'.App::getLocale(),'property'=>$property, 'similarProperties'=>$similarProperties, 'propertyOffers'=>$propertyOffers, 'propertyImages'=>$propertyImages]);
+     }
 
     /**
      * Show the form for editing the specified resource.

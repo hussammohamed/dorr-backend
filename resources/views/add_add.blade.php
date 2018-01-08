@@ -1,6 +1,7 @@
 @extends('layouts.app') @section('header') @endsection @section('content')
 
 <div class="content content-padding">
+
     
     <form id="properties-form" class="wizard-form" action="/Properties/store"  method="POST" enctype="multipart/form-data">
         {{ csrf_field() }}

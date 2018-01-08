@@ -75,6 +75,14 @@ class PropertiesController extends Controller
         return PropertyResource::collection($property);
     }
 
+    public function getByUser()
+    {
+        //
+        $property = Property::where('user_id','=', 2)->where('deleted','=', 0)->get();
+        return PropertyResource::collection($property);
+    }
+
+    
     public function getFeatured()
     {
         //
@@ -101,6 +109,10 @@ class PropertiesController extends Controller
     }
 
     
+    public function getImages($id){
+        $images = App\Property::find($id)->images;
+        return  $images;
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -216,10 +228,6 @@ class PropertiesController extends Controller
 
     }
 
-    public function getImages($id){
-        $images = App\Property::find($id)->images;
-        return  $images;
-    }
 
     /**
      * Display the specified resource.
@@ -243,6 +251,47 @@ class PropertiesController extends Controller
     public function edit(Test $test)
     {
         //
+        
+    }
+
+    public function updateAPI(Request $request)
+    {
+        //
+        
+            $property = Property::find($request->id);
+            $property->type =  $request->type;
+            $property->purpose =  $request->purpose;
+            $property->title =  $request->title;
+            $property->address = $request->address;
+            $property->region =  $request->region;
+            $property->lat =  $request->lat;
+            $property->long =  $request->long;
+            $property->description =  $request->description;
+            $property->price = $request->price;
+            $property->year_of_construction =  $request->year_of_construction;
+            $property->advertiser_type =  $request->advertiser_type;
+            $property->area =  $request->area;
+            $property->floor =  $request->floor;
+            $property->finish_type =  $request->finish_type;
+            $property->overlooks =  $request->overlooks;
+            $property->payment_methods =  $request->payment_methods;
+            $property->rooms =  $request->rooms;
+            $property->bathrooms =  $request->bathrooms;
+            $property->ad_id = time();
+            $property->youtube = $request->youtube;
+            $property->startDate = date("Y-m-d h:i:s");
+
+            $property->save();
+
+            if ($request->hasFile('pictures')) {
+                
+                app('App\Http\Controllers\PropertyImagesController')->store($property->id, $request->file('attachment'));
+                
+            }
+
+            $property = Property::find($property->id);
+            return new PropertyResource($property);
+
     }
 
     /**
@@ -255,6 +304,41 @@ class PropertiesController extends Controller
     public function update(Request $request, Test $test)
     {
         //
+        if (Auth::check()) {
+            $property = Property::find($request->id);
+            $property->type =  $request->type;
+            $property->purpose =  $request->purpose;
+            $property->title =  $request->title;
+            $property->address = $request->address;
+            $property->region =  $request->region;
+            $property->lat =  $request->lat;
+            $property->long =  $request->long;
+            $property->description =  $request->description;
+            $property->price = $request->price;
+            $property->year_of_construction =  $request->year_of_construction;
+            $property->advertiser_type =  $request->advertiser_type;
+            $property->area =  $request->area;
+            $property->floor =  $request->floor;
+            $property->finish_type =  $request->finish_type;
+            $property->overlooks =  $request->overlooks;
+            $property->payment_methods =  $request->payment_methods;
+            $property->rooms =  $request->rooms;
+            $property->bathrooms =  $request->bathrooms;
+            $property->ad_id = time();
+            $property->youtube = $request->youtube;
+
+            $property->save();
+
+            if ($request->hasFile('attachment')) {
+                
+                app('App\Http\Controllers\PropertyImagesController')->store($property->id, $request->file('attachment'));
+                
+            }
+
+            return redirect('/Properties/show/'.$property->id);
+        }else{
+            return redirect('/');
+        }
     }
 
     /**

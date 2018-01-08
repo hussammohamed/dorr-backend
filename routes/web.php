@@ -65,18 +65,24 @@ Route::group(['middleware'=>'language'],function(){
 
 
 //API
-Route::get('api/v1/user', 'UserController@getUser');
 Route::post('api/v1/users/create', 'Auth\RegisterController@newUser');
 Route::post('api/v1/users/login', 'Auth\LoginController@setLogin');
+Route::post('api/v1/user/logout', 'Auth\LoginController@logout');
+Route::post('api/v1/user/update', 'UserController@updateUser');
+Route::get('api/v1/user', 'UserController@getUser');
 Route::post('api/v1/properties/search', 'PropertiesController@getSearch');
-Route::post('api/v1/properties/store', 'PropertiesController@storeAPI');
+Route::get('api/v1/properties/user', 'PropertiesController@getByUser');
+Route::post('api/v1/property/store', 'PropertiesController@storeAPI');
+Route::post('api/v1/property/{id}/update', 'PropertiesController@updateAPI');
 Route::get('api/v1/properties/featured', 'PropertiesController@getFeatured');
 Route::get('api/v1/properties/latest', 'PropertiesController@getLatest');
 Route::get('api/v1/properties/district/{id}', 'PropertiesController@getListByDistrict');
 Route::get('api/v1/property/{id}', 'PropertiesController@getProperty');
 Route::get('api/v1/property/images/{id}', 'PropertiesController@getImages');
+Route::get('api/v1/property/{id}/add_images', 'PropertyImagesController@storeNew');
 Route::get('api/v1/property/similer/{id}', 'PropertiesController@getSimilerProperties');
 Route::get('api/v1/property/offers/{id}', 'PropertyOfferController@getPropertyOffers');
+Route::post('api/v1/property/offers/{id}/store', 'PropertyOfferController@storeAPI');
 Route::get('api/v1/properties', 'PropertiesController@getList');
 Route::get('api/v1/regions', 'RegionsController@getRegions');
 Route::get('api/v1/regions/districts', 'RegionsController@getDistricts');

@@ -31,7 +31,7 @@
     </div>
     <!-- Scripts -->
     <script>
-             var url = '{{ asset('/') }}'
+             var url = 'http://bareeqstudio.com/dorr/public'
     </script>
     <script  src="{{ asset('js/app.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/getmdl-select.min.js') }}"></script>

@@ -51,7 +51,7 @@ class LoginController extends Controller
         if(Auth::attempt([$this->userlogin() => request()->email , 'password' => request()->password])){
             return redirect()->intended('/');
         }else{
-            return 'error';
+            return response()->json("wrong credentials", 422);
         }
     }
 

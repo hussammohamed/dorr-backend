@@ -80,6 +80,7 @@
             <a href="#" class="group-ad__more">المزيد</a>
 
         </div>
+
         <div class="mdl-grid">
         @foreach($featuredProperties as $property)
             <div class="mdl-cell mdl-cell--3-col">
@@ -88,6 +89,7 @@
             </div>
             @endforeach
         </div>
+
     </div>
     <div class="group-ad">
         <div class="group-ad__header">
@@ -101,6 +103,7 @@
             </div>
             @endforeach
         </div>
+
     </div>
     @include('components.appsDownload') @include('components.ourServices')
 </div>

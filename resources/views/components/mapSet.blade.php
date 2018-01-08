@@ -22,9 +22,12 @@
     <div class="mdl-grid ">
       <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet">
         <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
+
           <input id="cityId" class="mdl-textfield__input" type="text" value="" readonly tabIndex="-1">
           <input  type="hidden" class="hidden-input"  name="city"  value="" >
           <label for="cityId">
+
+
             <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
           </label>
           <label for="cityId" class="mdl-textfield__label">المدينة</label>
@@ -40,6 +43,7 @@
           <input class="mdl-textfield__input" type="text" id="district" value="" readonly tabIndex="-1">
           <input  type="hidden" name="district"  value="" >
           <label for="district">
+
             <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
           </label>
           <label for="district" class="mdl-textfield__label">الحي</label>

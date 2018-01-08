@@ -51,6 +51,7 @@ Route::group(['middleware'=>'language'],function(){
         return view('sucsess');
     });
 
+
     Route::get('myAccount', 'UserController@edit');
     Route::get('myAccount/Properties','UserController@getUserProperties');
     Route::post('myAccount/update', 'UserController@update');
@@ -67,7 +68,9 @@ Route::group(['middleware'=>'language'],function(){
     Route::get('ajax-district/{city}', 'RegionsController@getDistricts');
 
 
+
     Route::post('properties/search', 'PropertiesController@porpertySearch')->name('searchProperty');;
+
     Route::get('getImages', 'PropertiesController@getImages');
 
 

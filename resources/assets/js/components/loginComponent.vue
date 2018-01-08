@@ -18,8 +18,9 @@
       <form id="loginForm">
         <input type="hidden" name="_token" :value="csrf">
         <div :class="[errors.email ? errorClass : '']" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
-          <input class="mdl-textfield__input" type="email" name="email" id="email">
-          <label class="mdl-textfield__label" for="email">البريد الألكترونى</label>
+
+          <input class="mdl-textfield__input" type="text" name="email" id="email">
+          <label class="mdl-textfield__label" for="email">البريد الألكترونى أو رقم الجوال</label>
           <span class="mdl-textfield__error"  v-for="email in errors.email" v-text="email"></span>
         </div>
         <div :class="[errors.email ? errorClass : '']" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
@@ -59,11 +60,10 @@ export default {
     },
     submit: function() {
       var self = this;
-      
       $("#loginForm").submit(function(event) {
         event.preventDefault();
         $.ajax({
-          url: "/api/v1/users/login",
+          url: url + "api/v1/users/login/",
           type: "post",
           data: $("#loginForm").serialize(), 
           dataType: "json",

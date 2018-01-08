@@ -8,6 +8,7 @@ use App\FilterMenu;
 use App\Property;
 use App\Region;
 
+
 class HomeController extends Controller
 {
     /**
@@ -40,6 +41,7 @@ class HomeController extends Controller
         $featuredProperties = Property::where('active','=', 1)->where('deleted','=', 0)->where('featured','=', 1)->limit(4)->get();
         $cities = Region::where('type',1)->where('active',1)->where('deleted',0)->orderby('order')->get();
         return view('report', ['name'=>'name_'.App::getLocale(), 'filterMenus'=>$filterMenus, 'latestProperties'=>$latestProperties, 'featuredProperties'=>$featuredProperties, 'cities'=>$cities ]);
+
     }
     public function lang($lang)
     {

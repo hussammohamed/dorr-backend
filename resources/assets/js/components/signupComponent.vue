@@ -78,7 +78,7 @@ export default {
       $("#signupForm").submit(function(event) {
         event.preventDefault();
         $.ajax({
-          url: "/api/v1/users/create",
+          url: url + "/api/v1/users/create",
           type: "post",
           data: $("#signupForm").serialize(),
           dataType: "json",

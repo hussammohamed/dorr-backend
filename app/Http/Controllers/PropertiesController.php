@@ -195,9 +195,7 @@ class PropertiesController extends Controller
             $property->bathrooms = $request->bathrooms;
             $property->ad_id = time();
             $property->youtube = $request->youtube;
-            $property->startDate = $request->startDate;
-
-
+            $property->startDate = date("Y-m-d h:i:s");
 
             $property->save();
 
@@ -209,7 +207,6 @@ class PropertiesController extends Controller
             }
 
             return view('sucsess',['property'=>$property]);
-
         }else{
             return redirect('/');
         }
@@ -264,6 +261,7 @@ class PropertiesController extends Controller
      * @param  \App\Test  $test
      * @return \Illuminate\Http\Response
      */
+
     public function show($id)
     {
         //
@@ -275,6 +273,7 @@ class PropertiesController extends Controller
         $propertyImages = PropertyImage::where('property_id', '=', $property->id)->get();   
         return view('/property',['name'=>'name_'.App::getLocale(),'property'=>$property, 'similarProperties'=>$similarProperties, 'propertyOffers'=>$propertyOffers, 'propertyImages'=>$propertyImages]);
     }
+
 
     /**
      * Show the form for editing the specified resource.

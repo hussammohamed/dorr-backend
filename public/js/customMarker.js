@@ -35,7 +35,7 @@ CustomMarker.prototype.draw = function () {
 			if (type == "region") {
 				
 				
-				$.get('/api/v1/regions/'+id+'', function (data) {
+				$.get(url + '/api/v1/regions/'+id+'', function (data) {
 					data.data.forEach(function (el) {
 						var overlay = new CustomMarker(new google.maps.LatLng(el.location.lat, el.location.long), self.map, el, 'district');
 					});
@@ -44,7 +44,7 @@ CustomMarker.prototype.draw = function () {
 				}) 
 			}
 			if (type == "district") {
-				$.get('/api/v1/properties/district/'+id+'', function (data) {
+				$.get(url + '/api/v1/properties/district/'+id+'', function (data) {
 					console.log(data)
 					data.data.forEach(function (el) {
 						var overlay = new CustomMarker(new google.maps.LatLng(el.location.lat, el.location.long), self.map, el, 'property');
@@ -131,7 +131,7 @@ CustomMarker.prototype.drawProperty = function (id) {
 		google.maps.event.addDomListener(propertyCard, "click", function (event) {
 			google.maps.event.trigger(self, "click");
 			let id = this.dataset.id;
-			location.pathname = '/Properties/show/' + id +''
+			location = url + "/Properties/show/" + id ;
 			
 		});
 		var point = this.getProjection().fromLatLngToDivPixel(this.latlng);

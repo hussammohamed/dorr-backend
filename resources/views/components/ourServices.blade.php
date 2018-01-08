@@ -15,7 +15,7 @@
             </p>
             </div>
             <div class="mdl-card__actions u-center">
-                <a href="{{ asset('/search')}}" class="mdl-button  mdl-shadow--2dp mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                <a href="#" class="mdl-button  mdl-shadow--2dp mdl-button--colored mdl-js-button mdl-js-ripple-effect">
                 أبحث
                 </a>
             </div>
@@ -107,7 +107,7 @@
             </p>
             </div>
             <div class="mdl-card__actions u-center">
-                <a href="{{ asset('/search')}}" class="mdl-button  mdl-shadow--2dp mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                <a href="#" class="mdl-button  mdl-shadow--2dp mdl-button--colored mdl-js-button mdl-js-ripple-effect">
                 أبحث الأن
                 </a>
             </div>

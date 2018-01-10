@@ -8,7 +8,7 @@
   إخفاء الخريطة
 </button>
 <div id="searchArea" class="map-serach mdl-card mdl-shadow--2dp">
-<form action="properties/search" method="POST">
+<form action="/properties/search" method="POST">
   <div class="serach-textfield">
     <div class="mdl-textfield mdl-js-textfield mdl-textfield--slim">
       <input class="mdl-textfield__input" name="keyword" type="text" id="mapSearch">
@@ -72,7 +72,7 @@
 </div>
 
 
-<form action="properties/search" method="POST">
+<form action="/properties/search" method="POST">
 <div class="mdl-grid search-area--s">
   <div class="mdl-cell mdl-cell--2-col">
     <div class="mdl-textfield mdl-js-textfield ">

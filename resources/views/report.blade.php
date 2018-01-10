@@ -62,10 +62,10 @@
                 <h1>180,000</h1>
                 <h6>متوسط السعرالمتر</h6>
                 <div class="report-content-actions">
-                    <a id=""  href="#" class="mdl-button u-full-width mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored">
+                    <a id=""  class="mdl-button u-full-width mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored">
                         ابحث عن عقار 
                     </a>
-                    <button id="" @click="loginDialog('dorr/public/Properties/create')" class="mdl-button u-text-color u-secondary-base-bg u-full-width mdl-js-button mdl-js-ripple-effect mdl-button--raised ">
+                    <button id="" @click="loginDialog('/properties/create')" class="mdl-button u-text-color u-secondary-base-bg u-full-width mdl-js-button mdl-js-ripple-effect mdl-button--raised ">
                         أضف عقار
                     </button>
                 </div>

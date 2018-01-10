@@ -55,10 +55,10 @@ Route::group(['middleware'=>'language'],function(){
     Route::post('myAccount/update', 'UserController@update');
     Route::post('myAccount/updatePassword', 'UserController@updatePassword');
 
-    Route::get('Properties/create', 'PropertiesController@create')->name('createProperty');
-    Route::post('Properties/store', 'PropertiesController@store');
-    Route::get('Properties/show/{id}', 'PropertiesController@show');
-    Route::post('Properties/addImages', 'PropertiesController@addImages');
+    Route::get('properties/create', 'PropertiesController@create')->name('createProperty');
+    Route::post('properties/store', 'PropertiesController@store');
+    Route::get('properties/show/{id}', 'PropertiesController@show');
+    Route::post('properties/addImages', 'PropertiesController@addImages');
     
     Route::get('ajax-district/{city}', 'RegionsController@getDistricts');
 

@@ -53,7 +53,7 @@ const app = new Vue({
         setTimeout(() => { $(".city_id_js").change(function(){
          var value = $(this).parent().find(".hidden-input").val();
          $.ajax({
-            url: 'api/v1/regions/'+value +'',
+            url: '/api/v1/regions/'+value +'',
             type: "GET",
             success: function(_response) {
                 self.cities = _response.data

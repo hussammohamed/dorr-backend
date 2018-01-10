@@ -1,10 +1,10 @@
 <div class="mdl-card mdl-shadow--2dp v-card">
-    <a href="{{ url('/') }}/Properties/show/{{$property->id}}" class="card-link"></a>
+    <a href="/properties/show/{{$property->id}}" class="card-link"></a>
     <div class="card--item card--item__img">
         
        @foreach(App\PropertyImage::where('property_id','=', $property->id)->get() as  $image => $value)
        @if($image == 0)
-        <img src={{ url('/').'/upload/properties/'.$value->path }} alt="">
+        <img src={{ 'upload/properties/'.$value->path }} alt="">
         @endif
        @endforeach
        

@@ -288,7 +288,7 @@
                 $(".city_id_js").change(function () {
                     var value = $(this).parent().find(".hidden-input").val();
                     $.ajax({
-                        url: 'http://bareeqstudio.com/dorr/public/api/v1/regions/' + value + '',
+                        url: '/api/v1/regions/' + value + '',
                         type: "GET",
                         success: function success(_response) {
                             self.cities = _response.data;
@@ -21861,7 +21861,7 @@
           $("#loginForm").submit(function (event) {
             event.preventDefault();
             $.ajax({
-              url: "http://bareeqstudio.com/dorr/public/api/v1/users/login",
+              url: "/api/v1/users/login",
               type: "post",
               data: $("#loginForm").serialize(),
               dataType: "json",
@@ -22019,7 +22019,7 @@
           _vm._v(" "),
           _c("img", {
             attrs: {
-              src: "images/dorr-logo.svg",
+              src: "/images/dorr-logo.svg",
               alt: "Dorr"
             }
           })
@@ -22167,7 +22167,7 @@
           $("#signupForm").submit(function (event) {
             event.preventDefault();
             $.ajax({
-              url: "http://bareeqstudio.com/dorr/public/api/v1/users/create",
+              url: "/api/v1/users/create",
               type: "post",
               data: $("#signupForm").serialize(),
               dataType: "json",
@@ -22427,7 +22427,7 @@
           _vm._v(" "),
           _c("img", {
             attrs: {
-              src: "images/dorr-logo.svg",
+              src: "/images/dorr-logo.svg",
               alt: "Dorr"
             }
           })

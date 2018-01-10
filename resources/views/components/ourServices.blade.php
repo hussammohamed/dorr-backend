@@ -15,7 +15,7 @@
             </p>
             </div>
             <div class="mdl-card__actions u-center">
-                <a href="#" class="mdl-button  mdl-shadow--2dp mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                <a  class="mdl-button  mdl-shadow--2dp mdl-button--colored mdl-js-button mdl-js-ripple-effect">
                 أبحث
                 </a>
             </div>
@@ -33,7 +33,7 @@
             </p>
             </div>
             <div class="mdl-card__actions u-center">
-                <a @click="loginDialog('dorr/public/Properties/create')" class="mdl-button  mdl-shadow--2dp mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                <a @click="loginDialog('/properties/create')" class="mdl-button  mdl-shadow--2dp mdl-button--colored mdl-js-button mdl-js-ripple-effect">
                 أعلن الأعلان
                 </a>
             </div>
@@ -107,7 +107,7 @@
             </p>
             </div>
             <div class="mdl-card__actions u-center">
-                <a href="#" class="mdl-button  mdl-shadow--2dp mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                <a  class="mdl-button  mdl-shadow--2dp mdl-button--colored mdl-js-button mdl-js-ripple-effect">
                 أبحث الأن
                 </a>
             </div>

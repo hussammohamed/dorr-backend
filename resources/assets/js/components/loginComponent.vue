@@ -10,7 +10,7 @@
       </div>
       <div class="mdl-dialog__logo">
         <div class="bg"></div>
-        <img src="public/images/dorr-logo.svg" alt="Dorr">
+        <img src="images/dorr-logo.svg" alt="Dorr">
       </div>
     </div>
 
@@ -63,7 +63,7 @@ export default {
       $("#loginForm").submit(function(event) {
         event.preventDefault();
         $.ajax({
-          url: "../api/v1/users/login/",
+          url: "/api/v1/users/login/",
           type: "post",
           data: $("#loginForm").serialize(), 
           dataType: "json",

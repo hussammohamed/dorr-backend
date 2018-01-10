@@ -3,7 +3,7 @@
 <div class="content content-padding">
 
     
-    <form id="properties-form" class="wizard-form" action="Properties/store"  method="POST" enctype="multipart/form-data">
+    <form id="properties-form" class="wizard-form" action="/properties/store"  method="POST" enctype="multipart/form-data">
         {{ csrf_field() }}
         <div>
             <h3 class="hidden"></h3>
@@ -46,7 +46,7 @@
                     <div class="mdl-cell mdl-cell--6-col">
                         <div class="mdl-textfield mdl-js-textfield u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
                             <input class="mdl-textfield__input city_id_js"  type="text" id="cityId" value="" readonly tabIndex="-1">
-                        +   <input value="" class="hidden-input"  type="hidden" />
+                            <input value="" class="hidden-input"  type="hidden" />
                             <label for="cityId">
                                 <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
                             </label>

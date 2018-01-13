@@ -88,7 +88,7 @@ class RegionsController extends Controller
 
     public function getDistrictsByCity($city)
     {
-        $regions = Region::select('id', 'name_'.App::getLocale().' as name', 'lat', 'long')->where('parent','=', $city)
+        $regions = Region::where('region_id','=', $city)
         ->where('active','=', 1)->where('deleted','=', 0)->orderby('order')->get();
         return RegionResource::collection($regions);
         
@@ -96,7 +96,7 @@ class RegionsController extends Controller
 
     public function getDistricts()
     {
-        $regions = Region::select('id as value', 'name_'.App::getLocale().' as name' )
+        $regions = Region::select('id', 'name_'.App::getLocale().' as name' )
         ->where('type','=', 2)
         ->where('active','=', 1)->where('deleted','=', 0)->orderby('name')->get();
         return $regions;
@@ -105,9 +105,7 @@ class RegionsController extends Controller
 
     public function getCities()
     {
-        $regions = Region::select('id', 'name_'.App::getLocale().' as name', 'lat', 'long')
-        ->where('type','=', 1)
-        ->where('active','=', 1)->where('deleted','=', 0)->orderby('order')->get();
+        $regions = Region::where('region_id','=', 0)->where('active','=', 1)->where('deleted','=', 0)->orderby('order')->get();
         return RegionResource::collection($regions);
     }
 

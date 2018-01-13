@@ -68,9 +68,10 @@ class PropertyResource extends Resource
                 "address"=> $this->address, 
                 "overlooks"=> Overlook::find($this->overlooks)->$name,
                 "payment_methods"=> PaymentMethod::find($this->payment_methods)->$name,
+                "featured"=> $this->featured,
             ],
-            "pictures" => PropertyImageResource::collection($this->images),
-
+            "pictures" => PropertyImageResource::collection($this->images)
+            ,
             "offers" => PropertyOfferResource::collection($this->offers)
         ];
     }

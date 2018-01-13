@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App;
 use App\Purpose;
+use App\Http\Resources\PurposesResource;
 use Illuminate\Http\Request;
 
 class PurposesController extends Controller
@@ -81,5 +83,12 @@ class PurposesController extends Controller
     public function destroy(Purposes $purposes)
     {
         //
+    }
+    
+    public function getAll()
+    {
+        $purposes = Purpose::select('id', 'name_'.App::getLocale().' as name')
+        ->where('active','=', 1)->where('deleted','=', 0)->orderby('order')->get();
+        return PurposesResource::collection($purposes);
     }
 }

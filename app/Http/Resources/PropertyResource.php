@@ -44,7 +44,7 @@ class PropertyResource extends Resource
             ],
             "region" => [
                 "id" => Region::find($this->region)->parent,
-                "title" => Region::find(Region::find($this->region)->parent)->$name,
+                // "title" => Region::find(Region::find($this->region)->parent)->$name,
             ],
             "location" => [
                 "lat" => $this->lat,
@@ -65,7 +65,8 @@ class PropertyResource extends Resource
                 "rooms"=> $this->rooms,
                 "ad_id"=> $this->ad_id,
                 "youtube"=> $this->youtube,
-                "address"=> $this->address, 
+                "address"=> $this->address,
+                "featured"=> $this->featured, 
                 "overlooks"=> Overlook::find($this->overlooks)->$name,
                 "payment_methods"=> PaymentMethod::find($this->payment_methods)->$name,
             ],

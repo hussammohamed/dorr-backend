@@ -10,14 +10,14 @@
       </div>
       <div class="mdl-dialog__logo">
         <div class="bg"></div>
-        <img src="images/dorr-logo.svg" alt="Dorr">
+        <img src="/images/dorr-logo.svg" alt="Dorr">
       </div>
     </div>
 
     <div class="mdl-dialog__content">
       <form id="loginForm">
         <input type="hidden" name="_token" :value="csrf">
-        <div :class="[errors.email ? errorClass : '']" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
+        <div :class="[errors.email ? errorClass : 'is-focused']" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
 
           <input class="mdl-textfield__input" type="text" name="email" id="email">
           <label class="mdl-textfield__label" for="email">البريد الألكترونى أو رقم الجوال</label>
@@ -46,7 +46,7 @@ export default {
       csrf: document
         .querySelector('meta[name="csrf-token"]')
         .getAttribute("content"),
-         errorClass: "is-invalid",
+         errorClass: "is-invalid is-dirty",
       errors: {}
     };
   },
@@ -69,7 +69,7 @@ export default {
           dataType: "json",
           success: function(_response) {
             if(self.$parent.url.length){
-            location.pathname = self.$parent.url,
+            location.pathname = self.$parent.url
             }
             else{
               location.reload();

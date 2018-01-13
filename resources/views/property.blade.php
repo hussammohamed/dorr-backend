@@ -29,14 +29,22 @@
                 @endforeach
                 </div>
                 <div id="owl-example" class="owl-carousel owl-centered">
+               
                     @foreach($propertyImages as $propertyImage)
                     <div class="item">
                         <div class="owl-click"></div>
                         <img class="target" src="{{ asset ('/upload/properties') }}/{{$propertyImage->path}}" alt="">
                     </div>
                     @endforeach
-
-
+                    @if($property->youtube)
+                    <div class="item">
+                        <div class="owl-click"></div>
+                      
+                                <iframe class="target" width="80" height="80"
+                                    src="{{$property->youtube}}">
+                                </iframe>
+                        </div>
+                        @endif
                 </div>
             </div>
             <div class="mdl-card  mdl-shadow--2dp u-auto-width u-height-auto u-padding-top-45 u-padding-bottom-15 u-mbuttom16 u-padding-side-20">
@@ -221,20 +229,25 @@
             </div>
             <div class="mdl-card  mdl-shadow--2dp  u-padding-top-45 u-auto-width u-mbuttom16  u-padding-side-20 u-padding-bottom-15">
                 <form action="#">
+                    <input type="hidden" value="{{$property->id}}" name="property_id"/>
+                    @guest
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input class="mdl-textfield__input" type="text" id="sample25">
+                        <input class="mdl-textfield__input" name="name" type="text" id="sample25">
                         <label class="mdl-textfield__label" for="sample25">الأسم</label>
                     </div>
+                   
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input class="mdl-textfield__input" type="text" id="sample26">
+                        <input class="mdl-textfield__input" type="number" name="mobile"  id="sample26">
                         <label class="mdl-textfield__label" for="sample26">رقم الجوال</label>
                     </div>
+                    @else
+                    @endguest
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input class="mdl-textfield__input" type="text" id="sample3">
+                        <input class="mdl-textfield__input" type="number" name="price" id="sample3">
                         <label class="mdl-textfield__label" for="sample3">السعر</label>
                     </div>
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <textarea class="mdl-textfield__input" type="text" rows="3" id="sample5"></textarea>
+                        <textarea class="mdl-textfield__input" type="text" name="description" rows="3" id="sample5"></textarea>
                         <label class="mdl-textfield__label" for="sample5">أضف تعليق</label>
                     </div>
                     <button class="mdl-button  mdl-js-button mdl-js-ripple-effect  mdl-button--colored u-full-width">

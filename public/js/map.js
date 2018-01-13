@@ -56,11 +56,11 @@ function initMap() {
     });
    
     map.addListener('click', function () {
-        $('.property-card').fadeOut().remove();
+        // $('.property-card').fadeOut().remove();
         $('.marker-hidden').removeClass('marker-hidden');
     });
     map.addListener('center_changed', function () {
-        $('.property-card').fadeOut().remove();
+        // $('.property-card').fadeOut().remove();
         $('.marker-hidden').removeClass('marker-hidden');
     });
 }

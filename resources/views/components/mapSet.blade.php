@@ -1,4 +1,4 @@
-<div id="mapConainer" class="map-container">
+<div id="mapConainer" class="map-container no-search">
 
 <div id="map" class="map">
  

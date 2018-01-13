@@ -15,6 +15,7 @@
         border: $border-color 1px solid;
         color: $text-normal-color;
         border-radius: 2px;
+        margin: 0 4px;
         &.filter-map__selected{
             background-color: $primary-base;
             color: $text-color;

@@ -32,31 +32,41 @@ CustomMarker.prototype.draw = function () {
 			google.maps.event.trigger(self, "click");
 			let type = this.dataset.type;
 			let id = this.dataset.id;
+			let bounds = new google.maps.LatLngBounds();
 			if (type == "region") {
-				
-				
-				$.get('/api/v1/regions/'+id+'', function (data) {
+
+
+				$.get('/api/v1/regions/' + id + '', function (data) {
 					data.data.forEach(function (el) {
 						var overlay = new CustomMarker(new google.maps.LatLng(el.location.lat, el.location.long), self.map, el, 'district');
+						bounds.extend(overlay.getPosition());
+						
 					});
-					self.map.setCenter(new google.maps.LatLng(self.latlng.lat(), (self.latlng.lng())));
-					self.map.setZoom(12);
-				}) 
+					self.map.fitBounds(bounds);
+				})
+				$(".map-marker,.property-card")
+					.fadeOut()
+					.remove();
 			}
 			if (type == "district") {
-				$.get('/api/v1/properties/district/'+id+'', function (data) {
+				$.get('/api/v1/properties/district/' + id + '', function (data) {
 					console.log(data)
 					data.data.forEach(function (el) {
 						var overlay = new CustomMarker(new google.maps.LatLng(el.location.lat, el.location.long), self.map, el, 'property');
+						bounds.extend(overlay.getPosition());
 					});
-					self.map.setCenter(new google.maps.LatLng(self.latlng.lat(), (self.latlng.lng())));
+					self.map.fitBounds(bounds);
+					// self.map.setCenter(new google.maps.LatLng(self.latlng.lat(), (self.latlng.lng())));
 					self.map.setZoom(12);
-				}) 
+				})
+				$(".map-marker,.property-card")
+					.fadeOut()
+					.remove();
 			}
 			if (type === "property") {
 				self.map.setCenter(new google.maps.LatLng(self.latlng.lat(), (self.latlng.lng() - .02)));
-				setTimeout(function(){ self.drawProperty(id); }, 10);
-				
+				setTimeout(function () { self.drawProperty(id); }, 10);
+
 			}
 		});
 
@@ -98,45 +108,49 @@ CustomMarker.prototype.getPosition = function () {
 CustomMarker.prototype.drawProperty = function (id) {
 	var self = this;
 	self.div.classList.add('marker-hidden')
-	var propertyCard = this.propertyCard =  document.createElement('div');
+	var propertyCard = this.propertyCard = document.createElement('div');
 	propertyCard.className = "card horizontal mdl-card mdl-shadow--2dp h-card property-card"
-	var content ='<div class="card-image">'
-	+ ' <img src='+ self.args.pictures[0].path +'>' 
-	+ '</div>' 
-	+ ' <div class="card-stacked">' 
-	+ ' <div class="card-content">' 
-	+ '<h5 class="card--title">'+ self.args.title +'</h5>'
-	+ '<h6 class="card--sub-title">'+ self.args.details.description +'</h6>'
-	+ ' <span class="card--text__size"> '+ self.args.details.area +'م<sup>2</sup></span>'
-	+ ' </div>'
-	+ '<div class="card-footer">'
-	+ '<div class="card-footer__price">'
-	+ ' <span class="price--text">'
-	+ ''+ self.args.details.price +' ريال'
-	+ '</span>'
-	+ '</div>'
-	+ '<div class="footer-contet">'	
-	+ '<span>'+ self.args.details.bathrooms + '</span>'
-	+ '<img src=' + bathroom + ' '+'alt="">'
-	+ '<span>'+ self.args.details.rooms + '</span>'
-	+ '<i class="material-icons md-18">local_hotel</i>'
-    + '</div>'                                                                       
-	+ '</div>'
-	+ '<span class="card-arrow"></span>'
-	+ '</div>'
+	var picture;
+	if (self.args.pictures[0]) {
+		picture = self.args.pictures[0].path;
+	}
+	var content = '<div class="card-image">'
+		+ ' <img src=' + picture + '>'
+		+ '</div>'
+		+ ' <div class="card-stacked">'
+		+ ' <div class="card-content">'
+		+ '<h5 class="card--title">' + self.args.title + '</h5>'
+		+ '<h6 class="card--sub-title">' + self.args.details.description + '</h6>'
+		+ ' <span class="card--text__size"> ' + self.args.details.area + 'م<sup>2</sup></span>'
+		+ ' </div>'
+		+ '<div class="card-footer">'
+		+ '<div class="card-footer__price">'
+		+ ' <span class="price--text">'
+		+ '' + self.args.details.price + ' ريال'
+		+ '</span>'
+		+ '</div>'
+		+ '<div class="footer-contet">'
+		+ '<span>' + self.args.details.bathrooms + '</span>'
+		+ '<img src=/images/bathroom.svg" alt="">'
+		+ '<span>' + self.args.details.rooms + '</span>'
+		+ '<i class="material-icons md-18">local_hotel</i>'
+		+ '</div>'
+		+ '</div>'
+		+ '<span class="card-arrow"></span>'
+		+ '</div>'
 	propertyCard.innerHTML = content;
 	var panes = this.getPanes();
-		panes.overlayImage.appendChild(propertyCard);
-		propertyCard.dataset.id = id;
-		google.maps.event.addDomListener(propertyCard, "click", function (event) {
-			google.maps.event.trigger(self, "click");
-			let id = this.dataset.id;
-			location = "/properties/show/" + id ;
-			
-		});
-		var point = this.getProjection().fromLatLngToDivPixel(this.latlng);
-		if (point) {
-			propertyCard.style.left = (point.x - 190) + 'px';
-			propertyCard.style.top = (point.y  - 155) + 'px';
-		}
+	panes.overlayImage.appendChild(propertyCard);
+	propertyCard.dataset.id = id;
+	google.maps.event.addDomListener(propertyCard, "click", function (event) {
+		google.maps.event.trigger(self, "click");
+		let id = this.dataset.id;
+		location = "/properties/show/" + id;
+
+	});
+	var point = this.getProjection().fromLatLngToDivPixel(this.latlng);
+	if (point) {
+		propertyCard.style.left = (point.x - 190) + 'px';
+		propertyCard.style.top = (point.y - 155) + 'px';
+	}
 }

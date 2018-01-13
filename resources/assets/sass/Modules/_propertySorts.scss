@@ -5,10 +5,12 @@
             display: inline;
             margin-#{$left}: 8px;
             padding: 4px;
+            cursor: pointer;
             &.sort-item__title{
                 color: rgba($color: #000000, $alpha: .87);
             }
             a{
+               
                 text-decoration: none;
                 color: rgba($color: #000000, $alpha: .54);
             }

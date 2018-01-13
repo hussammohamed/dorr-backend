@@ -32,6 +32,8 @@
     <script>
              var url = ''
     </script>
+    @stack('begScripts')
+    <script type="text/javascript" src="{{ asset('js/customMarker.js') }}"></script>
     <script  src="{{ asset('js/app.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/getmdl-select.min.js') }}"></script>
     @stack('scripts')

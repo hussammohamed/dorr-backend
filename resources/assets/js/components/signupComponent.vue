@@ -8,7 +8,7 @@
         </div>
       <div class="mdl-dialog__logo">
         <div class="bg"></div>
-        <img src="images/dorr-logo.svg" alt="Dorr">
+        <img src="/images/dorr-logo.svg" alt="Dorr">
       </div>
     </div>
 

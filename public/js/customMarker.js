@@ -1,8 +1,9 @@
-function CustomMarker(latlng, map, args, type) {
+function CustomMarker(latlng, map, args, type, component) {
 	this.latlng = latlng;
 	this.args = args;
 	this.type = type;
 	this.setMap(map);
+	this.component = component;
 }
 
 CustomMarker.prototype = new google.maps.OverlayView();
@@ -34,8 +35,8 @@ CustomMarker.prototype.draw = function () {
 			let id = this.dataset.id;
 			let bounds = new google.maps.LatLngBounds();
 			if (type == "region") {
-
-
+				
+				self.component.properties = [];
 				$.get('/api/v1/regions/' + id + '', function (data) {
 					data.data.forEach(function (el) {
 						var overlay = new CustomMarker(new google.maps.LatLng(el.location.lat, el.location.long), self.map, el, 'district');

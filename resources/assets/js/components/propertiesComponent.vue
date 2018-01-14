@@ -332,7 +332,8 @@ export default {
                 new google.maps.LatLng(el.location.lat, el.location.long),
                 map,
                 el,
-                "region"
+                "region",
+                self
               );
             });
           });

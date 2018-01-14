@@ -4,11 +4,10 @@ namespace App\Http\Resources;
 
 use App;
 use App\Type;
-use App\Purpose;
 
 use Illuminate\Http\Resources\Json\Resource;
 
-class FilterMenuResource extends Resource
+class TypesResource extends Resource
 {
     /**
      * Transform the resource into an array.
@@ -20,8 +19,8 @@ class FilterMenuResource extends Resource
     {
         $name = 'name_'.App::getLocale();
         return [
-            'key' => Type::find($this->type)->$name.Purpose::find($this->purpose)->$name,
-            'value' => $this->$name
+            'name' => $this->$name,
+            'value' => $this->id
         ];
     }
 }

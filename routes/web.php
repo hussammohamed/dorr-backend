@@ -70,13 +70,13 @@ Route::group(['middleware'=>'language'],function(){
 
 });
 
-
 //API
 Route::post('api/v1/users/create', 'Auth\RegisterController@newUser');
 Route::post('api/v1/users/login', 'Auth\LoginController@setLogin');
-Route::post('api/v1/user/logout', 'Auth\LoginController@logout');
 Route::post('api/v1/user/update', 'UserController@updateUser');
 Route::get('api/v1/user', 'UserController@getUser');
+Route::get('api/v1/properties/searchP', 'PropertiesController@porpertySearchByPoint');
+Route::get('api/v1/properties/getFormData', 'PropertiesController@getFormData');
 Route::post('api/v1/properties/search', 'PropertiesController@getSearch');
 Route::get('api/v1/properties/user', 'PropertiesController@getByUser');
 Route::post('api/v1/property/store', 'PropertiesController@storeAPI');
@@ -91,16 +91,18 @@ Route::get('api/v1/property/similer/{id}', 'PropertiesController@getSimilerPrope
 Route::get('api/v1/property/offers/{id}', 'PropertyOfferController@getPropertyOffers');
 Route::post('api/v1/property/offers/{id}/store', 'PropertyOfferController@storeAPI');
 Route::get('api/v1/properties', 'PropertiesController@getList');
-Route::get('api/v1/regions', 'RegionsController@getRegions');
 Route::get('api/v1/regions/districts', 'RegionsController@getDistricts');
 Route::get('api/v1/regions/{city}', 'RegionsController@getDistrictsByCity');
 Route::get('api/v1/regions', 'RegionsController@getCities');
 Route::get('api/v1/filters', 'FilterMenuController@getFilterMenus');
+Route::get('api/v1/types', 'TypesController@getTypes');
+Route::get('api/v1/purposes', 'PurposesController@getPurposes');
 
 
-
+/*
 Route::group(['middleware'=>'auth:api'], function(){
 	Route::get('test', function(){
         return "hi";
     });
 });
+*/

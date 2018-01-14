@@ -18,6 +18,9 @@ use App\User;
 use App\PropertyOffer;
 use App\FilterMenu;
 
+use App\Http\Resources\TypesResource;
+use App\Http\Resources\PurposesResource;
+use App\Http\Resources\RegionResource;
 use App\Http\Resources\PropertyResource;
 use App\Http\Resources\PropertyImageResource;
 //use App\Http\Resources\PropertyCollection;
@@ -41,15 +44,34 @@ class PropertiesController extends Controller
         //
         //$purpose = $request->purpose;
         //$type = $request->type;
+
+        $range = 0.2;
+
+        $lat = $request->lat;
+        $long = $request->long;
         $keyword = $request->keyword;
         $city = $request->city;
         $district = $request->district;
         ($request->priceFrom=="")? $priceFrom=0 :$priceFrom=$request->priceFrom ;
         ($request->priceTo=="")? $priceTo=99999999999 :$priceTo=$request->priceTo ;
         $q = Property::query();
+        if( $lat != "" && $long != "" ){
+            $q->whereBetween('lat', [$lat-$range, $lat+$range]);
+            $q->whereBetween('long', [$long-$range, $long+$range]);
+        }
         if($keyword!=""){$q->where('title','like', '%'.$keyword.'%');}
-        //if($city!=""){$q->where('region','=', $city);}
-        if($district!=""){$q->where('region','=', $district);}
+        if($district == "" ){
+            if($city != ""){
+                $districts = Region::where('region_id',1)->get();
+                $district = array();
+                foreach($districts as $d){
+                    array_push($district,$d->id);
+                }
+                $q->whereIn('region', $district)->get();                    
+            }
+        }else{
+            $q->where('region','=', $district);
+        }
         $q->whereBetween('price', [$priceFrom, $priceTo]);
         $property = $q->where('active','=', 1)->where('deleted','=', 0)->get();
 
@@ -62,24 +84,55 @@ class PropertiesController extends Controller
         //
         //$purpose = $request->purpose;
         //$type = $request->type;
-        $filtermenus = FilterMenu::all();
+        $range = 0.2;
+        $filterMenus = FilterMenu::all();
+        $lat = $request->lat;
+        $long = $request->long;
         $keyword = $request->keyword;
         $city = $request->city;
         $district = $request->district;
         ($request->priceFrom=="")? $priceFrom=0 :$priceFrom=$request->priceFrom ;
         ($request->priceTo=="")? $priceTo=99999999999 :$priceTo=$request->priceTo ;
         $q = Property::query();
+        if( $lat != "" && $long != "" ){
+            $q->whereBetween('lat', [$lat-$range, $lat+$range]);
+            $q->whereBetween('long', [$long-$range, $long+$range]);
+        }
         if($keyword!=""){$q->where('title','like', '%'.$keyword.'%');}
-        //if($city!=""){$q->where('region','=', $city);}
-        if($district!=""){$q->where('region','=', $district);}
+        if($district == "" ){
+            if($city != ""){
+                $districts = Region::where('region_id',1)->get();
+                $district = array();
+                foreach($districts as $d){
+                    array_push($district,$d->id);
+                }
+                $q->whereIn('region', $district)->get();                    
+            }
+        }else{
+            $q->where('region','=', $district);
+        }
         $q->whereBetween('price', [$priceFrom, $priceTo]);
         $property = $q->where('active','=', 1)->where('deleted','=', 0)->get();
         $cities = Region::where('type',1)->where('active',1)->where('deleted',0)->orderby('order')->get();
         return view('searchPage',['name'=>'name_'.App::getLocale(), 'filtermenus'=>$filtermenus, 'properties'=>PropertyResource::collection($property), "cities"=>$cities, 'request'=>['keyword'=>$request->keyword, 'city'=>$request->city, 'district'=>$request->district, 'priceFrom'=>$request->priceFrom, 'priceTo'=>$request->priceTo,] ]);
+    }
+
+    public function porpertySearchByPoint(Request $request)
+    {
+        //
+        //$purpose = $request->purpose;
+        //$type = $request->type;
+        $lat = $request->lat;
+        $long = $request->long;
+        
+        
+        $property = Property::whereBetween('lat', [$lat-1, $lat+1])->whereBetween('long', [$long-1, $long+1])->get();
+        
+        return $property;
         
 
     }
-    
+
     public function getLatest(Request $request)
     {
         //
@@ -105,7 +158,7 @@ class PropertiesController extends Controller
     public function getByUser()
     {
         //
-        $property = Property::where('user_id','=', 2)->where('deleted','=', 0)->get();
+        $property = Property::where('user_id','=', Auth::user()->id)->where('deleted','=', 0)->get();
         return PropertyResource::collection($property);
     }
 
@@ -381,5 +434,18 @@ class PropertiesController extends Controller
     public function destroy(Test $test)
     {
         //
+    }
+
+    public function getFormData ()
+    {
+        $types = Type::where('active',1)->where('deleted',0)->orderby('order')->get();
+        $purposes = Purpose::where('active',1)->where('deleted',0)->orderby('order')->get();
+        $regions = Region::where('type',1)->where('active',1)->where('deleted',0)->orderby('order')->get();
+            
+        return [
+            "types" => TypesResource::collection($types),
+            "purposes" => PurposesResource::collection($purposes),
+            "regions" => RegionResource::collection($regions)
+        ];
     }
 }

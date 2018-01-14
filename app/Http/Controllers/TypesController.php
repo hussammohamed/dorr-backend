@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App;
 use App\Type;
+use App\Http\Resources\TypesResource;
 use Illuminate\Http\Request;
 
 class TypesController extends Controller
@@ -88,5 +90,11 @@ class TypesController extends Controller
         $types = Types::all();
         //$types = Types::where('active', true)->orderBy('order')->pluck('name', 'id');
         return view('add_add', compact('types'));
+    }
+
+    public function getTypes()
+    {
+        $types = Type::where('active','=', 1)->where('deleted','=', 0)->orderby('order')->get();
+        return TypesResource::collection($types);
     }
 }

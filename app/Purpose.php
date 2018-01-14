@@ -10,4 +10,5 @@ class Purpose extends Model
     protected $fillable = [
         'name_ar','name_en', 'order','active','deleted'
     ];
+    
 }

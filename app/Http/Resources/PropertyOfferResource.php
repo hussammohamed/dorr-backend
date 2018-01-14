@@ -14,7 +14,6 @@ class PropertyOfferResource extends Resource
      */
     public function toArray($request)
     {
-        //return parent::toArray($request);
         return [
             'offer_id' => $this->id,
             'description' => $this->description,

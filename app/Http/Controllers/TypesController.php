@@ -92,10 +92,9 @@ class TypesController extends Controller
         return view('add_add', compact('types'));
     }
 
-    public function getAll()
+    public function getTypes()
     {
-        $types = Type::select('id', 'name_'.App::getLocale().' as name')
-        ->where('active','=', 1)->where('deleted','=', 0)->orderby('order')->get();
+        $types = Type::where('active','=', 1)->where('deleted','=', 0)->orderby('order')->get();
         return TypesResource::collection($types);
     }
 }

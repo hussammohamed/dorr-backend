@@ -18,11 +18,10 @@ class FilterMenuResource extends Resource
      */
     public function toArray($request)
     {
-        //return parent::toArray($request);
         $name = 'name_'.App::getLocale();
         return [
             'key' => Type::find($this->type)->$name.Purpose::find($this->purpose)->$name,
-            'value' => $this->name
+            'value' => $this->$name
         ];
     }
 }

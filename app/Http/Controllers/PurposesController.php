@@ -85,10 +85,9 @@ class PurposesController extends Controller
         //
     }
     
-    public function getAll()
+    public function getPurposes()
     {
-        $purposes = Purpose::select('id', 'name_'.App::getLocale().' as name')
-        ->where('active','=', 1)->where('deleted','=', 0)->orderby('order')->get();
+        $purposes = Purpose::where('active','=', 1)->where('deleted','=', 0)->orderby('order')->get();
         return PurposesResource::collection($purposes);
     }
 }

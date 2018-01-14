@@ -62,7 +62,7 @@ class PropertiesController extends Controller
         if($keyword!=""){$q->where('title','like', '%'.$keyword.'%');}
         if($district == "" ){
             if($city != ""){
-                $districts = Region::where('parent',1)->get();
+                $districts = Region::where('region_id',1)->get();
                 $district = array();
                 foreach($districts as $d){
                     array_push($district,$d->id);
@@ -104,7 +104,7 @@ class PropertiesController extends Controller
         if($keyword!=""){$q->where('title','like', '%'.$keyword.'%');}
         if($district == "" ){
             if($city != ""){
-                $districts = Region::where('parent',1)->get();
+                $districts = Region::where('region_id',1)->get();
                 $district = array();
                 foreach($districts as $d){
                     array_push($district,$d->id);
@@ -163,7 +163,7 @@ class PropertiesController extends Controller
     public function getByUser()
     {
         //
-        $property = Property::where('user_id','=', 2)->where('deleted','=', 0)->get();
+        $property = Property::where('user_id','=', Auth::user()->id)->where('deleted','=', 0)->get();
         return PropertyResource::collection($property);
     }
 

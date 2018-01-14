@@ -17,7 +17,7 @@ class CreateRegionsTable extends Migration
             $table->increments('id');
 		    $table->string('name_ar');
 		    $table->string('name_en');
-            $table->integer('parent');
+            $table->integer('region_id');
 		    $table->decimal('lat', 20, 18);
 		    $table->decimal('long', 20, 18);
             $table->integer('type');

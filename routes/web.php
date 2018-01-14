@@ -70,11 +70,9 @@ Route::group(['middleware'=>'language'],function(){
 
 });
 
-Route::resource('types', 'TypesController');
 //API
 Route::post('api/v1/users/create', 'Auth\RegisterController@newUser');
 Route::post('api/v1/users/login', 'Auth\LoginController@setLogin');
-Route::post('api/v1/user/logout', 'Auth\LoginController@logout');
 Route::post('api/v1/user/update', 'UserController@updateUser');
 Route::get('api/v1/user', 'UserController@getUser');
 Route::get('api/v1/properties/searchP', 'PropertiesController@porpertySearchByPoint');
@@ -97,8 +95,8 @@ Route::get('api/v1/regions/districts', 'RegionsController@getDistricts');
 Route::get('api/v1/regions/{city}', 'RegionsController@getDistrictsByCity');
 Route::get('api/v1/regions', 'RegionsController@getCities');
 Route::get('api/v1/filters', 'FilterMenuController@getFilterMenus');
-Route::get('api/v1/types', 'TypesController@getAll');
-Route::get('api/v1/purposes', 'PurposesController@getAll');
+Route::get('api/v1/types', 'TypesController@getTypes');
+Route::get('api/v1/purposes', 'PurposesController@getPurposes');
 
 
 /*

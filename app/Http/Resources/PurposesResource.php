@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App;
 use App\Purpose;
 
 use Illuminate\Http\Resources\Json\Resource;
@@ -16,8 +17,9 @@ class PurposesResource extends Resource
      */
     public function toArray($request)
     {
+        $name = 'name_'.App::getLocale();
         return [
-            'name' => $this->name(),
+            'name' => $this->$name,
             'value' => $this->id
         ];
     }

@@ -25,7 +25,6 @@ class PropertyResource extends Resource
      */
     public function toArray($request)
     {
-        //return parent::toArray($request);
         $name = 'name_'.App::getLocale();
         return[
             'id' => $this->id,
@@ -43,8 +42,8 @@ class PropertyResource extends Resource
                 "title" => Region::find($this->region)->$name,
             ],
             "region" => [
-                "id" => Region::find($this->region)->parent,
-                "title" => Region::find(Region::find($this->region)->parent)->$name,
+                "id" => Region::find($this->region)->region_id,
+                "title" => Region::find(Region::find($this->region)->region_id)->$name,
             ],
             "location" => [
                 "lat" => $this->lat,

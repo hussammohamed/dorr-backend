@@ -76,7 +76,13 @@ class RegisterController extends Controller
     
     public function newUser(Request $request)
     {   
-        return 321;
+        return User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'mobile1' => $request->mobile1,
+            'api_token' => str_random(60),
+        ]);
     }
     
     

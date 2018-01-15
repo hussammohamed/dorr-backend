@@ -7,6 +7,7 @@ use App\User;
 use Hash;
 use App\Property;
 
+use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -34,7 +35,7 @@ class UserController extends Controller
         if(Auth::user()){
             return Auth::user();
         }else{
-            return "no logined user";
+            return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
         }
         
     }
@@ -166,6 +167,30 @@ class UserController extends Controller
         //return bcrypt("123456")."<br><br><br>".bcrypt("123456")."<br><br><br>".bcrypt("123456");
          
  
+     }
+
+     public function updatePasswordAPI(Request $request)
+     {
+        //
+        if (Auth::check()) {
+
+            $user = User::find(Auth::user()->id);
+            $realOldPass = Auth::user()->password;
+            $oldPass = $request->oldPass;
+            $newPass = $request->newPass;
+            if(strlen($request->newPass)<6){
+                return response()->json(["error"=>"Your new password should be more than 6 letters"], Response::HTTP_UNPROCESSABLE_ENTITY);
+            }
+            if(Hash::check($oldPass,$realOldPass)) {
+                $user->password = bcrypt($newPass);
+                $user->save();
+                return Auth::user();
+            }else{
+                return response()->json(["error"=>"Your old password is wrong"], Response::HTTP_UNPROCESSABLE_ENTITY);
+            }
+        }else{
+            return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
+        }
      }
   
     /**

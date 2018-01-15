@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Auth;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-
+use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 class LoginController extends Controller
 {
@@ -51,16 +51,15 @@ class LoginController extends Controller
         if(Auth::attempt([$this->userlogin() => request()->email , 'password' => request()->password])){
             return redirect()->intended('/');
         }else{
-            return response()->json("wrong credentials", 422);
+            return response()->json(["error"=>"Wrong Credentials"], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
     }
 
-    
     public function setLogin(Request $request){
         if(Auth::attempt([$this->userlogin() => $request->email , 'password' => $request->password])){
             return Auth::User();
         }else{
-            return response()->json("wrong credentials", 422);
+            return response()->json(["error"=>"Wrong Credentials"], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
     }
 }

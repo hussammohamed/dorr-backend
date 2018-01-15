@@ -22168,11 +22168,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           data: $("#signupForm").serialize(),
           dataType: "json",
           success: function success() {
-            //loginDialog.close();
-            location.reload();
+            //location.reload();
           },
           complete: function complete(_response) {
-            location.reload();
+            //location.reload();
             if (_response.state() == "rejected") {
               self.errors = JSON.parse(_response.responseText).errors;
             }
@@ -22680,6 +22679,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   props: ["uproperties", "form", "cities"],
   data: function data() {
     return {
+      filterMethod: {
+        purpose: null,
+        type: null
+      },
       properties: [],
       sortItems: [{
         id: 1,
@@ -22710,33 +22713,52 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
 
   methods: {
+    filteredSorted: function filteredSorted(arr) {
+      var self = this;
+      //filter data
+      debugger;
+      arr = arr.filter(function (record) {
+        if (self.filterMethod.purpose && self.filterMethod.type) {
+          return record.details.type == self.filterMethod.type && record.details.purpose == self.filterMethod.purpose;
+        } else {
+          return record;
+        }
+      });
+
+      var sortItem = this.sortItems.find(function (record) {
+        return record.active == true;
+      });
+      switch (sortItem.id) {
+        case 1:
+          arr = arr.slice().sort(function (a, b) {
+            return b.details.featured - a.details.featured;
+          });
+          break;
+        case 2:
+          arr = arr.slice().sort(function (a, b) {
+            return a.id - b.id;
+          });
+          break;
+        case 3:
+          arr = arr.slice().sort(function (a, b) {
+            return a.details.price - b.details.price;
+          });
+          break;
+        case 4:
+          arr = arr.slice().sort(function (a, b) {
+            return b.details.price - a.details.price;
+          });
+          break;
+      }
+      return arr;
+    },
     reSorting: function reSorting(item) {
       this.sortItems.map(function (obj) {
         obj.active = false;
       });
       item.active = true;
-      switch (item.id) {
-        case 1:
-          this.properties = this.properties.slice().sort(function (a, b) {
-            return b.details.featured - a.details.featured;
-          });
-          break;
-        case 2:
-          this.properties = this.properties.slice().sort(function (a, b) {
-            return a.id - b.id;
-          });
-          break;
-        case 3:
-          this.properties = this.properties.slice().sort(function (a, b) {
-            return a.details.price - b.details.price;
-          });
-          break;
-        case 4:
-          this.properties = this.properties.slice().sort(function (a, b) {
-            return b.details.price - a.details.price;
-          });
-          break;
-      }
+      console.log();
+      this.properties = this.filteredSorted(this.properties);
     },
 
     propertySearch: function propertySearch() {
@@ -22806,7 +22828,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
           removerMarkers();
         }
-        if (zoom >= 7 && zoom < 12) {} else if (zoom >= 12) {}
+        if (zoom >= 7 && zoom < 11) {} else if (zoom >= 12) {}
       });
 
       map.addListener("click", function () {
@@ -23255,7 +23277,7 @@ var render = function() {
       _c(
         "div",
         { staticClass: "grid" },
-        _vm._l(_vm.properties, function(property) {
+        _vm._l(_vm.filteredSorted(_vm.properties), function(property) {
           return _c("div", { staticClass: "mdl-cell mdl-cell--12-col" }, [
             _c(
               "div",
@@ -23670,8 +23692,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     props: ["filtersmenus"],
     data: function data() {
         return {
-            filters: []
+            filters: [],
+            filterItems: []
         };
+    },
+
+    methods: {
+        filterFun: function filterFun(id) {}
     },
     mounted: function mounted() {
         this.filters = this.filtersmenus.map(function (obj) {
@@ -23698,7 +23725,12 @@ var render = function() {
           "button",
           {
             staticClass:
-              "mdl-button mdl-js-button mdl-js-ripple-effect filter-map__button "
+              "mdl-button mdl-js-button mdl-js-ripple-effect filter-map__button ",
+            on: {
+              click: function($event) {
+                _vm.filterFun(filter)
+              }
+            }
           },
           [_vm._v("\n        " + _vm._s(filter.name_ar) + "\n    ")]
         )

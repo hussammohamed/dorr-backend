@@ -83,11 +83,10 @@ export default {
           data: $("#signupForm").serialize(),
           dataType: "json",
           success: function() {
-            //loginDialog.close();
-            location.reload();
+            //location.reload();
           },
           complete: function(_response) {
-            location.reload();
+            //location.reload();
             if(_response.state() == "rejected"){
                 self.errors = JSON.parse(_response.responseText).errors
             }

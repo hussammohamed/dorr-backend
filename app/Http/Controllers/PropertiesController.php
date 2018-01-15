@@ -114,7 +114,7 @@ class PropertiesController extends Controller
         $q->whereBetween('price', [$priceFrom, $priceTo]);
         $property = $q->where('active','=', 1)->where('deleted','=', 0)->get();
         $cities = Region::where('type',1)->where('active',1)->where('deleted',0)->orderby('order')->get();
-        return view('searchPage',['name'=>'name_'.App::getLocale(), 'filtermenus'=>$filtermenus, 'properties'=>PropertyResource::collection($property), "cities"=>$cities, 'request'=>['keyword'=>$request->keyword, 'city'=>$request->city, 'district'=>$request->district, 'priceFrom'=>$request->priceFrom, 'priceTo'=>$request->priceTo,] ]);
+        return view('searchPage',['name'=>'name_'.App::getLocale(), 'filtermenus'=>$filterMenus, 'properties'=>PropertyResource::collection($property), "cities"=>$cities, 'request'=>['keyword'=>$request->keyword, 'city'=>$request->city, 'district'=>$request->district, 'priceFrom'=>$request->priceFrom, 'priceTo'=>$request->priceTo,] ]);
     }
 
     public function porpertySearchByPoint(Request $request)

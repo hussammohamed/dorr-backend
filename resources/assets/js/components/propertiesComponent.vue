@@ -145,7 +145,7 @@
     </ul>
 </div>
  <div class="grid">
-  <div class="mdl-cell mdl-cell--12-col" v-for="property in properties">
+  <div class="mdl-cell mdl-cell--12-col" v-for="property in filteredSorted(properties)">
     <div class="card horizontal mdl-card mdl-shadow--2dp h-card " >
     <a :href="['/properties/show/' + property.id]" class="card-link"></a>
         <div class="card-image">
@@ -190,6 +190,10 @@ export default {
   props: ["uproperties", "form", "cities"],
   data() {
     return {
+      filterMethod: {
+        purpose: null,
+        type: null
+      },
       properties: [],
       sortItems: [
         {
@@ -224,33 +228,55 @@ export default {
     };
   },
   methods: {
+    filteredSorted: function(arr) {
+      var self = this;
+      //filter data
+       debugger
+        arr = arr.filter(function(record) {
+        if (self.filterMethod.purpose && self.filterMethod.type) {
+          return (
+            record.details.type == self.filterMethod.type &&
+            record.details.purpose == self.filterMethod.purpose
+          );
+        } else {
+          return record;
+        }
+      });
+
+      var sortItem = this.sortItems.find(function(record) {
+        return record.active == true;
+      });
+      switch (sortItem.id) {
+        case 1:
+          arr = arr.slice().sort(function(a, b) {
+            return b.details.featured - a.details.featured;
+          });
+          break;
+        case 2:
+          arr = arr.slice().sort(function(a, b) {
+            return a.id - b.id;
+          });
+          break;
+        case 3:
+          arr = arr.slice().sort(function(a, b) {
+            return a.details.price - b.details.price;
+          });
+          break;
+        case 4:
+          arr = arr.slice().sort(function(a, b) {
+            return b.details.price - a.details.price;
+          });
+          break;
+      }
+      return arr;
+    },
     reSorting: function(item) {
       this.sortItems.map(function(obj) {
         obj.active = false;
       });
       item.active = true;
-      switch (item.id) {
-        case 1:
-          this.properties = this.properties.slice().sort(function(a, b) {
-            return b.details.featured - a.details.featured ;
-          });
-          break;
-        case 2:
-          this.properties = this.properties.slice().sort(function(a, b) {
-            return a.id - b.id;
-          });
-          break;
-           case 3:
-          this.properties = this.properties.slice().sort(function(a, b) {
-            return a.details.price - b.details.price;
-          });
-          break;
-           case 4:
-          this.properties = this.properties.slice().sort(function(a, b) {
-            return b.details.price - a.details.price;
-          });
-          break;
-      }
+      console.log()
+      this.properties = this.filteredSorted(this.properties);
     },
 
     propertySearch: function() {
@@ -328,19 +354,14 @@ export default {
         if (zoom < 7) {
           $.get("/api/v1/regions", function(data) {
             data.data.forEach(function(el) {
-              var overlay = new CustomMarker(
-                new google.maps.LatLng(el.location.lat, el.location.long),
-                map,
-                el,
-                "region",
-                self
-              );
+              var overlay = new CustomMarker( new google.maps.LatLng(el.location.lat, el.location.long), map, el, "region", self);
             });
           });
 
           removerMarkers();
         }
-        if (zoom >= 7 && zoom < 12) {
+        if (zoom >= 7 && zoom < 11) {
+          
         } else if (zoom >= 12) {
         }
       });
@@ -414,5 +435,4 @@ export default {
     }, 50);
   }
 };
-
 </script>

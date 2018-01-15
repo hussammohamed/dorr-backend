@@ -103,6 +103,20 @@ class RegionsController extends Controller
         
     }
 
+    public function getDistrictsByPoint($lat, $long)
+    {
+        $range = 1;
+        if( $lat != "" && $long != "" ){
+            $regions = Region::where('type','=', 2)->whereBetween('lat', [$lat-$range, $lat+$range])
+            ->whereBetween('long', [$long-$range, $long+$range])
+            ->where('active','=', 1)->where('deleted','=', 0)->get();
+        return RegionResource::collection($regions);
+        }else{
+            return 0;
+        }
+    }
+
+    
     public function getCities()
     {
         $regions = Region::where('region_id','=', 0)->where('active','=', 1)->where('deleted','=', 0)->orderby('order')->get();

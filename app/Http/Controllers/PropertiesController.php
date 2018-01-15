@@ -47,7 +47,7 @@ class PropertiesController extends Controller
         //$purpose = $request->purpose;
         //$type = $request->type;
 
-        $range = 0.2;
+        $range = 0.5;
 
         $lat = $request->lat;
         $long = $request->long;

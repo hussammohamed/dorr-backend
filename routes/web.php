@@ -95,6 +95,7 @@ Route::post('api/v1/property/offers/{id}/store', 'PropertyOfferController@storeA
 Route::get('api/v1/properties', 'PropertiesController@getList');
 Route::get('api/v1/regions/districts', 'RegionsController@getDistricts');
 Route::get('api/v1/regions/{city}', 'RegionsController@getDistrictsByCity');
+Route::get('api/v1/regions/{lat}/{long}', 'RegionsController@getDistrictsByPoint');
 Route::get('api/v1/regions', 'RegionsController@getCities');
 Route::get('api/v1/filters', 'FilterMenuController@getFilterMenus');
 Route::get('api/v1/types', 'TypesController@getTypes');

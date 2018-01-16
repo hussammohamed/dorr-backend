@@ -23,6 +23,10 @@ use App\Http\Resources\PurposesResource;
 use App\Http\Resources\RegionResource;
 use App\Http\Resources\PropertyResource;
 use App\Http\Resources\PropertyImageResource;
+use App\Http\Resources\AdvertiserResource;
+use App\Http\Resources\FinishTypeResource;
+use App\Http\Resources\OverlookResource;
+use App\Http\Resources\PaymentMethodResource;
 //use App\Http\Resources\PropertyCollection;
 
 use Illuminate\Http\Response;
@@ -47,7 +51,7 @@ class PropertiesController extends Controller
         //$purpose = $request->purpose;
         //$type = $request->type;
 
-        $range = 0.2;
+        $range = 0.5;
 
         $lat = $request->lat;
         $long = $request->long;
@@ -509,11 +513,19 @@ class PropertiesController extends Controller
         $types = Type::where('active',1)->where('deleted',0)->orderby('order')->get();
         $purposes = Purpose::where('active',1)->where('deleted',0)->orderby('order')->get();
         $regions = Region::where('type',1)->where('active',1)->where('deleted',0)->orderby('order')->get();
-            
+        $advertisers = Advertiser::where('active',1)->where('deleted',0)->orderby('order')->get();
+        $finish_types = FinishType::where('active',1)->where('deleted',0)->orderby('order')->get();
+        $overlooks = Overlook::where('active',1)->where('deleted',0)->orderby('order')->get();
+        $payment_methods = PaymentMethod::where('active',1)->where('deleted',0)->orderby('order')->get();
+        
         return [
             "types" => TypesResource::collection($types),
             "purposes" => PurposesResource::collection($purposes),
-            "regions" => RegionResource::collection($regions)
+            "regions" => RegionResource::collection($regions),
+            "advertisers" => AdvertiserResource::collection($advertisers),
+            "finish_types" => FinishTypeResource::collection($finish_types),
+            "overlooks" => OverlookResource::collection($overlooks),
+            "payment_methods" => PaymentMethodResource::collection($payment_methods),
         ];
     }
 }

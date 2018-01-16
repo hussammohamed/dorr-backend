@@ -25,7 +25,9 @@ use App\Http\Resources\PropertyResource;
 use App\Http\Resources\PropertyImageResource;
 //use App\Http\Resources\PropertyCollection;
 
+use Illuminate\Http\Response;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class PropertiesController extends Controller
 {
@@ -62,7 +64,7 @@ class PropertiesController extends Controller
         if($keyword!=""){$q->where('title','like', '%'.$keyword.'%');}
         if($district == "" ){
             if($city != ""){
-                $districts = Region::where('region_id',1)->get();
+                $districts = Region::where('region_id',$city)->get();
                 $district = array();
                 foreach($districts as $d){
                     array_push($district,$d->id);
@@ -74,9 +76,12 @@ class PropertiesController extends Controller
         }
         $q->whereBetween('price', [$priceFrom, $priceTo]);
         $property = $q->where('active','=', 1)->where('deleted','=', 0)->get();
-
-        return PropertyResource::collection($property);
-
+        
+        if (count($property) < 1) {
+            return response()->json(["error"=>"There is no properties match this search"], Response::HTTP_NOT_FOUND);
+        }else{
+            return PropertyResource::collection($property);
+        }
     }
 
     public function porpertySearch(Request $request)
@@ -101,12 +106,12 @@ class PropertiesController extends Controller
         if($keyword!=""){$q->where('title','like', '%'.$keyword.'%');}
         if($district == "" ){
             if($city != ""){
-                $districts = Region::where('region_id',1)->get();
+                $districts = Region::where('region_id',$city)->get();
                 $district = array();
                 foreach($districts as $d){
                     array_push($district,$d->id);
                 }
-                $q->whereIn('region', $district)->get();                    
+                $q->whereIn('region', $district);                    
             }
         }else{
             $q->where('region','=', $district);
@@ -119,79 +124,142 @@ class PropertiesController extends Controller
 
     public function porpertySearchByPoint(Request $request)
     {
-        //
-        //$purpose = $request->purpose;
-        //$type = $request->type;
+    
         $lat = $request->lat;
         $long = $request->long;
         
-        
         $property = Property::whereBetween('lat', [$lat-1, $lat+1])->whereBetween('long', [$long-1, $long+1])->get();
-        
         return $property;
-        
-
     }
 
     public function getLatest(Request $request)
     {
         //
-        $property = Property::where('active','=', 1)->where('deleted','=', 0)->orderBy('created_at', 'desc')->limit(4)->get();
-        return $property;
-
+        
+        $property = Property::where('active','=', 1)->where('deleted','=', 0)->orderBy('id', 'desc')->limit(4)->get();
+        if (count($property) < 1) {
+            return response()->json(["error"=>"There is no properties"], Response::HTTP_NOT_FOUND);
+        }else{
+            return PropertyResource::collection($property);
+        }
     }
 
     public function getList(Request $request)
     {
-        //
         $property = Property::where('active','=', 1)->where('deleted','=', 0)->get();
-        return PropertyResource::collection($property);
+        if (count($property) < 1) {
+            return response()->json(["error"=>"There is no properties"], Response::HTTP_NOT_FOUND);
+        }else{
+            return PropertyResource::collection($property);
+        }
     }
 
-    public function getListByDistrict($id)
+    public function getListByRegion($region_id)
     {
-        //
-        $property = Property::where('region','=', $id)->where('active','=', 1)->where('deleted','=', 0)->get();
-        return PropertyResource::collection($property);
+        $region = Region::find($region_id);
+        if (count($region) < 1) {
+            return response()->json(["error"=>"This region is not exists"], Response::HTTP_NOT_FOUND);
+        }else{
+            $districts = Region::where('region_id',$region_id)->get();
+            $district = array();
+            foreach($districts as $d){
+                array_push($district,$d->id);
+            }
+            array_push($district,$region_id);
+            $property = Property::whereIn('region', $district)->where('active','=', 1)->where('deleted','=', 0)->get();
+            if (count($property) < 1) {
+                return response()->json(["error"=>"There is no properties is Region"], Response::HTTP_NOT_FOUND);
+            }else{
+                return PropertyResource::collection($property);
+            }
+        }
     }
 
-    public function getByUser()
+    public function getByLoginedUser()
     {
-        //
-        $property = Property::where('user_id','=', Auth::user()->id)->where('deleted','=', 0)->get();
-        return PropertyResource::collection($property);
+        if (Auth::check()) {
+            $property = Property::where('user_id','=', Auth::user()->id)->where('deleted','=', 0)->get();
+            if (count($property) < 1) {
+                return response()->json(["error"=>"There is no properties for you"], Response::HTTP_NOT_FOUND);
+            }else{
+                return PropertyResource::collection($property);
+            }
+            return PropertyResource::collection($property);
+        }else{
+            return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
+        }
     }
+
+    public function getByUser($user_id)
+    {
+        $user = User::find($user_id);
+        if (count($user) < 1) {
+            return response()->json(["error"=>"This user is not exists"], Response::HTTP_NOT_FOUND);
+        }else{
+            $property = Property::where('user_id','=', $user_id)->where('deleted','=', 0)->get();
+            if (count($property) < 1) {
+                return response()->json(["error"=>"There is no properties for this user"], Response::HTTP_NOT_FOUND);
+            }else{
+                return PropertyResource::collection($property);
+            }
+        }
+    }
+
 
     
     public function getFeatured()
     {
-        //
         $property = Property::where('active','=', 1)->where('deleted','=', 0)->where('featured','=', 1)->limit(4)->get();
-        return $property;
-        
+        if (count($property) < 1) {
+            return response()->json(["error"=>"There is no featured properties"], Response::HTTP_NOT_FOUND);
+        }else{
+            return PropertyResource::collection($property);
+        }
     }
 
     public function getSimilerProperties($id){
         //
-
-        $similar_property = Property::where('region','=', Property::find($id)->region)->
-        where('type','=', Property::find($id)->type)->
-        where('active','=', 1)->where('deleted','=', 0)->limit(10)->get();
-        return PropertyResource::collection($similar_property);
-    }
-
-    
-    public function getProperty($id){
-        //
-
         $property = Property::find($id);
-        return new PropertyResource($property);
+        if (count($property) < 1) {
+            return response()->json(["error"=>"This Proberty is not exists"], Response::HTTP_NOT_FOUND);
+        }else{
+            $similar_property = Property::where('region','=', Property::find($id)->region)->
+            where('type','=', Property::find($id)->type)->
+            where('id','!=', $id)->
+            where('active','=', 1)->where('deleted','=', 0)->limit(10)->get();
+            if (count($similar_property) < 1) {
+                return response()->json(["error"=>"There is no similer properties"], Response::HTTP_NOT_FOUND);
+            }else{
+                return PropertyResource::collection($similar_property);
+            }
+        }
     }
 
     
-    public function getImages($id){
-        $images = App\Property::find($id)->images;
-        return  PropertyImageResource::collection($images);
+    public function getProperty($id)
+    {
+        $property = Property::find($id);
+        if (count($property) < 1) {
+            return response()->json(["error"=>"This Proberty is not exists"], Response::HTTP_NOT_FOUND);
+        }else{
+            return new PropertyResource($property);
+        }
+    }
+
+    
+    public function getImages($id)
+    {
+        $property = Property::find($id);
+        if (count($property) < 1) {
+            return response()->json(["error"=>"This Proberty is not exists"], Response::HTTP_NOT_FOUND);
+        }else{
+            $images = Property::find($id)->images;
+            if (count($images) < 1) {
+                return response()->json(["error"=>"This Proberty has no images"], Response::HTTP_NOT_FOUND);
+            }else{
+                return  PropertyImageResource::collection($images);
+            }
+        }
     }
     /**
      * Show the form for creating a new resource.
@@ -268,8 +336,8 @@ class PropertiesController extends Controller
 
     public function storeAPI(Request $request)
     {
-        //
-        
+        if (Auth::check()) {
+
             $property = new Property;
             $property->user_id = Auth::user()->id;
             $property->type =  $request->type;
@@ -297,14 +365,14 @@ class PropertiesController extends Controller
             $property->save();
 
             if ($request->hasFile('pictures')) {
-                
                 app('App\Http\Controllers\PropertyImagesController')->store($property->id, $request->file('attachment'));
-                
             }
 
             $property = Property::find($property->id);
             return new PropertyResource($property);
-
+        }else{
+            return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
+        }
     }
 
 

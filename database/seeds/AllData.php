@@ -248,7 +248,7 @@ class AllData extends Seeder
         $region_id=[0,1,1,1,0,5,5,5];
         $regions_ar=['الرياض','الدرعية','المونسية','المشاعل','المدينة المنورة','ابيار على','شوران','طيبة'];
         $regions_en=['Riyadh','Diriyah','Munsiyah','Mishal','Medina','Abyar Ali','Shuran','Teba'];
-        $parent=[0,1,1,1,0,5,5,5];
+        $region_id=[0,1,1,1,0,5,5,5];
         $types=[1,2,2,2,1,2,2,2];
         $lats=['24.7241503','24.7584749','24.6540674','24.7584739','24.4710078','24.4135686','24.4235686','24.5235686'];
         $longs=['46.2620343','46.7278451','46.8213479','46.7409774','39.47747','39.5367147','39.5067147','39.5567147'];
@@ -256,7 +256,6 @@ class AllData extends Seeder
             $add = new Region;
             $add->name_ar = $value;
             $add->name_en = $regions_en[$key];
-            // $add->parent = $parent[$key];
             $add->region_id = $region_id[$key];
             $add->type = $types[$key];
             $add->lat = $lats[$key];

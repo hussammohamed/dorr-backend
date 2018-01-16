@@ -19,6 +19,8 @@ Vue.component('signup-component', require('./components/signupComponent.vue'));
 Vue.component('properties-component', require('./components/propertiesComponent.vue'));
 Vue.component('filters-component', require('./components/filtersComponent.vue'));
 Vue.component('map-component', require('./components/mapComponent.vue'));
+Vue.component('addoffer-component', require('./components/addofferComponent.vue'));
+Vue.component('offers-component', require('./components/offersComponent.vue'));
 const app = new Vue({
     el: '#app',
     data() {

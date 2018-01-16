@@ -45,7 +45,9 @@ CustomMarker.prototype.draw = function () {
 						
 					});
 					self.map.fitBounds(bounds);
+					self.map.setZoom(8);
 				})
+
 				$(".map-marker,.property-card")
 					.fadeOut()
 					.remove();

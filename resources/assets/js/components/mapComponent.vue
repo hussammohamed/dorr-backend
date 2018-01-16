@@ -9,7 +9,7 @@
   إخفاء الخريطة
 </button>
 <div id="searchArea" class="map-serach mdl-card mdl-shadow--2dp">
-<form  class="search-form">
+<form  class="search-form" action="/properties/search" method="POST">
   <div class="serach-textfield">
     <div class="mdl-textfield mdl-js-textfield mdl-textfield--slim">
       <input v-model="FormData.keyword" class="mdl-textfield__input" name="keyword" type="text" id="mapSearch">
@@ -24,7 +24,7 @@
   <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet">
     <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
 
-      <input id="city" class="mdl-textfield__input regions"  type="text" value="" readonly tabIndex="-1">
+      <input id="city" class="mdl-textfield__input regions" required  type="text" value="" readonly tabIndex="-1">
       <input  type="hidden" class="hidden-input"  name="city"  value="" >
       <label for="city">
 
@@ -33,7 +33,6 @@
       </label>
       <label for="city" class="mdl-textfield__label">المدينة</label>
       <ul for="city" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-          <li   tabindex="-1"  class="mdl-menu__item" data-val="-1">الكل</li>
         <li  v-for="region in regions" v-text="region.name_ar" tabindex="-1"  class="mdl-menu__item" :data-val="region.id"></li>
      
       </ul>
@@ -221,7 +220,6 @@ export default {
           });
           break;
         case "cities":
-          self.cities.forEach(function(el) {
             $.get(
               "/api/v1/regions/" +
                 self.map.getCenter().lat() +
@@ -229,6 +227,7 @@ export default {
                 self.map.getCenter().lng() +
                 "",
               function(data) {
+                console.log(data)
                 self.citiesGet = data.data;
                 data.data.forEach(function(el) {
                   var overlay = new CustomMarker(
@@ -241,13 +240,16 @@ export default {
                 });
               }
             );
-          });
+         
+          break;
       }
     },
     propertySearch: function() {
       var self = this;
       $(".search-form").submit(function(event) {
-        event.preventDefault();
+        if(location.pathname == "/properties/search"){
+        //event.preventDefault();
+        }
         $.ajax({
           url: "/api/v1/properties/search",
           type: "post",
@@ -367,10 +369,17 @@ export default {
 
     //setData
     this.regions = this.cities;
+    if(location.pathname == "/properties/search"){
     this.FormData = this.form;
     this.properties = this.uproperties.slice().sort(function(a, b) {
       return b.details.featured - a.details.featured;
     });
+    }else{
+      setTimeout(() => {
+         this.kind = "regions";
+      }, 200);
+     
+    }
 
     //search area
     var mapConainer = $("#mapConainer");

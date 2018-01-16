@@ -1,7 +1,9 @@
 @extends('layouts.app') 
 @section('header')  
+<filters-component  :filtersmenus="{{json_encode($filterMenus)}}"></filters-component>
+@endsction
 @endsection @section('content') 
-@include('components.mapSet')
+<map-component :cities="{{json_encode($cities)}}"></map-component>
 
 <div class="content">
     <div class="group-ad">
@@ -60,3 +62,8 @@
 </script> @endpush @push('styles')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.theme.min.css"> @endpush
+@push('begScripts')
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCuaq7NJkSDoz9ORGZzVopdHK6X-m8F6qs">
+    </script>
+        <script type="text/javascript" src="{{ asset('js/customMarker.js') }}"></script>
+    @endpush

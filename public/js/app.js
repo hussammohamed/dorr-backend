@@ -204,8 +204,8 @@ module.exports = g;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(3);
-__webpack_require__(23);
-module.exports = __webpack_require__(24);
+__webpack_require__(26);
+module.exports = __webpack_require__(27);
 
 
 /***/ }),
@@ -232,7 +232,9 @@ Vue.component('login-component', __webpack_require__(9));
 Vue.component('signup-component', __webpack_require__(12));
 Vue.component('properties-component', __webpack_require__(15));
 Vue.component('filters-component', __webpack_require__(18));
-Vue.component('map-component', __webpack_require__(30));
+Vue.component('map-component', __webpack_require__(21));
+Vue.component('addoffer-component', __webpack_require__(33));
+Vue.component('offers-component', __webpack_require__(34));
 var app = new Vue({
     el: '#app',
     data: function data() {
@@ -313,8 +315,8 @@ var app = new Vue({
     }
 });
 
-__webpack_require__(21);
-__webpack_require__(22);
+__webpack_require__(24);
+__webpack_require__(25);
 
 /***/ }),
 /* 4 */
@@ -22940,6 +22942,1034 @@ if (false) {
 
 /***/ }),
 /* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(22)
+/* template */
+var __vue_template__ = __webpack_require__(23)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/mapComponent.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-946b77d0", Component.options)
+  } else {
+    hotAPI.reload("data-v-946b77d0", Component.options)
+' + '  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 22 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["form", "cities", "uproperties"],
+  data: function data() {
+    return {
+      map: {},
+      FormData: {},
+      regions: [],
+      districts: [],
+      citiesGet: [],
+      properties: [],
+      kind: null,
+      bound: true,
+      filterMethod: {
+        purpose: null,
+        type: null
+      }
+    };
+  },
+
+  watch: {
+    filterMethod: {
+      handler: function handler(val, oldVal) {
+        this.filterMap();
+      },
+      deep: true
+    },
+    kind: {
+      handler: function handler(val, oldVal) {
+        console.log(this.kind);
+        this.filterMap();
+      }
+    }
+  },
+  methods: {
+    filterMap: function filterMap() {
+      var self = this;
+      var bounds = new google.maps.LatLngBounds();
+      $(".map-marker,.property-card").fadeOut().remove();
+      switch (self.kind) {
+        case "properties":
+          var arr = self.properties.filter(function (record) {
+            if (self.filterMethod.purpose && self.filterMethod.type) {
+              return record.details.type.id == self.filterMethod.type && record.purpose.id == self.filterMethod.purpose;
+            } else {
+              return record;
+            }
+          });
+          arr.forEach(function (el) {
+            var overlay = new CustomMarker(new google.maps.LatLng(el.location.lat, el.location.long), self.map, el, "property");
+            bounds.extend(overlay.getPosition());
+          });
+          if (self.bound && arr.length) {
+            self.map.fitBounds(bounds);
+            setTimeout(function () {
+              self.map.setZoom(10);
+            }, 150);
+          }
+          if (self.$parent.$children[2].$vnode.componentOptions.tag == "properties-component") {
+            self.$parent.$children[2].properties = self.properties;
+          }
+          break;
+        case "regions":
+          $.get("/api/v1/regions/", function (data) {
+            data.data.forEach(function (el) {
+              var overlay = new CustomMarker(new google.maps.LatLng(el.location.lat, el.location.long), self.map, el, "region", self);
+            });
+          });
+          break;
+        case "cities":
+          $.get("/api/v1/regions/" + self.map.getCenter().lat() + "/" + self.map.getCenter().lng() + "", function (data) {
+            console.log(data);
+            self.citiesGet = data.data;
+            data.data.forEach(function (el) {
+              var overlay = new CustomMarker(new google.maps.LatLng(el.location.lat, el.location.long), self.map, el, "district", self);
+            });
+          });
+
+          break;
+      }
+    },
+
+    propertySearch: function propertySearch() {
+      var self = this;
+      $(".search-form").submit(function (event) {
+        if (location.pathname == "/properties/search") {
+          //event.preventDefault();
+        }
+        $.ajax({
+          url: "/api/v1/properties/search",
+          type: "post",
+          data: $(".search-form").serialize(),
+          dataType: "json",
+          success: function success(_response) {
+            self.properties = _response.data;
+            self.bound = true;
+            if (self.kind != "properties") {
+              self.kind = "properties";
+            } else {
+              self.filterMap();
+            }
+          },
+          complete: function complete(_response) {},
+          error: function error(_response) {}
+        });
+      });
+    }
+  },
+
+  mounted: function mounted() {
+    var _this = this;
+
+    //map
+    var self = this;
+    function removerMarkers(overlayArr) {
+      $(".map-marker,.property-card").fadeOut().remove();
+    }
+    function initMap() {
+      var uluru = new google.maps.LatLng(23.128363, 37.199707);
+      var map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 6,
+        center: uluru,
+        zoomControl: true,
+        mapTypeControl: false,
+        scaleControl: false,
+        streetViewControl: false,
+        rotateControl: false,
+        fullscreenControl: true
+      });
+      self.map = map;
+      self.kind = "properties";
+      //  var region;
+      // 	$.get('/api/v1/regions', function (data) {
+      //          region =  data.data.filter(function(record) {
+      //              return record.id == parseInt(self.FormData.city);
+      //          });
+      //          map.setCenter(new google.maps.LatLng(region[0].location.lat, region[0].location.long));
+      //     });
+
+      map.addListener("zoom_changed", function () {
+        var center = map.getCenter().lat();
+        var zoom = map.getZoom();
+        if (zoom < 7) {
+          self.kind = "regions";
+        }
+        if (zoom >= 7 && zoom <= 9) {
+          if (self.kind != "cities") {
+            self.kind = "cities";
+          } else {
+            self.filterMap();
+          }
+        } else if (zoom > 9) {}
+      });
+
+      map.addListener("click", function () {
+        $(".property-card").fadeOut().remove();
+        $(".marker-hidden").removeClass("marker-hidden");
+      });
+      map.addListener("dragend", function () {
+        self.bound = false;
+        var zoom = map.getZoom();
+        if (zoom >= 7 && zoom <= 9) {
+          if (self.kind != "cities") {
+            self.kind = "cities";
+          } else {
+            self.filterMap();
+          }
+        } else if (zoom > 9) {
+          $.ajax({
+            url: "/api/v1/properties/search?lat=" + map.getCenter().lat() + "&long=" + map.getCenter().lng() + "",
+            type: "post",
+            dataType: "json",
+            success: function success(_response) {
+              $(".map-marker,.property-card").fadeOut().remove();
+              self.properties = _response.data;
+              if (self.kind != "properties") {
+                self.kind = "properties";
+              } else {
+                self.filterMap();
+              }
+            }
+          });
+        }
+      });
+      map.addListener("center_changed", function () {
+        $(".property-card").fadeOut().remove();
+        $(".marker-hidden").removeClass("marker-hidden");
+      });
+    }
+
+    google.maps.event.addDomListener(window, "load", initMap);
+
+    //setData
+    this.regions = this.cities;
+    if (location.pathname == "/properties/search") {
+      this.FormData = this.form;
+      this.properties = this.uproperties.slice().sort(function (a, b) {
+        return b.details.featured - a.details.featured;
+      });
+    } else {
+      setTimeout(function () {
+        _this.kind = "regions";
+      }, 200);
+    }
+
+    //search area
+    var mapConainer = $("#mapConainer");
+    var searchArea = $("#searchArea");
+    var searchBtn = $("#searchBtn");
+    var hideMap = $("#hideMap");
+    searchBtn.click(function () {
+      mapConainer.toggleClass("no-search");
+    });
+    hideMap.click(function () {
+      mapConainer.toggleClass("no-map");
+    });
+  },
+  updated: function updated() {
+    var self = this;
+    if (this.FormData.city) {
+      $("[data-val=" + this.FormData.city + "]").attr("data-selected", "true");
+    }
+
+    setTimeout(function () {
+      $(".regions").change(function () {
+        var value = $(this).parent().find(".hidden-input").val();
+        $.ajax({
+          url: "/api/v1/regions/" + value + "",
+          type: "GET",
+          success: function success(_response) {
+            self.districts = _response.data;
+          },
+          complete: function complete(_response) {
+            setTimeout(function () {
+              if (self.FormData.district) {
+                $("[data-val=" + self.FormData.district + "]").attr("data-selected", "true");
+              }
+              getmdlSelect.init(".getmdl-select__city");
+            }, 10);
+          }
+        });
+      });
+    }, 50);
+  }
+});
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "map-container no-search", attrs: { id: "mapConainer" } },
+    [
+      _c("div", { staticClass: "map", attrs: { id: "map" } }),
+      _vm._v(" "),
+      _vm._m(0, false, false),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "map-serach mdl-card mdl-shadow--2dp",
+          attrs: { id: "searchArea" }
+        },
+        [
+          _c(
+            "form",
+            {
+              staticClass: "search-form",
+              attrs: { action: "/properties/search", method: "POST" }
+            },
+            [
+              _c("div", { staticClass: "serach-textfield" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "mdl-textfield mdl-js-textfield mdl-textfield--slim"
+                  },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.FormData.keyword,
+                          expression: "FormData.keyword"
+                        }
+                      ],
+                      staticClass: "mdl-textfield__input",
+                      attrs: { name: "keyword", type: "text", id: "mapSearch" },
+                      domProps: { value: _vm.FormData.keyword },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.FormData, "keyword", $event.target.value)
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "mdl-textfield__label",
+                        attrs: { for: "mapSerach" }
+                      },
+                      [_vm._v("بحث")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "i",
+                      { staticClass: "material-icons u-flip search-icon" },
+                      [_vm._v("search")]
+                    )
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _vm._m(1, false, false),
+              _vm._v(" "),
+              _c("div", { staticClass: "mdl-grid " }, [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet"
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height"
+                      },
+                      [
+                        _c("input", {
+                          staticClass: "mdl-textfield__input regions",
+                          attrs: {
+                            id: "city",
+                            required: "",
+                            type: "text",
+                            value: "",
+                            readonly: "",
+                            tabIndex: "-1"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("input", {
+                          staticClass: "hidden-input",
+                          attrs: { type: "hidden", name: "city", value: "" }
+                        }),
+                        _vm._v(" "),
+                        _vm._m(2, false, false),
+                        _vm._v(" "),
+                        _c(
+                          "label",
+                          {
+                            staticClass: "mdl-textfield__label",
+                            attrs: { for: "city" }
+                          },
+                          [_vm._v("المدينة")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "ul",
+                          {
+                            staticClass:
+                              "mdl-menu mdl-menu--bottom-left mdl-js-menu",
+                            attrs: { for: "city" }
+                          },
+                          _vm._l(_vm.regions, function(region) {
+                            return _c("li", {
+                              staticClass: "mdl-menu__item",
+                              attrs: { tabindex: "-1", "data-val": region.id },
+                              domProps: { textContent: _vm._s(region.name_ar) }
+                            })
+                          })
+                        )
+                      ]
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet"
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label  getmdl-select__city  getmdl-select getmdl-select__fix-height"
+                      },
+                      [
+                        _c("input", {
+                          staticClass: "mdl-textfield__input",
+                          attrs: {
+                            type: "text",
+                            id: "district",
+                            value: "",
+                            readonly: "",
+                            tabIndex: "-1"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("input", {
+                          attrs: { type: "hidden", name: "district", value: "" }
+                        }),
+                        _vm._v(" "),
+                        _vm._m(3, false, false),
+                        _vm._v(" "),
+                        _c(
+                          "label",
+                          {
+                            staticClass: "mdl-textfield__label",
+                            attrs: { for: "district" }
+                          },
+                          [_vm._v("الحي")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "ul",
+                          {
+                            staticClass:
+                              "mdl-menu mdl-menu--bottom-left mdl-js-menu",
+                            attrs: { for: "district" }
+                          },
+                          _vm._l(_vm.districts, function(district) {
+                            return _c("li", {
+                              staticClass: "mdl-menu__item",
+                              attrs: {
+                                tabindex: "-1",
+                                "data-val": district.id
+                              },
+                              domProps: { textContent: _vm._s(district.title) }
+                            })
+                          })
+                        )
+                      ]
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet"
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width"
+                      },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.FormData.priceFrom,
+                              expression: "FormData.priceFrom"
+                            }
+                          ],
+                          staticClass: "mdl-textfield__input",
+                          attrs: {
+                            name: "priceFrom",
+                            type: "text",
+                            id: "lowPrice"
+                          },
+                          domProps: { value: _vm.FormData.priceFrom },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.FormData,
+                                "priceFrom",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "label",
+                          {
+                            staticClass: "mdl-textfield__label",
+                            attrs: { for: "lowPrice" }
+                          },
+                          [_vm._v("أقل سعر")]
+                        )
+                      ]
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet"
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width"
+                      },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.FormData.priceTo,
+                              expression: "FormData.priceTo"
+                            }
+                          ],
+                          staticClass: "mdl-textfield__input",
+                          attrs: {
+                            name: "priceTo",
+                            type: "text",
+                            id: "hPrice"
+                          },
+                          domProps: { value: _vm.FormData.priceTo },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.FormData,
+                                "priceTo",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "label",
+                          {
+                            staticClass: "mdl-textfield__label",
+                            attrs: { for: "hPrice" }
+                          },
+                          [_vm._v("أعلى سعر")]
+                        )
+                      ]
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass:
+                      "mdl-button u-full-width  mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored",
+                    attrs: { type: "submit" },
+                    on: { click: _vm.propertySearch }
+                  },
+                  [_vm._v("\n    بحث\n  ")]
+                )
+              ])
+            ]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _vm._m(4, false, false)
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass:
+          "mdl-button hide-map-btn mdl-js-button mdl-js-ripple-effect mdl-button--raised ",
+        attrs: { id: "hideMap" }
+      },
+      [
+        _c("i", { staticClass: "material-icons" }, [_vm._v("map")]),
+        _vm._v("\n  إخفاء الخريطة\n")
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "collapse-btn", attrs: { id: "searchBtn" } },
+      [_c("i", { staticClass: "material-icons" })]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "city" } }, [
+      _c("i", { staticClass: "mdl-icon-toggle__label material-icons" }, [
+        _vm._v("keyboard_arrow_down")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "district" } }, [
+      _c("i", { staticClass: "mdl-icon-toggle__label material-icons" }, [
+        _vm._v("keyboard_arrow_down")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "form",
+      { attrs: { action: "/properties/search", method: "POST" } },
+      [
+        _c("div", { staticClass: "mdl-grid search-area--s" }, [
+          _c("div", { staticClass: "mdl-cell mdl-cell--2-col" }, [
+            _c("div", { staticClass: "mdl-textfield mdl-js-textfield " }, [
+              _c("input", {
+                staticClass: "mdl-textfield__input",
+                attrs: { name: "keyword", type: "text", id: "mapSearch2" }
+              }),
+              _vm._v(" "),
+              _c(
+                "label",
+                {
+                  staticClass: "mdl-textfield__label",
+                  attrs: { for: "mapSerach2" }
+                },
+                [_vm._v("بحث")]
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "mdl-cell mdl-cell--2-col" }, [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label  getmdl-select getmdl-select__fix-height"
+              },
+              [
+                _c("input", {
+                  staticClass: "mdl-textfield__input  city_id_js",
+                  attrs: {
+                    type: "text",
+                    id: "city2",
+                    value: "",
+                    readonly: "",
+                    tabIndex: "-1"
+                  }
+                }),
+                _vm._v(" "),
+                _c("input", {
+                  staticClass: "hidden-input",
+                  attrs: { type: "hidden", value: "", name: "city" }
+                }),
+                _vm._v(" "),
+                _c("label", { attrs: { for: "city2" } }, [
+                  _c(
+                    "i",
+                    { staticClass: "mdl-icon-toggle__label material-icons" },
+                    [_vm._v("keyboard_arrow_down")]
+                  )
+                ]),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  {
+                    staticClass: "mdl-textfield__label",
+                    attrs: { for: "city2" }
+                  },
+                  [_vm._v("المدينة ")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "ul",
+                  {
+                    staticClass: "mdl-menu mdl-menu--bottom-left mdl-js-menu",
+                    attrs: { for: "city2" }
+                  },
+                  [
+                    _c("li", {
+                      staticClass: "mdl-menu__item",
+                      attrs: { "data-val": "" }
+                    })
+                  ]
+                )
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "mdl-cell mdl-cell--2-col" }, [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select__city getmdl-select getmdl-select__fix-height"
+              },
+              [
+                _c("input", {
+                  staticClass: "mdl-textfield__input",
+                  attrs: {
+                    type: "text",
+                    id: "sample13",
+                    value: "",
+                    readonly: "",
+                    tabIndex: "-1"
+                  }
+                }),
+                _vm._v(" "),
+                _c("input", { attrs: { type: "hidden", value: "" } }),
+                _vm._v(" "),
+                _c("label", { attrs: { for: "sample13" } }, [
+                  _c(
+                    "i",
+                    { staticClass: "mdl-icon-toggle__label material-icons" },
+                    [_vm._v("keyboard_arrow_down")]
+                  )
+                ]),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  {
+                    staticClass: "mdl-textfield__label",
+                    attrs: { for: "sample13" }
+                  },
+                  [_vm._v("الحي")]
+                ),
+                _vm._v(" "),
+                _c("ul", {
+                  staticClass: "mdl-menu mdl-menu--bottom-left mdl-js-menu",
+                  attrs: { for: "sample13" }
+                })
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "mdl-cell mdl-cell--2-col" }, [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width"
+              },
+              [
+                _c("input", {
+                  staticClass: "mdl-textfield__input",
+                  attrs: { name: "priceFrom", type: "text", id: "lowPrice2" }
+                }),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  {
+                    staticClass: "mdl-textfield__label",
+                    attrs: { for: "lowPrice2" }
+                  },
+                  [_vm._v("أقل سعر")]
+                )
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "mdl-cell mdl-cell--2-col" }, [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width"
+              },
+              [
+                _c("input", {
+                  staticClass: "mdl-textfield__input",
+                  attrs: { name: "priceTo", type: "text", id: "hPrice2" }
+                }),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  {
+                    staticClass: "mdl-textfield__label",
+                    attrs: { for: "hPrice2" }
+                  },
+                  [_vm._v("أعلى سعر")]
+                )
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "mdl-cell mdl-cell--2-col" }, [
+            _c(
+              "button",
+              {
+                staticClass:
+                  "mdl-button u-full-width mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored",
+                attrs: { id: "" }
+              },
+              [_vm._v("\n          بحث\n        ")]
+            )
+          ])
+        ])
+      ]
+    )
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-946b77d0", module.exports)
+  }
+}
+
+/***/ }),
+/* 24 */
 /***/ (function(module, exports) {
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -23523,7 +24553,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 //# sourceMappingURL=material.min.js.map
 
 /***/ }),
-/* 22 */
+/* 25 */
 /***/ (function(module, exports) {
 
 //login dailog
@@ -23577,32 +24607,32 @@ function loginShow(currentUrl) {
 }
 
 /***/ }),
-/* 23 */
+/* 26 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 24 */
+/* 27 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 25 */,
-/* 26 */,
-/* 27 */,
 /* 28 */,
 /* 29 */,
-/* 30 */
+/* 30 */,
+/* 31 */,
+/* 32 */,
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(31)
+var __vue_script__ = __webpack_require__(36)
 /* template */
-var __vue_template__ = __webpack_require__(32)
+var __vue_template__ = __webpack_require__(35)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -23619,7 +24649,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/mapComponent.vue"
+Component.options.__file = "resources/assets/js/components/addofferComponent.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
 
 /* hot reload */
@@ -23629,9 +24659,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-946b77d0", Component.options)
+    hotAPI.createRecord("data-v-c6b29a4a", Component.options)
   } else {
-    hotAPI.reload("data-v-946b77d0", Component.options)
+    hotAPI.reload("data-v-c6b29a4a", Component.options)
 ' + '  }
   module.hot.dispose(function (data) {
     disposed = true
@@ -23642,7 +24672,198 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 31 */
+/* 34 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = null
+/* template */
+var __vue_template__ = null
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/offersComponent.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 35 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("form", { attrs: { action: "#", id: "addOfferForm" } }, [
+    _c("input", {
+      directives: [
+        {
+          name: "model",
+          rawName: "v-model",
+          value: _vm.propertyid,
+          expression: "propertyid"
+        }
+      ],
+      attrs: { type: "hidden", value: "", name: "property_id" },
+      domProps: { value: _vm.propertyid },
+      on: {
+        input: function($event) {
+          if ($event.target.composing) {
+            return
+          }
+          _vm.propertyid = $event.target.value
+        }
+      }
+    }),
+    _vm._v(" "),
+    _vm.auth
+      ? _c(
+          "div",
+          {
+            staticClass:
+              "mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
+          },
+          [
+            _c("input", {
+              staticClass: "mdl-textfield__input",
+              attrs: { name: "name", type: "text", id: "sample25" }
+            }),
+            _vm._v(" "),
+            _c(
+              "label",
+              {
+                staticClass: "mdl-textfield__label",
+                attrs: { for: "sample25" }
+              },
+              [_vm._v("الأسم")]
+            )
+          ]
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.auth
+      ? _c(
+          "div",
+          {
+            staticClass:
+              "mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
+          },
+          [
+            _c("input", {
+              staticClass: "mdl-textfield__input",
+              attrs: { type: "number", name: "mobile", id: "sample26" }
+            }),
+            _vm._v(" "),
+            _c(
+              "label",
+              {
+                staticClass: "mdl-textfield__label",
+                attrs: { for: "sample26" }
+              },
+              [_vm._v("رقم الجوال")]
+            )
+          ]
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    _vm._m(0, false, false),
+    _vm._v(" "),
+    _vm._m(1, false, false),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        staticClass:
+          "mdl-button  mdl-js-button mdl-js-ripple-effect  mdl-button--colored u-full-width",
+        on: { click: _vm.addOffer }
+      },
+      [_vm._v("\n                      أرسال\n\n                  ")]
+    ),
+    _vm._v(" "),
+    _c(
+      "span",
+      { staticClass: "card-label top-label-right has-primary-base-bg" },
+      [_vm._v("قدم عرض سعر")]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass:
+          "mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
+      },
+      [
+        _c("input", {
+          staticClass: "mdl-textfield__input",
+          attrs: { type: "number", name: "price", id: "sample3" }
+        }),
+        _vm._v(" "),
+        _c(
+          "label",
+          { staticClass: "mdl-textfield__label", attrs: { for: "sample3" } },
+          [_vm._v("السعر")]
+        )
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass:
+          "mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
+      },
+      [
+        _c("textarea", {
+          staticClass: "mdl-textfield__input",
+          attrs: { type: "text", name: "description", rows: "3", id: "sample5" }
+        }),
+        _vm._v(" "),
+        _c(
+          "label",
+          { staticClass: "mdl-textfield__label", attrs: { for: "sample5" } },
+          [_vm._v("أضف تعليق")]
+        )
+      ]
+    )
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-c6b29a4a", module.exports)
+  }
+}
+
+/***/ }),
+/* 36 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -23677,936 +24898,36 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["form", "cities", "uproperties"],
-  data: function data() {
-    return {
-      map: {},
-      FormData: {},
-      regions: [],
-      districts: [],
-      citiesGet: [],
-      properties: [],
-      kind: null,
-      bound: true,
-      filterMethod: {
-        purpose: null,
-        type: null
-      }
-    };
-  },
-
-  watch: {
-    filterMethod: {
-      handler: function handler(val, oldVal) {
-        this.filterMap();
-      },
-      deep: true
-    },
-    kind: {
-      handler: function handler(val, oldVal) {
-        console.log(this.kind);
-        this.filterMap();
-      }
-    }
-  },
+  props: ["auth", "propertyid", "uproperties"],
   methods: {
-    filterMap: function filterMap() {
+    addOffer: function addOffer() {
       var self = this;
-      var bounds = new google.maps.LatLngBounds();
-      $(".map-marker,.property-card").fadeOut().remove();
-      switch (self.kind) {
-        case "properties":
-          var arr = self.properties.filter(function (record) {
-            if (self.filterMethod.purpose && self.filterMethod.type) {
-              return record.details.type.id == self.filterMethod.type && record.purpose.id == self.filterMethod.purpose;
-            } else {
-              return record;
-            }
-          });
-          arr.forEach(function (el) {
-            var overlay = new CustomMarker(new google.maps.LatLng(el.location.lat, el.location.long), self.map, el, "property");
-            bounds.extend(overlay.getPosition());
-          });
-          if (self.bound && arr.length) {
-            self.map.fitBounds(bounds);
-            setTimeout(function () {
-              self.map.setZoom(10);
-            }, 150);
-          }
-          if (self.$parent.$children[2].$vnode.componentOptions.tag == "properties-component") {
-            self.$parent.$children[2].properties = self.properties;
-          }
-          break;
-        case "regions":
-          $.get("/api/v1/regions/", function (data) {
-            data.data.forEach(function (el) {
-              var overlay = new CustomMarker(new google.maps.LatLng(el.location.lat, el.location.long), self.map, el, "region", self);
-            });
-          });
-          break;
-        case "cities":
-          self.cities.forEach(function (el) {
-            $.get("/api/v1/regions/" + self.map.getCenter().lat() + "/" + self.map.getCenter().lng() + "", function (data) {
-              self.citiesGet = data.data;
-              data.data.forEach(function (el) {
-                var overlay = new CustomMarker(new google.maps.LatLng(el.location.lat, el.location.long), self.map, el, "district", self);
-              });
-            });
-          });
-      }
-    },
-
-    propertySearch: function propertySearch() {
-      var self = this;
-      $(".search-form").submit(function (event) {
+      $("#addOfferForm").submit(function (event) {
         event.preventDefault();
         $.ajax({
-          url: "/api/v1/properties/search",
+          url: "/api/v1/property/offers/1/store",
           type: "post",
-          data: $(".search-form").serialize(),
+          data: $("#addOfferForm").serialize(),
           dataType: "json",
           success: function success(_response) {
-            self.properties = _response.data;
-            self.bound = true;
-            if (self.kind != "properties") {
-              self.kind = "properties";
-            } else {
-              self.filterMap();
-            }
+            // self.properties = _response.data;
+            // self.bound = true;
+            // if (self.kind != "properties") {
+            //   self.kind = "properties";
+            // } else {
+            //   self.filterMap();
+            // }
+            location.reload();
           },
           complete: function complete(_response) {},
           error: function error(_response) {}
         });
       });
     }
-  },
-
-  mounted: function mounted() {
-    //map
-    var self = this;
-    function removerMarkers(overlayArr) {
-      $(".map-marker,.property-card").fadeOut().remove();
-    }
-    function initMap() {
-      var uluru = new google.maps.LatLng(23.128363, 37.199707);
-      var map = new google.maps.Map(document.getElementById("map"), {
-        zoom: 6,
-        center: uluru,
-        zoomControl: true,
-        mapTypeControl: false,
-        scaleControl: false,
-        streetViewControl: false,
-        rotateControl: false,
-        fullscreenControl: true
-      });
-      self.map = map;
-      self.kind = "properties";
-      //  var region;
-      // 	$.get('/api/v1/regions', function (data) {
-      //          region =  data.data.filter(function(record) {
-      //              return record.id == parseInt(self.FormData.city);
-      //          });
-      //          map.setCenter(new google.maps.LatLng(region[0].location.lat, region[0].location.long));
-      //     });
-
-      map.addListener("zoom_changed", function () {
-        var center = map.getCenter().lat();
-        var zoom = map.getZoom();
-        if (zoom < 7) {
-          self.kind = "regions";
-        }
-        if (zoom >= 7 && zoom <= 9) {
-          if (self.kind != "cities") {
-            self.kind = "cities";
-          } else {
-            self.filterMap();
-          }
-        } else if (zoom > 9) {}
-      });
-
-      map.addListener("click", function () {
-        $(".property-card").fadeOut().remove();
-        $(".marker-hidden").removeClass("marker-hidden");
-      });
-      map.addListener("dragend", function () {
-        self.bound = false;
-        var zoom = map.getZoom();
-        if (zoom >= 7 && zoom <= 9) {
-          if (self.kind != "cities") {
-            self.kind = "cities";
-          } else {
-            self.filterMap();
-          }
-        } else if (zoom > 9) {
-          $.ajax({
-            url: "/api/v1/properties/search?lat=" + map.getCenter().lat() + "&long=" + map.getCenter().lng() + "",
-            type: "post",
-            dataType: "json",
-            success: function success(_response) {
-              $(".map-marker,.property-card").fadeOut().remove();
-              self.properties = _response.data;
-              if (self.kind != "properties") {
-                self.kind = "properties";
-              } else {
-                self.filterMap();
-              }
-            }
-          });
-        }
-      });
-      map.addListener("center_changed", function () {
-        $(".property-card").fadeOut().remove();
-        $(".marker-hidden").removeClass("marker-hidden");
-      });
-    }
-
-    google.maps.event.addDomListener(window, "load", initMap);
-
-    //setData
-    this.regions = this.cities;
-    this.FormData = this.form;
-    this.properties = this.uproperties.slice().sort(function (a, b) {
-      return b.details.featured - a.details.featured;
-    });
-
-    //search area
-    var mapConainer = $("#mapConainer");
-    var searchArea = $("#searchArea");
-    var searchBtn = $("#searchBtn");
-    var hideMap = $("#hideMap");
-    searchBtn.click(function () {
-      mapConainer.toggleClass("no-search");
-    });
-    hideMap.click(function () {
-      mapConainer.toggleClass("no-map");
-    });
-  },
-  updated: function updated() {
-    var self = this;
-    if (this.FormData.city) {
-      $("[data-val=" + this.FormData.city + "]").attr("data-selected", "true");
-    }
-
-    setTimeout(function () {
-      $(".regions").change(function () {
-        var value = $(this).parent().find(".hidden-input").val();
-        $.ajax({
-          url: "/api/v1/regions/" + value + "",
-          type: "GET",
-          success: function success(_response) {
-            self.districts = _response.data;
-          },
-          complete: function complete(_response) {
-            setTimeout(function () {
-              if (self.FormData.district) {
-                $("[data-val=" + self.FormData.district + "]").attr("data-selected", "true");
-              }
-              getmdlSelect.init(".getmdl-select__city");
-            }, 10);
-          }
-        });
-      });
-    }, 50);
   }
 });
-
-/***/ }),
-/* 32 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "map-container no-search", attrs: { id: "mapConainer" } },
-    [
-      _c("div", { staticClass: "map", attrs: { id: "map" } }),
-      _vm._v(" "),
-      _vm._m(0, false, false),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "map-serach mdl-card mdl-shadow--2dp",
-          attrs: { id: "searchArea" }
-        },
-        [
-          _c("form", { staticClass: "search-form" }, [
-            _c("div", { staticClass: "serach-textfield" }, [
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "mdl-textfield mdl-js-textfield mdl-textfield--slim"
-                },
-                [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.FormData.keyword,
-                        expression: "FormData.keyword"
-                      }
-                    ],
-                    staticClass: "mdl-textfield__input",
-                    attrs: { name: "keyword", type: "text", id: "mapSearch" },
-                    domProps: { value: _vm.FormData.keyword },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.FormData, "keyword", $event.target.value)
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "label",
-                    {
-                      staticClass: "mdl-textfield__label",
-                      attrs: { for: "mapSerach" }
-                    },
-                    [_vm._v("بحث")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "i",
-                    { staticClass: "material-icons u-flip search-icon" },
-                    [_vm._v("search")]
-                  )
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _vm._m(1, false, false),
-            _vm._v(" "),
-            _c("div", { staticClass: "mdl-grid " }, [
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet"
-                },
-                [
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height"
-                    },
-                    [
-                      _c("input", {
-                        staticClass: "mdl-textfield__input regions",
-                        attrs: {
-                          id: "city",
-                          type: "text",
-                          value: "",
-                          readonly: "",
-                          tabIndex: "-1"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("input", {
-                        staticClass: "hidden-input",
-                        attrs: { type: "hidden", name: "city", value: "" }
-                      }),
-                      _vm._v(" "),
-                      _vm._m(2, false, false),
-                      _vm._v(" "),
-                      _c(
-                        "label",
-                        {
-                          staticClass: "mdl-textfield__label",
-                          attrs: { for: "city" }
-                        },
-                        [_vm._v("المدينة")]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "ul",
-                        {
-                          staticClass:
-                            "mdl-menu mdl-menu--bottom-left mdl-js-menu",
-                          attrs: { for: "city" }
-                        },
-                        [
-                          _c(
-                            "li",
-                            {
-                              staticClass: "mdl-menu__item",
-                              attrs: { tabindex: "-1", "data-val": "-1" }
-                            },
-                            [_vm._v("الكل")]
-                          ),
-                          _vm._v(" "),
-                          _vm._l(_vm.regions, function(region) {
-                            return _c("li", {
-                              staticClass: "mdl-menu__item",
-                              attrs: { tabindex: "-1", "data-val": region.id },
-                              domProps: { textContent: _vm._s(region.name_ar) }
-                            })
-                          })
-                        ],
-                        2
-                      )
-                    ]
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet"
-                },
-                [
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label  getmdl-select__city  getmdl-select getmdl-select__fix-height"
-                    },
-                    [
-                      _c("input", {
-                        staticClass: "mdl-textfield__input",
-                        attrs: {
-                          type: "text",
-                          id: "district",
-                          value: "",
-                          readonly: "",
-                          tabIndex: "-1"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("input", {
-                        attrs: { type: "hidden", name: "district", value: "" }
-                      }),
-                      _vm._v(" "),
-                      _vm._m(3, false, false),
-                      _vm._v(" "),
-                      _c(
-                        "label",
-                        {
-                          staticClass: "mdl-textfield__label",
-                          attrs: { for: "district" }
-                        },
-                        [_vm._v("الحي")]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "ul",
-                        {
-                          staticClass:
-                            "mdl-menu mdl-menu--bottom-left mdl-js-menu",
-                          attrs: { for: "district" }
-                        },
-                        _vm._l(_vm.districts, function(district) {
-                          return _c("li", {
-                            staticClass: "mdl-menu__item",
-                            attrs: { tabindex: "-1", "data-val": district.id },
-                            domProps: { textContent: _vm._s(district.title) }
-                          })
-                        })
-                      )
-                    ]
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet"
-                },
-                [
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width"
-                    },
-                    [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.FormData.priceFrom,
-                            expression: "FormData.priceFrom"
-                          }
-                        ],
-                        staticClass: "mdl-textfield__input",
-                        attrs: {
-                          name: "priceFrom",
-                          type: "text",
-                          id: "lowPrice"
-                        },
-                        domProps: { value: _vm.FormData.priceFrom },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.FormData,
-                              "priceFrom",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "label",
-                        {
-                          staticClass: "mdl-textfield__label",
-                          attrs: { for: "lowPrice" }
-                        },
-                        [_vm._v("أقل سعر")]
-                      )
-                    ]
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet"
-                },
-                [
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width"
-                    },
-                    [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.FormData.priceTo,
-                            expression: "FormData.priceTo"
-                          }
-                        ],
-                        staticClass: "mdl-textfield__input",
-                        attrs: { name: "priceTo", type: "text", id: "hPrice" },
-                        domProps: { value: _vm.FormData.priceTo },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.FormData,
-                              "priceTo",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "label",
-                        {
-                          staticClass: "mdl-textfield__label",
-                          attrs: { for: "hPrice" }
-                        },
-                        [_vm._v("أعلى سعر")]
-                      )
-                    ]
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass:
-                    "mdl-button u-full-width  mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored",
-                  attrs: { type: "submit" },
-                  on: { click: _vm.propertySearch }
-                },
-                [_vm._v("\n    بحث\n  ")]
-              )
-            ])
-          ])
-        ]
-      ),
-      _vm._v(" "),
-      _vm._m(4, false, false)
-    ]
-  )
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      {
-        staticClass:
-          "mdl-button hide-map-btn mdl-js-button mdl-js-ripple-effect mdl-button--raised ",
-        attrs: { id: "hideMap" }
-      },
-      [
-        _c("i", { staticClass: "material-icons" }, [_vm._v("map")]),
-        _vm._v("\n  إخفاء الخريطة\n")
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "collapse-btn", attrs: { id: "searchBtn" } },
-      [_c("i", { staticClass: "material-icons" })]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "city" } }, [
-      _c("i", { staticClass: "mdl-icon-toggle__label material-icons" }, [
-        _vm._v("keyboard_arrow_down")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "district" } }, [
-      _c("i", { staticClass: "mdl-icon-toggle__label material-icons" }, [
-        _vm._v("keyboard_arrow_down")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "form",
-      { attrs: { action: "/properties/search", method: "POST" } },
-      [
-        _c("div", { staticClass: "mdl-grid search-area--s" }, [
-          _c("div", { staticClass: "mdl-cell mdl-cell--2-col" }, [
-            _c("div", { staticClass: "mdl-textfield mdl-js-textfield " }, [
-              _c("input", {
-                staticClass: "mdl-textfield__input",
-                attrs: { name: "keyword", type: "text", id: "mapSearch2" }
-              }),
-              _vm._v(" "),
-              _c(
-                "label",
-                {
-                  staticClass: "mdl-textfield__label",
-                  attrs: { for: "mapSerach2" }
-                },
-                [_vm._v("بحث")]
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "mdl-cell mdl-cell--2-col" }, [
-            _c(
-              "div",
-              {
-                staticClass:
-                  "mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label  getmdl-select getmdl-select__fix-height"
-              },
-              [
-                _c("input", {
-                  staticClass: "mdl-textfield__input  city_id_js",
-                  attrs: {
-                    type: "text",
-                    id: "city2",
-                    value: "",
-                    readonly: "",
-                    tabIndex: "-1"
-                  }
-                }),
-                _vm._v(" "),
-                _c("input", {
-                  staticClass: "hidden-input",
-                  attrs: { type: "hidden", value: "", name: "city" }
-                }),
-                _vm._v(" "),
-                _c("label", { attrs: { for: "city2" } }, [
-                  _c(
-                    "i",
-                    { staticClass: "mdl-icon-toggle__label material-icons" },
-                    [_vm._v("keyboard_arrow_down")]
-                  )
-                ]),
-                _vm._v(" "),
-                _c(
-                  "label",
-                  {
-                    staticClass: "mdl-textfield__label",
-                    attrs: { for: "city2" }
-                  },
-                  [_vm._v("المدينة ")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "ul",
-                  {
-                    staticClass: "mdl-menu mdl-menu--bottom-left mdl-js-menu",
-                    attrs: { for: "city2" }
-                  },
-                  [
-                    _c("li", {
-                      staticClass: "mdl-menu__item",
-                      attrs: { "data-val": "" }
-                    })
-                  ]
-                )
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "mdl-cell mdl-cell--2-col" }, [
-            _c(
-              "div",
-              {
-                staticClass:
-                  "mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select__city getmdl-select getmdl-select__fix-height"
-              },
-              [
-                _c("input", {
-                  staticClass: "mdl-textfield__input",
-                  attrs: {
-                    type: "text",
-                    id: "sample13",
-                    value: "",
-                    readonly: "",
-                    tabIndex: "-1"
-                  }
-                }),
-                _vm._v(" "),
-                _c("input", { attrs: { type: "hidden", value: "" } }),
-                _vm._v(" "),
-                _c("label", { attrs: { for: "sample13" } }, [
-                  _c(
-                    "i",
-                    { staticClass: "mdl-icon-toggle__label material-icons" },
-                    [_vm._v("keyboard_arrow_down")]
-                  )
-                ]),
-                _vm._v(" "),
-                _c(
-                  "label",
-                  {
-                    staticClass: "mdl-textfield__label",
-                    attrs: { for: "sample13" }
-                  },
-                  [_vm._v("الحي")]
-                ),
-                _vm._v(" "),
-                _c("ul", {
-                  staticClass: "mdl-menu mdl-menu--bottom-left mdl-js-menu",
-                  attrs: { for: "sample13" }
-                })
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "mdl-cell mdl-cell--2-col" }, [
-            _c(
-              "div",
-              {
-                staticClass:
-                  "mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width"
-              },
-              [
-                _c("input", {
-                  staticClass: "mdl-textfield__input",
-                  attrs: { name: "priceFrom", type: "text", id: "lowPrice2" }
-                }),
-                _vm._v(" "),
-                _c(
-                  "label",
-                  {
-                    staticClass: "mdl-textfield__label",
-                    attrs: { for: "lowPrice2" }
-                  },
-                  [_vm._v("أقل سعر")]
-                )
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "mdl-cell mdl-cell--2-col" }, [
-            _c(
-              "div",
-              {
-                staticClass:
-                  "mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width"
-              },
-              [
-                _c("input", {
-                  staticClass: "mdl-textfield__input",
-                  attrs: { name: "priceTo", type: "text", id: "hPrice2" }
-                }),
-                _vm._v(" "),
-                _c(
-                  "label",
-                  {
-                    staticClass: "mdl-textfield__label",
-                    attrs: { for: "hPrice2" }
-                  },
-                  [_vm._v("أعلى سعر")]
-                )
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "mdl-cell mdl-cell--2-col" }, [
-            _c(
-              "button",
-              {
-                staticClass:
-                  "mdl-button u-full-width mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored",
-                attrs: { id: "" }
-              },
-              [_vm._v("\n          بحث\n        ")]
-            )
-          ])
-        ])
-      ]
-    )
-  }
-]
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-946b77d0", module.exports)
-  }
-}
 
 /***/ })
 /******/ ]);

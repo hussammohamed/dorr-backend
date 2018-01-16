@@ -16800,6 +16800,28 @@ address {
   width: auto;
   position: relative;
   margin: 0 8px;
+  min-height: 100%;
+  padding-bottom: 45px;
+}
+
+.v-card .featured {
+  position: absolute;
+  right: 0;
+  top: 15px;
+  color: #fff;
+  padding: 2px 6px;
+  background-color: #40A6A2;
+  z-index: 9;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.v-card .featured i {
+  position: relative;
+  top: 50%;
+  right: 50%;
+  -webkit-transform: translateX(-50%) translateY(4%);
+  transform: translateX(-50%) translateY(4%);
 }
 
 .v-card .card-link {
@@ -16807,6 +16829,7 @@ address {
   height: 100%;
   width: 100%;
   left: 0;
+  z-index: 99;
 }
 
 .v-card .card-hover--bar {
@@ -16859,6 +16882,10 @@ address {
   height: 30px;
   margin: 12px 0;
   background-color: #303D46;
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  z-index: 9;
 }
 
 .v-card .card-footer__price {
@@ -17030,6 +17057,7 @@ address {
 .h-card .card-image {
   max-width: 210px;
   position: relative;
+  min-width: 210px;
 }
 
 .h-card .card-image img {

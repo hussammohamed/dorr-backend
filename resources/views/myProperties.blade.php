@@ -17,11 +17,18 @@
               <li class="mdl-menu__item mdl-menu__item--full-bleed-divider"> <i class="material-icons md-18">delete</i><span>حذف</span> </li>
             </ul>
                 <div class="card-image">
-                @foreach(App\PropertyImage::where('property_id','=', $property->id)->get() as  $image => $value)
+                @if($property->featured == 1)
+                <div  class="featured" >
+                        <i class="material-icons">star</i>
+                    </div>
+                    @endif
+                @forelse(App\PropertyImage::where('property_id','=', $property->id)->get() as  $image => $value)
                     @if($image == 0)
                         <img src={{ asset ('/upload/properties') }}/{{$value->path}} alt="">
                     @endif
-                    @endforeach
+                    @empty
+                        <img src="/images/card1.png" alt="">
+                    @endforelse
                 </div>
                 <div class="card-stacked">
                     <div class="card-content">

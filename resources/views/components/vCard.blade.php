@@ -1,12 +1,18 @@
 <div class="mdl-card mdl-shadow--2dp v-card">
     <a href="/properties/show/{{$property->id}}" class="card-link"></a>
     <div class="card--item card--item__img">
-        
-       @foreach(App\PropertyImage::where('property_id','=', $property->id)->get() as  $image => $value)
+    @if($property->featured == 1)
+                <div  class="featured" >
+                        <i class="material-icons">star</i>
+                    </div>
+                    @endif
+       @forelse(App\PropertyImage::where('property_id','=', $property->id)->get() as  $image => $value)
        @if($image == 0)
         <img src={{ 'upload/properties/'.$value->path }} alt="">
         @endif
-       @endforeach
+        @empty
+        <img src="/images/card1.png" alt="">
+        @endforelse
        
     </div>
     <div class="card--item card--item__text">

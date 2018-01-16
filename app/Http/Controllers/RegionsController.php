@@ -105,7 +105,7 @@ class RegionsController extends Controller
 
     public function getDistrictsByPoint($lat, $long)
     {
-        $range = 1;
+        $range = 3.5;
         if( $lat != "" && $long != "" ){
             $regions = Region::where('type','=', 2)->whereBetween('lat', [$lat-$range, $lat+$range])
             ->whereBetween('long', [$long-$range, $long+$range])

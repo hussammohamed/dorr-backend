@@ -18,6 +18,7 @@ Vue.component('login-component', require('./components/loginComponent.vue'));
 Vue.component('signup-component', require('./components/signupComponent.vue'));
 Vue.component('properties-component', require('./components/propertiesComponent.vue'));
 Vue.component('filters-component', require('./components/filtersComponent.vue'));
+Vue.component('map-component', require('./components/mapComponent.vue'));
 const app = new Vue({
     el: '#app',
     data() {

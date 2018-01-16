@@ -35,11 +35,12 @@ CustomMarker.prototype.draw = function () {
 			let id = this.dataset.id;
 			let bounds = new google.maps.LatLngBounds();
 			if (type == "region") {
-				
-				self.component.properties = [];
+				if(self.component){
+					self.component.properties = [];
+				}
 				$.get('/api/v1/regions/' + id + '', function (data) {
 					data.data.forEach(function (el) {
-						var overlay = new CustomMarker(new google.maps.LatLng(el.location.lat, el.location.long), self.map, el, 'district');
+						var overlay = new CustomMarker(new google.maps.LatLng(el.location.lat, el.location.long), self.map, el, 'district', self.component);
 						bounds.extend(overlay.getPosition());
 						
 					});
@@ -50,14 +51,19 @@ CustomMarker.prototype.draw = function () {
 					.remove();
 			}
 			if (type == "district") {
-				$.get('/api/v1/properties/district/' + id + '', function (data) {
-					console.log(data)
-					data.data.forEach(function (el) {
-						var overlay = new CustomMarker(new google.maps.LatLng(el.location.lat, el.location.long), self.map, el, 'property');
-						bounds.extend(overlay.getPosition());
-					});
-					self.map.fitBounds(bounds);
-					// self.map.setCenter(new google.maps.LatLng(self.latlng.lat(), (self.latlng.lng())));
+				$.get('/api/v1/properties/region/' + id + '', function (data) {
+					if(self.component){
+						self.component.properties = data.data;
+						self.component.kind = "properties"
+					}else{
+						data.data.forEach(function (el) {
+							var overlay = new CustomMarker(new google.maps.LatLng(el.location.lat, el.location.long), self.map, el, 'property');
+							bounds.extend(overlay.getPosition());
+						});
+						self.map.fitBounds(bounds);
+					}
+					
+					self.map.setCenter(new google.maps.LatLng(self.latlng.lat(), (self.latlng.lng())));
 					self.map.setZoom(12);
 				})
 				$(".map-marker,.property-card")
@@ -115,6 +121,9 @@ CustomMarker.prototype.drawProperty = function (id) {
 	if (self.args.pictures[0]) {
 		picture = self.args.pictures[0].path;
 	}
+	else{
+		picture = "/images/card1.png"
+	}
 	var content = '<div class="card-image">'
 		+ ' <img src=' + picture + '>'
 		+ '</div>'
@@ -132,7 +141,7 @@ CustomMarker.prototype.drawProperty = function (id) {
 		+ '</div>'
 		+ '<div class="footer-contet">'
 		+ '<span>' + self.args.details.bathrooms + '</span>'
-		+ '<img src=/images/bathroom.svg" alt="">'
+		+ '<img src="/images/bathroom.svg" alt="">'
 		+ '<span>' + self.args.details.rooms + '</span>'
 		+ '<i class="material-icons md-18">local_hotel</i>'
 		+ '</div>'

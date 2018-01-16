@@ -78,15 +78,15 @@ export default {
       $("#signupForm").submit(function(event) {
         event.preventDefault();
         $.ajax({
-          url: "/api/v1/users/create",
+          url: "/register",
           type: "post",
           data: $("#signupForm").serialize(),
           dataType: "json",
           success: function() {
-            //location.reload();
+            location.reload();
           },
           complete: function(_response) {
-            //location.reload();
+            location.reload();
             if(_response.state() == "rejected"){
                 self.errors = JSON.parse(_response.responseText).errors
             }

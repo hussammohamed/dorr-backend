@@ -9,9 +9,9 @@
             <h6 class="group-ad__title">إعلانات مميزة</h6>
             <a href="#" class="group-ad__more">المزيد</a>
         </div>
-        <div id="owl-example" class="owl-carousel owl-centered owl-cards">
+        <div class="mdl-grid">
             @foreach($featuredProperties as $property)
-            <div class="item">
+            <div class="mdl-cell mdl-cell--3-col">
                 @include('components.vCard')
             </div>
             @endforeach
@@ -22,9 +22,9 @@
             <h6 class="group-ad__title">إحدث العروض</h6>
             <a href="#" class="group-ad__more">المزيد</a>
         </div>
-        <div id="owl-example" class="owl-carousel owl-centered owl-cards">
+        <div class="mdl-grid">
             @foreach($latestProperties as $property)
-            <div class="item">
+            <div class="mdl-cell mdl-cell--3-col">
                 @include('components.vCard')
             </div>
             @endforeach

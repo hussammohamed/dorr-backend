@@ -6,6 +6,7 @@
 
 //require('./bootstrap');
 window.$ = window.jQuery = require('jquery');
+window.moment = require('moment')
 window.Vue = require('vue');
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -31,6 +32,9 @@ const app = new Vue({
         };
       },
     methods:{
+        lastUpdate: function (date) {
+            return "أخر تحديث في "  + " " +  moment(date).lang("ar").format(' DD MMMM YYYY') ;
+          },
         deleteImage:function(id){
             $.post('/images/'+id+'',function(data){
 

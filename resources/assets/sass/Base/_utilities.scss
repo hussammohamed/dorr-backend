@@ -60,6 +60,10 @@
 .u-mbuttom30{
     margin-bottom: 30px 
 }
+.u-margin-sides16{
+    margin-left: 16px;
+    margin-right: 16px;
+}
 .u-center{
     text-align: center !important;
 }
@@ -129,4 +133,7 @@
 }
 .u-min-width-180{
     min-width: 180px;
+}
+.u-text-left{
+    text-align: $left;
 }

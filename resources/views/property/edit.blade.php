@@ -324,7 +324,11 @@
                 </div>
             </div>
         </div>
-        <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored u-center u-min-width-180">تغير</button>
+        <div class="u-center">
+                    
+                    <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored u-center">تعديل</button>
+                    <a href="{{asset('myAccount/Properties')}}" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised u-margin-sides16">ألغاء</a>
+        </div>
     </form>
 </div>
 @endsection @push('scripts')

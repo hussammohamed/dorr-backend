@@ -6,12 +6,33 @@
         <div class="mdl-grid ">
             <div class="mdl-cell mdl-cell--9-col">
                 <div class="mdl-color-text--grey-500 page-breadcrumb">
-                    شقق للإيجار&gt; الرياض &gt; حى المروج
+                    <!-- شقق للإيجار&gt; الرياض &gt; حى المروج -->
+                    {{ (\App\FilterMenu::where('purpose', $property->purpose)->where('type', $property->type)->first()->$name)}}
+                    <i class="material-icons u-fix-icon-top">keyboard_arrow_left</i>
+                    <a href="#"  class="mdl-color-text--grey-500"  onclick="event.preventDefault();
+                        document.getElementById('searchByCity').submit();">
+                    {{ (\App\Region::find(\App\Region::find($property->region)->region_id)->$name)}}
+                    <i class="material-icons u-fix-icon-top">keyboard_arrow_left</i>
+                    </a>
+                    <a href="#" class="mdl-color-text--grey-500" onclick="event.preventDefault();
+                        document.getElementById('searchByRegoion').submit();">
+
+                    {{ (\App\Region::find($property->region)->$name)}}
+                    </a>
+                    <form id="searchByRegoion" action="/properties/search" method="POST" style="display: none;">
+                                {{ csrf_field() }}
+                                <input type="hidden" name=city value="{{(\App\Region::find(\App\Region::find($property->region)->region_id)->id)}}">
+                                <input type="hidden" name="district" value="{{$property->region}}">
+                            </form>
+                            <form id="searchByCity" action="/properties/search" method="POST" style="display: none;">
+                                {{ csrf_field() }}
+                                <input type="hidden" name=city value="{{(\App\Region::find(\App\Region::find($property->region)->region_id)->id)}}">
+                            </form>
                 </div>
             </div>
-            <div class="mdl-cell mdl-cell--3-col mdl-color-text--grey-500">
+            <div class="mdl-cell mdl-cell--3-col mdl-color-text--grey-500 u-text-left">
                 <i class="material-icons u-fix-icon-top">access_time</i>
-                <span class="page-date"> اخر تحديث فى 26 أكتوبر 2017</span>
+                <span v-text="lastUpdate('{{$property->updated_at}}')" class="page-date"></span>
             </div>
             <h4 class="page-title mdl-cell mdl-cell--12-col  u-primary-darker-color">{{ $property->title }}</h4>
         </div>
@@ -154,7 +175,6 @@
                             <img class="" src={{ asset ( 'images/face.png') }} alt="">
                         </div>
                         <h5 class="u-primary-darker-color">
-                        
                         {{ ($offer->user_id == 0 ) ? 'Unkowen' :\App\User::find($offer->user_id)->name }}
                         </h5>
                     </div>

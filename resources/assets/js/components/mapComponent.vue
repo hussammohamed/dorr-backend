@@ -25,7 +25,7 @@
     <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
 
       <input id="city" class="mdl-textfield__input regions" required  type="text" value="" readonly tabIndex="-1">
-      <input  type="hidden" class="hidden-input"  name="city"  value="" >
+      <input  type="hidden" class="hidden-input"  name="city" required  value="" >
       <label for="city">
 
 
@@ -363,6 +363,9 @@ export default {
           .remove();
         $(".marker-hidden").removeClass("marker-hidden");
       });
+       if(location.pathname != "/properties/search"){
+      self.kind = "regions";
+       }
     }
 
     google.maps.event.addDomListener(window, "load", initMap);
@@ -374,13 +377,9 @@ export default {
     this.properties = this.uproperties.slice().sort(function(a, b) {
       return b.details.featured - a.details.featured;
     });
-    }else{
-      setTimeout(() => {
-         this.kind = "regions";
-      }, 200);
-     
     }
-
+         
+  
     //search area
     var mapConainer = $("#mapConainer");
     var searchArea = $("#searchArea");

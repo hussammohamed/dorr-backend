@@ -395,7 +395,7 @@ class PropertiesController extends Controller
          where('active','=', 1)->where('deleted','=', 0)->limit(4)->get();
          $propertyOffers = PropertyOffer::where('property_id', '=', $property->id)->get();
          $propertyImages = PropertyImage::where('property_id', '=', $property->id)->get();   
-         return view('/property',['name'=>'name_'.App::getLocale(),'property'=>$property, 'similarProperties'=>$similarProperties, 'propertyOffers'=>$propertyOffers, 'propertyImages'=>$propertyImages]);
+         return view('property.show',['name'=>'name_'.App::getLocale(),'property'=>$property, 'similarProperties'=>$similarProperties, 'propertyOffers'=>$propertyOffers, 'propertyImages'=>$propertyImages]);
      }
 
     /**
@@ -404,9 +404,18 @@ class PropertiesController extends Controller
      * @param  \App\Test  $test
      * @return \Illuminate\Http\Response
      */
-    public function edit(Test $test)
+    public function edit($id)
     {
-        //
+        $types = Type::where('active',1)->where('deleted',0)->orderby('order')->get();
+        $purposes = Purpose::where('active',1)->where('deleted',0)->orderby('order')->get();
+        $cities = Region::where('type',1)->where('active',1)->where('deleted',0)->orderby('order')->get();
+        $finishTypes = FinishType::where('active',1)->where('deleted',0)->orderby('order')->get();
+        $overlooks = Overlook::where('active',1)->where('deleted',0)->orderby('order')->get();
+        $paymentMethods = PaymentMethod::where('active',1)->where('deleted',0)->orderby('order')->get();
+        $advertiserTypes = Advertiser::where('active',1)->where('deleted',0)->orderby('order')->get();
+        $property = Property::find($id);
+        $propertyImages = PropertyImage::where('property_id', '=', $property->id)->get();   
+        return view('property.edit',['name'=>'name_'.App::getLocale(),'property'=>$property, 'types'=>$types, 'purposes'=>$purposes, 'cities'=>$cities, 'finishTypes'=>$finishTypes, 'overlooks'=>$overlooks, 'paymentMethods'=>$paymentMethods, 'advertiserTypes'=>$advertiserTypes,'propertyImages'=>$propertyImages]);
         
     }
 

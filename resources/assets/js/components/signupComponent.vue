@@ -86,7 +86,6 @@ export default {
             location.reload();
           },
           complete: function(_response) {
-            location.reload();
             if(_response.state() == "rejected"){
                 self.errors = JSON.parse(_response.responseText).errors
             }

@@ -31,6 +31,9 @@ const app = new Vue({
         };
       },
     methods:{
+        deleteImage:function(id){
+            console.log(id)
+        },
         loginDialog: function(url){
             if (url){
                 this.url = url;

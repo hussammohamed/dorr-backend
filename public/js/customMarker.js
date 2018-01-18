@@ -73,7 +73,7 @@ CustomMarker.prototype.draw = function () {
 					.remove();
 			}
 			if (type === "property") {
-				self.map.setCenter(new google.maps.LatLng(self.latlng.lat(), (self.latlng.lng() - .02)));
+				self.map.setCenter(new google.maps.LatLng(self.latlng.lat(), (self.latlng.lng())));
 				setTimeout(function () { self.drawProperty(id); }, 10);
 
 			}

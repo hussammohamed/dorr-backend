@@ -237,3 +237,10 @@ td.header{
 .mdl-textfield--floating-label.is-focused .mdl-textfield__label,.mdl-textfield--floating-label.is-dirty .mdl-textfield__label, .mdl-textfield--floating-label.has-placeholder .mdl-textfield__label {
   color: $primary-base;
 }
+.mdl-menu{
+  a, a:hover{
+    color: $text-dark-color;
+    display: block;
+    width: 100%;
+  }
+}

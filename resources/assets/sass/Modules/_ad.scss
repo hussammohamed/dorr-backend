@@ -80,6 +80,10 @@
         width: 100%;
         height: 300px;
     }
+    .over-flow-hidden{
+        overflow: hidden;
+        z-index: 1;
+    }
 }
 
 .inputDnD {

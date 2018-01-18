@@ -13,7 +13,7 @@
             
             <ul class="mdl-menu mdl-menu--bottom-left mdl-menu--custom mdl-js-menu mdl-js-ripple-effect"
                 for="{{$property->id}}">
-              <li class="mdl-menu__item"><i class="material-icons md-18">mode_edit</i> <span>تعديل</span> </li>
+              <li class="mdl-menu__item"><a href="/properties/edit/{{$property->id}}"><i class="material-icons md-18">mode_edit</i> <span>تعديل</span></a> </li>
               <li class="mdl-menu__item mdl-menu__item--full-bleed-divider"> <i class="material-icons md-18">delete</i><span>حذف</span> </li>
             </ul>
                 <div class="card-image">

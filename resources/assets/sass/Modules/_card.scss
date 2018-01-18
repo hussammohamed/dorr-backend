@@ -236,7 +236,7 @@ $cardImageHeight : 220px;
     .card-image{
         max-width: 210px;
         position: relative;
-        min-width: 210px;
+        
         img{
             border-radius: 2px 0 0 2px;
             max-width: 100%;
@@ -598,4 +598,9 @@ transition: all .2s ease-in-out;
         margin: 0 16px;
     }
     
+}
+.mdl-card{
+    &.over-visable{
+        overflow: visible;
+    }
 }

@@ -2,8 +2,9 @@
 
 
 <div class="content">
-    <form id="properties-form" class="wizard-form" action="/properties/store" method="POST" enctype="multipart/form-data">
-        {{ csrf_field() }}
+    <form id="properties-form" class="wizard-form" action="/properties/update" method="POST" enctype="multipart/form-data">  
+    {{ csrf_field() }}
+        <input type="hidden" name="id" value="{{$property->id}}">
         <div class="page-header">
             <div class="mdl-grid ">
                 <div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--6-col mdl-textfield--floating-label">
@@ -143,7 +144,7 @@
                                 <td class="u-no-border-top">
                                     <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label  getmdl-select__city  getmdl-select getmdl-select__fix-height">
                                         <input class="mdl-textfield__input" type="text" id="district" value="" readonly tabIndex="-1">
-                                        <input type="hidden" name="region" value="">
+                                        <input id="currentRegion" type="hidden" name="region" value="{{$property->region}}">
                                         <label for="district">
                                             <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
                                         </label>
@@ -323,6 +324,7 @@
                 </div>
             </div>
         </div>
+        <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored u-center u-min-width-180">تغير</button>
     </form>
 </div>
 @endsection @push('scripts')

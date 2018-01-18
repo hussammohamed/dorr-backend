@@ -466,7 +466,7 @@ class PropertiesController extends Controller
      * @param  \App\Test  $test
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Test $test)
+    public function update(Request $request)
     {
         //
         if (Auth::check()) {
@@ -500,7 +500,7 @@ class PropertiesController extends Controller
                 
             }
 
-            return redirect('/Properties/show/'.$property->id);
+            return redirect('/properties/show/'.$property->id);
         }else{
             return redirect('/');
         }

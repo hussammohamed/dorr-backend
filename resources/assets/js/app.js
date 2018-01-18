@@ -32,7 +32,9 @@ const app = new Vue({
       },
     methods:{
         deleteImage:function(id){
-            console.log(id)
+            $.post('/images/'+id+'',function(data){
+
+            });
         },
         loginDialog: function(url){
             if (url){
@@ -66,11 +68,15 @@ const app = new Vue({
             success: function(_response) {
                 self.cities = _response.data
                 var districtContianer = $('#districtContianer')
+                var currentRegion =  $('#currentRegion').val();
                 if(districtContianer.length){
                     districtContianer.empty();
                     for (let i = 0; i < self.cities.length; i++) {
-                        districtContianer.append( '<li class="mdl-menu__item" data-val='+self.cities[i].id +'>'+self.cities[i].title+'</li>' );
-                        
+                        if(self.cities[i].id == currentRegion){
+                        districtContianer.append( '<li class="mdl-menu__item" data-val='+self.cities[i].id +' data-selected="true">'+self.cities[i].title+'</li>' );
+                        }else{
+                            districtContianer.append( '<li class="mdl-menu__item" data-val='+self.cities[i].id +'>'+self.cities[i].title+'</li>' );
+                        }
                     }
                 }
                 

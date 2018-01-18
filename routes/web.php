@@ -60,6 +60,7 @@ Route::group(['middleware'=>'language'],function(){
     Route::get('properties/show/{id}', 'PropertiesController@show');
     Route::get('properties/edit/{id}', 'PropertiesController@edit');
     Route::post('properties/addImages', 'PropertiesController@addImages');
+    Route::post('properties/update', 'PropertiesController@update');
     
     Route::get('ajax-district/{city}', 'RegionsController@getDistricts');
 

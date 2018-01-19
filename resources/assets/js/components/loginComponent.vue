@@ -46,7 +46,7 @@ export default {
       csrf: document
         .querySelector('meta[name="csrf-token"]')
         .getAttribute("content"),
-         errorClass: "is-invalid is-dirty",
+      errorClass: "is-invalid is-dirty",
       errors: {}
     };
   },
@@ -55,40 +55,67 @@ export default {
       this.$root.signupDialog();
     },
     closeDialog: function() {
-      console.log(window.event)
+      console.log(window.event);
       this.errors = {};
       this.$root.closeDialog(this.$el);
     },
     submit: function() {
       var self = this;
-      $("#loginForm").submit(function(event) {
-        event.preventDefault();
-        $.ajax({
-          url: "/api/v1/users/login/",
-          type: "post",
-          data: $("#loginForm").serialize(), 
-          dataType: "json",
-          success: function(_response) {
-            if(self.$parent.url.length){
-            location.pathname = self.$parent.url
-            }
-            else{
-              location.reload();
-            }
+      var form = $("#loginForm");
+      form.validate({
+        rules: {
+          email: {
+            minlength: 3,
+            required: true
           },
-          complete: function(_response) {
-              
-         
-          },
-          error: function(_response) {
-            //this.errors = JSON.parse(_response.responseText).errors
-            self.errors = {
-              email:["wrong credentials"]
-            }
-            // Handle error
+          password: {
+            minlength: 8,
+            required: true
           }
-        });
+        },
+        highlight: function(element) {
+          $(element)
+            .closest(".mdl-textfield")
+            .addClass("is-invalid");
+        },
+        unhighlight: function(element) {
+          $(element)
+            .closest(".mdl-textfield")
+            .removeClass("is-invalid");
+        },
+        errorElement: "span",
+        errorClass: "mdl-textfield__error",
+        errorPlacement: function(error, element) {
+
+            error.insertAfter(element);
+        }
       });
+      if (form.valid()) {
+        form.submit(function(event) {
+          event.preventDefault();
+          $.ajax({
+            url: "/api/v1/users/login/",
+            type: "post",
+            data: form.serialize(),
+            dataType: "json",
+            success: function(_response) {
+              if (self.$parent.url.length) {
+                location.pathname = self.$parent.url;
+              } else {
+                location.reload();
+              }
+            },
+            complete: function(_response) {},
+            error: function(_response) {
+              //this.errors = JSON.parse(_response.responseText).errors
+              self.errors = {
+                email: ["wrong credentials"]
+              };
+              // Handle error
+            }
+          });
+        });
+      }
     }
   },
 

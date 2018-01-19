@@ -8,6 +8,8 @@
 window.$ = window.jQuery = require('jquery');
 // window.moment = require('moment')
 window.Vue = require('vue');
+require('jquery-validation');
+require('./../../../node_modules/jquery-validation/dist/localization/messages_ar')
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

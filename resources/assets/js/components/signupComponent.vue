@@ -16,12 +16,12 @@
       <form  id="signupForm">
    <input type="hidden" name="_token" :value="csrf">
     <div :class="[errors.name ? errorClass : '']" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
-        <input class="mdl-textfield__input" type="text" name="name"  id="signupName">
+        <input class="mdl-textfield__input"  type="text" name="name"  id="signupName">
         <label class="mdl-textfield__label" for="signupName">أسم المستخدم</label>
         <span class="mdl-textfield__error"  v-for="name in errors.name" v-text="name"></span>
     </div>
     <div :class="[errors.email ? errorClass : '', 'is-dirty']" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
-        <input class="mdl-textfield__input" type="text" name="email"  id="signupEmail">
+        <input class="mdl-textfield__input" type="email" name="email"  id="signupEmail">
         <label class="mdl-textfield__label" for="signupEmail">البريد الألكترونى</label>
         <span class="mdl-textfield__error"  v-for="email in errors.email" v-text="email"></span>
     </div>
@@ -38,7 +38,7 @@
     </div>
     <div  :class="[errors.mobile1 ? errorClass : '', 'is-dirty']" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
 
-        <input class="mdl-textfield__input " type="text" name="mobile1" id="signupPhone">
+        <input class="mdl-textfield__input " type="number" name="mobile1" id="signupPhone">
 
         <label class="mdl-textfield__label" for="signupPhone">رقم الجوال</label>
         <span class="mdl-textfield__error"  v-for="mobile1 in errors.mobile1" v-text="mobile1"></span>
@@ -60,7 +60,7 @@ export default {
       csrf: document
         .querySelector('meta[name="csrf-token"]')
         .getAttribute("content"),
-        errorClass: "is-invalid",
+      errorClass: "is-invalid",
       errors: {}
     };
   },
@@ -71,32 +71,74 @@ export default {
     closeDialog: function() {
       this.errors = {};
       this.$root.closeDialog(this.$el);
-      
     },
     submit: function() {
       var self = this;
-      $("#signupForm").submit(function(event) {
-        event.preventDefault();
-        $.ajax({
-          url: "/register",
-          type: "post",
-          data: $("#signupForm").serialize(),
-          dataType: "json",
-          success: function() {
-            location.reload();
+      var form = $("#signupForm");
+      form.validate({
+        rules: {
+          name: {
+            minlength: 3,
+            required: true
           },
-          complete: function(_response) {
-            if(_response.state() == "rejected"){
-                self.errors = JSON.parse(_response.responseText).errors
-            }
-
+          email: {
+            minlength: 3,
+            required: true
           },
-          error: function(_response) {
-            
-            // Handle error
+          password: {
+            minlength: 8,
+            required: true
+          },
+          password_confirmation: {
+            equalTo: "#signupPassword",
+            required: true
+          },
+          mobile1: {
+            required: true
           }
-        });
+        },
+        highlight: function(element) {
+          $(element)
+            .closest(".mdl-textfield")
+            .addClass("is-invalid");
+        },
+        unhighlight: function(element) {
+          $(element)
+            .closest(".mdl-textfield")
+            .removeClass("is-invalid");
+        },
+        errorElement: "span",
+        errorClass: "mdl-textfield__error",
+        errorPlacement: function(error, element) {
+
+            error.insertAfter(element);
+        }
       });
+
+      if (form.valid()) {
+        form.submit(function(event) {
+          event.preventDefault();
+          $.ajax({
+            url: "/register",
+            type: "post",
+            data: form.serialize(),
+            dataType: "json",
+            success: function() {
+              location.reload();
+            },
+            complete: function(_response) {
+              if (_response.status == 422) {
+                self.errors = JSON.parse(_response.responseText).errors;
+              } else {
+                location.reload();
+              }
+            },
+            error: function(_response) {
+              // Handle error
+            }
+          });
+        });
+      }
     }
   },
 

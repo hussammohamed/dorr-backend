@@ -137,3 +137,6 @@
 .u-text-left{
     text-align: $left;
 }
+.mdl-custom-width{
+    min-width: calc(33.33% - 16px);
+}

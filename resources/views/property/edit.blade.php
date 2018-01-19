@@ -2,20 +2,20 @@
 
 
 <div class="content">
-    <form id="properties-form" class="wizard-form" action="/properties/update" method="POST" enctype="multipart/form-data">  
-    {{ csrf_field() }}
+    <form id="properties-form" class="wizard-form" action="/properties/update" method="POST" enctype="multipart/form-data">
+        {{ csrf_field() }}
         <input type="hidden" name="id" value="{{$property->id}}">
         <div class="page-header">
             <div class="mdl-grid ">
                 <div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--6-col mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" name="title" type="text" value="{{$property->title}}" id="sample20">
+                    <input class="mdl-textfield__input" required name="title" type="text" value="{{$property->title}}" id="sample20">
                     <label class="mdl-textfield__label" for="sample20">عنوان الأعلان</label>
                 </div>
             </div>
 
         </div>
         <div class="mdl-grid">
-            <div class="mdl-cell mdl-cell--9-col">
+            <div class="mdl-cell mdl-cell--12-col">
                 <div class="mdl-card mdl-shadow--2dp u-full-width mdl-grid u-mbuttom30">
                     <div class="mdl-cell mdl-cell--12-col p-y-1">
                         <div class=" m-b-1">
@@ -29,12 +29,15 @@
 
                     </div>
                     <div id="files" class="mdl-cell mdl-cell--12-col">
-                            @foreach($propertyImages as $propertyImage)
-                            <div class="pip" id="{{$propertyImage->id}}">
-                                <img class="imageThumb" src="{{ asset ('/upload/properties') }}/{{$propertyImage->path}}"/>
-                                    <br/><div class="remove" @click="deleteImage({{$propertyImage->id}})"><i class="material-icons">delete</i></div>
+                        @foreach($propertyImages as $propertyImage)
+                        <div class="pip" id="{{$propertyImage->id}}">
+                            <img class="imageThumb" src="{{ asset ('/upload/properties') }}/{{$propertyImage->path}}" />
+                            <br/>
+                            <div class="remove" @click="deleteImage({{$propertyImage->id}})">
+                                <i class="material-icons">delete</i>
                             </div>
-                            @endforeach
+                        </div>
+                        @endforeach
 
                     </div>
                 </div>
@@ -48,7 +51,7 @@
                 </div>
                 <div class="mdl-card over-flow-hidden  mdl-shadow--2dp u-auto-width u-height-auto u-padding-top-45 u-padding-bottom-15 u-mbuttom16 u-padding-side-20">
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
-                        <textarea class="mdl-textfield__input" name="description" type="text" rows="5" id="sample5">{{$property->description}}</textarea>
+                        <textarea class="mdl-textfield__input" required name="description" type="text" rows="5" id="sample5">{{$property->description}}</textarea>
                         <label class="mdl-textfield__label" for="sample5">تفاصيل الأعلان</label>
                     </div>
                     <span class="card-label top-label-right has-primary-base-bg">التفاصيل</span>
@@ -79,7 +82,7 @@
                                 <td class="u-no-border-top header" width="8%">النوع</td>
                                 <td class="u-no-border-top">
                                     <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-                                        <input class="mdl-textfield__input" type="text" id="type" value="" readonly>
+                                        <input class="mdl-textfield__input" required type="text" id="type" value="" readonly>
                                         <input value="" type="hidden" name="type" />
                                         <label for="type">
                                             <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
@@ -101,7 +104,7 @@
                                 <td class="u-no-border-top header" width="8%">القسم</td>
                                 <td class="u-no-border-top">
                                     <div class="mdl-textfield mdl-js-textfield u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-                                        <input class="mdl-textfield__input" value="" type="text" id="purpose" readonly>
+                                        <input class="mdl-textfield__input" required value="" type="text" id="purpose" readonly>
                                         <input value="" type="hidden" name="purpose" />
                                         <label for="purpose">
                                             <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
@@ -122,7 +125,7 @@
                                 <td class="u-no-border-top header" width="8%">المدينة</td>
                                 <td class="u-no-border-top">
                                     <div class="mdl-textfield mdl-js-textfield u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-                                        <input class="mdl-textfield__input city_id_js" type="text" id="cityId" value="" readonly tabIndex="-1">
+                                        <input class="mdl-textfield__input city_id_js" required type="text" id="cityId" value="" readonly tabIndex="-1">
                                         <input value="" class="hidden-input" type="hidden" />
                                         <label for="cityId">
                                             <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
@@ -143,7 +146,7 @@
                                 <td class="u-no-border-top header" width="8%">الحي</td>
                                 <td class="u-no-border-top">
                                     <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label  getmdl-select__city  getmdl-select getmdl-select__fix-height">
-                                        <input class="mdl-textfield__input" type="text" id="district" value="" readonly tabIndex="-1">
+                                        <input class="mdl-textfield__input" required type="text" id="district" value="" readonly tabIndex="-1">
                                         <input id="currentRegion" type="hidden" name="region" value="{{$property->region}}">
                                         <label for="district">
                                             <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
@@ -156,12 +159,74 @@
 
                                 </td>
                             </tr>
+                            <!-- ششش -->
+                            <tr>
+                                <td class="u-no-border-top header" width="8%">المساحة بالمتر المربع</td>
+                                <td class="u-no-border-top">
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
+                                        <input class="mdl-textfield__input" required name="area" value="{{$property->area}}" type="number" id="sample9">
+                                        <label class="mdl-textfield__label" for="sample9"></label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="u-no-border-top header" width="8%">الطابق</td>
+                                <td class="u-no-border-top">
+                                    <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label">
+                                        <input class="mdl-textfield__input" required name="floor" type="number" value="{{$property->floor}}" id="floor" value="">
+                                        <label for="floor" class="mdl-textfield__label"></label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="u-no-border-top header" width="8%">عدد الغرف</td>
+                                <td class="u-no-border-top">
+                                    <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label">
+                                        <input class="mdl-textfield__input" required name="rooms" type="number" value="{{$property->rooms}}" id="rooms" value="">
+                                        <label for="rooms" class="mdl-textfield__label"> </label>
+                                    </div>
+                                </td>
+
+                            </tr>
+
+                            <tr>
+                                <td class="u-no-border-top header" width="8%">الحمامات</td>
+                                <td class="u-no-border-top">
+                                    <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label">
+                                        <input class="mdl-textfield__input" required name="bathrooms" type="number" value="{{$property->bathrooms}}" id="bathrooms" value="">
+                                        <label for="bathrooms" class="mdl-textfield__label"></label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="u-no-border-top header" width="8%">سنة البناء</td>
+                                <td class="u-no-border-top">
+                                    <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label ">
+                                        <input class="mdl-textfield__input" required name="year_of_construction" value="{{$property->year_of_construction}}" type="number"
+                                            id="sampl6" value="">
+
+                                        <label for="sampl6" class="mdl-textfield__label"> </label>
+
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                               <td class="u-no-border-top header" width="8%">السعر</td>
+                                <td class="u-no-border-top">
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
+                                        <input class="mdl-textfield__input" required  name="price" type="number" value="{{$property->price}}" id="price">
+                                        <label class="mdl-textfield__label" for="price"></label>
+                                    </div>
+                                </td>
+                            </tr>
+
+
                             <tr>
 
                                 <td class="u-no-border-top header" width="8%">نوع المعلن</td>
                                 <td class="u-no-border-top">
                                     <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-                                        <input class="mdl-textfield__input" type="text" id="advertiser_type" value="" readonly tabIndex="-1">
+                                        <input class="mdl-textfield__input" required type="text" id="advertiser_type" value="" readonly tabIndex="-1">
                                         <input value="" type="hidden" name="advertiser_type" />
                                         <label for="advertiser_type">
                                             <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
@@ -183,7 +248,7 @@
                                 <td class="u-no-border-top">
                                     <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
 
-                                        <input class="mdl-textfield__input" type="text" id="sampl7" value="" readonly tabIndex="-1">
+                                        <input class="mdl-textfield__input" required type="text" id="sampl7" value="" readonly tabIndex="-1">
                                         <input value="" type="hidden" name="finish_type" />
                                         <label for="sampl7">
                                             <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
@@ -206,7 +271,7 @@
                                 <td class="u-no-border-top header" width="8%">طريقة الدفع</td>
                                 <td class="u-no-border-top">
                                     <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-                                        <input class="mdl-textfield__input" type="text" id="sample12" value="" readonly tabIndex="-1">
+                                        <input class="mdl-textfield__input" required type="text" id="sample12" value="" readonly tabIndex="-1">
                                         <input value="" type="hidden" name="payment_methods" />
                                         <label for="sample1">
                                             <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
@@ -226,7 +291,7 @@
                                 <td class="u-no-border-top header" width="8%">تطل علي</td>
                                 <td class="u-no-border-top">
                                     <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-                                        <input class="mdl-textfield__input" type="text" id="sampl1" value="" readonly tabIndex="-1">
+                                        <input class="mdl-textfield__input" required type="text" id="sampl1" value="" readonly tabIndex="-1">
                                         <input value="" type="hidden" name="overlooks" />
                                         <label for="sampl1">
                                             <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
@@ -250,7 +315,7 @@
                 <div class="mdl-card mdl-shadow--2dp u-full-width mdl-grid u-mbuttom30">
                     <div class="mdl-cell mdl-cell--12-col">
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
-                            <input class="mdl-textfield__input" name="address" value="{{$property->address}}" type="text" id="mapSearch" placeholder="">
+                            <input class="mdl-textfield__input" required name="address" value="{{$property->address}}" type="text" id="mapSearch" placeholder="">
                             <label class="mdl-textfield__label" for="mapSearch">عنوان العقار</label>
                             <input class="mdl-textfield__input" value="{{$property->lat}}" type="hidden" name="lat" id="lat" placeholder="">
                             <input class="mdl-textfield__input" value="{{$property->long}}" type="hidden" id="long" name="long" placeholder="">
@@ -259,80 +324,35 @@
                     <div id="map"></div>
                 </div>
             </div>
-            <div class="mdl-cell mdl-cell--3-col sticky-item">
-                <div class="mdl-card  over-flow-hidden mdl-shadow--2dp u-auto-width u-mbuttom16 u-padding-bottom-60 u-relative">
-                    <table class="mdl-data-table u-full-width u-no-border">
-                        <tbody>
-
-
-                            <tr>
-                                <td class="u-no-border-top u-center" width="8%">
-                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
-                                        <input class="mdl-textfield__input" name="area" value="{{$property->area}}" type="number" id="sample9">
-                                        <label class="mdl-textfield__label" for="sample9">المساحة بالمتر المربع</label>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="u-no-border-top u-center" width="8%">
-                                    <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label">
-                                        <input class="mdl-textfield__input" name="floor" type="number" value="{{$property->floor}}" id="floor" value="">
-                                        <label for="floor" class="mdl-textfield__label">الطابق</label>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="u-no-border-top u-center" width="8%">
-                                    <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label">
-                                        <input class="mdl-textfield__input" name="rooms" type="number" value="{{$property->rooms}}" id="rooms" value="">
-                                        <label for="rooms" class="mdl-textfield__label">عدد الغرف</label>
-                                    </div>
-                                </td>
-
-                            </tr>
-
-                            <tr>
-                                <td class="u-no-border-top u-center" width="8%">
-                                    <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label">
-                                        <input class="mdl-textfield__input" name="bathrooms" type="number" value="{{$property->bathrooms}}" id="bathrooms" value="">
-                                        <label for="bathrooms" class="mdl-textfield__label">الحمامات</label>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="u-no-border-top">
-                                    <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label ">
-                                        <input class="mdl-textfield__input" name="year_of_construction" value="{{$property->year_of_construction}}" type="number"
-                                            id="sampl6" value="">
-
-                                        <label for="sampl6" class="mdl-textfield__label">سنة البناء</label>
-
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="u-no-border-top u-center" width="8%">
-                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
-                                        <input class="mdl-textfield__input" @change="priceChange" name="price" type="number" value="{{$property->price}}" id="price">
-                                        <label class="mdl-textfield__label" for="price">السعر</label>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <span class="card-label bottom-label-left has-secondary-base-bg" v-text="currenPrice">{{ $property->price }} ريال</span>
-                </div>
-            </div>
         </div>
         <div class="u-center">
-                    
-                    <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored u-center">تعديل</button>
-                    <a href="{{asset('myAccount/Properties')}}" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised u-margin-sides16">ألغاء</a>
+
+            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored u-center">تعديل</button>
+            <a href="{{asset('myAccount/Properties')}}" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised u-margin-sides16">ألغاء</a>
         </div>
     </form>
 </div>
 @endsection @push('scripts')
 <script>
+    var form = $("#properties-form");
+    form.validate({
+        highlight: function(element) {
+          $(element)
+            .closest(".mdl-textfield")
+            .addClass("is-invalid");
+        },
+        unhighlight: function(element) {
+          $(element)
+            .closest(".mdl-textfield")
+            .removeClass("is-invalid");
+        },
+        errorElement: "span",
+        errorClass: "mdl-textfield__error",
+        errorPlacement: function(error, element) {
+
+            error.insertAfter(element);
+        }
+      });
     function initMap() {
         var uluru = new google.maps.LatLng(23.128363, 37.199707);
         var map = new google.maps.Map(document.getElementById('map'), {
@@ -396,7 +416,7 @@
             geocodeLatLng(geocoder, map, infowindow);
         });
         //lat and long input
-   
+
         var geocoder = new google.maps.Geocoder;
         var infowindow = new google.maps.InfoWindow;
 

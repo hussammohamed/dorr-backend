@@ -87,13 +87,13 @@
                             </td>
 
                         </tr>
-                        <!-- <tr>
+                        <tr>
                             <td class="u-no-border-top header" width="8%">سعر المتر</td>
                             <td class="u-no-border-top">
-                            {{ $property->price_per_meter }}
+                            {{ $property->price / $property->area }}
                             </td>
 
-                        </tr> -->
+                        </tr>
                         <tr>
                             <td class="u-no-border-top header" width="8%">تاريخ النشر</td>
                             <td class="u-no-border-top">
@@ -105,6 +105,22 @@
                             <td class="u-no-border-top header" width="8%">النوع</td>
                             <td class="u-no-border-top">
                             {{ \App\Type::find($property->type)->$name }}
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td class="u-no-border-top header" width="8%">الغرض</td>
+                            <td class="u-no-border-top">
+                            {{ \App\Purpose::find($property->purpose)->$name }}
+                            
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td class="u-no-border-top header" width="8%">طربقة الدفع</td>
+                            <td class="u-no-border-top">
+                            {{ \App\PaymentMethod::find($property->payment_methods)->$name }}
+                            
                             </td>
 
                         </tr>
@@ -154,6 +170,14 @@
                             <td class="u-no-border-top header" width="8%">نوع التشطيب</td>
                             <td class="u-no-border-top">
                             {{ \App\FinishType::find($property->finish_type)->$name }}  
+                            
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td class="u-no-border-top header" width="8%">العنوان</td>
+                            <td class="u-no-border-top">
+                           {{$property->address}}  
                             
                             </td>
 

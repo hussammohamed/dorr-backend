@@ -13,7 +13,7 @@
         </div>
         <div class="mdl-grid">
             @foreach($featuredProperties as $property)
-            <div class="mdl-cell mdl-cell--3-col">
+            <div class="mdl-cell mdl-cell--3-col ">
                 @include('components.vCard')
             </div>
             @endforeach

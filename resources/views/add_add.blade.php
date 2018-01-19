@@ -14,7 +14,7 @@
                 <div class="mdl-card mdl-shadow--2dp u-full-width mdl-grid u-mbuttom30">
                     <div class="mdl-cell mdl-cell--6-col">
                         <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-                            <input class="mdl-textfield__input"  type="text" id="type" value="" readonly>
+                            <input class="mdl-textfield__input" required name="typeLabel"  type="text" id="type" value="" readonly>
                             <input value="" type="hidden"  name="type"/>
                             <label for="type">
                                 <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
@@ -30,7 +30,7 @@
                     </div>
                     <div class="mdl-cell mdl-cell--6-col">
                         <div class="mdl-textfield mdl-js-textfield u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-                            <input class="mdl-textfield__input" value="" type="text" id="purpose"  readonly>
+                            <input class="mdl-textfield__input" required name="purposeLabel" value="" type="text" id="purpose"  readonly>
                             <input value="" type="hidden"  name="purpose"/>
                             <label for="purpose">
                                 <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
@@ -45,7 +45,7 @@
                     </div>
                     <div class="mdl-cell mdl-cell--6-col">
                         <div class="mdl-textfield mdl-js-textfield u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-                            <input class="mdl-textfield__input city_id_js"  type="text" id="cityId" value="" readonly tabIndex="-1">
+                            <input class="mdl-textfield__input city_id_js" required  type="text" id="cityId" value="" readonly tabIndex="-1">
                             <input value="" class="hidden-input"  type="hidden" />
                             <label for="cityId">
                                 <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
@@ -60,7 +60,7 @@
                     </div>
                     <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet">
                         <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label  getmdl-select__city  getmdl-select getmdl-select__fix-height">
-                          <input class="mdl-textfield__input" type="text" id="district" value="" readonly tabIndex="-1">
+                          <input class="mdl-textfield__input" required type="text" id="district" value="" readonly tabIndex="-1">
                           <input  type="hidden" name="region" value="" >
                           <label for="district">
                             <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
@@ -82,13 +82,13 @@
                 <div class="mdl-card mdl-shadow--2dp u-full-width mdl-grid u-mbuttom30">
                     <div class="mdl-cell mdl-cell--12-col">
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
-                            <input class="mdl-textfield__input" name="title" type="text" id="sample20">
+                            <input class="mdl-textfield__input" required name="title" type="text" id="sample20">
                             <label class="mdl-textfield__label" for="sample20">عنوان الأعلان</label>
                         </div>
                     </div>
                     <div class="mdl-cell mdl-cell--12-col">
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
-                            <textarea class="mdl-textfield__input" name="description" type="text" rows="5" id="sample5"></textarea>
+                            <textarea class="mdl-textfield__input" required name="description" type="text" rows="5" id="sample5"></textarea>
                             <label class="mdl-textfield__label" for="sample5">تفاصيل الأعلان</label>
                         </div>
                     </div>
@@ -100,7 +100,7 @@
                 <div class="mdl-card mdl-shadow--2dp u-full-width mdl-grid u-mbuttom30">
                     <div class="mdl-cell mdl-cell--3-col">
                         <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-                            <input class="mdl-textfield__input"  type="text" id="advertiser_type" value="" readonly tabIndex="-1">
+                            <input class="mdl-textfield__input" required  type="text" id="advertiser_type" value="" readonly tabIndex="-1">
                             <input value="" type="hidden"  name="advertiser_type"/>
                             <label for="advertiser_type">
                                 <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
@@ -115,19 +115,19 @@
                     </div>
                     <div class="mdl-cell mdl-cell--3-col">
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
-                            <input class="mdl-textfield__input" name="area" type="number" id="sample9">
+                            <input class="mdl-textfield__input" required name="area" type="number" id="sample9">
                             <label class="mdl-textfield__label" for="sample9">المساحة بالمتر المربع</label>
                         </div>
                     </div>
                     <div class="mdl-cell mdl-cell--3-col">
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
-                            <input class="mdl-textfield__input" name="price" type="number" id="price">
+                            <input class="mdl-textfield__input" required name="price" type="number" id="price">
                             <label class="mdl-textfield__label" for="price">السعر</label>
                         </div>
                     </div>
                     <div class="mdl-cell mdl-cell--3-col">
                         <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-                            <input class="mdl-textfield__input"  type="text" id="sample12" value="" readonly tabIndex="-1">
+                            <input class="mdl-textfield__input" required  type="text" id="sample12" value="" readonly tabIndex="-1">
                             <input value="" type="hidden"  name="payment_methods"/>
                             <label for="sample1">
                                 <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
@@ -142,7 +142,7 @@
                     </div>
                     <div class="mdl-cell mdl-cell--3-col">
                         <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-                            <input class="mdl-textfield__input" type="text" id="sampl1" value="" readonly tabIndex="-1">
+                            <input class="mdl-textfield__input" required type="text" id="sampl1" value="" readonly tabIndex="-1">
                             <input value="" type="hidden"  name="overlooks"/>
                             <label for="sampl1">
                                 <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
@@ -157,19 +157,19 @@
                     </div>
                     <div class="mdl-cell mdl-cell--3-col">
                         <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" name="rooms" type="number" id="rooms" value="" >
+                            <input class="mdl-textfield__input" required name="rooms" type="number" id="rooms" value="" >
                             <label for="rooms" class="mdl-textfield__label">عدد الغرف</label>
                         </div>
                     </div>
                     <div class="mdl-cell mdl-cell--3-col">
                             <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label">
-                                <input class="mdl-textfield__input" name="floor" type="number" id="floor" value="">
+                                <input class="mdl-textfield__input" required name="floor" type="number" id="floor" value="">
                                 <label for="floor" class="mdl-textfield__label">الطابق</label>
                             </div>
                         </div>
                     <div class="mdl-cell mdl-cell--3-col">
                         <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-                            <input class="mdl-textfield__input" type="text" id="sampl4" value="" readonly >
+                            <input class="mdl-textfield__input" required type="text" id="sampl4" value="" readonly >
                             <input value="" type="hidden" name="bathrooms" />
                             <label for="sampl4">
                                 <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
@@ -187,7 +187,7 @@
                     </div>
                     <div class="mdl-cell mdl-cell--3-col">
                             <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label ">
-                                <input class="mdl-textfield__input" name="year_of_construction" type="number" id="sampl6" value="" >
+                                <input class="mdl-textfield__input" required name="year_of_construction" type="number" id="sampl6" value="" >
                                
                                 <label for="sampl6" class="mdl-textfield__label">سنة البناء</label>
                                 
@@ -196,7 +196,7 @@
                         <div class="mdl-cell mdl-cell--3-col">
                                 <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
                                     
-                                    <input class="mdl-textfield__input"  type="text" id="sampl7" value="" readonly tabIndex="-1">
+                                    <input class="mdl-textfield__input" required  type="text" id="sampl7" value="" readonly tabIndex="-1">
                                     <input value="" type="hidden"  name="finish_type"/>
                                     <label for="sampl7">
                                         <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
@@ -218,7 +218,7 @@
                 <div class="mdl-card mdl-shadow--2dp u-full-width mdl-grid u-mbuttom30">
                     <div class="mdl-cell mdl-cell--12-col">
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
-                            <input class="mdl-textfield__input" name="address" type="text" id="mapSearch" placeholder="">
+                            <input class="mdl-textfield__input" required name="address" type="text" id="mapSearch" placeholder="">
                             <label class="mdl-textfield__label" for="mapSearch">عنوان العقار</label>
                             <input class="mdl-textfield__input"  type="hidden" name="lat" id="lat" placeholder="">
                             <input class="mdl-textfield__input"  type="hidden" id="long" name="long" placeholder="">
@@ -266,13 +266,41 @@
 <script src={{ asset( 'js/jquery.steps.min.js') }}></script>
 <script>
     var form = $("#properties-form");
+    form.validate({
+        highlight: function(element) {
+          $(element)
+            .closest(".mdl-textfield")
+            .addClass("is-invalid");
+        },
+        unhighlight: function(element) {
+          $(element)
+            .closest(".mdl-textfield")
+            .removeClass("is-invalid");
+        },
+        errorElement: "span",
+        errorClass: "mdl-textfield__error",
+        errorPlacement: function(error, element) {
+
+            error.insertAfter(element);
+        }
+      });
     form.children("div").steps({
         headerTag: "h3",
         bodyTag: "section",
         transitionEffect: "fade",
+        onStepChanging: function (event, currentIndex, newIndex){
+            if(form.valid()){
+                $(".is-invalid").removeClass("is-invalid");
+                return true;
+            }else{
+                return false;
+            }    
+            
+        },
         onStepChanged: function (event, currentIndex, newIndex) {
+           
             initMap();
-            return true;
+           
         },
         onFinished: function (event, currentIndex) {
             $("#properties-form").submit();

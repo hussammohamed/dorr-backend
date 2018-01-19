@@ -313,14 +313,14 @@
                             <tr>
                                 <td class="u-no-border-top u-center" width="8%">
                                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
-                                        <input class="mdl-textfield__input" name="price" type="number" value="{{$property->price}}" id="price">
+                                        <input class="mdl-textfield__input" @change="priceChange" name="price" type="number" value="{{$property->price}}" id="price">
                                         <label class="mdl-textfield__label" for="price">السعر</label>
                                     </div>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-                    <span class="card-label bottom-label-left has-secondary-base-bg">{{ $property->price }} ريال</span>
+                    <span class="card-label bottom-label-left has-secondary-base-bg" v-text="currenPrice">{{ $property->price }} ريال</span>
                 </div>
             </div>
         </div>

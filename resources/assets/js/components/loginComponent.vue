@@ -55,6 +55,7 @@ export default {
       this.$root.signupDialog();
     },
     closeDialog: function() {
+      console.log(window.event)
       this.errors = {};
       this.$root.closeDialog(this.$el);
     },

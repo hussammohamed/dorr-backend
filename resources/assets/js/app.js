@@ -6,7 +6,7 @@
 
 //require('./bootstrap');
 window.$ = window.jQuery = require('jquery');
-window.moment = require('moment')
+// window.moment = require('moment')
 window.Vue = require('vue');
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -28,10 +28,14 @@ const app = new Vue({
         return {
           url: "",
           cities: [],
+          currenPrice:""
 
         };
       },
     methods:{
+        priceChange: function(value){
+           this.currenPrice = value.path["0"].value  + " " + "ريال";
+        },
         lastUpdate: function (date) {
             return "أخر تحديث في "  + " " +  moment(date).lang("ar").format(' DD MMMM YYYY') ;
           },
@@ -64,6 +68,7 @@ const app = new Vue({
 
     mounted() {
         var self = this;
+        this.currenPrice = $('#price').val() + " " + "ريال";
         setTimeout(() => { $(".city_id_js").change(function(){
          var value = $(this).parent().find(".hidden-input").val();
          $.ajax({

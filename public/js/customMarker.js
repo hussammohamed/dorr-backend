@@ -45,7 +45,7 @@ CustomMarker.prototype.draw = function () {
 						
 					});
 					self.map.fitBounds(bounds);
-					self.map.setZoom(8);
+					self.map.setZoom(10);
 				})
 
 				$(".map-marker,.property-card")
@@ -62,11 +62,11 @@ CustomMarker.prototype.draw = function () {
 							var overlay = new CustomMarker(new google.maps.LatLng(el.location.lat, el.location.long), self.map, el, 'property');
 							bounds.extend(overlay.getPosition());
 						});
-						self.map.fitBounds(bounds);
+						//self.map.fitBounds(bounds);
 					}
 					
-					self.map.setCenter(new google.maps.LatLng(self.latlng.lat(), (self.latlng.lng())));
-					self.map.setZoom(12);
+					//self.map.setCenter(new google.maps.LatLng(self.latlng.lat(), (self.latlng.lng())));
+					//self.map.setZoom(16);
 				})
 				$(".map-marker,.property-card")
 					.fadeOut()

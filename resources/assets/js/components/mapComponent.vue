@@ -22,7 +22,7 @@
   </div>
 <div class="mdl-grid ">
   <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet">
-    <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
+    <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select__region getmdl-select getmdl-select__fix-height">
 
       <input id="city" class="mdl-textfield__input regions" required  type="text" value="" readonly tabIndex="-1">
       <input  type="hidden" class="hidden-input"  name="city" required  value="" >
@@ -76,13 +76,13 @@
 <div class="mdl-grid search-area--s">
   <div class="mdl-cell mdl-cell--2-col">
     <div class="mdl-textfield mdl-js-textfield ">
-      <input class="mdl-textfield__input" name="keyword" type="text" id="mapSearch2">
+      <input v-model="FormData.keyword" class="mdl-textfield__input" name="keyword" type="text" id="mapSearch2">
       <label class="mdl-textfield__label" for="mapSerach2">بحث</label>
     </div>
   </div>
   <div class="mdl-cell mdl-cell--2-col">
-    <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label  getmdl-select getmdl-select__fix-height">
-      <input class="mdl-textfield__input  city_id_js" type="text" id="city2" value="" readonly tabIndex="-1">
+    <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width   mdl-textfield--floating-label  getmdl-select getmdl-select__fix-height">
+      <input class="mdl-textfield__input  regions" type="text" id="city2" value="" readonly tabIndex="-1">
       <input  type="hidden" class="hidden-input"  value=""  name="city">
       <label for="city2">
         <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
@@ -90,8 +90,7 @@
       <label for="city2" class="mdl-textfield__label">المدينة </label>
       <ul for="city2" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
  
-      <li class="mdl-menu__item" data-val=""></li>
-     
+        <li  v-for="region in regions" v-text="region.name_ar" tabindex="-1"  class="mdl-menu__item" :data-val="region.id"></li>
       </ul>
     </div>
   </div>
@@ -105,24 +104,24 @@
       </label>
       <label for="sample13" class="mdl-textfield__label">الحي</label>
       <ul for="sample13" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-      <!-- <li  v-for="city in cities" v-text="city.title" tabindex="-1" class="mdl-menu__item" :data-val="city.id"></li> -->
+      <li  v-for="district in districts" v-text="district.title" tabindex="-1" class="mdl-menu__item" :data-val="district.id"></li>
       </ul>
     </div>
   </div>
   <div class="mdl-cell mdl-cell--2-col">
     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
-      <input class="mdl-textfield__input" name="priceFrom" type="text" id="lowPrice2">
+      <input v-model="FormData.priceFrom" class="mdl-textfield__input" name="priceFrom" type="text" id="lowPrice2">
       <label class="mdl-textfield__label" for="lowPrice2">أقل سعر</label>
     </div>
   </div>
   <div class="mdl-cell mdl-cell--2-col">
     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
-      <input class="mdl-textfield__input" name="priceTo"  type="text" id="hPrice2">
+      <input  v-model="FormData.priceTo" class="mdl-textfield__input" name="priceTo"  type="text" id="hPrice2">
       <label class="mdl-textfield__label" for="hPrice2">أعلى سعر</label>
     </div>
   </div>
   <div class="mdl-cell mdl-cell--2-col">
-      <button id="" class="mdl-button u-full-width mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored">
+      <button id=""  @click="propertySearch(this)" class="mdl-button u-full-width mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored">
           بحث
         </button>    
   </div>
@@ -196,7 +195,8 @@ export default {
           if (self.bound && arr.length) {
             self.map.fitBounds(bounds);
             setTimeout(() => {
-              self.map.setZoom(10);
+              if(self.map.zoom > 15)
+              self.map.setZoom(15);
             }, 150);
           }
           if (
@@ -246,14 +246,15 @@ export default {
     },
     propertySearch: function() {
       var self = this;
-      $(".search-form").submit(function(event) {
+      var form = $(event.target).parents('form');
+      form.submit(function(event) {
         if(location.pathname == "/properties/search"){
         //event.preventDefault();
         }
         $.ajax({
           url: "/api/v1/properties/search",
           type: "post",
-          data: $(".search-form").serialize(),
+          data: form.serialize(),
           dataType: "json",
           success: function(_response) {
             self.properties = _response.data;
@@ -282,7 +283,7 @@ export default {
     function initMap() {
       var uluru = new google.maps.LatLng(23.128363, 37.199707);
       var map = new google.maps.Map(document.getElementById("map"), {
-        zoom: 6,
+        zoom: 5,
         center: uluru,
         zoomControl: true,
         mapTypeControl: false,
@@ -293,27 +294,19 @@ export default {
       });
       self.map = map;
       self.kind = "properties";
-      //  var region;
-      // 	$.get('/api/v1/regions', function (data) {
-      //          region =  data.data.filter(function(record) {
-      //              return record.id == parseInt(self.FormData.city);
-      //          });
-      //          map.setCenter(new google.maps.LatLng(region[0].location.lat, region[0].location.long));
-      //     });
-
       map.addListener("zoom_changed", function() {
         let center = map.getCenter().lat();
         let zoom = map.getZoom();
         if (zoom < 7) {
           self.kind = "regions";
         }
-        if (zoom >= 7 && zoom <= 9) {
+        if (zoom >= 7 && zoom <= 10) {
           if (self.kind != "cities") {
             self.kind = "cities";
           } else {
             self.filterMap();
           }
-        } else if (zoom > 9) {
+        } else if (zoom > 10) {
             
         }
       });
@@ -327,13 +320,13 @@ export default {
       map.addListener("dragend", function() {
         self.bound = false;
         let zoom = map.getZoom();
-        if (zoom >= 7 && zoom <= 9) {
+        if (zoom >= 7 && zoom <= 10) {
           if (self.kind != "cities") {
             self.kind = "cities";
           } else {
             self.filterMap();
           }
-        } else if (zoom > 9) {
+        } else if (zoom > 10) {
           $.ajax({
             url:
               "/api/v1/properties/search?lat=" +
@@ -385,10 +378,20 @@ export default {
     var searchArea = $("#searchArea");
     var searchBtn = $("#searchBtn");
     var hideMap = $("#hideMap");
+    if(localStorage.getItem('noMap') === "true"){
+       mapConainer.addClass("no-map");
+    }else{
+       mapConainer.removeClass("no-map");
+    }
     searchBtn.click(function() {
       mapConainer.toggleClass("no-search");
     });
     hideMap.click(function() {
+      if(localStorage.getItem('noMap') === "true"){
+        localStorage.setItem('noMap', false);
+      }else{
+         localStorage.setItem('noMap', true);
+      }
       mapConainer.toggleClass("no-map");
     });
   },
@@ -400,11 +403,9 @@ export default {
     }
 
     setTimeout(() => {
-      $(".regions").change(function() {
-        var value = $(this)
-          .parent()
-          .find(".hidden-input")
-          .val();
+      $(".regions").each(function(){
+        $(this).change(function() {
+        var value = $(this).parent().find(".hidden-input").val();
         $.ajax({
           url: "/api/v1/regions/" + value + "",
           type: "GET",
@@ -425,6 +426,7 @@ export default {
         });
       });
     }, 50);
+  });
   }
 };
 </script>

@@ -33,6 +33,8 @@
              var url = ''
     </script>
     @stack('begScripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/locale/ar.js"></script>
     <script  src="{{ asset('js/app.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/getmdl-select.min.js') }}"></script>
     @stack('scripts')

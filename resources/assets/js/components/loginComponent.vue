@@ -94,7 +94,7 @@ export default {
         form.submit(function(event) {
           event.preventDefault();
           $.ajax({
-            url: "/api/v1/users/login/",
+            url: "/api/v1/users/login",
             type: "post",
             data: form.serialize(),
             dataType: "json",

@@ -39,6 +39,7 @@ class CreatePropertiesTable extends Migration
 		    $table->string('youtube')->nullable();
 		    $table->date('startDate')->nullable();
 		    $table->date('endDate')->nullable();
+		    $table->boolean('marked')->default('1');
 		    $table->boolean('featured')->default('0');
 		    $table->boolean('active')->default('1');
 		    $table->boolean('deleted')->default('0');

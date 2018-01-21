@@ -7,7 +7,12 @@
             <div class="mdl-cell mdl-cell--9-col">
                 <div class="mdl-color-text--grey-500 page-breadcrumb">
                     <!-- شقق للإيجار&gt; الرياض &gt; حى المروج -->
-                    {{ (\App\FilterMenu::where('purpose', $property->purpose)->where('type', $property->type)->first()->$name)}}
+                    {{ (\App\Type::where('id', $property->type)->first()->$name)}}
+                    
+                    <i class="material-icons u-fix-icon-top">keyboard_arrow_left</i>
+                    
+                    {{ (\App\Purpose::where('id', $property->purpose)->first()->$name)}}
+                    
                     <i class="material-icons u-fix-icon-top">keyboard_arrow_left</i>
                     <a href="#"  class="mdl-color-text--grey-500"  onclick="event.preventDefault();
                         document.getElementById('searchByCity').submit();">

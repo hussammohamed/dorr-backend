@@ -85,11 +85,15 @@ Route::get('api/v1/properties/user', 'PropertiesController@getByLoginedUser');
 Route::get('api/v1/properties/user/{user_id}', 'PropertiesController@getByUser');
 Route::post('api/v1/property/store', 'PropertiesController@storeAPI');
 Route::post('api/v1/property/{id}/update', 'PropertiesController@updateAPI');
+Route::put('api/v1/property/{id}/delete', 'PropertiesController@delete');
+Route::delete('api/v1/property/{id}/destroy', 'PropertiesController@destroy');
 Route::get('api/v1/properties/featured', 'PropertiesController@getFeatured');
 Route::get('api/v1/properties/latest', 'PropertiesController@getLatest');
 Route::get('api/v1/properties/region/{region_id}', 'PropertiesController@getListByRegion');
 Route::get('api/v1/property/{id}', 'PropertiesController@getProperty');
 Route::get('api/v1/property/images/{id}', 'PropertiesController@getImages');
+Route::put('api/v1/property/images/{id}/delete', 'PropertyImagesController@delete');
+Route::delete('api/v1/property/images/{id}/destroy', 'PropertyImagesController@destroy');
 Route::get('api/v1/property/{id}/add_images', 'PropertyImagesController@storeNew');
 Route::get('api/v1/property/similer/{id}', 'PropertiesController@getSimilerProperties');
 Route::get('api/v1/property/offers/{id}', 'PropertyOfferController@getPropertyOffers');
@@ -103,6 +107,8 @@ Route::get('api/v1/filters', 'FilterMenuController@getFilterMenus');
 Route::get('api/v1/types', 'TypesController@getTypes');
 Route::get('api/v1/purposes', 'PurposesController@getPurposes');
 
+Route::post('api/v1/val', 'PropertiesController@val');
+Route::post('api/v1/test/{id}', 'PropertiesController@test');
 
 /*
 Route::group(['middleware'=>'auth:api'], function(){

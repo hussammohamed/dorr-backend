@@ -82,7 +82,8 @@ class PropertiesController extends Controller
         $property = $q->where('active','=', 1)->where('deleted','=', 0)->get();
         
         if (count($property) < 1) {
-            return response()->json(["error"=>"There is no properties match this search"], Response::HTTP_NOT_FOUND);
+            //return response()->json(["error"=>"There is no properties match this search"], Response::HTTP_NOT_FOUND);
+            //return "[]";
         }else{
             return PropertyResource::collection($property);
         }
@@ -142,7 +143,8 @@ class PropertiesController extends Controller
         
         $property = Property::where('active','=', 1)->where('deleted','=', 0)->orderBy('id', 'desc')->limit(4)->get();
         if (count($property) < 1) {
-            return response()->json(["error"=>"There is no properties"], Response::HTTP_NOT_FOUND);
+            //return response()->json(["error"=>"There is no properties"], Response::HTTP_NOT_FOUND);
+            //return "[]";
         }else{
             return PropertyResource::collection($property);
         }
@@ -162,7 +164,7 @@ class PropertiesController extends Controller
     {
         $region = Region::find($region_id);
         if (count($region) < 1) {
-            return response()->json(["error"=>"This region is not exists"], Response::HTTP_NOT_FOUND);
+            //return response()->json(["error"=>"This region is not exists"], Response::HTTP_NOT_FOUND);
         }else{
             $districts = Region::where('region_id',$region_id)->get();
             $district = array();
@@ -172,7 +174,7 @@ class PropertiesController extends Controller
             array_push($district,$region_id);
             $property = Property::whereIn('region', $district)->where('active','=', 1)->where('deleted','=', 0)->get();
             if (count($property) < 1) {
-                return response()->json(["error"=>"There is no properties is Region"], Response::HTTP_NOT_FOUND);
+                //return response()->json(["error"=>"There is no properties is Region"], Response::HTTP_NOT_FOUND);
             }else{
                 return PropertyResource::collection($property);
             }
@@ -184,7 +186,7 @@ class PropertiesController extends Controller
         if (Auth::check()) {
             $property = Property::where('user_id','=', Auth::user()->id)->where('deleted','=', 0)->get();
             if (count($property) < 1) {
-                return response()->json(["error"=>"There is no properties for you"], Response::HTTP_NOT_FOUND);
+                //return response()->json(["error"=>"There is no properties for you"], Response::HTTP_NOT_FOUND);
             }else{
                 return PropertyResource::collection($property);
             }
@@ -198,7 +200,7 @@ class PropertiesController extends Controller
     {
         $user = User::find($user_id);
         if (count($user) < 1) {
-            return response()->json(["error"=>"This user is not exists"], Response::HTTP_NOT_FOUND);
+            //return response()->json(["error"=>"This user is not exists"], Response::HTTP_NOT_FOUND);
         }else{
             $property = Property::where('user_id','=', $user_id)->where('deleted','=', 0)->get();
             if (count($property) < 1) {
@@ -215,7 +217,7 @@ class PropertiesController extends Controller
     {
         $property = Property::where('active','=', 1)->where('deleted','=', 0)->where('featured','=', 1)->limit(4)->get();
         if (count($property) < 1) {
-            return response()->json(["error"=>"There is no featured properties"], Response::HTTP_NOT_FOUND);
+            //return response()->json(["error"=>"There is no featured properties"], Response::HTTP_NOT_FOUND);
         }else{
             return PropertyResource::collection($property);
         }
@@ -225,14 +227,14 @@ class PropertiesController extends Controller
         //
         $property = Property::find($id);
         if (count($property) < 1) {
-            return response()->json(["error"=>"This Proberty is not exists"], Response::HTTP_NOT_FOUND);
+            //return response()->json(["error"=>"This Proberty is not exists"], Response::HTTP_NOT_FOUND);
         }else{
             $similar_property = Property::where('region','=', Property::find($id)->region)->
             where('type','=', Property::find($id)->type)->
             where('id','!=', $id)->
             where('active','=', 1)->where('deleted','=', 0)->limit(10)->get();
             if (count($similar_property) < 1) {
-                return response()->json(["error"=>"There is no similer properties"], Response::HTTP_NOT_FOUND);
+                //return response()->json(["message"=>"There is no similer properties"], Response::HTTP_NO_CONTENT);
             }else{
                 return PropertyResource::collection($similar_property);
             }
@@ -244,7 +246,7 @@ class PropertiesController extends Controller
     {
         $property = Property::find($id);
         if (count($property) < 1) {
-            return response()->json(["error"=>"This Proberty is not exists"], Response::HTTP_NOT_FOUND);
+            //return response()->json(["error"=>"This Proberty is not exists"], Response::HTTP_NOT_FOUND);
         }else{
             return new PropertyResource($property);
         }
@@ -255,11 +257,11 @@ class PropertiesController extends Controller
     {
         $property = Property::find($id);
         if (count($property) < 1) {
-            return response()->json(["error"=>"This Proberty is not exists"], Response::HTTP_NOT_FOUND);
+            //return response()->json(["error"=>"This Proberty is not exists"], Response::HTTP_NOT_FOUND);
         }else{
             $images = Property::find($id)->images;
             if (count($images) < 1) {
-                return response()->json(["error"=>"This Proberty has no images"], Response::HTTP_NOT_FOUND);
+                //return response()->json(["error"=>"This Proberty has no images"], Response::HTTP_NOT_FOUND);
             }else{
                 return  PropertyImageResource::collection($images);
             }
@@ -298,6 +300,22 @@ class PropertiesController extends Controller
     {
         //
         if (Auth::check()) {
+            $request->validate([
+                'type' => 'required',
+                'purpose' => 'required',
+                'title' => 'required',
+                'address' => 'required',
+                'region' => 'required',
+                'lat' => 'required',
+                'long' => 'required',
+                'price' => 'required',
+                'advertiser_type' => 'required',
+                'area' => 'required|numeric',
+                'rooms' => 'numeric',
+                'bathrooms' => 'numeric',
+                'youtube' => 'url',
+            ]);
+            
             $property = new Property;
             $property->user_id = Auth::user()->id;
             $property->type = $request->type;
@@ -342,43 +360,57 @@ class PropertiesController extends Controller
     {
         if (Auth::check()) {
 
+            $data = (array) json_decode($request->request->get('data'));
+
             $property = new Property;
             $property->user_id = Auth::user()->id;
-            $property->type =  $request->type;
-            $property->purpose =  $request->purpose;
-            $property->title =  $request->title;
-            $property->address = $request->address;
-            $property->region =  $request->region;
-            $property->lat =  $request->lat;
-            $property->long =  $request->long;
-            $property->description =  $request->description;
-            $property->price = $request->price;
-            $property->year_of_construction =  $request->year_of_construction;
-            $property->advertiser_type =  $request->advertiser_type;
-            $property->area =  $request->area;
-            $property->floor =  $request->floor;
-            $property->finish_type =  $request->finish_type;
-            $property->overlooks =  $request->overlooks;
-            $property->payment_methods =  $request->payment_methods;
-            $property->rooms =  $request->rooms;
-            $property->bathrooms =  $request->bathrooms;
+            $property->type =  $data['type'];
+            $property->purpose =  $data['purpose'];
+            $property->title =  $data['title'];
+            $property->address = $data['address'];
+            $property->region =  $data['district'];
+            $property->lat =  $data['lat'];
+            $property->long =  $data['long'];
+            $property->description =  $data['description'];
+            $property->price = $data['price'];
+            $property->year_of_construction =  $data['year_of_construction'];
+            $property->advertiser_type =  $data['advertiser_type'];
+            $property->area =  $data['area'];
+            $property->floor =  $data['floor'];
+            $property->finish_type =  $data['finish_type'];
+            $property->overlooks =  $data['overlooks'];
+            $property->payment_methods =  $data['payment_methods'];
+            $property->rooms =  $data['rooms'];
+            $property->bathrooms =  $data['bathrooms'];
+            $property->youtube = $data['youtube'];
             $property->ad_id = time();
-            $property->youtube = $request->youtube;
             $property->startDate = date("Y-m-d h:i:s");
 
             $property->save();
 
-            if ($request->hasFile('pictures')) {
-                app('App\Http\Controllers\PropertyImagesController')->store($property->id, $request->file('attachment'));
-            }
+            for($x=1;$x<11;$x++){
 
+                if ($request->hasFile('picture'.$x)) {
+                    //return 1;
+                    $file = $request->file('picture'.$x);
+                    $extension = $file->getClientOriginalExtension();
+                    $fileName = $property->id."-".time()."-".str_random(6).".".$extension;
+                    $folderpath  = 'upload/properties/';
+                    $file->move($folderpath , $fileName);
+                    
+                    $img = new PropertyImage;
+                    $img->property_id = $property->id;
+                    $img->path = $fileName;
+                    $img->order = 1;
+                    $img->save();
+                }
+            }
             $property = Property::find($property->id);
             return new PropertyResource($property);
         }else{
             return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
         }
     }
-
 
     /**
      * Display the specified resource.
@@ -388,14 +420,18 @@ class PropertiesController extends Controller
      */
      public function show($id)
      {
-         //
-         $property = Property::find($id);
-         $similarProperties = Property::where('region','=', $property->region)->
-         where('type','=', $property->type)->
-         where('active','=', 1)->where('deleted','=', 0)->limit(4)->get();
-         $propertyOffers = PropertyOffer::where('property_id', '=', $property->id)->get();
-         $propertyImages = PropertyImage::where('property_id', '=', $property->id)->get();   
-         return view('property.show',['name'=>'name_'.App::getLocale(),'property'=>$property, 'similarProperties'=>$similarProperties, 'propertyOffers'=>$propertyOffers, 'propertyImages'=>$propertyImages]);
+        
+        $property = Property::find($id);
+        if (count($property) < 1) {
+            return response()->json(["message"=>"This Proberty is not exists"], Response::HTTP_NO_CONTENT);
+        }else{
+            $similarProperties = Property::where('region','=', $property->region)->
+            where('type','=', $property->type)->where('id','!=', $id)->
+            where('active','=', 1)->where('deleted','=', 0)->limit(4)->get();
+            $propertyOffers = PropertyOffer::where('property_id', '=', $property->id)->get();
+            $propertyImages = PropertyImage::where('property_id', '=', $property->id)->get();   
+            return view('property.show',['name'=>'name_'.App::getLocale(),'property'=>$property, 'similarProperties'=>$similarProperties, 'propertyOffers'=>$propertyOffers, 'propertyImages'=>$propertyImages]);
+        }
      }
 
     /**
@@ -419,44 +455,59 @@ class PropertiesController extends Controller
         
     }
 
-    public function updateAPI(Request $request)
+    public function updateAPI(Request $request, $id)
     {
         //
-        
-            $property = Property::find($request->id);
-            $property->type =  $request->type;
-            $property->purpose =  $request->purpose;
-            $property->title =  $request->title;
-            $property->address = $request->address;
-            $property->region =  $request->region;
-            $property->lat =  $request->lat;
-            $property->long =  $request->long;
-            $property->description =  $request->description;
-            $property->price = $request->price;
-            $property->year_of_construction =  $request->year_of_construction;
-            $property->advertiser_type =  $request->advertiser_type;
-            $property->area =  $request->area;
-            $property->floor =  $request->floor;
-            $property->finish_type =  $request->finish_type;
-            $property->overlooks =  $request->overlooks;
-            $property->payment_methods =  $request->payment_methods;
-            $property->rooms =  $request->rooms;
-            $property->bathrooms =  $request->bathrooms;
-            $property->ad_id = time();
-            $property->youtube = $request->youtube;
-            $property->startDate = date("Y-m-d h:i:s");
+            $data = (array) json_decode($request->request->get('data'));
+            
+            //$data->setHeaders('content-type:app/json');
+            //return $data['type'];
+            
+            
+            $property = Property::find($id);
+            $property->type =  $data['type'];
+            $property->purpose =  $data['purpose'];
+            $property->title =  $data['title'];
+            $property->address = $data['address'];
+            $property->region =  $data['district'];
+            $property->lat =  $data['lat'];
+            $property->long =  $data['long'];
+            $property->description =  $data['description'];
+            $property->price = $data['price'];
+            $property->year_of_construction =  $data['year_of_construction'];
+            $property->advertiser_type =  $data['advertiser_type'];
+            $property->area =  $data['area'];
+            $property->floor =  $data['floor'];
+            $property->finish_type =  $data['finish_type'];
+            $property->overlooks =  $data['overlooks'];
+            $property->payment_methods =  $data['payment_methods'];
+            $property->rooms =  $data['rooms'];
+            $property->bathrooms =  $data['bathrooms'];
+            $property->youtube = $data['youtube'];
 
             $property->save();
 
-            if ($request->hasFile('pictures')) {
-                
-                app('App\Http\Controllers\PropertyImagesController')->store($property->id, $request->file('attachment'));
-                
+            for($x=1;$x<11;$x++){
+
+                if ($request->hasFile('picture'.$x)) {
+                    //return 1;
+                    $file = $request->file('picture'.$x);
+                    $extension = $file->getClientOriginalExtension();
+                    $fileName = $property->id."-".time()."-".str_random(6).".".$extension;
+                    $folderpath  = 'upload/properties/';
+                    $file->move($folderpath , $fileName);
+                    
+                    $img = new PropertyImage;
+                    $img->property_id = $property->id;
+                    $img->path = $fileName;
+                    $img->order = 1;
+                    $img->save();
+                }
             }
 
             $property = Property::find($property->id);
             return new PropertyResource($property);
-
+            
     }
 
     /**
@@ -470,6 +521,24 @@ class PropertiesController extends Controller
     {
         //
         if (Auth::check()) {
+
+            
+            $request->validate([
+                'type' => 'required',
+                'purpose' => 'required',
+                'title' => 'required',
+                'address' => 'required',
+                'region' => 'required',
+                'lat' => 'required',
+                'long' => 'required',
+                'price' => 'required',
+                'advertiser_type' => 'required',
+                'area' => 'required|numeric',
+                'rooms' => 'numeric',
+                'bathrooms' => 'numeric',
+                'youtube' => 'url',
+            ]);
+            
             $property = Property::find($request->id);
             $property->type =  $request->type;
             $property->purpose =  $request->purpose;
@@ -489,7 +558,6 @@ class PropertiesController extends Controller
             $property->payment_methods =  $request->payment_methods;
             $property->rooms =  $request->rooms;
             $property->bathrooms =  $request->bathrooms;
-            $property->ad_id = time();
             $property->youtube = $request->youtube;
 
             $property->save();
@@ -512,10 +580,50 @@ class PropertiesController extends Controller
      * @param  \App\Test  $test
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Test $test)
+    public function destroy($id)
     {
-        //
+        if (Auth::check()) {
+            $property = Property::find($id);
+            if (count($property) < 1) {
+                return response()->json(["error"=>"This Proberty is not exists"], Response::HTTP_NOT_FOUND);
+            }else{
+                if($property->user_id == Auth::user()->id){
+                    $property->delete();
+                    return response()->json(["message"=>"The property has been deleted"], Response::HTTP_ACCEPTED);
+                }else{
+                    return response()->json(["error"=>"You are not allowd to delete this property"], Response::HTTP_METHOD_NOT_ALLOWED);
+                }
+            }
+        }else{
+            return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
+        }
     }
+
+    public function delete($id)
+    {
+        if (Auth::check()) {
+            $property = Property::find($id);
+            if (count($property) < 1) {
+                return response()->json(["error"=>"This Proberty is not exists"], Response::HTTP_NOT_FOUND);
+            }else{
+                if($property->user_id == Auth::user()->id){
+                    if($property->deleted == 0 ){
+                        $property->deleted = 1;
+                        $property->save();
+                        return new PropertyResource($property);
+                    }else{
+                        return response()->json(["error"=>"This Proberty is already deleted"], Response::HTTP_NOT_MODIFIED);
+                    }
+                }else{
+                    return response()->json(["error"=>"You are not allowd to delete this property"], Response::HTTP_METHOD_NOT_ALLOWED);
+                }
+            }
+        }else{
+            return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
+        }
+    }
+
+
 
     public function getFormData ()
     {

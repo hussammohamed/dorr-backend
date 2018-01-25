@@ -21,7 +21,7 @@ class FilterMenuResource extends Resource
         $name = 'name_'.App::getLocale();
         return [
             'key' => Type::find($this->type)->$name.Purpose::find($this->purpose)->$name,
-            'value' => $this->$name
+            'value' => $this->name
         ];
     }
 }

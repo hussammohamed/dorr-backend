@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\PropertyImage;
 use App\Property;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use App\Http\Resources\PropertyImageResource;
+use Illuminate\Support\Facades\Storage;
 
 class PropertyImagesController extends Controller
 {
@@ -56,12 +60,12 @@ class PropertyImagesController extends Controller
         //
         foreach($files as $key=>$file){
             $extension = $file->getClientOriginalExtension();
-            $fileName = $property_id."-".time()."-".str_random().".".$extension;
+            $fileName = $property_id."-".time()."-".str_random(6).".".$extension;
             $folderpath  = 'upload/properties/';
             $file->move($folderpath , $fileName);
 
             $img = new PropertyImage;
-            $img->property_id = 1;
+            $img->property_id = $property_id;
             $img->path = $fileName;
             $img->order = $key+1;
             $img->save();
@@ -113,8 +117,41 @@ class PropertyImagesController extends Controller
      * @param  \App\PropertyImage  $propertyImage
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PropertyImage $propertyImage)
+    public function destroy($id)
     {
-        //
+        if (Auth::check()) {
+            $image = PropertyImage::find($id);
+            if (count($image) < 1) {
+                return response()->json(["error"=>"This proberty's image is not exists"], Response::HTTP_NOT_FOUND);
+            }else{
+                if(file_exists( public_path() . '/upload/properties/'.$image->path)) {
+                    unlink( public_path() . '/upload/properties/'.$image->path);
+                }
+                $image->delete();
+                return response()->json(["message"=>"The image has been deleted"], Response::HTTP_OK);
+            }
+        }else{
+            return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
+        }
+    }
+
+    public function delete($id)
+    {
+        if (Auth::check()) {
+            $image = PropertyImage::find($id);
+            if (count($image) < 1) {
+                return response()->json(["error"=>"This Proberty is not exists"], Response::HTTP_NOT_FOUND);
+            }else{
+                    if($image->deleted == 0 ){
+                        $image->deleted = 1;
+                        $image->save();
+                        return new PropertyImageResource($image);
+                    }else{
+                        return response()->json(["error"=>"This Proberty is already deleted"], Response::HTTP_NOT_MODIFIED);
+                    }
+            }
+        }else{
+            return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
+        }
     }
 }

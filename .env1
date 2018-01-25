@@ -3,14 +3,14 @@ APP_ENV=local
 APP_KEY=base64:4haklEJbtRnh1u2JJ4d8kNrpjKiqKGP1z2MXLxyVzlc=
 APP_DEBUG=true
 APP_LOG_LEVEL=debug
-APP_URL=http://localhost
+APP_URL=http://dorr.bareeqstudio.com
 
 DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
+DB_HOST=gator3060.hostgator.com
 DB_PORT=3306
-DB_DATABASE=db_dorr
-DB_USERNAME=root
-DB_PASSWORD=
+DB_DATABASE=mohamedm_db_dorr
+DB_USERNAME=mohamedm_dorr_u
+DB_PASSWORD=TS(0@~xQphIo
 
 BROADCAST_DRIVER=log
 CACHE_DRIVER=file

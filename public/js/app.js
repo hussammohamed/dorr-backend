@@ -12112,8 +12112,7 @@ var app = new Vue({
     data: function data() {
         return {
             url: "",
-            cities: [],
-            currenPrice: ""
+            cities: []
 
         };
     },
@@ -12170,7 +12169,6 @@ var app = new Vue({
 
     mounted: function mounted() {
         var self = this;
-        this.currenPrice = $('#price').val() + " " + "ريال";
         setTimeout(function () {
             $(".city_id_js").change(function () {
                 var value = $(this).parent().find(".hidden-input").val();
@@ -12195,11 +12193,11 @@ var app = new Vue({
                     complete: function complete(_response) {
                         setTimeout(function () {
                             getmdlSelect.init('.getmdl-select__city');
-                        }, 10);
+                        }, 0);
                     }
                 });
             });
-        }, 50);
+        }, 0);
     }
 });
 

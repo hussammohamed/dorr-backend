@@ -30,7 +30,6 @@ const app = new Vue({
         return {
           url: "",
           cities: [],
-          currenPrice:""
 
         };
       },
@@ -70,7 +69,6 @@ const app = new Vue({
 
     mounted() {
         var self = this;
-        this.currenPrice = $('#price').val() + " " + "ريال";
         setTimeout(() => { $(".city_id_js").change(function(){
          var value = $(this).parent().find(".hidden-input").val();
          $.ajax({
@@ -95,11 +93,11 @@ const app = new Vue({
             complete: function(_response) {
                 setTimeout(() => {
                     getmdlSelect.init('.getmdl-select__city');
-                }, 10);
+                }, 0);
                 
             },
         });
-        });}, 50);
+        });}, 0);
     }
 
 });

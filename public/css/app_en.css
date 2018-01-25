@@ -16470,6 +16470,12 @@ td.header {
   min-width: calc(33.33% - 16px);
 }
 
+.u-hidden {
+  visibility: hidden;
+  opacity: 0;
+  display: none !important;
+}
+
 h1,
 h2,
 h3,

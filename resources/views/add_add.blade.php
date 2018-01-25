@@ -70,7 +70,7 @@
                     <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet">
                         <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label  getmdl-select__city  getmdl-select getmdl-select__fix-height">
                           <input class="mdl-textfield__input" required type="text" id="district" value="" readonly tabIndex="-1">
-                          <input  type="hidden" name="region" value="" >
+                          <input  type="hidden" name="region" required value="" >
                           <label for="district">
                             <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
                           </label>
@@ -83,7 +83,7 @@
                 </div>
             </section>
             <h3 class="hidden"></h3>
-            <section>
+            <section class="u-hidden">
                 <div class="section-header">
                     <h3>تفاصيل الأعلان</h3>
                 </div>
@@ -114,7 +114,7 @@
                             <label for="advertiser_type">
                                 <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
                             </label>
-                            <label for="advertiser_type" class="mdl-textfield__label">صاحب العقار</label>
+                            <label for="advertiser_type" class="mdl-textfield__label">العلاقة بالعقار</label>
                             <ul for="advertiser_type" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
                                 @foreach($advertiserTypes as $advertiserType)
                                 <li class="mdl-menu__item" data-val="{{$advertiserType->id}}">{{$advertiserType->$name}}</li>
@@ -131,7 +131,7 @@
                     <div class="mdl-cell mdl-cell--3-col">
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
                             <input class="mdl-textfield__input" required name="price" type="number" id="price">
-                            <label class="mdl-textfield__label" for="price">السعر</label>
+                            <label class="mdl-textfield__label" for="price">سعر السوق</label>
                         </div>
                     </div>
                     <div class="mdl-cell mdl-cell--3-col">
@@ -237,7 +237,7 @@
                 </div>
             </section>
             <h3 class="hidden"></h3>
-            <section>
+            <section class="u-hidden">
                 <div class="section-header">
                     <h3>صور العقار</h3>
                 </div>
@@ -248,7 +248,7 @@
                                 <i class="material-icons">add_a_photo</i>
                                 <input type="file"  class="form-control-file text-primary font-weight-bold" id="inputFile" accept="image/*" onchange="readUrl(this)"
                                     data-title="اسحب الصورة هنا للإضافة" name="attachment[]" multiple>
-                                <button type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored" onclick="document.getElementById('inputFile').click()">او تصفح</button>
+                                <button type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored" onclick="document.getElementById('inputFile').click()">او إرفاق صور</button>
                             </div>
                         </div>
 
@@ -298,12 +298,17 @@
         bodyTag: "section",
         transitionEffect: "fade",
         onStepChanging: function (event, currentIndex, newIndex){
-            if(form.valid()){
+            $(".u-hidden").removeClass('u-hidden');
+            console.log(newIndex, currentIndex) 
+            if(form.valid() && $("#district").valid()){
                 $(".is-invalid").removeClass("is-invalid");
+                return true;
+            }else if(newIndex < currentIndex){
                 return true;
             }else{
                 return false;
-            }    
+            }
+          
             
         },
         onStepChanged: function (event, currentIndex, newIndex) {
@@ -440,4 +445,5 @@
         }
     }
 
-    }</script> @endpush
+    }</script> 
+    @endpush

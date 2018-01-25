@@ -195,8 +195,12 @@ export default {
           if (self.bound && arr.length) {
             self.map.fitBounds(bounds);
             setTimeout(() => {
-              if(self.map.zoom > 15)
-              self.map.setZoom(15);
+              if(self.map.zoom > 15){
+                 self.map.setZoom(15);
+              }else if (self.map.zoom < 11){
+                self.map.setZoom(11);
+              }
+             
             }, 150);
           }
           if (

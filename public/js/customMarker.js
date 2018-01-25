@@ -1,6 +1,21 @@
+var reformNumber = function(n){
+	if(n[n.length-1] === '0'){
+	  return n.substr(0,n.length-2);
+	}
+	return n;
+  }
+  var priceFormatter = function(num){
+	if(num > 999999999)
+	  return reformNumber((num/1000000000).toFixed(1)) + " مليار ";
+	else if(num > 999999)
+	  return reformNumber((num/1000000).toFixed(1))  + " مليون ";
+	else if(num > 999)
+	  return reformNumber((num/1000).toFixed(1))   + " ألف ";
+	else return reformNumber(num.toFixed(1)) +  " ريال ";
+  }
 function CustomMarker(latlng, map, args, type, component) {
 	this.latlng = latlng;
-	this.args = args;
+	this.args = args; 
 	this.type = type;
 	this.setMap(map);
 	this.component = component;
@@ -26,7 +41,7 @@ CustomMarker.prototype.draw = function () {
 			div.innerHTML += self.args.title;
 		}
 		if (self.type === "property") {
-			div.innerHTML += self.args.details.price;
+			div.innerHTML += priceFormatter(self.args.details.price);
 		}
 
 		google.maps.event.addDomListener(div, "click", function (event) {

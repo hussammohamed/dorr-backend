@@ -30,7 +30,7 @@ class CreatePropertiesTable extends Migration
 		    $table->integer('area');
 		    $table->integer('floor')->default('0');
 		    $table->integer('finish_type')->default('0');
-		    $table->integer('overlooks')->default('0');
+		    $table->string('overlooks')->nullable();
 		    $table->integer('payment_methods')->default('0');
 		    $table->integer('rooms')->default('0');
 		    $table->integer('bathrooms')->default('0');

@@ -77,10 +77,7 @@ class PropertyResource extends Resource
                 "ad_id"=> $this->ad_id,
                 "youtube"=> $this->youtube,
                 "address"=> $this->address, 
-                "overlooks"=> [
-                    "id" => $this->overlooks,
-                    "name" => Overlook::find($this->overlooks)->$name
-                ],
+                "overlooks"=>  $this->overlooks,
                 "payment_methods"=> [
                     "id" => $this->payment_methods,
                     "name" => PaymentMethod::find($this->payment_methods)->$name

@@ -2,6 +2,18 @@
 
 
 <div class="content">
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+
     <form id="properties-form" class="wizard-form" action="/properties/update" method="POST" enctype="multipart/form-data">
         {{ csrf_field() }}
         <input type="hidden" name="id" value="{{$property->id}}">

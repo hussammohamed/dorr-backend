@@ -32,6 +32,7 @@ use App\Http\Resources\PaymentMethodResource;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PropertyVaildator;
 
 class PropertiesController extends Controller
 {
@@ -296,26 +297,10 @@ class PropertiesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PropertyVaildator $request)
     {
         //
         if (Auth::check()) {
-            $request->validate([
-                'type' => 'required',
-                'purpose' => 'required',
-                'title' => 'required',
-                'address' => 'required',
-                'region' => 'required',
-                'lat' => 'required',
-                'long' => 'required',
-                'price' => 'required',
-                'advertiser_type' => 'required',
-                'area' => 'required|numeric',
-                'rooms' => 'numeric',
-                'bathrooms' => 'numeric',
-                'youtube' => 'url',
-            ]);
-            
             $property = new Property;
             $property->user_id = Auth::user()->id;
             $property->type = $request->type;
@@ -517,28 +502,10 @@ class PropertiesController extends Controller
      * @param  \App\Test  $test
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(PropertyVaildator $request)
     {
-        //
         if (Auth::check()) {
 
-            
-            $request->validate([
-                'type' => 'required',
-                'purpose' => 'required',
-                'title' => 'required',
-                'address' => 'required',
-                'region' => 'required',
-                'lat' => 'required',
-                'long' => 'required',
-                'price' => 'required',
-                'advertiser_type' => 'required',
-                'area' => 'required|numeric',
-                'rooms' => 'numeric',
-                'bathrooms' => 'numeric',
-                'youtube' => 'url',
-            ]);
-            
             $property = Property::find($request->id);
             $property->type =  $request->type;
             $property->purpose =  $request->purpose;
@@ -585,7 +552,7 @@ class PropertiesController extends Controller
         if (Auth::check()) {
             $property = Property::find($id);
             if (count($property) < 1) {
-                return response()->json(["error"=>"This Proberty is not exists"], Response::HTTP_NOT_FOUND);
+                return response()->json(["error"=>"This Proberty is not exists"], Response::HTTP_NO_CONTENT);
             }else{
                 if($property->user_id == Auth::user()->id){
                     $property->delete();
@@ -604,7 +571,7 @@ class PropertiesController extends Controller
         if (Auth::check()) {
             $property = Property::find($id);
             if (count($property) < 1) {
-                return response()->json(["error"=>"This Proberty is not exists"], Response::HTTP_NOT_FOUND);
+                return response()->json(["error"=>"This Proberty is not exists"], Response::HTTP_NO_CONTENT);
             }else{
                 if($property->user_id == Auth::user()->id){
                     if($property->deleted == 0 ){
@@ -623,7 +590,29 @@ class PropertiesController extends Controller
         }
     }
 
-
+    public function setFeatured($id)
+    {
+        if (Auth::check()) {
+            $property = Property::find($id);
+            if (count($property) < 1) {
+                return response()->json(["error"=>"This Proberty is not exists"], Response::HTTP_NO_CONTENT);
+            }else{
+                if($property->user_id == Auth::user()->id){
+                    if($property->featured == 0 ){
+                        $property->featured = 1;
+                        $property->save();
+                        return new PropertyResource($property);
+                    }else{
+                        return response()->json(["error"=>"This Proberty is already featured"], Response::HTTP_NOT_MODIFIED);
+                    }
+                }else{
+                    return response()->json(["error"=>"You are not allowd to feature this property"], Response::HTTP_METHOD_NOT_ALLOWED);
+                }
+            }
+        }else{
+            return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
+        }
+    }
 
     public function getFormData ()
     {

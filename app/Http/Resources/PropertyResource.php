@@ -26,6 +26,17 @@ class PropertyResource extends Resource
     public function toArray($request)
     {
         $name = 'name_'.App::getLocale();
+
+        if($this->overlooks==null){
+            $x = null;
+        }else{    
+            $overlooks=explode(",", $this->overlooks);
+            $x = array(); 
+            foreach($overlooks as $overlook) {
+                array_push($x,["id"=>$overlook,"name" => Overlook::find($overlook)->$name]);
+            }
+        }
+        
         return[
             'id' => $this->id,
             "title" => $this->title,
@@ -77,7 +88,7 @@ class PropertyResource extends Resource
                 "ad_id"=> $this->ad_id,
                 "youtube"=> $this->youtube,
                 "address"=> $this->address, 
-                "overlooks"=>  $this->overlooks,
+                "overlooks"=>  $x,
                 "payment_methods"=> [
                     "id" => $this->payment_methods,
                     "name" => PaymentMethod::find($this->payment_methods)->$name

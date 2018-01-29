@@ -86,7 +86,7 @@
                             <td class="u-no-border-top ">{{ $property->id }}</td>
                         </tr>
                         <tr>
-                            <td class="u-no-border-top header" width="8%">السعر</td>
+                            <td class="u-no-border-top header" width="8%">سعر السوق</td>
                             <td class="u-no-border-top">
                             {{ $property->price }}
                             </td>
@@ -137,7 +137,7 @@
 
                         </tr>
                         <tr>
-                            <td class="u-no-border-top header" width="8%">نوع المعلن</td>
+                            <td class="u-no-border-top header" width="8%">العلاقة بالعقار</td>
                             <td class="u-no-border-top">
                             {{ \App\Advertiser::find($property->advertiser_type)->$name }}
                             </td>

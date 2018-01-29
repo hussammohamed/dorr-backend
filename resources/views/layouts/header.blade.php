@@ -1,6 +1,6 @@
 <header class="mdl-layout__header l-header">
     <div class="topbar">
-        <div class="topbar--item topbar--item__lang ">
+        <!-- <div class="topbar--item topbar--item__lang ">
             <div class="topbar--item--bg "></div>
             
             @if(App::getLocale()=="en" )
@@ -10,12 +10,12 @@
             @endif
 
 
-        </div>
+        </div> -->
         <div class="topbar--item topbar--item__social">
             <div class="topbar--item--bg"></div>
             <nav class="navigation--social__link">
                 <a href="#" class="social--icon social--icon__f">
-                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px"
+                    <!-- <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px"
                         width="96.124px" height="96.123px" viewBox="0 0 96.124 96.123" style="enable-background:new 0 0 96.124 96.123;"
                         xml:space="preserve">
                         <g>
@@ -23,6 +23,12 @@
                             />
                         </g>
 
+                    </svg> -->
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px"
+                        viewBox="0 0 461.001 461.001" style="enable-background:new 0 0 461.001 461.001;" xml:space="preserve">
+                        <path d="M365.257,67.393H95.744C42.866,67.393,0,110.259,0,163.137v134.728  c0,52.878,42.866,95.744,95.744,95.744h269.513c52.878,0,95.744-42.866,95.744-95.744V163.137  C461.001,110.259,418.135,67.393,365.257,67.393z M300.506,237.056l-126.06,60.123c-3.359,1.602-7.239-0.847-7.239-4.568V168.607  c0-3.774,3.982-6.22,7.348-4.514l126.06,63.881C304.363,229.873,304.298,235.248,300.506,237.056z"
+                        />
+                        <g>
                     </svg>
                 </a>
                 <a href="#" class="social--icon social--icon__t">
@@ -57,28 +63,28 @@
         </div>
         <div class="topbar--item topbar--item__actions">
             <nav class="mdl-navigation">
-            @guest
-            <a  href={{ asset( '/zakah')}} class="action--link">
+                @guest
+                <!-- <a  href={{ asset( '/zakah')}} class="action--link">
                     <span>حساب الذكاه</span>
                     <i class="material-icons">%</i>
-                </a>
-                <a  href={{ asset( '/report')}} class="action--link">
+                </a> -->
+                <!-- <a  href={{ asset( '/report')}} class="action--link">
                     <span>التقرير العقارى</span>
                     <i class="material-icons">insert_chart</i>
-                </a>
-                <a  @click="loginDialog('/properties/create')" class="action--link">
+                </a> -->
+                <a @click="loginDialog('/properties/create')" class="action--link">
                     <span>أضف عقار</span>
                     <i class="material-icons">add_box</i>
                 </a>
-            @else
-                <a href={{ asset( '/zakah')}} class="action--link">
+                @else
+                <!-- <a href={{ asset( '/zakah')}} class="action--link">
                     <span>{{ trans('ui.zkaka-link')}}</span>
                     <i class="material-icons">%</i>
                 </a>
                 <a href={{ asset( '/report')}} class="action--link">
                     <span>{{ trans('ui.report-link')}}</span>
                     <i class="material-icons">insert_chart</i>
-                </a>
+                </a> -->
 
                 <a href={{ asset( '/properties/create')}} class="action--link">
                     <span>أضف عقار</span>
@@ -122,11 +128,11 @@
                         <a href="#">إدارة العقارات</a>
                     </li>
                     <li>
-                        <a href="{{ route('logout') }}"  onclick="event.preventDefault();
+                        <a href="{{ route('logout') }}" onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();">خروج</a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                {{ csrf_field() }}
-                            </form>
+                            {{ csrf_field() }}
+                        </form>
                     </li>
 
                 </ul>

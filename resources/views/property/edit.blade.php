@@ -35,7 +35,7 @@
                                 <i class="material-icons">add_a_photo</i>
                                 <input type="file" class="form-control-file text-primary font-weight-bold" id="inputFile" accept="image/*" onchange="readUrl(this)"
                                     data-title="اسحب الصورة هنا للإضافة" name="attachment[]" multiple>
-                                <button type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored" onclick="document.getElementById('inputFile').click()">او تصفح</button>
+                                <button type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored" onclick="document.getElementById('inputFile').click()">او إرفاق صور</button>
                             </div>
                         </div>
 
@@ -223,7 +223,7 @@
                                 </td>
                             </tr>
                             <tr>
-                               <td class="u-no-border-top header" width="8%">السعر</td>
+                               <td class="u-no-border-top header" width="8%">سعر السوق</td>
                                 <td class="u-no-border-top">
                                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
                                         <input class="mdl-textfield__input" required  name="price" type="number" value="{{$property->price}}" id="price">
@@ -235,7 +235,7 @@
 
                             <tr>
 
-                                <td class="u-no-border-top header" width="8%">نوع المعلن</td>
+                                <td class="u-no-border-top header" width="8%">العلاقة بالعقار</td>
                                 <td class="u-no-border-top">
                                     <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
                                         <input class="mdl-textfield__input" required type="text" id="advertiser_type" value="" readonly tabIndex="-1">

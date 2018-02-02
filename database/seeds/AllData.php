@@ -20,6 +20,7 @@ use App\MenuLink;
 use App\Page;
 use App\Advertiser;
 use App\PropertyOffer;
+use App\PropertyReport;
 
 class AllData extends Seeder
 {
@@ -433,6 +434,19 @@ class AllData extends Seeder
         $property->youtube = "";
         $property->advertiser_type = 1;
         $property->save(); 
+
+
+        //Seed PropertyReports
+        $property_id=['1','1','2','1','1','2','2','3','3','2'];
+        $comment=['تعليق 1','تعليق 2','تعليق 3','تعليق 4','تعليق 5','تعليق 6','تعليق 7','تعليق 8','تعليق 9','تعليق 10'];
+        $user_id=['1','1','1','2','2','3','1','1','2','3','2'];
+        foreach($property_id as $key=>$value){
+            $add = new PropertyReport;
+            $add->property_id = $value;
+            $add->comment = $comment[$key];
+            $add->user_id = $user_id[$key];
+            $add->save();
+        }
                        
     }
 }

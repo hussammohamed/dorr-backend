@@ -77,8 +77,8 @@ class PropertyOfferController extends Controller
             'price' => $offer->price,
             'offerOwner' =>[
                 'id'=> $offer->user_id,
-                'name'=> ($offer->user_id == 0 ) ? 'Unkowen' : User::find(1)->name,
-                'phone'=> ($offer->user_id == 0 ) ? 'Unkowen' : User::find(1)->phone,
+                'name'=> ($offer->user_id == 0 ) ? 'Unkowen' : Auth::user()->name,
+                'phone'=> ($offer->user_id == 0 ) ? 'Unkowen' : Auth::user()->mobile1,
             ],
         ];
     }

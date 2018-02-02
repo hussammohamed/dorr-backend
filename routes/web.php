@@ -98,6 +98,8 @@ Route::get('api/v1/property/{id}/add_images', 'PropertyImagesController@storeNew
 Route::get('api/v1/property/similer/{id}', 'PropertiesController@getSimilerProperties');
 Route::get('api/v1/property/offers/{id}', 'PropertyOfferController@getPropertyOffers');
 Route::post('api/v1/property/offers/{id}/store', 'PropertyOfferController@storeAPI');
+Route::get('api/v1/property/reports/{id}', 'PropertyReportController@getByProperty');
+Route::post('api/v1/property/reports/{id}/store', 'PropertyReportController@storeAPI');
 Route::get('api/v1/properties', 'PropertiesController@getList');
 Route::get('api/v1/regions/districts', 'RegionsController@getDistricts');
 Route::get('api/v1/regions/{city}', 'RegionsController@getDistrictsByCity');

@@ -20,8 +20,8 @@ class PropertyOfferCollection extends Resource
             'price' => $this->price,
             'offerOwner' => [
                 'id'=> ($this->api_token == null ) ? 'Unkowen' : $this->user_id,
-                'name'=> ($this->api_token == null ) ? 'Unkowen' : User::find(1)->name,
-                'phone'=> ($this->api_token == null ) ? 'Unkowen' : User::find(1)->phone,
+                'name'=> ($this->api_token == null ) ? 'Unkowen' : User::find($this->user_id)->name,
+                'phone'=> ($this->api_token == null ) ? 'Unkowen' : User::find($this->user_id)->mobile1,
             ],
         ];
     }

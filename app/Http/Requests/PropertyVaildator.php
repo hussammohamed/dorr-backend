@@ -51,6 +51,7 @@ class PropertyVaildator extends FormRequest
             'address.required' => 'يجب ادخال عنوان للعقار',
             'region.required' => 'يجب اختيار حى',
             'lat.required'  => 'يجب تحديد نقطة على الخريطة',
+            'long.required'  => 'يجب تحديد نقطة على الخريطة',
             'price.required' => 'يجب ادخال سعر العقار',
             'advertiser_type.required' => 'يجب ادخال علاقتك بلاعلان',
             'area.required' => 'يجب ادخال مساحة العقار',

@@ -21,6 +21,7 @@ use App\Page;
 use App\Advertiser;
 use App\PropertyOffer;
 use App\PropertyReport;
+use App\IncomePeriod;
 
 class AllData extends Seeder
 {
@@ -72,6 +73,17 @@ class AllData extends Seeder
             $add = new Overlook;
             $add->name_ar = $value;
             $add->name_en = $overlooks_en[$key];
+            $add->order = $key+1;
+            $add->save();
+        }
+        
+        //Seed IncomePeriods
+        $income_periods_ar=['الدخل السنوى','الدخل الشهرى','الدخل الاسبوعى','الدخل اليومى'];
+        $income_periods_en=['Annual Income', 'Monthly income','Weekly Income','Daily income'];
+        foreach($income_periods_ar as $key=>$value){
+            $add = new IncomePeriod;
+            $add->name_ar = $value;
+            $add->name_en = $income_periods_en[$key];
             $add->order = $key+1;
             $add->save();
         }
@@ -292,6 +304,10 @@ class AllData extends Seeder
         $property->long = "46.7129167";
         $property->description = "وصف للوحدة";
         $property->price = 5000000;
+        $property->price_view = 1;
+        $property->bid_price = 7010000;
+        $property->income_period = 1;
+        $property->income = 70000;
         $property->year_of_construction = "2000";
         $property->area = 100;
         $property->floor = 2;
@@ -318,6 +334,10 @@ class AllData extends Seeder
         $property->long = "39.545961";
         $property->description = "وصف للوحدة";
         $property->price = 7000000;
+        $property->price_view = 0;
+        $property->bid_price = 7010000;
+        $property->income_period = 1;
+        $property->income = 70000;
         $property->year_of_construction = "1980";
         $property->area = 100;
         $property->floor = 1;
@@ -344,6 +364,10 @@ class AllData extends Seeder
         $property->long = "39.545961";
         $property->description = "وصف للوحدة";
         $property->price = 7000000;
+        $property->price_view = 1;
+        $property->bid_price = 7010000;
+        $property->income_period = 1;
+        $property->income = 70000;
         $property->year_of_construction = "1980";
         $property->area = 100;
         $property->floor = 1;
@@ -370,6 +394,10 @@ class AllData extends Seeder
         $property->long = "39.545961";
         $property->description = "وصف للوحدة";
         $property->price = 7000000;
+        $property->price_view = 0;
+        $property->bid_price = 7010000;
+        $property->income_period = 2;
+        $property->income = 5000;
         $property->year_of_construction = "1980";
         $property->area = 100;
         $property->floor = 1;
@@ -396,6 +424,10 @@ class AllData extends Seeder
         $property->long = "39.545961";
         $property->description = "وصف للوحدة";
         $property->price = 7000000;
+        $property->price_view = 1;
+        $property->bid_price = 7010000;
+        $property->income_period = 1;
+        $property->income = 70000;
         $property->year_of_construction = "1980";
         $property->area = 100;
         $property->floor = 1;
@@ -422,6 +454,10 @@ class AllData extends Seeder
         $property->long = "39.545961";
         $property->description = "وصف للوحدة";
         $property->price = 7000000;
+        $property->price_view = 1;
+        $property->bid_price = 7010000;
+        $property->income_period = 2;
+        $property->income = 5000;
         $property->year_of_construction = "1980";
         $property->area = 100;
         $property->floor = 1;

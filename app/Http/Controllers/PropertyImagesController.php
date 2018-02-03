@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Resources\PropertyImageResource;
 use Illuminate\Support\Facades\Storage;
-
+use Intervention\Image\Facades\Image;
 class PropertyImagesController extends Controller
 {
     /**
@@ -46,6 +46,20 @@ class PropertyImagesController extends Controller
             $fileName = $property_id."-".time()."-".str_random(6).".".$extension;
             $folderpath  = 'upload/properties/';
             $file->move($folderpath , $fileName);
+            
+            // - Add Watermark 
+            $stamp = imagecreatefrompng('images/dorr_watermark.png');
+            $im = imagecreatefromjpeg($folderpath ."/". $fileName);
+
+            $marge_right = 20;
+            $marge_bottom = 20;
+            $sx = imagesx($stamp);
+            $sy = imagesy($stamp);
+            imagecopy($im, $stamp, imagesx($im) - $sx - $marge_right, imagesy($im) - $sy - $marge_bottom, 0, 0, imagesx($stamp), imagesy($stamp));
+            imagejpeg($im, $folderpath ."/". $fileName, 100);
+            imagedestroy($stamp);
+            imagedestroy($im);
+            // ---------------------------------------------------------
 
             $img = new PropertyImage;
             $img->property_id = $property_id;

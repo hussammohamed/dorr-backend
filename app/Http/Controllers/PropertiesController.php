@@ -388,6 +388,20 @@ class PropertiesController extends Controller
                     $folderpath  = 'upload/properties/';
                     $file->move($folderpath , $fileName);
                     
+                    // - Add Watermark 
+                    $stamp = imagecreatefrompng('images/dorr_watermark.png');
+                    $im = imagecreatefromjpeg($folderpath ."/". $fileName);
+
+                    $marge_right = 20;
+                    $marge_bottom = 20;
+                    $sx = imagesx($stamp);
+                    $sy = imagesy($stamp);
+                    imagecopy($im, $stamp, imagesx($im) - $sx - $marge_right, imagesy($im) - $sy - $marge_bottom, 0, 0, imagesx($stamp), imagesy($stamp));
+                    imagejpeg($im, $folderpath ."/". $fileName, 100);
+                    imagedestroy($stamp);
+                    imagedestroy($im);
+                    // ---------------------------------------------------------
+                    
                     $img = new PropertyImage;
                     $img->property_id = $property->id;
                     $img->path = $fileName;
@@ -493,7 +507,27 @@ class PropertiesController extends Controller
                             $fileName = $property->id."-".time()."-".str_random(6).".".$extension;
                             $folderpath  = 'upload/properties/';
                             $file->move($folderpath , $fileName);
-                            
+
+                            // - Add Watermark 
+                            $stamp = imagecreatefrompng('images/dorr_watermark.png');
+                            $im = imagecreatefromjpeg($folderpath ."/". $fileName);
+
+                            $marge_right = 20;
+                            $marge_bottom = 20;
+                            $sx = imagesx($stamp);
+                            $sy = imagesy($stamp);
+                            imagecopy($im, $stamp, imagesx($im) - $sx - $marge_right, imagesy($im) - $sy - $marge_bottom, 0, 0, imagesx($stamp), imagesy($stamp));
+                            imagejpeg($im, $folderpath ."/". $fileName, 100);
+                            imagedestroy($stamp);
+                            imagedestroy($im);
+                            // ---------------------------------------------------------
+
+                            $img = Image::make($file->getRealPath());
+                            $watermark = Image::make(public_path('images/dorr_watermark.png'));                
+                            $img->insert($watermark, 'bottom-right', 50, 50);
+                            $img->save($folderpath.'/'.$fileName);
+
+
                             $img = new PropertyImage;
                             $img->property_id = $property->id;
                             $img->path = $fileName;
@@ -525,7 +559,7 @@ class PropertiesController extends Controller
     public function update(PropertyVaildator $request)
     {
         if (Auth::check()) {
-            $property = Property::find($id);
+            $property = Property::find($request->id);
             if (count($property) < 1) {
                 return response()->json(["error"=>"This Proberty is not exists"], Response::HTTP_NO_CONTENT);
             }else{
@@ -541,10 +575,10 @@ class PropertiesController extends Controller
                     $property->long =  $request->long;
                     $property->description =  $request->description;
                     $property->price = $request->price;
-                    $property->price_view = $request->price_view;
-                    $property->bid_price = $request->bid_price;
-                    $property->income_period = $request->income_period;
-                    $property->income = $request->income;
+                    $property->price_view = 1;
+                    $property->bid_price = 1;
+                    $property->income_period = 1;
+                    $property->income = 1;
                     $property->year_of_construction =  $request->year_of_construction;
                     $property->advertiser_type =  $request->advertiser_type;
                     $property->area =  $request->area;

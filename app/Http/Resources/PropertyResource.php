@@ -75,7 +75,7 @@ class PropertyResource extends Resource
                 "bid_price" => $this->bid_price,
                 "income_period"=> [
                     "id" => $this->income_period,
-                    "name" => IncomePeriod::find($this->income_period)->$name,
+                    "name" => ($this->income_period == null ) ? null : IncomePeriod::find($this->income_period)->$name,
                 ],
                 "income" => $this->income,
                 "price_per_meter"=> $this->price / $this->area,

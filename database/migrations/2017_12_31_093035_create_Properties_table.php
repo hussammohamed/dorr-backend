@@ -26,10 +26,10 @@ class CreatePropertiesTable extends Migration
 		    $table->decimal('long', 20, 18);
 		    $table->text('description')->nullable();
 		    $table->integer('price');
-		    $table->integer('price_view');
-		    $table->integer('bid_price');
-		    $table->integer('income_period');
-		    $table->integer('income');
+		    $table->integer('price_view')->default('1');
+		    $table->integer('bid_price')->nullable();
+		    $table->integer('income_period')->nullable();
+		    $table->integer('income')->nullable();
 		    $table->integer('year_of_construction');
 		    $table->integer('area');
 		    $table->integer('floor')->default('0');

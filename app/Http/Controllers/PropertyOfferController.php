@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Property;
 use App\PropertyOffer;
 use App\User;
 use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Http\Resources\PropertyOfferCollection;
 
 class PropertyOfferController extends Controller
@@ -20,10 +22,9 @@ class PropertyOfferController extends Controller
         //
     }
 
-    public function getPropertyOffers($id){
-        //
-
-        $property_offers = PropertyOffer::all();
+    public function getPropertyOffers($id)
+    {
+        $property_offers = PropertyOffer::where('property_id',$id)->where('active',1)->where('deleted',0)->get();
         return PropertyOfferCollection::collection($property_offers);
     }
 
@@ -124,8 +125,74 @@ class PropertyOfferController extends Controller
      * @param  \App\PropertyOffer  $propertyOffer
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PropertyOffer $propertyOffer)
+    public function destroy($id)
     {
-        //
+        if (Auth::check()) {
+            $offer = PropertyOffer::find($id);
+
+            //if($offer->user_id == Auth::user()->id || $property->user_id == Auth::user()->id ){
+                
+                if (count($offer) < 1) {
+                    return response()->json(["error"=>"This Offer is not exists"], Response::HTTP_NOT_FOUND);
+                }else{
+                    $offer->delete();
+                    return response()->json(["message"=>"This Offer has been destroied successfully"], Response::HTTP_OK);
+                }
+
+            //}else{
+            //    return response()->json(["error"=>"You are not allowd to delete this offer"], Response::HTTP_METHOD_NOT_ALLOWED);
+            //}
+            
+        }else{
+            return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
+        }
+        
+        
+        
+        
+        if (Auth::check()) {
+            $property = Property::find($id);
+            if (count($property) < 1) {
+                return response()->json(["error"=>"This Proberty is not exists"], Response::HTTP_NO_CONTENT);
+            }else{
+                if($property->user_id == Auth::user()->id){
+                    $property->delete();
+                    return response()->json(["message"=>"The property has been deleted"], Response::HTTP_ACCEPTED);
+                }else{
+                    return response()->json(["error"=>"You are not allowd to delete this property"], Response::HTTP_METHOD_NOT_ALLOWED);
+                }
+            }
+        }else{
+            return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
+        }
+    }
+
+    public function delete($id)
+    {
+        if (Auth::check()) {
+            $offer = PropertyOffer::find($id);
+            $property = Property::find($offer->property_id);
+
+            if($offer->user_id == Auth::user()->id || $property->user_id == Auth::user()->id ){
+                
+                if (count($offer) < 1) {
+                    return response()->json(["error"=>"This Offer is not exists"], Response::HTTP_NOT_FOUND);
+                }else{
+                        if($offer->deleted == 0 ){
+                            $offer->deleted = 1;
+                            $offer->save();
+                            return response()->json(["message"=>"This Offer has been deleted successfully"], Response::HTTP_OK);
+                        }else{
+                            return response()->json(["message"=>"This Offer is already deleted"], Response::HTTP_OK);
+                        }
+                }
+
+            }else{
+                return response()->json(["error"=>"You are not allowd to delete this offer"], Response::HTTP_METHOD_NOT_ALLOWED);
+            }
+
+        }else{
+            return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
+        }
     }
 }

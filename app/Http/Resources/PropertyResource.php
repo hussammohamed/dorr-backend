@@ -11,6 +11,7 @@ use App\Region;
 use App\Overlook;
 use App\PaymentMethod;
 use App\Advertiser;
+use App\IncomePeriod;
 use App\Http\Resources\PropertyImageResource;
 
 use Illuminate\Http\Resources\Json\Resource;
@@ -70,6 +71,13 @@ class PropertyResource extends Resource
                 ],
                 "description"=> $this->description,
                 "price"=> $this->price,
+                "price_view" => $this->price_view,
+                "bid_price" => $this->bid_price,
+                "income_period"=> [
+                    "id" => $this->income_period,
+                    "name" => ($this->income_period == null ) ? null : IncomePeriod::find($this->income_period)->$name,
+                ],
+                "income" => $this->income,
                 "price_per_meter"=> $this->price / $this->area,
                 "year_of_construction"=> $this->year_of_construction,
                 "date_of_publication"=> $this->created_at->format('Y-m-d'),

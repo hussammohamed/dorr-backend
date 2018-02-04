@@ -312,6 +312,10 @@ class PropertiesController extends Controller
             $property->long = $request->long;
             $property->description = $request->description;
             $property->price = $request->price;
+            $property->price_view = $request->price_view;
+            $property->bid_price = $request->bid_price;
+            $property->income_period = $request->income_period;
+            $property->income = $request->income;
             $property->year_of_construction = $request->year_of_construction;
             $property->advertiser_type = $request->advertiser_type;
             $property->area = $request->area;
@@ -327,11 +331,8 @@ class PropertiesController extends Controller
 
             $property->save();
 
-            
             if ($request->hasFile('attachment')) {
-                
                 app('App\Http\Controllers\PropertyImagesController')->store($property->id, $request->file('attachment'));
-                
             }
 
             return view('sucsess',['property'=>$property]);
@@ -358,6 +359,10 @@ class PropertiesController extends Controller
             $property->long =  $data['long'];
             $property->description =  $data['description'];
             $property->price = $data['price'];
+            $property->price_view = $data['price_view'];
+            $property->bid_price = $data['bid_price'];
+            $property->income_period = $data['income_period'];
+            $property->income = $data['income'];
             $property->year_of_construction =  $data['year_of_construction'];
             $property->advertiser_type =  $data['advertiser_type'];
             $property->area =  $data['area'];
@@ -382,6 +387,20 @@ class PropertiesController extends Controller
                     $fileName = $property->id."-".time()."-".str_random(6).".".$extension;
                     $folderpath  = 'upload/properties/';
                     $file->move($folderpath , $fileName);
+                    
+                    // - Add Watermark 
+                    $stamp = imagecreatefrompng('images/dorr_watermark.png');
+                    $im = imagecreatefromjpeg($folderpath ."/". $fileName);
+
+                    $marge_right = 20;
+                    $marge_bottom = 20;
+                    $sx = imagesx($stamp);
+                    $sy = imagesy($stamp);
+                    imagecopy($im, $stamp, imagesx($im) - $sx - $marge_right, imagesy($im) - $sy - $marge_bottom, 0, 0, imagesx($stamp), imagesy($stamp));
+                    imagejpeg($im, $folderpath ."/". $fileName, 100);
+                    imagedestroy($stamp);
+                    imagedestroy($im);
+                    // ---------------------------------------------------------
                     
                     $img = new PropertyImage;
                     $img->property_id = $property->id;
@@ -443,55 +462,90 @@ class PropertiesController extends Controller
     public function updateAPI(Request $request, $id)
     {
         //
-            $data = (array) json_decode($request->request->get('data'));
-            
-            //$data->setHeaders('content-type:app/json');
-            //return $data['type'];
-            
-            
+        if (Auth::check()) {
             $property = Property::find($id);
-            $property->type =  $data['type'];
-            $property->purpose =  $data['purpose'];
-            $property->title =  $data['title'];
-            $property->address = $data['address'];
-            $property->region =  $data['district'];
-            $property->lat =  $data['lat'];
-            $property->long =  $data['long'];
-            $property->description =  $data['description'];
-            $property->price = $data['price'];
-            $property->year_of_construction =  $data['year_of_construction'];
-            $property->advertiser_type =  $data['advertiser_type'];
-            $property->area =  $data['area'];
-            $property->floor =  $data['floor'];
-            $property->finish_type =  $data['finish_type'];
-            $property->overlooks =  $data['overlooks'];
-            $property->payment_methods =  $data['payment_methods'];
-            $property->rooms =  $data['rooms'];
-            $property->bathrooms =  $data['bathrooms'];
-            $property->youtube = $data['youtube'];
-
-            $property->save();
-
-            for($x=1;$x<11;$x++){
-
-                if ($request->hasFile('picture'.$x)) {
-                    //return 1;
-                    $file = $request->file('picture'.$x);
-                    $extension = $file->getClientOriginalExtension();
-                    $fileName = $property->id."-".time()."-".str_random(6).".".$extension;
-                    $folderpath  = 'upload/properties/';
-                    $file->move($folderpath , $fileName);
+            if (count($property) < 1) {
+                return response()->json(["error"=>"This Proberty is not exists"], Response::HTTP_NO_CONTENT);
+            }else{
+                if($property->user_id == Auth::user()->id){
                     
-                    $img = new PropertyImage;
-                    $img->property_id = $property->id;
-                    $img->path = $fileName;
-                    $img->order = 1;
-                    $img->save();
+                    $data = (array) json_decode($request->request->get('data'));
+
+                    $property = Property::find($id);
+                    $property->type =  $data['type'];
+                    $property->purpose =  $data['purpose'];
+                    $property->title =  $data['title'];
+                    $property->address = $data['address'];
+                    $property->region =  $data['district'];
+                    $property->lat =  $data['lat'];
+                    $property->long =  $data['long'];
+                    $property->description =  $data['description'];
+                    $property->price = $data['price'];
+                    $property->price_view = $data['price_view'];
+                    $property->bid_price = $data['bid_price'];
+                    $property->income_period = $data['income_period'];
+                    $property->income = $data['income'];
+                    $property->year_of_construction =  $data['year_of_construction'];
+                    $property->advertiser_type =  $data['advertiser_type'];
+                    $property->area =  $data['area'];
+                    $property->floor =  $data['floor'];
+                    $property->finish_type =  $data['finish_type'];
+                    $property->overlooks =  $data['overlooks'];
+                    $property->payment_methods =  $data['payment_methods'];
+                    $property->rooms =  $data['rooms'];
+                    $property->bathrooms =  $data['bathrooms'];
+                    $property->youtube = $data['youtube'];
+
+                    $property->save();
+
+                    for($x=1;$x<11;$x++){
+
+                        if ($request->hasFile('picture'.$x)) {
+                            //return 1;
+                            $file = $request->file('picture'.$x);
+                            $extension = $file->getClientOriginalExtension();
+                            $fileName = $property->id."-".time()."-".str_random(6).".".$extension;
+                            $folderpath  = 'upload/properties/';
+                            $file->move($folderpath , $fileName);
+
+                            // - Add Watermark 
+                            $stamp = imagecreatefrompng('images/dorr_watermark.png');
+                            $im = imagecreatefromjpeg($folderpath ."/". $fileName);
+
+                            $marge_right = 20;
+                            $marge_bottom = 20;
+                            $sx = imagesx($stamp);
+                            $sy = imagesy($stamp);
+                            imagecopy($im, $stamp, imagesx($im) - $sx - $marge_right, imagesy($im) - $sy - $marge_bottom, 0, 0, imagesx($stamp), imagesy($stamp));
+                            imagejpeg($im, $folderpath ."/". $fileName, 100);
+                            imagedestroy($stamp);
+                            imagedestroy($im);
+                            // ---------------------------------------------------------
+
+                            $img = Image::make($file->getRealPath());
+                            $watermark = Image::make(public_path('images/dorr_watermark.png'));                
+                            $img->insert($watermark, 'bottom-right', 50, 50);
+                            $img->save($folderpath.'/'.$fileName);
+
+
+                            $img = new PropertyImage;
+                            $img->property_id = $property->id;
+                            $img->path = $fileName;
+                            $img->order = 1;
+                            $img->save();
+                        }
+                    }
+
+                    $property = Property::find($property->id);
+                    return new PropertyResource($property);
+
+                }else{
+                    return response()->json(["error"=>"You are not allowd to feature this property"], Response::HTTP_METHOD_NOT_ALLOWED);
                 }
             }
-
-            $property = Property::find($property->id);
-            return new PropertyResource($property);
+        }else{
+            return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
+        }
             
     }
 
@@ -505,40 +559,53 @@ class PropertiesController extends Controller
     public function update(PropertyVaildator $request)
     {
         if (Auth::check()) {
-
             $property = Property::find($request->id);
-            $property->type =  $request->type;
-            $property->purpose =  $request->purpose;
-            $property->title =  $request->title;
-            $property->address = $request->address;
-            $property->region =  $request->region;
-            $property->lat =  $request->lat;
-            $property->long =  $request->long;
-            $property->description =  $request->description;
-            $property->price = $request->price;
-            $property->year_of_construction =  $request->year_of_construction;
-            $property->advertiser_type =  $request->advertiser_type;
-            $property->area =  $request->area;
-            $property->floor =  $request->floor;
-            $property->finish_type =  $request->finish_type;
-            $property->overlooks =  $request->overlooks;
-            $property->payment_methods =  $request->payment_methods;
-            $property->rooms =  $request->rooms;
-            $property->bathrooms =  $request->bathrooms;
-            $property->youtube = $request->youtube;
+            if (count($property) < 1) {
+                return response()->json(["error"=>"This Proberty is not exists"], Response::HTTP_NO_CONTENT);
+            }else{
+                if($property->user_id == Auth::user()->id){
+                    
+                    $property = Property::find($request->id);
+                    $property->type =  $request->type;
+                    $property->purpose =  $request->purpose;
+                    $property->title =  $request->title;
+                    $property->address = $request->address;
+                    $property->region =  $request->region;
+                    $property->lat =  $request->lat;
+                    $property->long =  $request->long;
+                    $property->description =  $request->description;
+                    $property->price = $request->price;
+                    $property->price_view = 1;
+                    $property->bid_price = 1;
+                    $property->income_period = 1;
+                    $property->income = 1;
+                    $property->year_of_construction =  $request->year_of_construction;
+                    $property->advertiser_type =  $request->advertiser_type;
+                    $property->area =  $request->area;
+                    $property->floor =  $request->floor;
+                    $property->finish_type =  $request->finish_type;
+                    $property->overlooks =  $request->overlooks;
+                    $property->payment_methods =  $request->payment_methods;
+                    $property->rooms =  $request->rooms;
+                    $property->bathrooms =  $request->bathrooms;
+                    $property->youtube = $request->youtube;
 
-            $property->save();
+                    $property->save();
 
-            if ($request->hasFile('attachment')) {
-                
-                app('App\Http\Controllers\PropertyImagesController')->store($property->id, $request->file('attachment'));
-                
+                    if ($request->hasFile('attachment')) {
+                        app('App\Http\Controllers\PropertyImagesController')->store($property->id, $request->file('attachment'));
+                    }
+
+                    return redirect('/properties/show/'.$property->id);
+
+                }else{
+                    return response()->json(["error"=>"You are not allowd to feature this property"], Response::HTTP_METHOD_NOT_ALLOWED);
+                }
             }
-
-            return redirect('/properties/show/'.$property->id);
         }else{
-            return redirect('/');
+            return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
         }
+        
     }
 
     /**

@@ -98,6 +98,8 @@ Route::get('api/v1/property/{id}/add_images', 'PropertyImagesController@storeNew
 Route::get('api/v1/property/similer/{id}', 'PropertiesController@getSimilerProperties');
 Route::get('api/v1/property/offers/{id}', 'PropertyOfferController@getPropertyOffers');
 Route::post('api/v1/property/offers/{id}/store', 'PropertyOfferController@storeAPI');
+Route::put('api/v1/property/offers/{id}/delete', 'PropertyOfferController@delete');
+Route::delete('api/v1/property/offers/{id}/destroy', 'PropertyOfferController@destroy');
 Route::get('api/v1/property/reports/{id}', 'PropertyReportController@getByProperty');
 Route::post('api/v1/property/reports/{id}/store', 'PropertyReportController@storeAPI');
 Route::get('api/v1/properties', 'PropertiesController@getList');

@@ -11,7 +11,10 @@
             </ul>
         </div>
     @endif
-    
+    <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
+  <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" checked>
+  <span class="mdl-checkbox__label">Checkbox</span>
+</label>
     <form id="properties-form" class="wizard-form" action="/properties/store"  method="POST" enctype="multipart/form-data">
         {{ csrf_field() }}
         <div>
@@ -20,6 +23,7 @@
                 <div class="section-header">
                     <h3>أضف اعلان</h3>
                 </div>
+                
                 <div class="mdl-card mdl-shadow--2dp u-full-width mdl-grid u-mbuttom30">
                     <div class="mdl-cell mdl-cell--6-col">
                         <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">

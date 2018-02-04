@@ -244,3 +244,36 @@ td.header{
     width: 100%;
   }
 }
+
+.mdl-checkbox.is-checked .mdl-checkbox__box-outline{
+  border-color: $primary-base;
+}
+.mdl-checkbox.is-checked .mdl-checkbox__tick-outline{
+  background-color: $primary-base;
+}
+.mdl-checkbox__box-outline{
+  left: auto;
+  right: 0;
+}
+.mdl-checkbox.is-upgraded {
+  padding-left: 0px;
+  padding-right: 24px;
+}
+.mdl-checkbox.is-invalid{
+  .mdl-checkbox__label{
+    color:rgb(213,0,0);
+  }
+  .mdl-checkbox__box-outline{
+    border-color: rgb(213,0,0);
+  }
+}
+
+.dialog.reportDialog .mdl-dialog__actions{
+  padding: 0;
+}
+.mdl-checkbox-col{
+  padding-top: 25px;
+  .price_view{
+    color: rgba(0,0,0, 0.26);
+  }
+}

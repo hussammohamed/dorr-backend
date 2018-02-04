@@ -4,13 +4,13 @@
 <div class="content">
 
     @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
     @endif
 
 
@@ -171,7 +171,37 @@
 
                                 </td>
                             </tr>
-                            <!-- ششش -->
+                            <tr>
+                                <td class="u-no-border-top header" width="8%">فترة الدخل</td>
+                                <td class="u-no-border-top">
+                                    <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
+                                        <input class="mdl-textfield__input" name="typeLabel" type="text" id="income_period" value="" readonly>
+                                        <input value="" type="hidden" name="income_period" />
+                                        <label for="income_period">
+                                            <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                                        </label>
+                                        <label for="income_period" class="mdl-textfield__label"></label>
+                                        <ul for="income_period" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                                            @foreach($incomePeriods as $incomePeriod) @if ($incomePeriod->id == $property->income_period)
+                                            <li class="mdl-menu__item" data-val="{{$incomePeriod->id}}" data-selected="true">{{$incomePeriod->$name}}</li>
+                                            @else
+                                            <li class="mdl-menu__item" data-val="{{$incomePeriod->id}}">{{$incomePeriod->$name}}</li>
+                                            @endif @endforeach
+
+                                        </ul>
+                                    </div>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="u-no-border-top header" width="8%">الدخل</td>
+                                <td class="u-no-border-top">
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
+                                        <input class="mdl-textfield__input" name="income" value="{{$property->income}}" type="number" id="income">
+                                        <label class="mdl-textfield__label" for="income"></label>
+                                    </div>
+                                </td>
+                            </tr>
                             <tr>
                                 <td class="u-no-border-top header" width="8%">المساحة بالمتر المربع</td>
                                 <td class="u-no-border-top">
@@ -205,7 +235,8 @@
                                 <td class="u-no-border-top header" width="8%">الحمامات</td>
                                 <td class="u-no-border-top">
                                     <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label">
-                                        <input class="mdl-textfield__input" required name="bathrooms" type="number" value="{{$property->bathrooms}}" id="bathrooms" value="">
+                                        <input class="mdl-textfield__input" required name="bathrooms" type="number" value="{{$property->bathrooms}}" id="bathrooms"
+                                            value="">
                                         <label for="bathrooms" class="mdl-textfield__label"></label>
                                     </div>
                                 </td>
@@ -223,11 +254,30 @@
                                 </td>
                             </tr>
                             <tr>
-                               <td class="u-no-border-top header" width="8%">سعر السوق</td>
+                                <td class="u-no-border-top header" width="8%">السعر</td>
                                 <td class="u-no-border-top">
                                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
-                                        <input class="mdl-textfield__input" required  name="price" type="number" value="{{$property->price}}" id="price">
+                                        <input class="mdl-textfield__input" required name="price" type="number" value="{{$property->price}}" id="price">
                                         <label class="mdl-textfield__label" for="price"></label>
+                                    </div>
+                                    <div>
+                                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="price_view">
+                                            <input type="hidden" name="price_view" value="0" /> @if($property->price_view == "1" )
+                                            <input type="checkbox" id="price_view" value="1" name="price_view" class="mdl-checkbox__input" checked> @else
+                                            <input type="checkbox" id="price_view" value="1" name="price_view" class="mdl-checkbox__input"> @endif
+                                            <span class="price_view">إخفاء السعر</span>
+                                        </label>
+                                    </div>
+
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="u-no-border-top header" width="8%">سعر السوم</td>
+                                <td class="u-no-border-top">
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
+                                        <input class="mdl-textfield__input" required name="bid_price" type="number" value="{{$property->bid_price}}" id="bid_price">
+                                        <label class="mdl-textfield__label" for="bid_price"></label>
                                     </div>
                                 </td>
                             </tr>
@@ -348,23 +398,23 @@
 <script>
     var form = $("#properties-form");
     form.validate({
-        highlight: function(element) {
-          $(element)
-            .closest(".mdl-textfield")
-            .addClass("is-invalid");
+        highlight: function (element) {
+            $(element)
+                .closest(".mdl-textfield")
+                .addClass("is-invalid");
         },
-        unhighlight: function(element) {
-          $(element)
-            .closest(".mdl-textfield")
-            .removeClass("is-invalid");
+        unhighlight: function (element) {
+            $(element)
+                .closest(".mdl-textfield")
+                .removeClass("is-invalid");
         },
         errorElement: "span",
         errorClass: "mdl-textfield__error",
-        errorPlacement: function(error, element) {
+        errorPlacement: function (error, element) {
 
             error.insertAfter(element);
         }
-      });
+    });
     function initMap() {
         var uluru = new google.maps.LatLng(23.128363, 37.199707);
         var map = new google.maps.Map(document.getElementById('map'), {

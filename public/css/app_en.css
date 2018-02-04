@@ -16299,6 +16299,44 @@ td.header {
   width: 100%;
 }
 
+.mdl-checkbox.is-checked .mdl-checkbox__box-outline {
+  border-color: #40A6A2;
+}
+
+.mdl-checkbox.is-checked .mdl-checkbox__tick-outline {
+  background-color: #40A6A2;
+}
+
+.mdl-checkbox__box-outline {
+  left: auto;
+  right: 0;
+}
+
+.mdl-checkbox.is-upgraded {
+  padding-left: 0px;
+  padding-right: 24px;
+}
+
+.mdl-checkbox.is-invalid .mdl-checkbox__label {
+  color: #d50000;
+}
+
+.mdl-checkbox.is-invalid .mdl-checkbox__box-outline {
+  border-color: #d50000;
+}
+
+.dialog.reportDialog .mdl-dialog__actions {
+  padding: 0;
+}
+
+.mdl-checkbox-col {
+  padding-top: 25px;
+}
+
+.mdl-checkbox-col .price_view {
+  color: rgba(0, 0, 0, 0.26);
+}
+
 .u-fix-clear::after {
   display: block;
   content: "";
@@ -17483,6 +17521,18 @@ address {
   overflow: visible;
 }
 
+.card-delete {
+  position: absolute;
+  right: 15px;
+  bottom: 15px;
+  color: rgba(0, 0, 0, 0.54);
+  cursor: pointer;
+}
+
+.card-delete:hover {
+  color: rgba(0, 0, 0, 0.87);
+}
+
 .sort-container {
   margin: 0px 0 25px 0;
 }
@@ -17584,6 +17634,10 @@ address {
 
 .dialog .mdl-dialog__actions--full-width > * {
   height: auto;
+}
+
+.dialog .card-title {
+  font-size: 16px;
 }
 
 .wizard-form .content {

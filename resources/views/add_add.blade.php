@@ -3,19 +3,15 @@
 <div class="content content-padding">
 
     @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
     @endif
-    <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
-  <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" checked>
-  <span class="mdl-checkbox__label">Checkbox</span>
-</label>
-    <form id="properties-form" class="wizard-form" action="/properties/store"  method="POST" enctype="multipart/form-data">
+    <form id="properties-form" class="wizard-form" action="/properties/store" method="POST" enctype="multipart/form-data">
         {{ csrf_field() }}
         <div>
             <h3 class="hidden"></h3>
@@ -23,12 +19,12 @@
                 <div class="section-header">
                     <h3>أضف اعلان</h3>
                 </div>
-                
+
                 <div class="mdl-card mdl-shadow--2dp u-full-width mdl-grid u-mbuttom30">
                     <div class="mdl-cell mdl-cell--6-col">
                         <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-                            <input class="mdl-textfield__input" required name="typeLabel"  type="text" id="type" value="" readonly>
-                            <input value="" type="hidden"  name="type"/>
+                            <input class="mdl-textfield__input" required name="typeLabel" type="text" id="type" value="" readonly>
+                            <input value="" type="hidden" name="type" />
                             <label for="type">
                                 <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
                             </label>
@@ -43,8 +39,8 @@
                     </div>
                     <div class="mdl-cell mdl-cell--6-col">
                         <div class="mdl-textfield mdl-js-textfield u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-                            <input class="mdl-textfield__input" required name="purposeLabel" value="" type="text" id="purpose"  readonly>
-                            <input value="" type="hidden"  name="purpose"/>
+                            <input class="mdl-textfield__input" required name="purposeLabel" value="" type="text" id="purpose" readonly>
+                            <input value="" type="hidden" name="purpose" />
                             <label for="purpose">
                                 <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
                             </label>
@@ -58,8 +54,8 @@
                     </div>
                     <div class="mdl-cell mdl-cell--6-col">
                         <div class="mdl-textfield mdl-js-textfield u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-                            <input class="mdl-textfield__input city_id_js" required  type="text" id="cityId" value="" readonly tabIndex="-1">
-                            <input value="" class="hidden-input"  type="hidden" />
+                            <input class="mdl-textfield__input city_id_js" required type="text" id="cityId" value="" readonly tabIndex="-1">
+                            <input value="" class="hidden-input" type="hidden" />
                             <label for="cityId">
                                 <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
                             </label>
@@ -73,17 +69,39 @@
                     </div>
                     <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet">
                         <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label  getmdl-select__city  getmdl-select getmdl-select__fix-height">
-                          <input class="mdl-textfield__input" required type="text" id="district" value="" readonly tabIndex="-1">
-                          <input  type="hidden" name="region" required value="" >
-                          <label for="district">
-                            <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-                          </label>
-                          <label for="district" class="mdl-textfield__label">الحي</label>
-                          <ul for="district" id="districtContianer" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                            
-                          </ul>
+                            <input class="mdl-textfield__input" required type="text" id="district" value="" readonly tabIndex="-1">
+                            <input type="hidden" name="region" required value="">
+                            <label for="district">
+                                <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                            </label>
+                            <label for="district" class="mdl-textfield__label">الحي</label>
+                            <ul for="district" id="districtContianer" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+
+                            </ul>
                         </div>
-                      </div>
+                    </div>
+                    <div class="mdl-cell mdl-cell--6-col">
+                        <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
+                            <input class="mdl-textfield__input" name="typeLabel" type="text" id="income_period" value="" readonly>
+                            <input value="" type="hidden" name="income_period" />
+                            <label for="income_period">
+                                <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                            </label>
+                            <label for="income_period" class="mdl-textfield__label">فترة الدخل</label>
+                            <ul for="income_period" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                                @foreach($incomePeriods as $incomePeriod)
+                                <li class="mdl-menu__item" data-val="{{$incomePeriod->id}}">{{$incomePeriod->$name}}</li>
+                                @endforeach
+
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mdl-cell mdl-cell--6-col">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
+                            <input class="mdl-textfield__input" name="income" type="number" id="income">
+                            <label class="mdl-textfield__label" for="income">الدخل</label>
+                        </div>
+                    </div>
                 </div>
             </section>
             <h3 class="hidden"></h3>
@@ -113,8 +131,8 @@
                 <div class="mdl-card mdl-shadow--2dp u-full-width mdl-grid u-mbuttom30">
                     <div class="mdl-cell mdl-cell--3-col">
                         <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-                            <input class="mdl-textfield__input" required  type="text" id="advertiser_type" value="" readonly tabIndex="-1">
-                            <input value="" type="hidden"  name="advertiser_type"/>
+                            <input class="mdl-textfield__input" required type="text" id="advertiser_type" value="" readonly tabIndex="-1">
+                            <input value="" type="hidden" name="advertiser_type" />
                             <label for="advertiser_type">
                                 <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
                             </label>
@@ -133,15 +151,9 @@
                         </div>
                     </div>
                     <div class="mdl-cell mdl-cell--3-col">
-                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
-                            <input class="mdl-textfield__input" required name="price" type="number" id="price">
-                            <label class="mdl-textfield__label" for="price">سعر السوق</label>
-                        </div>
-                    </div>
-                    <div class="mdl-cell mdl-cell--3-col">
                         <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-                            <input class="mdl-textfield__input" required  type="text" id="sample12" value="" readonly tabIndex="-1">
-                            <input value="" type="hidden"  name="payment_methods"/>
+                            <input class="mdl-textfield__input" required type="text" id="sample12" value="" readonly tabIndex="-1">
+                            <input value="" type="hidden" name="payment_methods" />
                             <label for="sample1">
                                 <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
                             </label>
@@ -156,7 +168,7 @@
                     <div class="mdl-cell mdl-cell--3-col">
                         <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
                             <input class="mdl-textfield__input" required type="text" id="sampl1" value="" readonly tabIndex="-1">
-                            <input value="" type="hidden"  name="overlooks"/>
+                            <input value="" type="hidden" name="overlooks" />
                             <label for="sampl1">
                                 <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
                             </label>
@@ -169,20 +181,41 @@
                         </div>
                     </div>
                     <div class="mdl-cell mdl-cell--3-col">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
+                            <input class="mdl-textfield__input" required name="price" type="number" id="price">
+                            <label class="mdl-textfield__label" for="price">السعر</label>
+                        </div>
+                    </div>
+                    <div class="mdl-cell mdl-cell--3-col">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
+                            <input class="mdl-textfield__input" required name="bid_price" type="number" id="bid_price">
+                            <label class="mdl-textfield__label" for="bid_price">سعر السوم</label>
+                        </div>
+                    </div>
+                    <div class="mdl-cell mdl-cell--3-col mdl-checkbox-col">
+                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="price_view">
+                            <input type="hidden" name="price_view" value="0"/>
+                            <input type="checkbox" id="price_view" value="1" name="price_view" class="mdl-checkbox__input">
+                            <span class="price_view">إخفاء السعر</span>
+                        </label>
+                    </div>
+
+
+                    <div class="mdl-cell mdl-cell--3-col">
                         <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" required name="rooms" type="number" id="rooms" value="" >
+                            <input class="mdl-textfield__input" required name="rooms" type="number" id="rooms" value="">
                             <label for="rooms" class="mdl-textfield__label">عدد الغرف</label>
                         </div>
                     </div>
                     <div class="mdl-cell mdl-cell--3-col">
-                            <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label">
-                                <input class="mdl-textfield__input" required name="floor" type="number" id="floor" value="">
-                                <label for="floor" class="mdl-textfield__label">الطابق</label>
-                            </div>
+                        <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" required name="floor" type="number" id="floor" value="">
+                            <label for="floor" class="mdl-textfield__label">الطابق</label>
                         </div>
+                    </div>
                     <div class="mdl-cell mdl-cell--3-col">
                         <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-                            <input class="mdl-textfield__input" required type="text" id="sampl4" value="" readonly >
+                            <input class="mdl-textfield__input" required type="text" id="sampl4" value="" readonly>
                             <input value="" type="hidden" name="bathrooms" />
                             <label for="sampl4">
                                 <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
@@ -199,30 +232,30 @@
                         </div>
                     </div>
                     <div class="mdl-cell mdl-cell--3-col">
-                            <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label ">
-                                <input class="mdl-textfield__input" required name="year_of_construction" type="number" id="sampl6" value="" >
-                               
-                                <label for="sampl6" class="mdl-textfield__label">سنة البناء</label>
-                                
-                            </div>
-                        </div>
-                        <div class="mdl-cell mdl-cell--3-col">
-                                <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-                                    
-                                    <input class="mdl-textfield__input" required  type="text" id="sampl7" value="" readonly tabIndex="-1">
-                                    <input value="" type="hidden"  name="finish_type"/>
-                                    <label for="sampl7">
-                                        <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-                                    </label>
-                                    <label for="sampl7" class="mdl-textfield__label">نوع التشطيب</label>
-                                    <ul for="sampl7" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                                        @foreach($finishTypes as $finishType)
-                                        <li class="mdl-menu__item" data-val="{{$finishType->id}}">{{$finishType->$name}}</li>
-                                        @endforeach
-                                    </ul>
+                        <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label ">
+                            <input class="mdl-textfield__input" required name="year_of_construction" type="number" id="sampl6" value="">
 
-                                </div>
-                            </div>
+                            <label for="sampl6" class="mdl-textfield__label">سنة البناء</label>
+
+                        </div>
+                    </div>
+                    <div class="mdl-cell mdl-cell--3-col">
+                        <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
+
+                            <input class="mdl-textfield__input" required type="text" id="sampl7" value="" readonly tabIndex="-1">
+                            <input value="" type="hidden" name="finish_type" />
+                            <label for="sampl7">
+                                <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                            </label>
+                            <label for="sampl7" class="mdl-textfield__label">نوع التشطيب</label>
+                            <ul for="sampl7" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                                @foreach($finishTypes as $finishType)
+                                <li class="mdl-menu__item" data-val="{{$finishType->id}}">{{$finishType->$name}}</li>
+                                @endforeach
+                            </ul>
+
+                        </div>
+                    </div>
                 </div>
                 <div class="section-header">
                     <h3>تفاصيل العنوان</h3>
@@ -233,8 +266,8 @@
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
                             <input class="mdl-textfield__input" required name="address" type="text" id="mapSearch" placeholder="">
                             <label class="mdl-textfield__label" for="mapSearch">عنوان العقار</label>
-                            <input class="mdl-textfield__input"  type="hidden" name="lat" id="lat" placeholder="">
-                            <input class="mdl-textfield__input"  type="hidden" id="long" name="long" placeholder="">
+                            <input class="mdl-textfield__input" type="hidden" name="lat" id="lat" placeholder="">
+                            <input class="mdl-textfield__input" type="hidden" id="long" name="long" placeholder="">
                         </div>
                     </div>
                     <div id="map"></div>
@@ -250,7 +283,7 @@
                         <div class=" m-b-1">
                             <div class="form-group inputDnD">
                                 <i class="material-icons">add_a_photo</i>
-                                <input type="file"  class="form-control-file text-primary font-weight-bold" id="inputFile" accept="image/*" onchange="readUrl(this)"
+                                <input type="file" class="form-control-file text-primary font-weight-bold" id="inputFile" accept="image/*" onchange="readUrl(this)"
                                     data-title="اسحب الصورة هنا للإضافة" name="attachment[]" multiple>
                                 <button type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored" onclick="document.getElementById('inputFile').click()">او إرفاق صور</button>
                             </div>
@@ -270,6 +303,10 @@
                         </div>
                     </div>
                 </div>
+                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
+                    <input type="checkbox" id="checkbox-1" name="checkbox[]" class="mdl-checkbox__input">
+                    <span class="mdl-checkbox__label">موافق على الشروط والأحكام</span>
+                </label>
             </section>
         </div>
     </form>
@@ -280,48 +317,58 @@
 <script>
     var form = $("#properties-form");
     form.validate({
-        highlight: function(element) {
-          $(element)
-            .closest(".mdl-textfield")
-            .addClass("is-invalid");
+        rules: {
+            "checkbox[]": {
+                required: true,
+                minlength: 1
+            }
         },
-        unhighlight: function(element) {
-          $(element)
-            .closest(".mdl-textfield")
-            .removeClass("is-invalid");
+        highlight: function (element) {
+            $(element)
+                .closest(".mdl-textfield,.mdl-checkbox")
+                .addClass("is-invalid");
+        },
+        unhighlight: function (element) {
+            $(element)
+                .closest(".mdl-textfield,.mdl-checkbox")
+                .removeClass("is-invalid");
         },
         errorElement: "span",
         errorClass: "mdl-textfield__error",
-        errorPlacement: function(error, element) {
+        errorPlacement: function (error, element) {
 
             error.insertAfter(element);
         }
-      });
+    });
     form.children("div").steps({
         headerTag: "h3",
         bodyTag: "section",
         transitionEffect: "fade",
-        onStepChanging: function (event, currentIndex, newIndex){
+        onStepChanging: function (event, currentIndex, newIndex) {
             $(".u-hidden").removeClass('u-hidden');
-            console.log(newIndex, currentIndex) 
-            if(form.valid() && $("#district").valid()){
+            console.log(newIndex, currentIndex)
+            if (form.valid() && $("#district").valid()) {
                 $(".is-invalid").removeClass("is-invalid");
                 return true;
-            }else if(newIndex < currentIndex){
+            } else if (newIndex < currentIndex) {
                 return true;
-            }else{
+            } else {
                 return false;
             }
-          
-            
+
+
         },
         onStepChanged: function (event, currentIndex, newIndex) {
-           
+
             initMap();
-           
+
         },
         onFinished: function (event, currentIndex) {
-            $("#properties-form").submit();
+            if (form.valid()) {
+                $("#properties-form").submit();
+            } else {
+                return false;
+            }
         },
         labels: {
             next: "متابعة",
@@ -378,7 +425,7 @@
                 // display the lat/lng
                 document.getElementById("lat").value = place.geometry.location.lat();
                 document.getElementById("long").value = place.geometry.location.lng();
-               
+
             }
             map.fitBounds(bounds);
             map.setZoom(15);
@@ -388,7 +435,7 @@
         var latlng = new google.maps.LatLng(41, 29);
         google.maps.event.addListener(map, "click", function (event) {
             // place a marker
-            placeMarker(event.latLng);    
+            placeMarker(event.latLng);
             // display the lat/lng 
             document.getElementById("lat").value = event.latLng.lat();
             document.getElementById("long").value = event.latLng.lng();
@@ -413,7 +460,7 @@
                         });
                         markersArray.push(marker);
                         infowindow.setContent(results[0].formatted_address);
-                        infowindow.open(map, marker);  
+                        infowindow.open(map, marker);
                         document.getElementById("mapSearch").value = (results[0].formatted_address);
                     }
                 }
@@ -429,25 +476,24 @@
         var files = event.target.files;
         var filesLength = files.length;
         for (var i = 0; i < filesLength; i++) {
-        if (input.files && input.files[0]) {
-            let f = files[i];
-            let reader = new FileReader();
-            reader.onload = (e) => {
-                let file = e.target;
-                //let imgName = input.files[0].name;
-                //input.setAttribute("data-title", imgName);
-                $("<div class=\"pip\">" +
-            "<img class=\"imageThumb\" src=\"" + e.target.result + "\"/>" +
-            "<br/><div class=\"remove\"><i class=\"material-icons\">delete</i></div>" +
-            "</div>").appendTo("#files");
-                $(".remove").click(function(){
-                    $(this).parent(".pip").remove();
-                });
-            
-            }
-            reader.readAsDataURL(f);
-        }
-    }
+            if (input.files && input.files[0]) {
+                let f = files[i];
+                let reader = new FileReader();
+                reader.onload = (e) => {
+                    let file = e.target;
+                    //let imgName = input.files[0].name;
+                    //input.setAttribute("data-title", imgName);
+                    $("<div class=\"pip\">" +
+                        "<img class=\"imageThumb\" src=\"" + e.target.result + "\"/>" +
+                        "<br/><div class=\"remove\"><i class=\"material-icons\">delete</i></div>" +
+                        "</div>").appendTo("#files");
+                    $(".remove").click(function () {
+                        $(this).parent(".pip").remove();
+                    });
 
-    }</script> 
-    @endpush
+                }
+                reader.readAsDataURL(f);
+            }
+        }
+
+    }</script> @endpush

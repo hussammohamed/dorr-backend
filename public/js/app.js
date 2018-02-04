@@ -12081,6 +12081,8 @@ module.exports = __webpack_require__(33);
 /* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -12107,6 +12109,8 @@ Vue.component('filters-component', __webpack_require__(20));
 Vue.component('map-component', __webpack_require__(23));
 Vue.component('addoffer-component', __webpack_require__(26));
 Vue.component('offers-component', __webpack_require__(29));
+Vue.component('report-component', __webpack_require__(39));
+Vue.component('success-component', __webpack_require__(42));
 var app = new Vue({
     el: '#app',
     data: function data() {
@@ -12126,6 +12130,22 @@ var app = new Vue({
         },
         deleteImage: function deleteImage(id) {
             $.post('/images/' + id + '', function (data) {});
+        },
+        reportDialog: function (_reportDialog) {
+            function reportDialog() {
+                return _reportDialog.apply(this, arguments);
+            }
+
+            reportDialog.toString = function () {
+                return _reportDialog.toString();
+            };
+
+            return reportDialog;
+        }(function () {
+            reportDialog.showModal();
+        }),
+        sucssesDialog: function sucssesDialog() {
+            successDialog.showModal();
         },
         loginDialog: function (_loginDialog) {
             function loginDialog(_x) {
@@ -12158,6 +12178,34 @@ var app = new Vue({
             loginDialog.close();
             signupDialog.showModal();
         }),
+        deleteOffer: function deleteOffer(offerId) {
+            swal(_defineProperty({
+                title: "هل أنت متأكد ؟",
+                text: "",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true
+            }, 'buttons', ["ألغاء", "موافق"])).then(function (willDelete) {
+                if (willDelete) {
+                    $.ajax({
+                        url: '/api/v1/property/offers/' + offerId + '/destroy',
+                        type: "Delete",
+                        success: function success(_response) {
+                            swal("تم مسح العرض بنجاح", {
+                                button: "موافق",
+                                icon: "success"
+                            });
+                            $('#offer' + offerId).remove();
+                        },
+                        complete: function complete(_response) {},
+                        error: function error(_response) {
+                            //this.errors = JSON.parse(_response.responseText).errors
+                            // Handle error
+                        }
+                    });
+                } else {}
+            });
+        },
         closeDialog: function closeDialog(el) {
             var rect = el.getBoundingClientRect();
             var isInDialog = rect.top <= event.clientY && event.clientY <= rect.top + rect.height && rect.left <= event.clientX && event.clientX <= rect.left + rect.width;
@@ -23526,7 +23574,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.$root.signupDialog();
     },
     closeDialog: function closeDialog() {
-      console.log(window.event);
       this.errors = {};
       this.$root.closeDialog(this.$el);
     },
@@ -26734,6 +26781,399 @@ function loginShow(currentUrl) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 34 */,
+/* 35 */,
+/* 36 */,
+/* 37 */,
+/* 38 */,
+/* 39 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(40)
+/* template */
+var __vue_template__ = __webpack_require__(41)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/reportComponent.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-b5c4ee3c", Component.options)
+  } else {
+    hotAPI.reload("data-v-b5c4ee3c", Component.options)
+' + '  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 40 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
+      errorClass: "is-invalid is-dirty",
+      errors: {}
+    };
+  },
+
+  props: ["propertyid"],
+  methods: {
+    cancelDialog: function cancelDialog() {
+      this.$el.close();
+      this.errors = {};
+    },
+    closeDialog: function closeDialog() {
+      this.$root.closeDialog(this.$el);
+    },
+    submit: function submit() {
+      var self = this;
+      var form = $("#reportForm");
+      form.validate({
+        rules: {
+          comment: {
+            minlength: 10,
+            required: true
+          }
+        },
+        highlight: function highlight(element) {
+          $(element).closest(".mdl-textfield").addClass("is-invalid");
+        },
+        unhighlight: function unhighlight(element) {
+          $(element).closest(".mdl-textfield").removeClass("is-invalid");
+        },
+        errorElement: "span",
+        errorClass: "mdl-textfield__error",
+        errorPlacement: function errorPlacement(error, element) {
+
+          error.insertAfter(element);
+        }
+      });
+      if (form.valid()) {
+        form.submit(function (event) {
+          event.preventDefault();
+          $.ajax({
+            url: "/api/v1/property/reports/1/store",
+            type: "post",
+            data: form.serialize(),
+            dataType: "json",
+            success: function success(_response) {
+              self.$root.closeDialog(self.$el);
+              self.$root.sucssesDialog();
+            },
+            complete: function complete(_response) {},
+            error: function error(_response) {
+              //this.errors = JSON.parse(_response.responseText).errors
+              self.errors = {
+                email: ["wrong credentials"]
+              };
+              // Handle error
+            }
+          });
+        });
+      }
+    }
+  },
+
+  mounted: function mounted() {}
+});
+
+/***/ }),
+/* 41 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "dialog",
+    {
+      staticClass: "mdl-dialog reportDialog dialog",
+      attrs: { id: "reportDialog" },
+      on: { click: _vm.closeDialog }
+    },
+    [
+      _c("form", { attrs: { id: "reportForm" } }, [
+        _c("div", { staticClass: "mdl-dialog__content" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.propertyid,
+                expression: "propertyid"
+              }
+            ],
+            attrs: { type: "hidden", value: "", name: "property_id" },
+            domProps: { value: _vm.propertyid },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.propertyid = $event.target.value
+              }
+            }
+          }),
+          _vm._v(" "),
+          _vm._m(0, false, false)
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "mdl-dialog__actions" }, [
+          _c(
+            "button",
+            {
+              staticClass: "mdl-button",
+              attrs: { type: "submit" },
+              on: { click: _vm.submit }
+            },
+            [_vm._v("حفظ")]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "mdl-button close",
+              attrs: { type: "button" },
+              on: { click: _vm.cancelDialog }
+            },
+            [_vm._v("ألغاء")]
+          )
+        ])
+      ])
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass:
+          "mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width"
+      },
+      [
+        _c("textarea", {
+          staticClass: "mdl-textfield__input",
+          attrs: { name: "comment", type: "text", rows: "5", id: "comment" }
+        }),
+        _vm._v(" "),
+        _c(
+          "label",
+          { staticClass: "mdl-textfield__label", attrs: { for: "comment" } },
+          [_vm._v("تفاصيل البلاغ")]
+        )
+      ]
+    )
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-b5c4ee3c", module.exports)
+  }
+}
+
+/***/ }),
+/* 42 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(43)
+/* template */
+var __vue_template__ = __webpack_require__(44)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/successComponent.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-27dbd951", Component.options)
+  } else {
+    hotAPI.reload("data-v-27dbd951", Component.options)
+' + '  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 43 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  methods: {
+    cancelDialog: function cancelDialog() {
+      this.$el.close();
+      this.errors = {};
+    },
+    closeDialog: function closeDialog() {
+      this.$root.closeDialog(this.$el);
+    }
+
+  },
+
+  mounted: function mounted() {}
+});
+
+/***/ }),
+/* 44 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "dialog",
+    {
+      staticClass: "mdl-dialog reportDialog dialog",
+      attrs: { id: "successDialog" },
+      on: { click: _vm.closeDialog }
+    },
+    [
+      _vm._m(0, false, false),
+      _vm._v(" "),
+      _c("div", { staticClass: "mdl-dialog__actions" }, [
+        _c(
+          "button",
+          {
+            staticClass: "mdl-button",
+            attrs: { type: "submit" },
+            on: { click: _vm.cancelDialog }
+          },
+          [_vm._v("غلق")]
+        )
+      ])
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "mdl-dialog__content u-center" }, [
+      _c("div", { staticClass: "card-title" }, [
+        _vm._v("\n        تم رفع البلاغ وسيتم مراجعة الأعلان\n    ")
+      ]),
+      _vm._v(" "),
+      _c("img", {
+        staticClass: "pic",
+        attrs: { src: "/images/checked.svg", alt: "" }
+      })
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-27dbd951", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

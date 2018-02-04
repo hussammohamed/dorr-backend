@@ -86,9 +86,9 @@
                             <td class="u-no-border-top ">{{ $property->id }}</td>
                         </tr>
                         <tr>
-                            <td class="u-no-border-top header" width="8%">سعر السوق</td>
+                            <td class="u-no-border-top header" width="8%">سعر السوم</td>
                             <td class="u-no-border-top">
-                            {{ $property->price }}
+                            {{ $property->bid_price }}
                             </td>
 
                         </tr>
@@ -197,14 +197,14 @@
                     <h6 class="group-ad__title">عروض اسعار</h6>
                 </div>
                 @foreach($propertyOffers as $offer)
-                <div class="mdl-card mdl-card--pro  mdl-shadow--2dp u-auto-width u-mbuttom16 u-height-auto u-padding-top-45">
+                <div id="offer{{$offer->id}}" class="mdl-card mdl-card--pro   mdl-shadow--2dp u-auto-width u-mbuttom16 u-height-auto u-padding-top-45">
 
                     <div class="title">
                         <div class="mdl-avatar">
                             <img class="" src={{ asset ( 'images/face.png') }} alt="">
                         </div>
                         <h5 class="u-primary-darker-color">
-                        {{ ($offer->user_id == 0 ) ? 'Unkowen' :\App\User::find($offer->user_id)->name }}
+                        {{ ($offer->user_id == 0 ) ? 'غير معروف' :\App\User::find($offer->user_id)->name }}
                         </h5>
                     </div>
                     <div class="contet">
@@ -212,6 +212,11 @@
                     </div>
 
                     <span class="card-label top-label-left has-secondary-base-bg">عرض السعر {{$offer->price}} ريال</span>
+                    @if(!Auth::guest() && (Auth::user()->id == $property->user_id ))
+                    <span class= "card-delete"><i class="material-icons">delete</i></span>
+                    @elseif (!Auth::guest() && (Auth::user()->id == $offer->user_id ))
+                    <a class= "card-delete" @click="deleteOffer('{{$offer->id}}')"><i class="material-icons">delete</i></a>
+                    @endif
                 </div>
               
               @endforeach
@@ -247,8 +252,10 @@
                             <td class="u-no-border-top  header">الحمامات</td>
                         </tr>
                     </tbody>
-                </table>
-                <span class="card-label bottom-label-left has-secondary-base-bg">{{ $property->price }} ريال</span>
+                    </table>
+                    @if($property->price_view == "0")
+                    <span class="card-label bottom-label-left has-secondary-base-bg">{{ $property->price }} ريال</span>
+                    @endif
             </div>
             <div class="mdl-card  mdl-shadow--2dp u-padding-side-20 u-auto-width u-padding-bottom-15 u-mbuttom16 u-height-auto has-actions">
                 <table class="mdl-data-table u-full-width u-no-border u-mbuttom16">
@@ -276,10 +283,21 @@
                     تواصل مع المعلن
                 </button>
             </div>
-            <div class="mdl-card  mdl-shadow--2dp  u-padding-top-45 u-auto-width u-mbuttom16  u-padding-side-20 u-padding-bottom-15">
-            <addoffer-component :auth="{{json_encode(Auth::guest())}}" :propertyid="{{json_encode($property->id)}}"></addoffer-component>    
+            <div class="mdl-card  mdl-shadow--2dp  u-padding-top-45 u-auto-width u-mbuttom16 u-height-auto  u-padding-side-20 u-padding-bottom-15">
+            @if(!Auth::guest() && (Auth::user()->id != $property->user_id ))
+            <addoffer-component :auth="{{json_encode(Auth::guest())}}" :propertyid="{{json_encode($property->id)}}"></addoffer-component>
+            @elseif (Auth::guest())
+            <addoffer-component :auth="{{json_encode(Auth::guest())}}" :propertyid="{{json_encode($property->id)}}"></addoffer-component>
+            @else
+            <a href="/properties/edit/{{$property->id}}" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored u-center">تعديل</a>    
+            @endif
             
             </div>
+            @if(!Auth::guest() && (Auth::user()->id != $property->user_id ))
+            <div class="mdl-card  mdl-shadow--2dp  u-padding-top-45 u-auto-width u-mbuttom16 u-height-auto  u-padding-side-20 u-padding-bottom-15">
+            <button @click="reportDialog"  class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored u-center">تبليغ</button>    
+            </div>
+            @endif
         </div>
     </div>
     <div class="group-ad">
@@ -297,7 +315,10 @@
         </div>
     </div>
 </div>
+
+<report-component :propertyid="{{json_encode($property->id)}}"></report-component>
 @endsection @push('scripts')
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script>
 <script type="text/javascript" src={{ asset( 'js/owl.carousel.rtl.js')}} /></script>
 <script>$(".owl-carousel").owlCarouselRtl({

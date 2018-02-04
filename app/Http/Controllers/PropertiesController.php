@@ -17,6 +17,7 @@ use App\Advertiser;
 use App\User;
 use App\PropertyOffer;
 use App\FilterMenu;
+use App\IncomePeriod;
 
 use App\Http\Resources\TypesResource;
 use App\Http\Resources\PurposesResource;
@@ -284,8 +285,8 @@ class PropertiesController extends Controller
             $overlooks = Overlook::where('active',1)->where('deleted',0)->orderby('order')->get();
             $paymentMethods = PaymentMethod::where('active',1)->where('deleted',0)->orderby('order')->get();
             $advertiserTypes = Advertiser::where('active',1)->where('deleted',0)->orderby('order')->get();
-            
-            return view('add_add',['name'=>'name_'.App::getLocale(),'types'=>$types, 'purposes'=>$purposes, 'cities'=>$cities, 'finishTypes'=>$finishTypes, 'overlooks'=>$overlooks, 'paymentMethods'=>$paymentMethods, 'advertiserTypes'=>$advertiserTypes]);
+            $incomePeriods = IncomePeriod::where('active',1)->where('deleted',0)->orderby('order')->get();
+            return view('add_add',['name'=>'name_'.App::getLocale(),'types'=>$types, 'purposes'=>$purposes, 'cities'=>$cities, 'finishTypes'=>$finishTypes, 'overlooks'=>$overlooks, 'incomePeriods'=>$incomePeriods, 'paymentMethods'=>$paymentMethods, 'advertiserTypes'=>$advertiserTypes]);
         }else{
             return redirect('/');
         }
@@ -454,8 +455,9 @@ class PropertiesController extends Controller
         $paymentMethods = PaymentMethod::where('active',1)->where('deleted',0)->orderby('order')->get();
         $advertiserTypes = Advertiser::where('active',1)->where('deleted',0)->orderby('order')->get();
         $property = Property::find($id);
+        $incomePeriods = IncomePeriod::where('active',1)->where('deleted',0)->orderby('order')->get();
         $propertyImages = PropertyImage::where('property_id', '=', $property->id)->get();   
-        return view('property.edit',['name'=>'name_'.App::getLocale(),'property'=>$property, 'types'=>$types, 'purposes'=>$purposes, 'cities'=>$cities, 'finishTypes'=>$finishTypes, 'overlooks'=>$overlooks, 'paymentMethods'=>$paymentMethods, 'advertiserTypes'=>$advertiserTypes,'propertyImages'=>$propertyImages]);
+        return view('property.edit',['name'=>'name_'.App::getLocale(),'property'=>$property, 'types'=>$types, 'incomePeriods'=>$incomePeriods, 'purposes'=>$purposes, 'cities'=>$cities, 'finishTypes'=>$finishTypes, 'overlooks'=>$overlooks, 'paymentMethods'=>$paymentMethods, 'advertiserTypes'=>$advertiserTypes,'propertyImages'=>$propertyImages]);
         
     }
 

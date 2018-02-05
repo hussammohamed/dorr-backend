@@ -26,6 +26,7 @@ Vue.component('addoffer-component', require('./components/addofferComponent.vue'
 Vue.component('offers-component', require('./components/offersComponent.vue'));
 Vue.component('report-component', require('./components/reportComponent.vue'));
 Vue.component('success-component', require('./components/successComponent.vue'));
+Vue.component('mapview-component', require('./components/mapViewComponent.vue'));
 const app = new Vue({
     el: '#app',
     data() {
@@ -65,6 +66,20 @@ const app = new Vue({
             loginDialog.close();
             signupDialog.showModal();
 
+        },
+        mapDialog: function(){
+            mapDialog.showModal();
+            var lat = parseFloat(this.$children[1]._props.propertylat);
+            var long =  parseFloat(this.$children[1]._props.propertylong);
+            var uluru = new google.maps.LatLng(lat, long);
+            var map = new google.maps.Map(document.getElementById('mapView'), {
+                  zoom: 11,
+                  center: uluru,
+              });
+              var marker = new google.maps.Marker({
+                  position: uluru,
+              });
+              marker.setMap(map);
         },
         deleteOffer: function(offerId){
             swal({

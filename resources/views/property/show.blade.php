@@ -283,6 +283,10 @@
                     تواصل مع المعلن
                 </button>
             </div>
+            <div class="mdl-card  mdl-shadow--2dp  u-auto-width  u-mbuttom16 u-height-auto has-actions">
+                <a @click="mapDialog" class="map-overlay"></a>
+                <div id="map" style="height:250px; width:100%;"></div>
+            </div>
             <div class="mdl-card  mdl-shadow--2dp  u-padding-top-45 u-auto-width u-mbuttom16 u-height-auto  u-padding-side-20 u-padding-bottom-15">
             @if(!Auth::guest() && (Auth::user()->id != $property->user_id ))
             <addoffer-component :auth="{{json_encode(Auth::guest())}}" :propertyid="{{json_encode($property->id)}}"></addoffer-component>
@@ -317,6 +321,7 @@
 </div>
 
 <report-component :propertyid="{{json_encode($property->id)}}"></report-component>
+<mapview-component :propertylat="{{json_encode($property->lat)}}" :propertylong="{{json_encode($property->long)}}"></mapview-component>
 @endsection @push('scripts')
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script>
@@ -338,6 +343,30 @@
         })
 
     });
+    function initMap() {
+        var lat = parseFloat('{{$property->lat}}');
+        var long =  parseFloat('{{$property->long}}');
+        var uluru = new google.maps.LatLng(lat, long);
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 8,
+            center: uluru,
+            disableDefaultUI: true
+        });
+        var marker = new google.maps.Marker({
+            position: uluru,
+        });
+        marker.setMap(map);
+    }
+    $( document ).ready(function() {
+        initMap();
+        });
+
+    </script>
+    
 </script> @endpush @push('styles')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.theme.min.css"> @endpush
+
+@push('begScripts')
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCuaq7NJkSDoz9ORGZzVopdHK6X-m8F6qs&libraries=places&&language=ar"></script>
+@endpush

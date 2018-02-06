@@ -14,7 +14,7 @@
     <form id="properties-form" class="wizard-form" action="/properties/store" method="POST" enctype="multipart/form-data">
         {{ csrf_field() }}
         <div>
-            <h3 class="hidden"></h3>
+            <h3 class="hidden">first_step</h3>
             <section>
                 <div class="section-header">
                     <h3>أضف اعلان</h3>
@@ -104,7 +104,7 @@
                     </div>
                 </div>
             </section>
-            <h3 class="hidden"></h3>
+            <h3 class="hidden">second_step</h3>
             <section class="u-hidden">
                 <div class="section-header">
                     <h3>تفاصيل الأعلان</h3>
@@ -273,7 +273,7 @@
                     <div id="map"></div>
                 </div>
             </section>
-            <h3 class="hidden"></h3>
+            <h3 class="hidden">third_step</h3>
             <section class="u-hidden">
                 <div class="section-header">
                     <h3>صور العقار</h3>
@@ -315,68 +315,100 @@
 @endsection @push('styles') @endpush @push('scripts')
 <script src={{ asset( 'js/jquery.steps.min.js') }}></script>
 <script>
-    var form = $("#properties-form");
-    form.validate({
-        rules: {
-            "checkbox[]": {
-                required: true,
-                minlength: 1
+        var form = $("#properties-form");
+        form.validate({
+            rules: {
+                "checkbox[]": {
+                    required: true,
+                    minlength: 1
+                }
+            },
+            highlight: function (element) {
+                $(element)
+                    .closest(".mdl-textfield,.mdl-checkbox")
+                    .addClass("is-invalid");
+            },
+            unhighlight: function (element) {
+                $(element)
+                    .closest(".mdl-textfield,.mdl-checkbox")
+                    .removeClass("is-invalid");
+            },
+            errorElement: "span",
+            errorClass: "mdl-textfield__error",
+            errorPlacement: function (error, element) {
+
+                error.insertAfter(element);
             }
-        },
-        highlight: function (element) {
-            $(element)
-                .closest(".mdl-textfield,.mdl-checkbox")
-                .addClass("is-invalid");
-        },
-        unhighlight: function (element) {
-            $(element)
-                .closest(".mdl-textfield,.mdl-checkbox")
-                .removeClass("is-invalid");
-        },
-        errorElement: "span",
-        errorClass: "mdl-textfield__error",
-        errorPlacement: function (error, element) {
+        });
+        form.children("div").steps({
+            headerTag: "h3",
+            bodyTag: "section",
+            transitionEffect: "fade",
+            onInit: function (event, currentIndex, newIndex) {
+                var currentStep = form.children("div").steps("getStep", currentIndex);
+                window.location.hash = currentStep.title;
+            },
+            onStepChanging: function (event, currentIndex, newIndex) {
+                $(".u-hidden").removeClass('u-hidden');
+                console.log(newIndex, currentIndex)
+                if (form.valid() && $("#district").valid()) {
+                    $(".is-invalid").removeClass("is-invalid");
+                    return true;
+                } else if (newIndex < currentIndex) {
+                    return true;
+                } else {
+                    return false;
+                }
 
-            error.insertAfter(element);
-        }
-    });
-    form.children("div").steps({
-        headerTag: "h3",
-        bodyTag: "section",
-        transitionEffect: "fade",
-        onStepChanging: function (event, currentIndex, newIndex) {
-            $(".u-hidden").removeClass('u-hidden');
-            console.log(newIndex, currentIndex)
-            if (form.valid() && $("#district").valid()) {
-                $(".is-invalid").removeClass("is-invalid");
-                return true;
-            } else if (newIndex < currentIndex) {
-                return true;
-            } else {
-                return false;
+
+            },
+            onStepChanged: function (event, currentIndex, newIndex) {
+                var currentStep = form.children("div").steps("getStep", currentIndex);
+                window.location.hash = currentStep.title;
+                initMap();
+
+            },
+            onFinished: function (event, currentIndex) {
+                if (form.valid()) {
+                    $("#properties-form").submit();
+                } else {
+                    return false;
+                }
+            },
+            labels: {
+                next: "متابعة",
+                previous: "الرجوع",
+                finish: "حفظ"
+
+            }
+        });
+        var $wizard = form.children("div");
+        $(window).bind('hashchange', function (e) {
+            var hash = location.hash.replace("#", "");
+
+            $steps = $wizard.data("steps");
+
+            if (hash == "") {
+                var firstStep = $wizard.steps("getStep", 0);
+                hash = firstStep.title;
             }
 
+            jQuery.each($steps, function (indexInArray, valueOfElement) {
+                if (valueOfElement.title == hash) {
 
-        },
-        onStepChanged: function (event, currentIndex, newIndex) {
+                    var $currentIndex = $wizard.steps("getCurrentIndex");
+                    var diferrence = indexInArray - $currentIndex;
 
-            initMap();
+                    for (var i = 0; i < diferrence; i++) {
+                        $wizard.steps("next");
+                    }
 
-        },
-        onFinished: function (event, currentIndex) {
-            if (form.valid()) {
-                $("#properties-form").submit();
-            } else {
-                return false;
-            }
-        },
-        labels: {
-            next: "متابعة",
-            previous: "الرجوع",
-            finish: "حفظ"
-
-        }
-    });
+                    for (var i = 0; i > diferrence; i--) {
+                        $wizard.steps("previous");
+                    }
+                }
+            });
+        });
 </script>
 <script>
     function initMap() {

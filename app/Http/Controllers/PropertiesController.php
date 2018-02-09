@@ -249,6 +249,8 @@ class PropertiesController extends Controller
         if (count($property) < 1) {
             //return response()->json(["error"=>"This Proberty is not exists"], Response::HTTP_NOT_FOUND);
         }else{
+            $property->hits =  $property->hits+1;
+            $property->save();
             return new PropertyResource($property);
         }
     }
@@ -433,7 +435,11 @@ class PropertiesController extends Controller
             where('type','=', $property->type)->where('id','!=', $id)->
             where('active','=', 1)->where('deleted','=', 0)->limit(4)->get();
             $propertyOffers = PropertyOffer::where('property_id', '=', $property->id)->get();
-            $propertyImages = PropertyImage::where('property_id', '=', $property->id)->get();   
+            $propertyImages = PropertyImage::where('property_id', '=', $property->id)->get();
+
+            $property->hits =  $property->hits+1;
+            $property->save();
+            
             return view('property.show',['name'=>'name_'.App::getLocale(),'property'=>$property, 'similarProperties'=>$similarProperties, 'propertyOffers'=>$propertyOffers, 'propertyImages'=>$propertyImages]);
         }
      }

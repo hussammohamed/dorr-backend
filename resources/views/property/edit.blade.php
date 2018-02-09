@@ -172,6 +172,20 @@
                                 </td>
                             </tr>
                             <tr>
+                                <td class="u-no-border-top header" width="8%">تطل علي</td>
+                                <td class="u-no-border-top">
+                                        
+                                    <div class="dropdown-mul-2">
+                                        <input type="hidden" id="overlooks" name="overlooks">
+                                        <select style="display:none" id="mul-2" multiple>
+                                            @foreach($overlooks as $overlook)
+                                            <option value="{{$overlook->id}}">{{$overlook->$name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
                                 <td class="u-no-border-top header" width="8%">فترة الدخل</td>
                                 <td class="u-no-border-top">
                                     <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
@@ -389,7 +403,7 @@
         </div>
         <div class="u-center">
 
-            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored u-center">تعديل</button>
+            <a id="submitInput" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored u-center">تعديل</a>
             <a href="{{asset('myAccount/Properties')}}" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised u-margin-sides16">ألغاء</a>
         </div>
     </form>
@@ -415,6 +429,14 @@
             error.insertAfter(element);
         }
     });
+    $('#submitInput').click(function(){
+            if (form.valid()) {
+                $("#overlooks").val(($("#mul-2").val()))
+                $("#properties-form").submit();
+            } else {
+                return false;
+            }
+        });
     function initMap() {
         var uluru = new google.maps.LatLng(23.128363, 37.199707);
         var map = new google.maps.Map(document.getElementById('map'), {
@@ -511,7 +533,23 @@
 
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCuaq7NJkSDoz9ORGZzVopdHK6X-m8F6qs&libraries=places&&language=ar&callback=initMap"></script>
+<script src={{ asset( 'js/jquery.dropdown.min.js') }}></script>
 <script>
+
+     
+        $(document).ready(function(){
+            var overlooks =  '{{$property->overlooks}}';
+            var ovelooksArr = overlooks.split(",");
+            console.log(ovelooksArr)
+            $("#mul-2").val(ovelooksArr)
+            $('.dropdown-mul-2').dropdown({
+                limitCount: 5,
+                searchable: false
+            });
+        })
+ 
+       
+
     function readUrl(input) {
         var files = event.target.files;
         var filesLength = files.length;

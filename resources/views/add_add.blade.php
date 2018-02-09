@@ -20,7 +20,7 @@
                     <h3>أضف اعلان</h3>
                 </div>
 
-                <div class="mdl-card mdl-shadow--2dp u-full-width mdl-grid u-mbuttom30">
+                <div class="mdl-card mdl-shadow--2dp u-height-auto u-full-width mdl-grid u-mbuttom30">
                     <div class="mdl-cell mdl-cell--6-col">
                         <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
                             <input class="mdl-textfield__input" required name="typeLabel" type="text" id="type" value="" readonly>
@@ -45,61 +45,11 @@
                                 <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
                             </label>
                             <label for="purpose" class="mdl-textfield__label">القسم</label>
-                            <ul for="purpose" class="mdl-menu mdl-menu--bottom-left u-full-width mdl-js-menu">
+                            <ul for="purpose" id="purposesContainer" class="mdl-menu mdl-menu--bottom-left u-full-width mdl-js-menu">
                                 @foreach($purposes as $purpose)
                                 <li class="mdl-menu__item" data-val="{{$purpose->id}}">{{$purpose->$name}}</li>
                                 @endforeach
                             </ul>
-                        </div>
-                    </div>
-                    <div class="mdl-cell mdl-cell--6-col">
-                        <div class="mdl-textfield mdl-js-textfield u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-                            <input class="mdl-textfield__input city_id_js" required type="text" id="cityId" value="" readonly tabIndex="-1">
-                            <input value="" class="hidden-input" type="hidden" />
-                            <label for="cityId">
-                                <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-                            </label>
-                            <label for="cityId" class="mdl-textfield__label">المدينة</label>
-                            <ul for="cityId" class="mdl-menu mdl-menu--bottom-left u-full-width mdl-js-menu">
-                                @foreach($cities as $city)
-                                <li class="mdl-menu__item" data-val="{{$city->id}}">{{$city->$name}}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet">
-                        <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label  getmdl-select__city  getmdl-select getmdl-select__fix-height">
-                            <input class="mdl-textfield__input" required type="text" id="district" value="" readonly tabIndex="-1">
-                            <input type="hidden" name="region" required value="">
-                            <label for="district">
-                                <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-                            </label>
-                            <label for="district" class="mdl-textfield__label">الحي</label>
-                            <ul for="district" id="districtContianer" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="mdl-cell mdl-cell--6-col">
-                        <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-                            <input class="mdl-textfield__input" name="typeLabel" type="text" id="income_period" value="" readonly>
-                            <input value="" type="hidden" name="income_period" />
-                            <label for="income_period">
-                                <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-                            </label>
-                            <label for="income_period" class="mdl-textfield__label">فترة الدخل</label>
-                            <ul for="income_period" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                                @foreach($incomePeriods as $incomePeriod)
-                                <li class="mdl-menu__item" data-val="{{$incomePeriod->id}}">{{$incomePeriod->$name}}</li>
-                                @endforeach
-
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="mdl-cell mdl-cell--6-col">
-                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
-                            <input class="mdl-textfield__input" name="income" type="number" id="income">
-                            <label class="mdl-textfield__label" for="income">الدخل</label>
                         </div>
                     </div>
                 </div>
@@ -166,19 +116,16 @@
                         </div>
                     </div>
                     <div class="mdl-cell mdl-cell--3-col">
-                        <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-                            <input class="mdl-textfield__input" required type="text" id="sampl1" value="" readonly tabIndex="-1">
-                            <input value="" type="hidden" name="overlooks" />
-                            <label for="sampl1">
-                                <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-                            </label>
-                            <label for="sampl1" class="mdl-textfield__label">تطل علي</label>
-                            <ul for="sampl1" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                                @foreach($overlooks as $overlook)
-                                <li class="mdl-menu__item" data-val="{{$overlook->id}}">{{$overlook->$name}}</li>
+                        <div class="dropdown-mul-2">
+                            <input type="hidden" id="overlooks" name="overlooks">
+                            <select style="display:none"  id="mul-2" multiple placeholder="تطل علي">
+                                @foreach($overlooks as $overlook)                    
+                                <option value="{{$overlook->id}}">{{$overlook->$name}}</option>                                                
                                 @endforeach
-                            </ul>
+                            </select>
                         </div>
+                        
+
                     </div>
                     <div class="mdl-cell mdl-cell--3-col">
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
@@ -194,10 +141,32 @@
                     </div>
                     <div class="mdl-cell mdl-cell--3-col mdl-checkbox-col">
                         <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="price_view">
-                            <input type="hidden" name="price_view" value="0"/>
+                            <input type="hidden" name="price_view" value="0" />
                             <input type="checkbox" id="price_view" value="1" name="price_view" class="mdl-checkbox__input">
                             <span class="price_view">إخفاء السعر</span>
                         </label>
+                    </div>
+                    <div class="mdl-cell mdl-cell--3-col target-hidden hidden">
+                        <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
+                            <input class="mdl-textfield__input" name="typeLabel" type="text" id="income_period" value="" readonly>
+                            <input value="" type="hidden" name="income_period" />
+                            <label for="income_period">
+                                <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                            </label>
+                            <label for="income_period" class="mdl-textfield__label">فترة الدخل</label>
+                            <ul for="income_period" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                                @foreach($incomePeriods as $incomePeriod)
+                                <li class="mdl-menu__item" data-val="{{$incomePeriod->id}}">{{$incomePeriod->$name}}</li>
+                                @endforeach
+
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mdl-cell mdl-cell--3-col target-hidden hidden">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
+                            <input class="mdl-textfield__input" name="income" type="number" id="income">
+                            <label class="mdl-textfield__label" for="income">الدخل</label>
+                        </div>
                     </div>
 
 
@@ -262,6 +231,34 @@
                 </div>
 
                 <div class="mdl-card mdl-shadow--2dp u-full-width mdl-grid u-mbuttom30">
+                    <div class="mdl-cell mdl-cell--6-col">
+                        <div class="mdl-textfield mdl-js-textfield u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
+                            <input class="mdl-textfield__input city_id_js" required type="text" id="cityId" value="" readonly tabIndex="-1">
+                            <input value="" class="hidden-input" type="hidden" />
+                            <label for="cityId">
+                                <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                            </label>
+                            <label for="cityId" class="mdl-textfield__label">المدينة</label>
+                            <ul for="cityId" id="cityContianer" class="mdl-menu mdl-menu--bottom-left u-full-width mdl-js-menu">
+                                @foreach($cities as $city)
+                                <li class="mdl-menu__item" data-lat='{{$city->lat}}' data-long='{{$city->long}}' data-val="{{$city->id}}">{{$city->$name}}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet">
+                        <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label  getmdl-select__city  getmdl-select getmdl-select__fix-height">
+                            <input class="mdl-textfield__input" required type="text" id="district" value="" readonly tabIndex="-1">
+                            <input type="hidden" name="region" required value="">
+                            <label for="district">
+                                <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                            </label>
+                            <label for="district" class="mdl-textfield__label">الحي</label>
+                            <ul for="district" id="districtContianer" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+
+                            </ul>
+                        </div>
+                    </div>
                     <div class="mdl-cell mdl-cell--12-col">
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
                             <input class="mdl-textfield__input" required name="address" type="text" id="mapSearch" placeholder="">
@@ -314,101 +311,107 @@
 
 @endsection @push('styles') @endpush @push('scripts')
 <script src={{ asset( 'js/jquery.steps.min.js') }}></script>
+<script src={{ asset( 'js/jquery.dropdown.min.js') }}></script>
 <script>
-        var form = $("#properties-form");
-        form.validate({
-            rules: {
-                "checkbox[]": {
-                    required: true,
-                    minlength: 1
-                }
-            },
-            highlight: function (element) {
-                $(element)
-                    .closest(".mdl-textfield,.mdl-checkbox")
-                    .addClass("is-invalid");
-            },
-            unhighlight: function (element) {
-                $(element)
-                    .closest(".mdl-textfield,.mdl-checkbox")
-                    .removeClass("is-invalid");
-            },
-            errorElement: "span",
-            errorClass: "mdl-textfield__error",
-            errorPlacement: function (error, element) {
-
-                error.insertAfter(element);
+    var form = $("#properties-form");
+    form.validate({
+        rules: {
+            "checkbox[]": {
+                required: true,
+                minlength: 1
             }
-        });
-        form.children("div").steps({
-            headerTag: "h3",
-            bodyTag: "section",
-            transitionEffect: "fade",
-            onInit: function (event, currentIndex, newIndex) {
-                var currentStep = form.children("div").steps("getStep", currentIndex);
-                window.location.hash = currentStep.title;
-            },
-            onStepChanging: function (event, currentIndex, newIndex) {
-                $(".u-hidden").removeClass('u-hidden');
-                console.log(newIndex, currentIndex)
-                if (form.valid() && $("#district").valid()) {
-                    $(".is-invalid").removeClass("is-invalid");
-                    return true;
-                } else if (newIndex < currentIndex) {
-                    return true;
-                } else {
-                    return false;
-                }
+        },
+        highlight: function (element) {
+            $(element)
+                .closest(".mdl-textfield,.mdl-checkbox")
+                .addClass("is-invalid");
+        },
+        unhighlight: function (element) {
+            $(element)
+                .closest(".mdl-textfield,.mdl-checkbox")
+                .removeClass("is-invalid");
+        },
+        errorElement: "span",
+        errorClass: "mdl-textfield__error",
+        errorPlacement: function (error, element) {
 
-
-            },
-            onStepChanged: function (event, currentIndex, newIndex) {
-                var currentStep = form.children("div").steps("getStep", currentIndex);
-                window.location.hash = currentStep.title;
-                initMap();
-
-            },
-            onFinished: function (event, currentIndex) {
-                if (form.valid()) {
-                    $("#properties-form").submit();
-                } else {
-                    return false;
-                }
-            },
-            labels: {
-                next: "متابعة",
-                previous: "الرجوع",
-                finish: "حفظ"
-
-            }
-        });
-        var $wizard = form.children("div");
-        $(window).bind('hashchange', function (e) {
-            var hash = location.hash.replace("#", "");
-
-            $steps = $wizard.data("steps");
-
-            if (hash == "") {
-                var firstStep = $wizard.steps("getStep", 0);
-                hash = firstStep.title;
-            }
-
-            jQuery.each($steps, function (indexInArray, valueOfElement) {
-                if (valueOfElement.title == hash) {
-
-                    var $currentIndex = $wizard.steps("getCurrentIndex");
-                    var diferrence = indexInArray - $currentIndex;
-
-                    for (var i = 0; i < diferrence; i++) {
-                        $wizard.steps("next");
-                    }
-
-                    for (var i = 0; i > diferrence; i--) {
-                        $wizard.steps("previous");
-                    }
-                }
+            error.insertAfter(element);
+        }
+    });
+    form.children("div").steps({
+        headerTag: "h3",
+        bodyTag: "section",
+        transitionEffect: "fade",
+        onInit: function (event, currentIndex, newIndex) {
+            var currentStep = form.children("div").steps("getStep", currentIndex);
+            window.location.hash = currentStep.title;
+            $('.dropdown-mul-2').dropdown({
+                limitCount: 5,
+                searchable: false
             });
+        },
+        onStepChanging: function (event, currentIndex, newIndex) {
+            $(".u-hidden").removeClass('u-hidden');
+            console.log(newIndex, currentIndex)
+            if (form.valid() && $("#district").valid()) {
+                $(".is-invalid").removeClass("is-invalid");
+                return true;
+            } else if (newIndex < currentIndex) {
+                return true;
+            } else {
+                return false;
+            }
+
+
+        },
+        onStepChanged: function (event, currentIndex, newIndex) {
+            var currentStep = form.children("div").steps("getStep", currentIndex);
+            window.location.hash = currentStep.title;
+            initMap();
+
+        },
+        onFinished: function (event, currentIndex) {
+            if (form.valid()) {
+                $("#overlooks").val(($("#mul-2").val()).toString())
+                $("#properties-form").submit();
+            } else {
+                return false;
+            }
+        },
+        labels: {
+            next: "متابعة",
+            previous: "الرجوع",
+            finish: "حفظ"
+
+        }
+    });
+    var $wizard = form.children("div");
+    $(window).bind('hashchange', function (e) {
+        var hash = location.hash.replace("#", "");
+
+        $steps = $wizard.data("steps");
+
+        if (hash == "") {
+            var firstStep = $wizard.steps("getStep", 0);
+            hash = firstStep.title;
+        }
+
+        jQuery.each($steps, function (indexInArray, valueOfElement) {
+            if (valueOfElement.title == hash) {
+
+                var $currentIndex = $wizard.steps("getCurrentIndex");
+                var diferrence = indexInArray - $currentIndex;
+
+                for (var i = 0; i < diferrence; i++) {
+                    $wizard.steps("next");
+                }
+
+                for (var i = 0; i > diferrence; i--) {
+                    $wizard.steps("previous");
+                }
+            }
         });
+    });
 </script>
 <script>
     function initMap() {
@@ -499,7 +502,32 @@
             });
         }
 
+        //change center of map
+        $("#district").change(function () {
+            var lat = $("#districtContianer").find(".selected").attr("data-lat");
+            var long = $("#districtContianer").find(".selected").attr("data-long");
+            var currentCenter = new google.maps.LatLng(lat, long);
+            map.setCenter(currentCenter)
+            map.setZoom(12);
+        });
+        $("#cityId").change(function () {
+            var lat = $("#cityContianer").find(".selected").attr("data-lat");
+            var long = $("#cityContianer").find(".selected").attr("data-long");
+            var currentCenter = new google.maps.LatLng(lat, long);
+            map.setCenter(currentCenter)
+            map.setZoom(9);
+        });
+
     }
+    $("#purpose").change(function () {
+        var purposeId = $("#purposesContainer").find(".selected").attr("data-val");
+        if (purposeId == "1") {
+            $(".target-hidden").removeClass('hidden');
+        } else {
+            $(".target-hidden").addClass('hidden');
+        }
+    });
+
 
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCuaq7NJkSDoz9ORGZzVopdHK6X-m8F6qs&libraries=places&&language=ar"></script>

@@ -42,7 +42,7 @@
             </div>
 
             <div class="footer__bottom">
-                <div class="">جميع الحقوق محفوظة - تطبيق عقار 2017</div>
+                <div class="">جميع الحقوق محفوظة - تطبيق عقار 2018</div>
             </div>
 
     </footer>
@@ -50,3 +50,4 @@
 
     <login-component></login-component>
     <signup-component></signup-component>
+    <success-component></success-component>

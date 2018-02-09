@@ -150,3 +150,22 @@ $markerHeight: 24px;
     visibility: hidden;
     opacity: 0;
 }
+
+.map-overlay{
+    position: absolute;
+    height: 100%;
+    display: block;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    cursor: pointer;
+
+}
+.map-dialog{
+    padding: 0;
+    width: 650px;
+    .mdl-dialog__content{
+        padding: 0 !important;
+    }
+}

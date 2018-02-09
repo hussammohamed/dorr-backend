@@ -11,7 +11,7 @@ var reformNumber = function(n){
 	  return reformNumber((num/1000000).toFixed(1))  + " مليون ";
 	else if(num > 999)
 	  return reformNumber((num/1000).toFixed(1))   + " ألف ";
-	else return reformNumber(num.toFixed(1)) +  " ريال ";
+	else return reformNumber((num/1).toFixed(1)) +  " ريال ";
   }
 function CustomMarker(latlng, map, args, type, component) {
 	this.latlng = latlng;

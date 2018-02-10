@@ -7,6 +7,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
+use App\Http\Requests\UserValidator;
+
+use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 class RegisterController extends Controller
 {
@@ -62,7 +65,7 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
-    protected function create(array $data)
+    protected function create(UserValidator $data)
     {
         return User::create([
             'name' => $data['name'],
@@ -76,13 +79,27 @@ class RegisterController extends Controller
     
     public function newUser(Request $request)
     {   
-        return User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-            'mobile1' => $request->mobile1,
-            'api_token' => str_random(60),
-        ]);
+
+        $userc = User::where('email','=', $request->email)->get();
+        if (count($userc) > 0) {
+            return response()->json(["error"=>"هذا البريد الالكترونى مستخدم من قبل"], Response::HTTP_BAD_REQUEST);
+        }
+        
+        $userc = User::where('mobile1','=', $request->mobile1)->get();
+        if (count($userc) > 0) {
+            return response()->json(["error"=>"هذا الجوال مستخدم من قبل"], Response::HTTP_BAD_REQUEST);
+        }
+
+
+        $user = new User;
+        $user->name =  $request->name;
+        $user->email =  $request->email;
+        $user->password =  bcrypt($request->password);
+        $user->mobile1 =  $request->mobile1;
+        $user->api_token =  str_random(60);
+        $user->save();
+
+        return $user;
     }
     
     

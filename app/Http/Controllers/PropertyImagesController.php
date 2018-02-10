@@ -38,7 +38,7 @@ class PropertyImagesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store( $property_id, $files )
+    public function store( $property_id, $files)
     {
         //
         foreach($files as $key=>$file){
@@ -51,11 +51,20 @@ class PropertyImagesController extends Controller
             $stamp = imagecreatefrompng('images/dorr_watermark.png');
             $im = imagecreatefromjpeg($folderpath ."/". $fileName);
 
-            $marge_right = 20;
-            $marge_bottom = 20;
+            //$marge_right = 20;
+            //$marge_bottom = 20;
             $sx = imagesx($stamp);
             $sy = imagesy($stamp);
-            imagecopy($im, $stamp, imagesx($im) - $sx - $marge_right, imagesy($im) - $sy - $marge_bottom, 0, 0, imagesx($stamp), imagesy($stamp));
+
+            $tmp_w = imagesx($im)/2;
+            return $tmp_w;
+            $tmp_h = (imagesx($im)/2)*imagesy($stamp)/ imagesx($stamp);
+
+            $tmp = imagecreatetruecolor($tmp_w, $tmp_h);
+            imagecopyresampled($tmp, $stamp, 0, 0, 0, 0, $tmp_w, $tmp_h, $sx, $sy);
+
+            //imagecopy($im, $stamp, imagesx($im) - $sx - $marge_right, imagesy($im) - $sy - $marge_bottom, 0, 0, imagesx($stamp), imagesy($stamp));
+            imagecopy($im, $stamp, (imagesx($im) - $tmp_w)/2, (imagesy($im) - $tmp_h)/2, 0, 0, imagesx($stamp), imagesy($stamp));
             imagejpeg($im, $folderpath ."/". $fileName, 100);
             imagedestroy($stamp);
             imagedestroy($im);

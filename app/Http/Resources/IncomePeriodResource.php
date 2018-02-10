@@ -2,6 +2,9 @@
 
 namespace App\Http\Resources;
 
+use App;
+use App\IncomePeriod;
+
 use Illuminate\Http\Resources\Json\Resource;
 
 class IncomePeriodResource extends Resource

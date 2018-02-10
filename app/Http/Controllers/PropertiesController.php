@@ -28,6 +28,7 @@ use App\Http\Resources\AdvertiserResource;
 use App\Http\Resources\FinishTypeResource;
 use App\Http\Resources\OverlookResource;
 use App\Http\Resources\PaymentMethodResource;
+use App\Http\Resources\IncomePeriodResource;
 //use App\Http\Resources\PropertyCollection;
 
 use Illuminate\Http\Response;
@@ -250,6 +251,8 @@ class PropertiesController extends Controller
         if (count($property) < 1) {
             //return response()->json(["error"=>"This Proberty is not exists"], Response::HTTP_NOT_FOUND);
         }else{
+            $property->hits =  $property->hits+1;
+            $property->save();
             return new PropertyResource($property);
         }
     }
@@ -392,12 +395,24 @@ class PropertiesController extends Controller
                     // - Add Watermark 
                     $stamp = imagecreatefrompng('images/dorr_watermark.png');
                     $im = imagecreatefromjpeg($folderpath ."/". $fileName);
-
-                    $marge_right = 20;
-                    $marge_bottom = 20;
+        
+                    //$marge_right = 20;
+                    //$marge_bottom = 20;
                     $sx = imagesx($stamp);
                     $sy = imagesy($stamp);
-                    imagecopy($im, $stamp, imagesx($im) - $sx - $marge_right, imagesy($im) - $sy - $marge_bottom, 0, 0, imagesx($stamp), imagesy($stamp));
+        
+                    $tmp_w = imagesx($im)/2;
+                    //return $tmp_w;
+                    $tmp_h = (imagesx($im)/2)*imagesy($stamp)/ imagesx($stamp);
+                    //return $sx." - ".$sy;
+                    $tmp = imagecreatetruecolor($tmp_w, $tmp_h);
+                    imagealphablending( $tmp, false );
+                    imagesavealpha( $tmp, true );
+                    imagecopyresampled($tmp, $stamp, 0, 0, 0, 0, $tmp_w, $tmp_h, $sx, $sy);
+                    
+                    
+                    //imagecopy($im, $stamp, imagesx($im) - $sx - $marge_right, imagesy($im) - $sy - $marge_bottom, 0, 0, imagesx($stamp), imagesy($stamp));
+                    imagecopy($im, $tmp, (imagesx($im) - $tmp_w)/2, (imagesy($im) - $tmp_h)/2, 0, 0, $tmp_w, $tmp_h);
                     imagejpeg($im, $folderpath ."/". $fileName, 100);
                     imagedestroy($stamp);
                     imagedestroy($im);
@@ -434,7 +449,11 @@ class PropertiesController extends Controller
             where('type','=', $property->type)->where('id','!=', $id)->
             where('active','=', 1)->where('deleted','=', 0)->limit(4)->get();
             $propertyOffers = PropertyOffer::where('property_id', '=', $property->id)->get();
-            $propertyImages = PropertyImage::where('property_id', '=', $property->id)->get();   
+            $propertyImages = PropertyImage::where('property_id', '=', $property->id)->get();
+
+            $property->hits =  $property->hits+1;
+            $property->save();
+            
             return view('property.show',['name'=>'name_'.App::getLocale(),'property'=>$property, 'similarProperties'=>$similarProperties, 'propertyOffers'=>$propertyOffers, 'propertyImages'=>$propertyImages]);
         }
      }
@@ -513,12 +532,24 @@ class PropertiesController extends Controller
                             // - Add Watermark 
                             $stamp = imagecreatefrompng('images/dorr_watermark.png');
                             $im = imagecreatefromjpeg($folderpath ."/". $fileName);
-
-                            $marge_right = 20;
-                            $marge_bottom = 20;
+                
+                            //$marge_right = 20;
+                            //$marge_bottom = 20;
                             $sx = imagesx($stamp);
                             $sy = imagesy($stamp);
-                            imagecopy($im, $stamp, imagesx($im) - $sx - $marge_right, imagesy($im) - $sy - $marge_bottom, 0, 0, imagesx($stamp), imagesy($stamp));
+                
+                            $tmp_w = imagesx($im)/2;
+                            //return $tmp_w;
+                            $tmp_h = (imagesx($im)/2)*imagesy($stamp)/ imagesx($stamp);
+                            //return $sx." - ".$sy;
+                            $tmp = imagecreatetruecolor($tmp_w, $tmp_h);
+                            imagealphablending( $tmp, false );
+                            imagesavealpha( $tmp, true );
+                            imagecopyresampled($tmp, $stamp, 0, 0, 0, 0, $tmp_w, $tmp_h, $sx, $sy);
+                            
+                            
+                            //imagecopy($im, $stamp, imagesx($im) - $sx - $marge_right, imagesy($im) - $sy - $marge_bottom, 0, 0, imagesx($stamp), imagesy($stamp));
+                            imagecopy($im, $tmp, (imagesx($im) - $tmp_w)/2, (imagesy($im) - $tmp_h)/2, 0, 0, $tmp_w, $tmp_h);
                             imagejpeg($im, $folderpath ."/". $fileName, 100);
                             imagedestroy($stamp);
                             imagedestroy($im);
@@ -577,10 +608,10 @@ class PropertiesController extends Controller
                     $property->long =  $request->long;
                     $property->description =  $request->description;
                     $property->price = $request->price;
-                    $property->price_view = 1;
-                    $property->bid_price = 1;
-                    $property->income_period = 1;
-                    $property->income = 1;
+                    $property->price_view = $request->price_view;
+                    $property->bid_price = $request->bid_price;
+                    $property->income_period = $request->income_period;
+                    $property->income = $request->income;
                     $property->year_of_construction =  $request->year_of_construction;
                     $property->advertiser_type =  $request->advertiser_type;
                     $property->area =  $request->area;
@@ -595,7 +626,47 @@ class PropertiesController extends Controller
                     $property->save();
 
                     if ($request->hasFile('attachment')) {
-                        app('App\Http\Controllers\PropertyImagesController')->store($property->id, $request->file('attachment'));
+                        //app('App\Http\Controllers\PropertyImagesController')->store($property->id, $request->file('attachment'));
+
+
+                        foreach($request->file('attachment') as $key=>$file){
+                            $extension = $file->getClientOriginalExtension();
+                            $fileName = $request->id."-".time()."-".str_random(6).".".$extension;
+                            $folderpath  = 'upload/properties/';
+                            $file->move($folderpath , $fileName);
+                            
+                            // - Add Watermark 
+                            $stamp = imagecreatefrompng('images/dorr_watermark.png');
+                            $im = imagecreatefromjpeg($folderpath ."/". $fileName);
+                
+                            //$marge_right = 20;
+                            //$marge_bottom = 20;
+                            $sx = imagesx($stamp);
+                            $sy = imagesy($stamp);
+                
+                            $tmp_w = imagesx($im)/2;
+                            //return $tmp_w;
+                            $tmp_h = (imagesx($im)/2)*imagesy($stamp)/ imagesx($stamp);
+                            //return $sx." - ".$sy;
+                            $tmp = imagecreatetruecolor($tmp_w, $tmp_h);
+                            imagealphablending( $tmp, false );
+                            imagesavealpha( $tmp, true );
+                            imagecopyresampled($tmp, $stamp, 0, 0, 0, 0, $tmp_w, $tmp_h, $sx, $sy);
+                            
+                            
+                            //imagecopy($im, $stamp, imagesx($im) - $sx - $marge_right, imagesy($im) - $sy - $marge_bottom, 0, 0, imagesx($stamp), imagesy($stamp));
+                            imagecopy($im, $tmp, (imagesx($im) - $tmp_w)/2, (imagesy($im) - $tmp_h)/2, 0, 0, $tmp_w, $tmp_h);
+                            imagejpeg($im, $folderpath ."/". $fileName, 100);
+                            imagedestroy($stamp);
+                            imagedestroy($im);
+                            // ---------------------------------------------------------
+                
+                            $img = new PropertyImage;
+                            $img->property_id = $request->id;
+                            $img->path = $fileName;
+                            $img->order = $key+1;
+                            $img->save();
+                        }
                     }
 
                     return redirect('/properties/show/'.$property->id);
@@ -692,6 +763,7 @@ class PropertiesController extends Controller
         $finish_types = FinishType::where('active',1)->where('deleted',0)->orderby('order')->get();
         $overlooks = Overlook::where('active',1)->where('deleted',0)->orderby('order')->get();
         $payment_methods = PaymentMethod::where('active',1)->where('deleted',0)->orderby('order')->get();
+        $income_periods = IncomePeriod::where('active',1)->where('deleted',0)->orderby('order')->get();
         
         return [
             "types" => TypesResource::collection($types),
@@ -701,6 +773,7 @@ class PropertiesController extends Controller
             "finish_types" => FinishTypeResource::collection($finish_types),
             "overlooks" => OverlookResource::collection($overlooks),
             "payment_methods" => PaymentMethodResource::collection($payment_methods),
+            "income_periods" => IncomePeriodResource::collection($income_periods)
         ];
     }
 }

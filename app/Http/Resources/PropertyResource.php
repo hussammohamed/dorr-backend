@@ -102,6 +102,7 @@ class PropertyResource extends Resource
                     "name" => PaymentMethod::find($this->payment_methods)->$name
                 ],
                 "featured"=> $this->featured,
+                "hits"=> $this->hits,
             ],
             "pictures" => PropertyImageResource::collection($this->images)
             ,

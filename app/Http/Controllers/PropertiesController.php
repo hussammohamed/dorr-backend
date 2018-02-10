@@ -17,7 +17,8 @@ use App\Advertiser;
 use App\User;
 use App\PropertyOffer;
 use App\FilterMenu;
-use App\IncomePeriod;
+use App\Period;
+use App\MapView;
 
 use App\Http\Resources\TypesResource;
 use App\Http\Resources\PurposesResource;
@@ -28,7 +29,8 @@ use App\Http\Resources\AdvertiserResource;
 use App\Http\Resources\FinishTypeResource;
 use App\Http\Resources\OverlookResource;
 use App\Http\Resources\PaymentMethodResource;
-use App\Http\Resources\IncomePeriodResource;
+use App\Http\Resources\PeriodResource;
+use App\Http\Resources\MapViewResource;
 //use App\Http\Resources\PropertyCollection;
 
 use Illuminate\Http\Response;
@@ -288,7 +290,7 @@ class PropertiesController extends Controller
             $overlooks = Overlook::where('active',1)->where('deleted',0)->orderby('order')->get();
             $paymentMethods = PaymentMethod::where('active',1)->where('deleted',0)->orderby('order')->get();
             $advertiserTypes = Advertiser::where('active',1)->where('deleted',0)->orderby('order')->get();
-            $incomePeriods = IncomePeriod::where('active',1)->where('deleted',0)->orderby('order')->get();
+            $incomePeriods = Period::where('active',1)->where('deleted',0)->orderby('order')->get();
             return view('add_add',['name'=>'name_'.App::getLocale(),'types'=>$types, 'purposes'=>$purposes, 'cities'=>$cities, 'finishTypes'=>$finishTypes, 'overlooks'=>$overlooks, 'incomePeriods'=>$incomePeriods, 'paymentMethods'=>$paymentMethods, 'advertiserTypes'=>$advertiserTypes]);
         }else{
             return redirect('/');
@@ -318,7 +320,7 @@ class PropertiesController extends Controller
             $property->price = $request->price;
             $property->price_view = $request->price_view;
             $property->bid_price = $request->bid_price;
-            $property->income_period = $request->income_period;
+            $property->period = $request->period;
             $property->income = $request->income;
             $property->year_of_construction = $request->year_of_construction;
             $property->advertiser_type = $request->advertiser_type;
@@ -331,6 +333,7 @@ class PropertiesController extends Controller
             $property->bathrooms = $request->bathrooms;
             $property->ad_id = time();
             $property->youtube = $request->youtube;
+            $property->youtube = $request->map_view;
             $property->startDate = date("Y-m-d h:i:s");
 
             $property->save();
@@ -364,9 +367,9 @@ class PropertiesController extends Controller
             $property->description =  $data['description'];
             $property->price = $data['price'];
             $property->price_view = $data['price_view'];
-            $property->bid_price = $data['bid_price'];
-            $property->income_period = $data['income_period'];
-            $property->income = $data['income'];
+            if(isset($data['bid_price'])){ $property->bid_price = $data['bid_price']; }else{ $property->bid_price = null;};
+            if(isset($data['period'])){ $property->period = $data['period']; }else{ $property->period = null;};
+            if(isset($data['income'])){ $property->income = $data['income']; }else{ $property->income = null;};
             $property->year_of_construction =  $data['year_of_construction'];
             $property->advertiser_type =  $data['advertiser_type'];
             $property->area =  $data['area'];
@@ -378,6 +381,7 @@ class PropertiesController extends Controller
             $property->bathrooms =  $data['bathrooms'];
             $property->youtube = $data['youtube'];
             $property->ad_id = time();
+            if(isset($data['map_view'])){ $property->map_view = $data['map_view']; }else{ $property->map_view = null;};
             $property->startDate = date("Y-m-d h:i:s");
 
             $property->save();
@@ -474,7 +478,7 @@ class PropertiesController extends Controller
         $paymentMethods = PaymentMethod::where('active',1)->where('deleted',0)->orderby('order')->get();
         $advertiserTypes = Advertiser::where('active',1)->where('deleted',0)->orderby('order')->get();
         $property = Property::find($id);
-        $incomePeriods = IncomePeriod::where('active',1)->where('deleted',0)->orderby('order')->get();
+        $incomePeriods = Period::where('active',1)->where('deleted',0)->orderby('order')->get();
         $propertyImages = PropertyImage::where('property_id', '=', $property->id)->get();   
         return view('property.edit',['name'=>'name_'.App::getLocale(),'property'=>$property, 'types'=>$types, 'incomePeriods'=>$incomePeriods, 'purposes'=>$purposes, 'cities'=>$cities, 'finishTypes'=>$finishTypes, 'overlooks'=>$overlooks, 'paymentMethods'=>$paymentMethods, 'advertiserTypes'=>$advertiserTypes,'propertyImages'=>$propertyImages]);
         
@@ -503,9 +507,9 @@ class PropertiesController extends Controller
                     $property->description =  $data['description'];
                     $property->price = $data['price'];
                     $property->price_view = $data['price_view'];
-                    $property->bid_price = $data['bid_price'];
-                    $property->income_period = $data['income_period'];
-                    $property->income = $data['income'];
+                    if(isset($data['bid_price'])){ $property->bid_price = $data['bid_price']; }else{ $property->bid_price = null;};
+                    if(isset($data['period'])){ $property->period = $data['period']; }else{ $property->period = null;};
+                    if(isset($data['income'])){ $property->income = $data['income']; }else{ $property->income = null;};
                     $property->year_of_construction =  $data['year_of_construction'];
                     $property->advertiser_type =  $data['advertiser_type'];
                     $property->area =  $data['area'];
@@ -516,6 +520,7 @@ class PropertiesController extends Controller
                     $property->rooms =  $data['rooms'];
                     $property->bathrooms =  $data['bathrooms'];
                     $property->youtube = $data['youtube'];
+                    if(isset($data['map_view'])){ $property->map_view = $data['map_view']; }else{ $property->map_view = null;};
 
                     $property->save();
 
@@ -610,7 +615,7 @@ class PropertiesController extends Controller
                     $property->price = $request->price;
                     $property->price_view = $request->price_view;
                     $property->bid_price = $request->bid_price;
-                    $property->income_period = $request->income_period;
+                    $property->period = $request->period;
                     $property->income = $request->income;
                     $property->year_of_construction =  $request->year_of_construction;
                     $property->advertiser_type =  $request->advertiser_type;
@@ -622,6 +627,7 @@ class PropertiesController extends Controller
                     $property->rooms =  $request->rooms;
                     $property->bathrooms =  $request->bathrooms;
                     $property->youtube = $request->youtube;
+                    $property->youtube =  $request->map_view;
 
                     $property->save();
 
@@ -763,8 +769,9 @@ class PropertiesController extends Controller
         $finish_types = FinishType::where('active',1)->where('deleted',0)->orderby('order')->get();
         $overlooks = Overlook::where('active',1)->where('deleted',0)->orderby('order')->get();
         $payment_methods = PaymentMethod::where('active',1)->where('deleted',0)->orderby('order')->get();
-        $income_periods = IncomePeriod::where('active',1)->where('deleted',0)->orderby('order')->get();
-        
+        $periods = Period::where('active',1)->where('deleted',0)->orderby('order')->get();
+        $map_views = MapView::where('active',1)->where('deleted',0)->orderby('order')->get();
+
         return [
             "types" => TypesResource::collection($types),
             "purposes" => PurposesResource::collection($purposes),
@@ -773,7 +780,8 @@ class PropertiesController extends Controller
             "finish_types" => FinishTypeResource::collection($finish_types),
             "overlooks" => OverlookResource::collection($overlooks),
             "payment_methods" => PaymentMethodResource::collection($payment_methods),
-            "income_periods" => IncomePeriodResource::collection($income_periods)
+            "periods" => PeriodResource::collection($periods),
+            "map_views" => MapViewResource::collection($map_views),
         ];
     }
 }

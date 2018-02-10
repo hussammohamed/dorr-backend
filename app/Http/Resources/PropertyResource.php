@@ -11,7 +11,8 @@ use App\Region;
 use App\Overlook;
 use App\PaymentMethod;
 use App\Advertiser;
-use App\IncomePeriod;
+use App\Period;
+use App\MapView;
 use App\Http\Resources\PropertyImageResource;
 
 use Illuminate\Http\Resources\Json\Resource;
@@ -64,6 +65,10 @@ class PropertyResource extends Resource
                 "lat" => $this->lat,
                 "long" => $this->long
             ],
+            "map_view"=> [
+                "id" => $this->map_view,
+                "name" => MapView::find($this->map_view)->$name
+            ],
             "details" => [
                 "type"=> [
                     "id" => $this->type,
@@ -73,9 +78,9 @@ class PropertyResource extends Resource
                 "price"=> $this->price,
                 "price_view" => $this->price_view,
                 "bid_price" => $this->bid_price,
-                "income_period"=> [
-                    "id" => $this->income_period,
-                    "name" => ($this->income_period == null ) ? null : IncomePeriod::find($this->income_period)->$name,
+                "period"=> [
+                    "id" => $this->period,
+                    "name" => ($this->period == null ) ? null : Period::find($this->period)->$name,
                 ],
                 "income" => $this->income,
                 "price_per_meter"=> $this->price / $this->area,

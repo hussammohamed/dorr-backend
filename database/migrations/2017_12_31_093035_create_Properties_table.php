@@ -24,11 +24,12 @@ class CreatePropertiesTable extends Migration
 		    $table->integer('region');
 		    $table->decimal('lat', 20, 18);
 		    $table->decimal('long', 20, 18);
+		    $table->integer('map_view')->nullable();
 		    $table->text('description')->nullable();
 		    $table->integer('price');
 		    $table->integer('price_view')->default('1');
 		    $table->integer('bid_price')->nullable();
-		    $table->integer('income_period')->nullable();
+		    $table->integer('period')->nullable();
 		    $table->integer('income')->nullable();
 		    $table->integer('year_of_construction');
 		    $table->integer('area');

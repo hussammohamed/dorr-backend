@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\IncomePeriod;
+use App\Period;
 use Illuminate\Http\Request;
 
-class IncomePeriodController extends Controller
+class PeriodController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class IncomePeriodController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\IncomePeriod  $incomePeriod
+     * @param  \App\Period  $incomePeriod
      * @return \Illuminate\Http\Response
      */
-    public function show(IncomePeriod $incomePeriod)
+    public function show(Period $incomePeriod)
     {
         //
     }
@@ -52,10 +52,10 @@ class IncomePeriodController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\IncomePeriod  $incomePeriod
+     * @param  \App\Period  $incomePeriod
      * @return \Illuminate\Http\Response
      */
-    public function edit(IncomePeriod $incomePeriod)
+    public function edit(Period $incomePeriod)
     {
         //
     }
@@ -64,10 +64,10 @@ class IncomePeriodController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\IncomePeriod  $incomePeriod
+     * @param  \App\Period  $incomePeriod
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, IncomePeriod $incomePeriod)
+    public function update(Request $request, Period $incomePeriod)
     {
         //
     }
@@ -75,10 +75,10 @@ class IncomePeriodController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\IncomePeriod  $incomePeriod
+     * @param  \App\Period  $incomePeriod
      * @return \Illuminate\Http\Response
      */
-    public function destroy(IncomePeriod $incomePeriod)
+    public function destroy(Period $incomePeriod)
     {
         //
     }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateIncomePeriodsTable extends Migration
+class CreateMapViewsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateIncomePeriodsTable extends Migration
      */
     public function up()
     {
-        Schema::create('income_periods', function (Blueprint $table) {
+        Schema::create('map_views', function (Blueprint $table) {
             $table->increments('id');
 		    $table->string('name_ar');
 		    $table->string('name_en');
@@ -31,6 +31,6 @@ class CreateIncomePeriodsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('income_periods');
+        Schema::dropIfExists('map_views');
     }
 }

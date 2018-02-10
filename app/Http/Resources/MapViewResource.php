@@ -3,11 +3,11 @@
 namespace App\Http\Resources;
 
 use App;
-use App\IncomePeriod;
+use App\MapView;
 
 use Illuminate\Http\Resources\Json\Resource;
 
-class IncomePeriodResource extends Resource
+class MapViewResource extends Resource
 {
     /**
      * Transform the resource into an array.

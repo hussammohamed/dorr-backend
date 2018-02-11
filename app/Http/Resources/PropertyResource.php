@@ -67,7 +67,7 @@ class PropertyResource extends Resource
             ],
             "map_view"=> [
                 "id" => $this->map_view,
-                "name" => MapView::find($this->map_view)->$name
+                "name" => ($this->map_view == null ) ? null : MapView::find($this->map_view)->$name,
             ],
             "details" => [
                 "type"=> [

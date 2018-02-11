@@ -614,3 +614,20 @@ transition: all .2s ease-in-out;
         color: rgba(0, 0, 0, .87);
     }
 }
+
+.overlay-offer{
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    z-index: 99;
+    background-color: rgba(245, 245, 245, 0.8);
+    padding: 60px 0;
+    text-align: center;
+    h5{
+        padding: 16px;
+        text-align: center;
+        color: rgba(0, 0, 0, .54);
+    }
+}

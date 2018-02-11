@@ -431,7 +431,8 @@
     });
     $('#submitInput').click(function(){
             if (form.valid()) {
-                $("#overlooks").val(($("#mul-2").val()))
+                var overlooks = ($("#mul-2").val()).toString()
+                $("#overlooks").val(overlooks)
                 $("#properties-form").submit();
             } else {
                 return false;
@@ -540,7 +541,6 @@
         $(document).ready(function(){
             var overlooks =  '{{$property->overlooks}}';
             var ovelooksArr = overlooks.split(",");
-            console.log(ovelooksArr)
             $("#mul-2").val(ovelooksArr)
             $('.dropdown-mul-2').dropdown({
                 limitCount: 5,

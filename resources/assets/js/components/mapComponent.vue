@@ -382,6 +382,7 @@ export default {
     var searchArea = $("#searchArea");
     var searchBtn = $("#searchBtn");
     var hideMap = $("#hideMap");
+    var searchInput =  $("#mapSearch");
     if(localStorage.getItem('noMap') === "true"){
        mapConainer.addClass("no-map");
     }else{
@@ -389,6 +390,9 @@ export default {
     }
     searchBtn.click(function() {
       mapConainer.toggleClass("no-search");
+    });
+    searchInput.click(function() {
+      mapConainer.removeClass("no-search");
     });
     hideMap.click(function() {
       if(localStorage.getItem('noMap') === "true"){

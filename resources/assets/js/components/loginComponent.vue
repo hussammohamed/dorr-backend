@@ -29,8 +29,8 @@
          <span class="mdl-textfield__error"  v-for="email in errors.email" v-text="email"></span>
         </div>
         <div class="">
-
           <button type="submit" @click="submit" class="mdl-button u-mtop16 u-full-width mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored u-center">دخول</button>
+          <a   @click="forgotPassword" class=" u-full-width u-no-padding mdl-button u-mtop16 u-center">هل نسيت كلمة المرور ؟</a>
         </div>
       </form>
     </div>
@@ -51,6 +51,9 @@ export default {
     };
   },
   methods: {
+    forgotPassword: function () {
+      this.$root.forgoPasswordDialog();
+    },
     signupDialog: function(url) {
       this.$root.signupDialog();
     },

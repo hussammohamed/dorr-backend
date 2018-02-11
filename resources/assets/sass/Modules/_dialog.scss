@@ -67,6 +67,16 @@
     .card-title{
         font-size: 16px;
     }
-    
+    &.custom{
+        .mdl-dialog__logo{
+            width: 30%;
+        }
+        .mdl-dialog__text{
+            width: 70%;
+        }
+        .form-container{
+            padding: 25px 0;
+        }
+    }
 }
 

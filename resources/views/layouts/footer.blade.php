@@ -50,4 +50,5 @@
 
     <login-component></login-component>
     <signup-component></signup-component>
+    <forgot-password-component></forgot-password-component>
     <success-component></success-component>

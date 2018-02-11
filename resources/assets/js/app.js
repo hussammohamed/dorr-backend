@@ -27,6 +27,7 @@ Vue.component('offers-component', require('./components/offersComponent.vue'));
 Vue.component('report-component', require('./components/reportComponent.vue'));
 Vue.component('success-component', require('./components/successComponent.vue'));
 Vue.component('mapview-component', require('./components/mapViewComponent.vue'));
+Vue.component('forgot-password-component', require('./components/forgotPasswordComponent.vue'));
 const app = new Vue({
     el: '#app',
     data() {
@@ -66,6 +67,10 @@ const app = new Vue({
             loginDialog.close();
             signupDialog.showModal();
 
+        },
+        forgoPasswordDialog: function(){
+            loginDialog.close();
+            forgotPasswordDialog.showModal();
         },
         mapDialog: function(){
             mapDialog.showModal();

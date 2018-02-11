@@ -2,15 +2,16 @@
   <form action="#" id="addOfferForm">
                     <input v-model="propertyid" type="hidden" value="" name="property_id"/>
             
-                    <div v-if="auth" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input class="mdl-textfield__input" name="name" type="text" id="sample25">
-                        <label class="mdl-textfield__label" for="sample25">الأسم</label>
+                    <div v-if="auth" class="overlay-offer">
+                        <h5>
+                            لايمكن إضافة عرض  سعر الا ان تكون مسجل
+                        </h5>
+                        <a @click="login" class="mdl-button  mdl-js-button mdl-js-ripple-effect  mdl-button--colored">
+                            تسجيل دخول
+    
+                        </a>
                     </div>
-                   
-                    <div v-if="auth" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input class="mdl-textfield__input" type="number" name="mobile"  id="sample26">
-                        <label class="mdl-textfield__label" for="sample26">رقم الجوال</label>
-                    </div>
+
                  
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <input class="mdl-textfield__input" type="number" name="price" id="sample3">
@@ -32,6 +33,9 @@
 export default {
   props: ["auth", "propertyid", "uproperties"],
   methods: {
+    login(){
+      this.$root.loginDialog();
+    },
     addOffer() {
          var self = this;
       $("#addOfferForm").submit(function(event) {

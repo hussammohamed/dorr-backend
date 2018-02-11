@@ -38,7 +38,13 @@
             <div class="mdl-cell mdl-cell--3-col mdl-color-text--grey-500 u-text-left">
                 <i class="material-icons u-fix-icon-top">access_time</i>
                 <span v-text="lastUpdate('{{$property->updated_at}}')" class="page-date"></span>
+                <div class="">
+                <i class="material-icons u-fix-icon-top">eye</i>
+               <span>عدد مشاهدات</span>
+               <span>{{$property->hits}}</span>
             </div>
+            </div>
+           
             <h4 class="page-title mdl-cell mdl-cell--12-col  u-primary-darker-color">{{ $property->title }}</h4>
         </div>
 
@@ -257,6 +263,11 @@
                     <span class="card-label bottom-label-left has-secondary-base-bg">{{ $property->price }} ريال</span>
                     @endif
             </div>
+            <div class="mdl-card  mdl-shadow--2dp  u-auto-width  u-mbuttom16 u-height-auto has-actions">
+                    <a @click="mapDialog" class="map-overlay"></a>
+                    <div id="map" style="height:250px; width:100%;"></div>
+                </div>
+                @if((!Auth::guest() && (Auth::user()->id != $property->user_id )) || Auth::guest())
             <div class="mdl-card  mdl-shadow--2dp u-padding-side-20 u-auto-width u-padding-bottom-15 u-mbuttom16 u-height-auto has-actions">
                 <table class="mdl-data-table u-full-width u-no-border u-mbuttom16">
                     <tbody>
@@ -283,10 +294,7 @@
                     تواصل مع المعلن
                 </button>
             </div>
-            <div class="mdl-card  mdl-shadow--2dp  u-auto-width  u-mbuttom16 u-height-auto has-actions">
-                <a @click="mapDialog" class="map-overlay"></a>
-                <div id="map" style="height:250px; width:100%;"></div>
-            </div>
+           @endif
             <div class="mdl-card  mdl-shadow--2dp  u-padding-top-45 u-auto-width u-mbuttom16 u-height-auto  u-padding-side-20 u-padding-bottom-15">
             @if(!Auth::guest() && (Auth::user()->id != $property->user_id ))
             <addoffer-component :auth="{{json_encode(Auth::guest())}}" :propertyid="{{json_encode($property->id)}}"></addoffer-component>

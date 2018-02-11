@@ -219,7 +219,7 @@
 
                     <span class="card-label top-label-left has-secondary-base-bg">عرض السعر {{$offer->price}} ريال</span>
                     @if(!Auth::guest() && (Auth::user()->id == $property->user_id ))
-                    <span class= "card-delete"><i class="material-icons">delete</i></span>
+                    <span class= "card-delete" @click="deleteOffer('{{$offer->id}}')"><i class="material-icons">delete</i></span>
                     @elseif (!Auth::guest() && (Auth::user()->id == $offer->user_id ))
                     <a class= "card-delete" @click="deleteOffer('{{$offer->id}}')"><i class="material-icons">delete</i></a>
                     @endif

@@ -16,12 +16,9 @@
       <form id="forgotPasswordform" method="POST" action="/password/email">
         <input type="hidden" name="_token" :value="csrf">
         <div class="form-container">
-
-
           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
-            <input class="mdl-textfield__input" type="email" name="email"  required id="email">
-            <label class="mdl-textfield__label" for="email">البريد الألكترونى</label>
-            <span class="mdl-textfield__error" v-for="email in errors.email" v-text="email"></span>
+            <input class="mdl-textfield__input" type="email" name="email"  required id="sendEmail">
+            <label class="mdl-textfield__label" for="sendEmail">البريد الألكترونى</label>
           </div>
         </div>
         <div class="">
@@ -51,18 +48,8 @@
       },
       submit: function () {
         var self = this;
-        var form = $("#loginForm");
+        var form = $("#forgotPasswordform");
         form.validate({
-          rules: {
-            email: {
-              minlength: 3,
-              required: true
-            },
-            password: {
-              minlength: 8,
-              required: true
-            }
-          },
           highlight: function (element) {
             $(element)
               .closest(".mdl-textfield")
@@ -84,16 +71,12 @@
           form.submit(function (event) {
             event.preventDefault();
             $.ajax({
-              url: "/api/v1/users/login",
+              url: "/password/email",
               type: "post",
               data: form.serialize(),
               dataType: "json",
               success: function (_response) {
-                if (self.$parent.url.length) {
-                  location.pathname = self.$parent.url;
-                } else {
-                  location.reload();
-                }
+                console.log(_response)
               },
               complete: function (_response) { },
               error: function (_response) {

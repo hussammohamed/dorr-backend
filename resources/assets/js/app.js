@@ -129,36 +129,8 @@ const app = new Vue({
     },
 
     mounted() {
-        var self = this;
-        setTimeout(() => { $(".city_id_js").change(function(){
-         var value = $(this).parent().find(".hidden-input").val();
-         $.ajax({
-            url: '/api/v1/regions/'+value +'',
-            type: "GET",
-            success: function(_response) {
-                self.cities = _response.data
-                var districtContianer = $('#districtContianer')
-                var currentRegion =  $('#currentRegion').val();
-                if(districtContianer.length){
-                    districtContianer.empty();
-                    for (let i = 0; i < self.cities.length; i++) {
-                        if(self.cities[i].id == currentRegion){
-                        districtContianer.append( '<li class="mdl-menu__item" data-long='+ self.cities[i].location.long +' data-lat='+ self.cities[i].location.lat +' data-val='+self.cities[i].id +' data-selected="true">'+self.cities[i].title+'</li>' );
-                        }else{
-                            districtContianer.append( '<li class="mdl-menu__item"  data-long='+ self.cities[i].location.long +' data-lat='+ self.cities[i].location.lat +' data-val='+self.cities[i].id +'>'+self.cities[i].title+'</li>' );
-                        }
-                    }
-                }
-                
-            },
-            complete: function(_response) {
-                setTimeout(() => {
-                    getmdlSelect.init('.getmdl-select__city');
-                }, 0);
-                
-            },
-        });
-        });}, 0);
+
+     
     }
 
 });

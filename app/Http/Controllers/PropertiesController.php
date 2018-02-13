@@ -291,7 +291,8 @@ class PropertiesController extends Controller
             $paymentMethods = PaymentMethod::where('active',1)->where('deleted',0)->orderby('order')->get();
             $advertiserTypes = Advertiser::where('active',1)->where('deleted',0)->orderby('order')->get();
             $incomePeriods = Period::where('active',1)->where('deleted',0)->orderby('order')->get();
-            return view('add_add',['name'=>'name_'.App::getLocale(),'types'=>$types, 'purposes'=>$purposes, 'cities'=>$cities, 'finishTypes'=>$finishTypes, 'overlooks'=>$overlooks, 'incomePeriods'=>$incomePeriods, 'paymentMethods'=>$paymentMethods, 'advertiserTypes'=>$advertiserTypes]);
+            $mapViews = MapView::where('active',1)->where('deleted',0)->orderby('order')->get();
+            return view('add_add',['name'=>'name_'.App::getLocale(),'types'=>$types, 'mapViews'=>$mapViews, 'purposes'=>$purposes, 'cities'=>$cities, 'finishTypes'=>$finishTypes, 'overlooks'=>$overlooks, 'incomePeriods'=>$incomePeriods, 'paymentMethods'=>$paymentMethods, 'advertiserTypes'=>$advertiserTypes]);
         }else{
             return redirect('/');
         }
@@ -333,7 +334,7 @@ class PropertiesController extends Controller
             $property->bathrooms = $request->bathrooms;
             $property->ad_id = time();
             $property->youtube = $request->youtube;
-            $property->youtube = $request->map_view;
+            $property->map_view = $request->map_view;
             $property->startDate = date("Y-m-d h:i:s");
 
             $property->save();
@@ -627,7 +628,7 @@ class PropertiesController extends Controller
                     $property->rooms =  $request->rooms;
                     $property->bathrooms =  $request->bathrooms;
                     $property->youtube = $request->youtube;
-                    $property->youtube =  $request->map_view;
+                    $property->map_view =  $request->map_view;
 
                     $property->save();
 

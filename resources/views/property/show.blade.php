@@ -355,6 +355,10 @@
         var lat = parseFloat('{{$property->lat}}');
         var long =  parseFloat('{{$property->long}}');
         var uluru = new google.maps.LatLng(lat, long);
+        console.log('{{$property->map_view}}')
+        if({{$property->map_view}} == 2){
+            
+        }
         var map = new google.maps.Map(document.getElementById('map'), {
             zoom: 8,
             center: uluru,

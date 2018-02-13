@@ -163,9 +163,6 @@ class UserController extends Controller
         }else{
             return "no logined user";
         }
-
-        //return bcrypt("123456")."<br><br><br>".bcrypt("123456")."<br><br><br>".bcrypt("123456");
-         
  
      }
 
@@ -202,6 +199,79 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+    
+    public function getAvatar()
+    {
+
+        if (Auth::check()) {
+            $avatar = Auth::user()->avatar;
+            if($avatar!=""){
+                if(file_exists( public_path() . '/upload/users/'.Auth::user()->avatar)) {
+                    return $avatar;
+                }else{
+                    return response()->json(["error"=>"This avatar is not exist"], Response::HTTP_NOT_FOUND);
+                }
+            }else{
+                return response()->json(["error"=>"This avatar didn't set yet"], Response::HTTP_NOT_FOUND);
+            }
+        }else{
+            return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
+        }
+    }
+
+    public function getAvatarByUserID($id)
+    {
+        $user = User::find($id);
+        if (count($user) < 1) {
+            return response()->json(["error"=>"This user is not exists"], Response::HTTP_NOT_FOUND);
+        }else{
+            $avatar = $user->avatar;
+            if($avatar!=""){
+                if(file_exists( public_path() . '/upload/users/'.$user->avatar)) {
+                    return $avatar;
+                }else{
+                    return response()->json(["error"=>"This avatar is not exist"], Response::HTTP_NOT_FOUND);
+                }
+            }else{
+                return response()->json(["error"=>"This avatar didn't set yet"], Response::HTTP_NOT_FOUND);
+            }
+        }
+    }
+
+    
+
+    public function uploadAvatar(Request $request){
+        if (Auth::check()) {
+            
+            if ($request->hasFile('avatar')) {
+                //return 1;
+                $file = $request->file('avatar');
+                $extension = $file->getClientOriginalExtension();
+                $fileName = Auth::user()->id."-".time()."-".str_random(6).".".$extension;
+                $folderpath  = 'upload/users/';
+                $file->move($folderpath , $fileName);
+
+                $user = User::find(Auth::user()->id);
+
+                if($user->avatar != ""){
+                    if(file_exists( public_path() . '/upload/users/'.$user->avatar)) {
+                        unlink( public_path() . '/upload/users/'.$user->avatar);
+                    }
+                }
+
+                $user->avatar = $fileName;
+                $user->save();
+
+            }else{
+                return response()->json(["error"=>"You should select image to upload"], Response::HTTP_METHOD_NOT_ALLOWED);
+            }
+
+            return $folderpath . $fileName;
+
+        }else{
+            return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
+        }
     }
 
 }

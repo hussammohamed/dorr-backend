@@ -27,7 +27,7 @@ class CreatePropertiesTable extends Migration
 		    $table->integer('map_view')->nullable();
 		    $table->text('description')->nullable();
 		    $table->integer('price');
-		    $table->integer('price_view')->default('1');
+		    $table->integer('price_view')->default('0');
 		    $table->integer('bid_price')->nullable();
 		    $table->integer('period')->nullable();
 		    $table->integer('income')->nullable();

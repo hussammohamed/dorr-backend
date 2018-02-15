@@ -1,7 +1,7 @@
 <template>
-  <dialog class="mdl-dialog reportDialog dialog map-dialog" @click="closeDialog" id="mapDialog">
+  <dialog  class="mdl-dialog reportDialog dialog map-dialog" @click="closeDialog" id="mapDialog">
       <div class="mdl-dialog__content">
-          <div id="mapView"  style="height:500px; width:100%;"></div>
+          <div  id="mapView"  style="height:500px; width:100%;"></div>
       </div>
       <div class="mdl-dialog__actions">
         <button type="submit" @click="cancelDialog" class="mdl-button">غلق</button>
@@ -11,7 +11,7 @@
 
 <script>
   export default {
-    props: ["propertylat", "propertylong"],
+    props: ["propertylat", "propertylong", "mapview", "regionlat", "regionlong"],
     methods: {
       cancelDialog: function () {
         this.$el.close();
@@ -24,7 +24,7 @@
     },
 
     mounted() {
-     
+    
      }
   };
 </script>

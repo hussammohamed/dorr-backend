@@ -265,7 +265,7 @@
             </div>
             <div class="mdl-card  mdl-shadow--2dp  u-auto-width  u-mbuttom16 u-height-auto has-actions">
                     <a @click="mapDialog" class="map-overlay"></a>
-                    <div id="map" style="height:250px; width:100%;"></div>
+                    <div id="map"  data-view="{{$property->map_view}}" style="height:250px; width:100%;"></div>
                 </div>
                 @if((!Auth::guest() && (Auth::user()->id != $property->user_id )) || Auth::guest())
             <div class="mdl-card  mdl-shadow--2dp u-padding-side-20 u-auto-width u-padding-bottom-15 u-mbuttom16 u-height-auto has-actions">
@@ -328,8 +328,8 @@
     </div>
 </div>
 
-<report-component :propertyid="{{json_encode($property->id)}}"></report-component>
-<mapview-component :propertylat="{{json_encode($property->lat)}}" :propertylong="{{json_encode($property->long)}}"></mapview-component>
+<report-component  :propertyid="{{json_encode($property->id)}}"></report-component>
+<mapview-component   :propertylat="{{json_encode($property->lat)}}" :regionlat="{{ json_encode(\App\Region::find($property->region)->lat)}}" :regionlong="{{ json_encode(\App\Region::find($property->region)->long)}}" :propertylong="{{json_encode($property->long)}}"></mapview-component>
 @endsection @push('scripts')
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script>
@@ -355,19 +355,37 @@
         var lat = parseFloat('{{$property->lat}}');
         var long =  parseFloat('{{$property->long}}');
         var uluru = new google.maps.LatLng(lat, long);
-        console.log('{{$property->map_view}}')
-        if({{$property->map_view}} == 2){
-            
-        }
+        var mapView = $("#map").attr('data-view');
         var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 8,
+            zoom: 13,
             center: uluru,
             disableDefaultUI: true
         });
-        var marker = new google.maps.Marker({
+        if(mapView == 1){
+            var marker = new google.maps.Marker({
             position: uluru,
+            color: '#4ba6a2',
         });
         marker.setMap(map);
+        } else if(mapView == 2){
+            var cityCircle = new google.maps.Circle({
+            strokeColor: '#4ba6a2',
+            fillColor: '#4ba6a2',
+            strokeWeight: 0,
+            fillOpacity: 0.45,
+            strokeOpacity: 0.35,
+            map: map,
+            center: uluru,
+            radius: 500
+          });
+        } else if(mapView == 3){
+            let regionLat =  parseFloat('{{ (\App\Region::find($property->region)->lat)}}');
+            let regionLong =  parseFloat('{{ (\App\Region::find($property->region)->long)}}');
+            var regionCenter = new google.maps.LatLng(regionLat, regionLong);
+            map.setZoom(10);
+            map.setCenter(regionCenter)
+        }
+        
     }
     $( document ).ready(function() {
         initMap();

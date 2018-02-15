@@ -74,17 +74,36 @@ const app = new Vue({
         },
         mapDialog: function(){
             mapDialog.showModal();
-            var lat = parseFloat(this.$children[1]._props.propertylat);
-            var long =  parseFloat(this.$children[1]._props.propertylong);
+            setTimeout(() => {
+                var lat = parseFloat(this.$children[2]._props.propertylat);
+            var long =  parseFloat(this.$children[2]._props.propertylong);
+            var mapView = $("#map").attr('data-view');
             var uluru = new google.maps.LatLng(lat, long);
             var map = new google.maps.Map(document.getElementById('mapView'), {
-                  zoom: 11,
+                  zoom: 13,
                   center: uluru,
               });
-              var marker = new google.maps.Marker({
-                  position: uluru,
+              if(mapView == 1){
+                var marker = new google.maps.Marker({
+                position: uluru,
+                color: '#4ba6a2',
+            });
+            marker.setMap(map);
+            } else if(mapView == 2){
+                var cityCircle = new google.maps.Circle({
+                strokeColor: '#4ba6a2',
+                fillColor: '#4ba6a2',
+                strokeWeight: 0,
+                fillOpacity: 0.45,
+                strokeOpacity: 0.35,
+                map: map,
+                center: uluru,
+                radius: 500
               });
-              marker.setMap(map);
+            } else if(mapView == 3){
+                map.setZoom(10);
+            }
+            }, 50);
         },
         deleteOffer: function(offerId){
             swal({

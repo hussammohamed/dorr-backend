@@ -118,13 +118,13 @@
                     <div class="mdl-cell mdl-cell--3-col">
                         <div class="dropdown-mul-2">
                             <input type="hidden" id="overlooks" name="overlooks">
-                            <select style="display:none"  id="mul-2" multiple placeholder="تطل علي">
-                                @foreach($overlooks as $overlook)                    
-                                <option value="{{$overlook->id}}">{{$overlook->$name}}</option>                                                
+                            <select style="display:none" id="mul-2" multiple placeholder="تطل علي">
+                                @foreach($overlooks as $overlook)
+                                <option value="{{$overlook->id}}">{{$overlook->$name}}</option>
                                 @endforeach
                             </select>
                         </div>
-                        
+
 
                     </div>
                     <div class="mdl-cell mdl-cell--3-col">
@@ -183,11 +183,10 @@
                         </div>
                     </div>
                     <div class="mdl-cell mdl-cell--3-col">
-                    <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label">
-                                        <input class="mdl-textfield__input" required name="bathrooms" type="number" id="bathrooms"
-                                            value="">
-                                        <label for="bathrooms" class="mdl-textfield__label">الحمامات</label>
-                                    </div>
+                        <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" required name="bathrooms" type="number" id="bathrooms" value="">
+                            <label for="bathrooms" class="mdl-textfield__label">الحمامات</label>
+                        </div>
                     </div>
                     <div class="mdl-cell mdl-cell--3-col">
                         <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label ">
@@ -248,12 +247,27 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="mdl-cell mdl-cell--12-col">
+                    <div class="mdl-cell mdl-cell--8-col">
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
                             <input class="mdl-textfield__input" required name="address" type="text" id="mapSearch" placeholder="">
                             <label class="mdl-textfield__label" for="mapSearch">عنوان العقار</label>
                             <input class="mdl-textfield__input" type="hidden" name="lat" id="lat" placeholder="">
                             <input class="mdl-textfield__input" type="hidden" id="long" name="long" placeholder="">
+                        </div>
+                    </div>
+                    <div class="mdl-cell mdl-cell--4-col">
+                        <div class="mdl-textfield mdl-js-textfield u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
+                            <input class="mdl-textfield__input" required type="text" id="map_view" value="" readonly tabIndex="-1">
+                            <input value="" class="hidden-input" type="hidden" name="map_view"/>
+                            <label for="map_view">
+                                <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                            </label>
+                            <label for="map_view" class="mdl-textfield__label">ظهور العقار علي الخريطة</label>
+                            <ul for="map_view"  class="mdl-menu mdl-menu--bottom-left u-full-width mdl-js-menu">
+                                @foreach($mapViews as $mapView)
+                                <li class="mdl-menu__item"  data-val="{{$mapView->id}}">{{$mapView->$name}}</li>
+                                @endforeach
+                            </ul>
                         </div>
                     </div>
                     <div id="map"></div>
@@ -357,6 +371,36 @@
             var currentStep = form.children("div").steps("getStep", currentIndex);
             window.location.hash = currentStep.title;
             initMap();
+
+            $(".city_id_js").change(function () {
+                var value = $(this).parent().find(".hidden-input").val();
+                $.ajax({
+                    url: '/api/v1/regions/' + value + '',
+                    type: "GET",
+                    success: function (_response) {
+                        self.cities = _response.data
+                        var districtContianer = $('#districtContianer')
+                        var currentRegion = $('#currentRegion').val();
+                        if (districtContianer.length) {
+                            districtContianer.empty();
+                            for (let i = 0; i < self.cities.length; i++) {
+                                if (self.cities[i].id == currentRegion) {
+                                    districtContianer.append('<li class="mdl-menu__item" data-long=' + self.cities[i].location.long + ' data-lat=' + self.cities[i].location.lat + ' data-val=' + self.cities[i].id + ' data-selected="true">' + self.cities[i].title + '</li>');
+                                } else {
+                                    districtContianer.append('<li class="mdl-menu__item"  data-long=' + self.cities[i].location.long + ' data-lat=' + self.cities[i].location.lat + ' data-val=' + self.cities[i].id + '>' + self.cities[i].title + '</li>');
+                                }
+                            }
+                        }
+
+                    },
+                    complete: function (_response) {
+
+                        getmdlSelect.init('.getmdl-select__city');
+
+
+                    },
+                });
+            });
 
         },
         onFinished: function (event, currentIndex) {

@@ -333,7 +333,7 @@ class PropertiesController extends Controller
             $property->bathrooms = $request->bathrooms;
             $property->ad_id = time();
             $property->youtube = $request->youtube;
-            $property->youtube = $request->map_view;
+            $property->map_view = $request->map_view;
             $property->startDate = date("Y-m-d h:i:s");
 
             $property->save();
@@ -627,7 +627,7 @@ class PropertiesController extends Controller
                     $property->rooms =  $request->rooms;
                     $property->bathrooms =  $request->bathrooms;
                     $property->youtube = $request->youtube;
-                    $property->youtube =  $request->map_view;
+                    $property->map_view =  $request->map_view;
 
                     $property->save();
 

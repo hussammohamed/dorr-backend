@@ -329,9 +329,9 @@ class PropertiesController extends Controller
             $property->advertiser_type = $request->advertiser_type;
             $property->area = $request->area;
             $property->floor = $request->floor;
-            $property->finish_type = $request->finish_type;
+            // $property->finish_type = $request->finish_type;
             $property->overlooks = $request->overlooks;
-            $property->payment_methods = $request->payment_methods;
+            // $property->payment_methods = $request->payment_methods;
             $property->rooms = $request->rooms;
             $property->bathrooms = $request->bathrooms;
             $property->ad_id = time();
@@ -483,7 +483,8 @@ class PropertiesController extends Controller
         $property = Property::find($id);
         $incomePeriods = Period::where('active',1)->where('deleted',0)->orderby('order')->get();
         $propertyImages = PropertyImage::where('property_id', '=', $property->id)->get();   
-        return view('property.edit',['name'=>'name_'.App::getLocale(),'property'=>$property, 'types'=>$types, 'incomePeriods'=>$incomePeriods, 'purposes'=>$purposes, 'cities'=>$cities, 'finishTypes'=>$finishTypes, 'overlooks'=>$overlooks, 'paymentMethods'=>$paymentMethods, 'advertiserTypes'=>$advertiserTypes,'propertyImages'=>$propertyImages]);
+        $mapViews = MapView::where('active',1)->where('deleted',0)->orderby('order')->get();
+        return view('property.edit',['name'=>'name_'.App::getLocale(),'property'=>$property, 'types'=>$types, 'mapViews'=>$mapViews, 'incomePeriods'=>$incomePeriods, 'purposes'=>$purposes, 'cities'=>$cities, 'finishTypes'=>$finishTypes, 'overlooks'=>$overlooks, 'paymentMethods'=>$paymentMethods, 'advertiserTypes'=>$advertiserTypes,'propertyImages'=>$propertyImages]);
         
     }
 
@@ -618,15 +619,15 @@ class PropertiesController extends Controller
                     $property->price = $request->price;
                     $property->price_view = $request->price_view;
                     $property->bid_price = $request->bid_price;
-                    $property->period = $request->period;
+                    // $property->period = $request->period;
                     $property->income = $request->income;
                     $property->year_of_construction =  $request->year_of_construction;
                     $property->advertiser_type =  $request->advertiser_type;
                     $property->area =  $request->area;
                     $property->floor =  $request->floor;
-                    $property->finish_type =  $request->finish_type;
+                    // $property->finish_type =  $request->finish_type;
                     $property->overlooks =  $request->overlooks;
-                    $property->payment_methods =  $request->payment_methods;
+                    // $property->payment_methods =  $request->payment_methods;
                     $property->rooms =  $request->rooms;
                     $property->bathrooms =  $request->bathrooms;
                     $property->youtube = $request->youtube;

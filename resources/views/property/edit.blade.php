@@ -45,16 +45,18 @@
                                 </label>
                                 <label for="cityId" class="mdl-textfield__label">المدينة</label>
                                 <ul for="cityId" id="cityContianer" class="mdl-menu mdl-menu--bottom-left u-full-width mdl-js-menu">
-                                    @foreach($cities as $city)
-                                    <li class="mdl-menu__item" data-lat='{{$city->lat}}' data-long='{{$city->long}}' data-val="{{$city->id}}">{{$city->$name}}</li>
-                                    @endforeach
+                                        @foreach($cities as $city) @if ($city->id == \App\Region::find($property->region)->region_id)
+                                        <li class="mdl-menu__item" data-val="{{$city->id}}" data-selected="true">{{$city->$name}}</li>
+                                        @else
+                                        <li class="mdl-menu__item" data-val="{{$city->id}}">{{$city->$name}}</li>
+                                        @endif @endforeach
                                 </ul>
                             </div>
                         </div>
                         <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet">
                             <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label  getmdl-select__city  getmdl-select getmdl-select__fix-height">
                                 <input class="mdl-textfield__input" required type="text" id="district" value="" readonly tabIndex="-1">
-                                <input type="hidden" name="region" required value="">
+                                <input id="currentRegion" value="{{$property->region}}" type="hidden" name="region" value="">
                                 <label for="district">
                                     <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
                                 </label>
@@ -66,10 +68,10 @@
                         </div>
                         <div class="mdl-cell mdl-cell--8-col">
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
-                                <input class="mdl-textfield__input" required name="address" type="text" id="mapSearch" placeholder="">
+                                <input class="mdl-textfield__input" required name="address" type="text" id="mapSearch" placeholder="" value="{{$property->address}}">
                                 <label class="mdl-textfield__label" for="mapSearch">العنوان بالتفصيل</label>
-                                <input class="mdl-textfield__input" required type="hidden" name="lat" id="lat" placeholder="">
-                                <input class="mdl-textfield__input" required type="hidden" id="long" name="long" placeholder="">
+                                <input class="mdl-textfield__input" required type="hidden" name="lat" id="lat" value="{{$property->lat}}" placeholder="">
+                                <input class="mdl-textfield__input" required type="hidden" id="long" name="long" value="{{$property->long}}" placeholder="">
                             </div>
                         </div>
                         <div class="mdl-cell mdl-cell--4-col">
@@ -81,8 +83,11 @@
                                 </label>
                                 <label for="map_view" class="mdl-textfield__label">طريقة ظهور العقار</label>
                                 <ul for="map_view" class="mdl-menu mdl-menu--bottom-left u-full-width mdl-js-menu">
-                                    @foreach($mapViews as $mapView)
-                                    <li class="mdl-menu__item" data-val="{{$mapView->id}}">{{$mapView->$name}}</li>
+                                    @foreach($mapViews as $mapView)  @if ($mapView->id == $property->map_view)
+                                    <li class="mdl-menu__item" data-val="{{$mapView->id}} " data-selected="true">{{$mapView->$name}}</li>
+                                    @else
+                                    <li class="mdl-menu__item" data-val="{{$mapView->id}} ">{{$mapView->$name}}</li>
+                                    @endif
                                     @endforeach
                                 </ul>
                             </div>
@@ -115,7 +120,7 @@
 
                         </tr> -->
                             <tr>
-                                <td class="u-no-border-top header" width="8%">النوع</td>
+                                <td class="u-no-border-top header" width="8%">نوع العقار</td>
                                 <td class="u-no-border-top">
                                     <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
                                         <input class="mdl-textfield__input" required type="text" id="type" value="" readonly>
@@ -137,16 +142,16 @@
 
                             </tr>
                             <tr>
-                                <td class="u-no-border-top header" width="8%">القسم</td>
+                                <td class="u-no-border-top header" width="8%">الغرض من العرض</td>
                                 <td class="u-no-border-top">
-                                    <div class="mdl-textfield mdl-js-textfield u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
+                                    <div  class="mdl-textfield mdl-js-textfield u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
                                         <input class="mdl-textfield__input" required value="" type="text" id="purpose" readonly>
                                         <input value="" type="hidden" name="purpose" />
                                         <label for="purpose">
                                             <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
                                         </label>
                                         <label for="purpose" class="mdl-textfield__label"></label>
-                                        <ul for="purpose" class="mdl-menu mdl-menu--bottom-left u-full-width mdl-js-menu">
+                                        <ul id="purposesContainer"  for="purpose" class="mdl-menu mdl-menu--bottom-left u-full-width mdl-js-menu">
                                             @foreach($purposes as $purpose) @if($purpose->id == $property->purpose)
                                             <li class="mdl-menu__item" data-val="{{$purpose->id}}" data-selected="true">{{$purpose->$name}}</li>
                                             @else
@@ -158,6 +163,102 @@
 
                             </tr>
                             <tr>
+
+                                    <td class="u-no-border-top header" width="8%">العلاقة بالعقار</td>
+                                    <td class="u-no-border-top">
+                                        <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
+                                            <input class="mdl-textfield__input" required type="text" id="advertiser_type" value="" readonly tabIndex="-1">
+                                            <input value="" type="hidden" name="advertiser_type" />
+                                            <label for="advertiser_type">
+                                                <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                                            </label>
+                                            <label for="advertiser_type" class="mdl-textfield__label"></label>
+                                            <ul for="advertiser_type" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                                                @foreach($advertiserTypes as $advertiserType) @if ($advertiserType->id == $property->advertiser_type)
+                                                <li class="mdl-menu__item" data-val="{{$advertiserType->id}}" data-selected="true">{{$advertiserType->$name}}</li>
+                                                @else
+                                                <li class="mdl-menu__item" data-val="{{$advertiserType->id}}">{{$advertiserType->$name}}</li>
+                                                @endif @endforeach
+                                            </ul>
+                                        </div>
+                                    </td>
+    
+                                </tr>
+                                <tr>
+                                        <td class="u-no-border-top header" width="8%">المساحة بالمتر المربع</td>
+                                        <td class="u-no-border-top">
+                                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
+                                                <input class="mdl-textfield__input" required name="area" value="{{$property->area}}" type="number" id="sample9">
+                                                <label class="mdl-textfield__label" for="sample9"></label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                            <td class="u-no-border-top header" width="8%"> الوجهات</td>
+                                            <td class="u-no-border-top">
+            
+                                                <div class="dropdown-mul-2">
+                                                    <input type="hidden" id="overlooks" name="overlooks">
+                                                    <select style="display:none" id="mul-2" multiple>
+                                                        @foreach($overlooks as $overlook)
+                                                        <option value="{{$overlook->id}}">{{$overlook->$name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    <tr class="target-sale">
+                                            <td class="u-no-border-top header" width="8%">سعر السوم</td>
+                                            <td class="u-no-border-top">
+                                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
+                                                    <input class="mdl-textfield__input" required name="bid_price" type="number" value="{{$property->bid_price}}" id="bid_price">
+                                                    <label class="mdl-textfield__label" for="bid_price"></label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr class="target-rent">
+                                                <td class="u-no-border-top header" width="8%">الأيجار</td>
+                                                <td class="u-no-border-top">
+                                                    <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
+                                                        <input class="mdl-textfield__input" name="typeLabel" type="text" id="period" value="" readonly>
+                                                        <input value="" type="hidden" name="period" />
+                                                        <label for="period">
+                                                            <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                                                        </label>
+                                                        <label for="period" class="mdl-textfield__label"></label>
+                                                        <ul for="period" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                                                            @foreach($incomePeriods as $incomePeriod) @if ($incomePeriod->id == $property->period)
+                                                            <li class="mdl-menu__item" data-val="{{$incomePeriod->id}}" data-selected="true">{{$incomePeriod->$name}}</li>
+                                                            @else
+                                                            <li class="mdl-menu__item" data-val="{{$incomePeriod->id}}">{{$incomePeriod->$name}}</li>
+                                                            @endif @endforeach
+                
+                                                        </ul>
+                                                    </div>
+                
+                                                </td>
+                                            </tr>
+                                    <tr>
+                                        <td class="u-no-border-top target-sale header" width="8%">السعر المطلوب للبيع</td>
+                                        <td class="u-no-border-top target-rent header" width="8%">السعر المطلوب للأيجار</td>
+                                        <td class="u-no-border-top">
+                                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
+                                                <input class="mdl-textfield__input" required name="price" type="number" value="{{$property->price}}" id="price">
+                                                <label class="mdl-textfield__label" for="price"></label>
+                                            </div>
+                                            <div class="target-sale">
+                                                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="price_view">
+                                                    <input type="hidden" name="price_view" value="0" /> @if($property->price_view == "1" )
+                                                    <input type="checkbox" id="price_view" value="1" name="price_view" class="mdl-checkbox__input" checked> @else
+                                                    <input type="checkbox" id="price_view" value="1" name="price_view" class="mdl-checkbox__input"> @endif
+                                                    <span class="price_view">إخفاء السعر</span>
+                                                </label>
+                                            </div>
+        
+        
+                                        </td>
+                                    </tr>
+                            <!-- <tr>
                                 <td class="u-no-border-top header" width="8%">المدينة</td>
                                 <td class="u-no-border-top">
                                     <div class="mdl-textfield mdl-js-textfield u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
@@ -177,8 +278,8 @@
                                     </div>
 
                                 </td>
-                            </tr>
-                            <tr>
+                            </tr> -->
+                            <!-- <tr>
                                 <td class="u-no-border-top header" width="8%">الحي</td>
                                 <td class="u-no-border-top">
                                     <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label  getmdl-select__city  getmdl-select getmdl-select__fix-height">
@@ -194,44 +295,10 @@
                                     </div>
 
                                 </td>
-                            </tr>
-                            <tr>
-                                <td class="u-no-border-top header" width="8%">تطل علي</td>
-                                <td class="u-no-border-top">
-
-                                    <div class="dropdown-mul-2">
-                                        <input type="hidden" id="overlooks" name="overlooks">
-                                        <select style="display:none" id="mul-2" multiple>
-                                            @foreach($overlooks as $overlook)
-                                            <option value="{{$overlook->id}}">{{$overlook->$name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="u-no-border-top header" width="8%">فترة الدخل</td>
-                                <td class="u-no-border-top">
-                                    <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-                                        <input class="mdl-textfield__input" name="typeLabel" type="text" id="period" value="" readonly>
-                                        <input value="" type="hidden" name="period" />
-                                        <label for="period">
-                                            <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-                                        </label>
-                                        <label for="period" class="mdl-textfield__label"></label>
-                                        <ul for="period" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                                            @foreach($incomePeriods as $incomePeriod) @if ($incomePeriod->id == $property->period)
-                                            <li class="mdl-menu__item" data-val="{{$incomePeriod->id}}" data-selected="true">{{$incomePeriod->$name}}</li>
-                                            @else
-                                            <li class="mdl-menu__item" data-val="{{$incomePeriod->id}}">{{$incomePeriod->$name}}</li>
-                                            @endif @endforeach
-
-                                        </ul>
-                                    </div>
-
-                                </td>
-                            </tr>
-                            <tr>
+                            </tr> -->
+                           
+                           
+                            <!-- <tr>
                                 <td class="u-no-border-top header" width="8%">الدخل</td>
                                 <td class="u-no-border-top">
                                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
@@ -240,24 +307,7 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr>
-                                <td class="u-no-border-top header" width="8%">المساحة بالمتر المربع</td>
-                                <td class="u-no-border-top">
-                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
-                                        <input class="mdl-textfield__input" required name="area" value="{{$property->area}}" type="number" id="sample9">
-                                        <label class="mdl-textfield__label" for="sample9"></label>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="u-no-border-top header" width="8%">الطابق</td>
-                                <td class="u-no-border-top">
-                                    <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label">
-                                        <input class="mdl-textfield__input" required name="floor" type="number" value="{{$property->floor}}" id="floor" value="">
-                                        <label for="floor" class="mdl-textfield__label"></label>
-                                    </div>
-                                </td>
-                            </tr>
+                           -->
                             <tr>
                                 <td class="u-no-border-top header" width="8%">عدد الغرف</td>
                                 <td class="u-no-border-top">
@@ -270,7 +320,7 @@
                             </tr>
 
                             <tr>
-                                <td class="u-no-border-top header" width="8%">الحمامات</td>
+                                <td class="u-no-border-top header" width="8%">عدد الحمامات</td>
                                 <td class="u-no-border-top">
                                     <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label">
                                         <input class="mdl-textfield__input" required name="bathrooms" type="number" value="{{$property->bathrooms}}" id="bathrooms"
@@ -279,6 +329,15 @@
                                     </div>
                                 </td>
                             </tr>
+                            <tr>
+                                    <td class="u-no-border-top header" width="8%">الطابق</td>
+                                    <td class="u-no-border-top">
+                                        <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label">
+                                            <input class="mdl-textfield__input" required name="floor" type="number" value="{{$property->floor}}" id="floor" value="">
+                                            <label for="floor" class="mdl-textfield__label"></label>
+                                        </div>
+                                    </td>
+                                </tr>
                             <tr>
                                 <td class="u-no-border-top header" width="8%">سنة البناء</td>
                                 <td class="u-no-border-top">
@@ -291,59 +350,9 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr>
-                                <td class="u-no-border-top header" width="8%">السعر</td>
-                                <td class="u-no-border-top">
-                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
-                                        <input class="mdl-textfield__input" required name="price" type="number" value="{{$property->price}}" id="price">
-                                        <label class="mdl-textfield__label" for="price"></label>
-                                    </div>
-                                    <div>
-                                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="price_view">
-                                            <input type="hidden" name="price_view" value="0" /> @if($property->price_view == "1" )
-                                            <input type="checkbox" id="price_view" value="1" name="price_view" class="mdl-checkbox__input" checked> @else
-                                            <input type="checkbox" id="price_view" value="1" name="price_view" class="mdl-checkbox__input"> @endif
-                                            <span class="price_view">إخفاء السعر</span>
-                                        </label>
-                                    </div>
-
-
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="u-no-border-top header" width="8%">سعر السوم</td>
-                                <td class="u-no-border-top">
-                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
-                                        <input class="mdl-textfield__input" required name="bid_price" type="number" value="{{$property->bid_price}}" id="bid_price">
-                                        <label class="mdl-textfield__label" for="bid_price"></label>
-                                    </div>
-                                </td>
-                            </tr>
-
-
-                            <tr>
-
-                                <td class="u-no-border-top header" width="8%">العلاقة بالعقار</td>
-                                <td class="u-no-border-top">
-                                    <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-                                        <input class="mdl-textfield__input" required type="text" id="advertiser_type" value="" readonly tabIndex="-1">
-                                        <input value="" type="hidden" name="advertiser_type" />
-                                        <label for="advertiser_type">
-                                            <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-                                        </label>
-                                        <label for="advertiser_type" class="mdl-textfield__label"></label>
-                                        <ul for="advertiser_type" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                                            @foreach($advertiserTypes as $advertiserType) @if ($advertiserType->id == $property->advertiser_type)
-                                            <li class="mdl-menu__item" data-val="{{$advertiserType->id}}" data-selected="true">{{$advertiserType->$name}}</li>
-                                            @else
-                                            <li class="mdl-menu__item" data-val="{{$advertiserType->id}}">{{$advertiserType->$name}}</li>
-                                            @endif @endforeach
-                                        </ul>
-                                    </div>
-                                </td>
-
-                            </tr>
-                            <tr>
+                         
+                           
+                            <!-- <tr>
                                 <td class="u-no-border-top header" width="8%">نوع التشطيب</td>
                                 <td class="u-no-border-top">
                                     <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
@@ -386,27 +395,7 @@
                                         </ul>
                                     </div>
                                 </td>
-                            </tr>
-                            <tr>
-                                <td class="u-no-border-top header" width="8%">تطل علي</td>
-                                <td class="u-no-border-top">
-                                    <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-                                        <input class="mdl-textfield__input" required type="text" id="sampl1" value="" readonly tabIndex="-1">
-                                        <input value="" type="hidden" name="overlooks" />
-                                        <label for="sampl1">
-                                            <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-                                        </label>
-                                        <label for="sampl1" class="mdl-textfield__label"> </label>
-                                        <ul for="sampl1" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                                            @foreach($overlooks as $overlook) @if ($overlook->id == $property->overlooks)
-                                            <li class="mdl-menu__item" data-val="{{$overlook->id}}" data-selected="true">{{$overlook->$name}}</li>
-                                            @else
-                                            <li class="mdl-menu__item" data-val="{{$overlook->id}}">{{$overlook->$name}}</li>
-                                            @endif @endforeach
-                                        </ul>
-                                    </div>
-                                </td>
-                            </tr>
+                            </tr> -->
 
                         </tbody>
                     </table>
@@ -585,6 +574,25 @@
 
 
     $(document).ready(function () {
+        var currentPurposeId = "{{$property->purpose}}"
+        if (currentPurposeId == "2") {
+            $(".target-sale").addClass('hidden');
+            $(".target-rent").removeClass('hidden');
+        }else{
+            $(".target-rent").addClass('hidden');
+            $(".target-sale").removeClass('hidden');
+        }
+        $("#purpose").change(function () {
+        var purposeId = $("#purposesContainer").find(".selected").attr("data-val");
+
+        if (purposeId == "2") {
+            $(".target-sale").addClass('hidden');
+            $(".target-rent").removeClass('hidden');
+        } else {
+            $(".target-rent").addClass('hidden');
+            $(".target-sale").removeClass('hidden');
+        }
+    });
         var overlooks = '{{$property->overlooks}}';
         var ovelooksArr = overlooks.split(",");
         $("#mul-2").val(ovelooksArr)

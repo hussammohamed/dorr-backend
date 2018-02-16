@@ -370,6 +370,7 @@ export default {
     //setData
     this.regions = this.cities;
     if(location.pathname == "/properties/search"){
+      $("#mapConainer").removeClass("no-search");
     this.FormData = this.form;
     this.properties = this.uproperties.slice().sort(function(a, b) {
       return b.details.featured - a.details.featured;

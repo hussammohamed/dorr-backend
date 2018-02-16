@@ -44,6 +44,19 @@ const app = new Vue({
         lastUpdate: function (date) {
             return "أخر تحديث في "  + " " +  moment(date).lang("ar").format(' DD MMMM YYYY') ;
           },
+          getYoutube: function(url){
+                var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+                var match = url.match(regExp);
+            
+                if (match && match[2].length == 11) {
+                    var videoId = match[2];
+                    var iframeMarkup = '//www.youtube.com/embed/' + videoId;
+                    return iframeMarkup;
+                } else {
+                    return 'error';
+                }
+               
+          },
         deleteImage:function(id){
             $.post('/images/'+id+'',function(data){
 

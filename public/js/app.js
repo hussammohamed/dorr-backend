@@ -12130,6 +12130,18 @@ var app = new Vue({
         lastUpdate: function lastUpdate(date) {
             return "أخر تحديث في " + " " + moment(date).lang("ar").format(' DD MMMM YYYY');
         },
+        getYoutube: function getYoutube(url) {
+            var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+            var match = url.match(regExp);
+
+            if (match && match[2].length == 11) {
+                var videoId = match[2];
+                var iframeMarkup = '//www.youtube.com/embed/' + videoId;
+                return iframeMarkup;
+            } else {
+                return 'error';
+            }
+        },
         deleteImage: function deleteImage(id) {
             $.post('/images/' + id + '', function (data) {});
         },
@@ -25155,6 +25167,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     //setData
     this.regions = this.cities;
     if (location.pathname == "/properties/search") {
+      $("#mapConainer").removeClass("no-search");
       this.FormData = this.form;
       this.properties = this.uproperties.slice().sort(function (a, b) {
         return b.details.featured - a.details.featured;

@@ -70,10 +70,9 @@
                     @endforeach
                     @if($property->youtube)
                     <div class="item">
-                        <div class="owl-click"></div>
+                        <div class="owl-click"  ></div>
                       
-                                <iframe class="target" width="80" height="80"
-                                    src="{{$property->youtube}}">
+                                <iframe v-bind:src="getYoutube('{{$property->youtube}}')" class="target" width="80" height="80">
                                 </iframe>
                         </div>
                         @endif
@@ -92,6 +91,46 @@
                             <td class="u-no-border-top ">{{ $property->id }}</td>
                         </tr>
                         <tr>
+                            <td class="u-no-border-top header" width="8%">نوع العقار</td>
+                            <td class="u-no-border-top">
+                            {{ \App\Type::find($property->type)->$name }}
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td class="u-no-border-top header" width="8%"> الغرض من العقار</td>
+                            <td class="u-no-border-top">
+                            {{ \App\Purpose::find($property->purpose)->$name }}
+                            
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td class="u-no-border-top header" width="8%">العلاقة بالعقار</td>
+                            <td class="u-no-border-top">
+                            {{ \App\Advertiser::find($property->advertiser_type)->$name }}
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td class="u-no-border-top header" width="8%">الوجهات</td>
+                            <td class="u-no-border-top">
+                            @if ($property->overlooks != "")
+                                @foreach(explode(',', $property->overlooks) as $overlook) 
+                                {{$overlook}}
+                                @endforeach
+                                @endif
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td class="u-no-border-top header" width="8%">المساحة بالمتر</td>
+                            <td class="u-no-border-top">
+                            {{ $property->area }}
+                            </td>
+
+                        </tr>
+                        <tr>
                             <td class="u-no-border-top header" width="8%">سعر السوم</td>
                             <td class="u-no-border-top">
                             {{ $property->bid_price }}
@@ -105,54 +144,20 @@
                             </td>
 
                         </tr>
+                       
+                       
+                       
                         <tr>
-                            <td class="u-no-border-top header" width="8%">تاريخ النشر</td>
-                            <td class="u-no-border-top">
-                            {{ $property->created_at }}
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td class="u-no-border-top header" width="8%">النوع</td>
-                            <td class="u-no-border-top">
-                            {{ \App\Type::find($property->type)->$name }}
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td class="u-no-border-top header" width="8%">الغرض</td>
-                            <td class="u-no-border-top">
-                            {{ \App\Purpose::find($property->purpose)->$name }}
-                            
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td class="u-no-border-top header" width="8%">طربقة الدفع</td>
-                            <td class="u-no-border-top">
-                            {{ \App\PaymentMethod::find($property->payment_methods)->$name }}
-                            
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td class="u-no-border-top header" width="8%">المساحة بالمتر</td>
-                            <td class="u-no-border-top">
-                            {{ $property->area }}
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td class="u-no-border-top header" width="8%">العلاقة بالعقار</td>
-                            <td class="u-no-border-top">
-                            {{ \App\Advertiser::find($property->advertiser_type)->$name }}
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td class="u-no-border-top header" width="8%">الغرف</td>
+                            <td class="u-no-border-top header" width="8%"> عدد الغرف</td>
                             <td class="u-no-border-top">
                             {{ $property->rooms }}
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td class="u-no-border-top header" width="8%">عدد الحمامات</td>
+                            <td class="u-no-border-top">
+                            {{ $property->bathrooms }}
                             </td>
 
                         </tr>
@@ -163,13 +168,7 @@
                             </td>
 
                         </tr>
-                        <tr>
-                            <td class="u-no-border-top header" width="8%">الحمامات</td>
-                            <td class="u-no-border-top">
-                            {{ $property->bathrooms }}
-                            </td>
-
-                        </tr>
+                       
                         <tr>
                             <td class="u-no-border-top header" width="8%">سنة البناء</td>
                             <td class="u-no-border-top">
@@ -177,11 +176,11 @@
                             </td>
 
                         </tr>
+
                         <tr>
-                            <td class="u-no-border-top header" width="8%">نوع التشطيب</td>
+                            <td class="u-no-border-top header" width="8%">تاريخ النشر</td>
                             <td class="u-no-border-top">
-                            {{ \App\FinishType::find($property->finish_type)->$name }}  
-                            
+                            {{ $property->created_at }}
                             </td>
 
                         </tr>
@@ -193,6 +192,7 @@
                             </td>
 
                         </tr>
+                      
 
                     </tbody>
                 </table>

@@ -162,7 +162,7 @@
                     <div class="mdl-cell mdl-cell--6-col">
                         <div class="dropdown-mul-2">
                             <input type="hidden" id="overlooks" name="overlooks">
-                            <select style="display:none" id="mul-2" multiple placeholder="تطل علي">
+                            <select style="display:none" id="mul-2" multiple placeholder="الوجهات ">
                                 @foreach($overlooks as $overlook)
                                 <option value="{{$overlook->id}}">{{$overlook->$name}}</option>
                                 @endforeach
@@ -317,12 +317,23 @@
 <script src={{ asset( 'js/jquery.dropdown.min.js') }}></script>
 <script>
     var form = $("#properties-form");
+    $.validator.addMethod('moreThan', function(value, element, param) {
+    if (this.optional(element)) return true;
+    var i = parseInt(value);
+    var j = parseInt($(param).val());
+    if(isNaN(j)) return true;
+    return i > j;
+}, "السعر يجب ان يكون اكبر من سعر السوم");
     form.validate({
         rules: {
             "checkbox[]": {
                 required: true,
                 minlength: 1
+            },
+            "price": {
+                moreThan: "#bid_price"
             }
+
         },
         highlight: function (element) {
             $(element)

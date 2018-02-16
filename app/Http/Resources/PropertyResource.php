@@ -82,7 +82,7 @@ class PropertyResource extends Resource
                     "id" => $this->period,
                     "name" => ($this->period == null ) ? null : Period::find($this->period)->$name,
                 ],
-                "income" => $this->income,
+                //"income" => $this->income,
                 "price_per_meter"=> $this->price / $this->area,
                 "year_of_construction"=> $this->year_of_construction,
                 "date_of_publication"=> $this->created_at->format('Y-m-d'),
@@ -92,20 +92,20 @@ class PropertyResource extends Resource
                     "name" => Advertiser::find($this->advertiser_type)->$name
                 ],
                 "floor"=> $this->floor, 
-                "finish_type" => [
+                /*"finish_type" => [
                     "id" => $this->finish_type,
                     "name" => FinishType::find($this->finish_type)->$name
-                ],
+                ],*/
                 "bathrooms"=> $this->bathrooms,
                 "rooms"=> $this->rooms,
                 "ad_id"=> $this->ad_id,
                 "youtube"=> $this->youtube,
                 "address"=> $this->address, 
                 "overlooks"=>  $x,
-                "payment_methods"=> [
+                /*"payment_methods"=> [
                     "id" => $this->payment_methods,
                     "name" => PaymentMethod::find($this->payment_methods)->$name
-                ],
+                ],*/
                 "featured"=> $this->featured,
                 "hits"=> $this->hits,
             ],

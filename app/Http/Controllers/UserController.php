@@ -267,7 +267,7 @@ class UserController extends Controller
                 return response()->json(["error"=>"You should select image to upload"], Response::HTTP_METHOD_NOT_ALLOWED);
             }
 
-            return $folderpath . $fileName;
+            return response()->json(["avatar"=> $folderpath . $fileName]);
 
         }else{
             return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);

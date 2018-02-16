@@ -10,6 +10,7 @@ window.$ = window.jQuery = require('jquery');
 window.Vue = require('vue');
 require('jquery-validation');
 require('./../../../node_modules/jquery-validation/dist/localization/messages_ar')
+import myUpload from 'vue-image-crop-upload';
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -34,10 +35,55 @@ const app = new Vue({
         return {
           url: "",
           cities: [],
+          show: true,
+			params: {
+				name: 'avatar'
+			},
+			headers: {
+			},
+			imgDataUrl:  ""
 
         };
       },
+      components: {
+        'my-upload': myUpload
+    },
     methods:{
+        toggleShow() {
+            this.show = !this.show;
+        },
+        /**
+         * crop success
+         *
+         * [param] imgDataUrl
+         * [param] field
+         */
+        cropSuccess(imgDataUrl, field){
+            console.log('-------- crop success --------');
+            this.imgDataUrl = imgDataUrl;
+        },
+        /**
+         * upload success
+         *
+         * [param] jsonData  server api return data, already json encode
+         * [param] field
+         */
+        cropUploadSuccess(jsonData, field){
+            console.log('-------- upload success --------');
+            console.log(jsonData);
+            console.log('field: ' + field);
+        },
+        /**
+         * upload fail
+         *
+         * [param] status    server api return error status, like 500
+         * [param] field
+         */
+        cropUploadFail(status, field){
+            console.log('-------- upload fail --------');
+            console.log(status);
+            console.log('field: ' + field);
+        },
         priceChange: function(value){
            this.currenPrice = value.path["0"].value  + " " + "ريال";
         },
@@ -159,10 +205,18 @@ const app = new Vue({
               }
           },
     },
-
+    beforeCreate(){
+        var self = this;
+        $.get('/api/v1/user/avatar', function (data) {
+            console.log(this)
+            self.imgDataUrl =   "/upload/users/" + data;
+        }).fail(function() {
+            self.imgDataUrl =  "/images/face.png";
+          })
+    },
     mounted() {
-
-     
+       
+        this.show = !this.show;
     }
 
 });

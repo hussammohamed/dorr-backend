@@ -640,3 +640,16 @@ transition: all .2s ease-in-out;
 .map-link{
     padding: 30px 12px;
 }
+.avatar-item-circle{
+    position: relative;
+    top: -16px;
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    border-radius: 50%;
+    background-color: gray;
+    margin: auto;
+    img{
+        width: 100%;
+    }
+}

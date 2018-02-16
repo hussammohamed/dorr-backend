@@ -4,11 +4,21 @@
         <div class="group-ad__header">
             <h6 class="group-ad__title">حسابي</h6>
         </div>
+        <div class="mdl-card mdl-shadow--2dp u-full-width u-mbuttom30 u-padding-bottom-25 u-padding-top-15">
+
+            <div class="mdl-card__title">
+                الصورة الشخصية
+            </div>
+            <div class="u-center">
+                <div class="avatar-item-circle"><img :src="imgDataUrl"></div>
+                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored u-center" @click="toggleShow">تغير</a>       
+            </div>
+        </div>
         <form id="example-form" class="wizard-form" action="myAccount/update" method="post">
             {{ csrf_field() }}
             <div class="mdl-card mdl-shadow--2dp u-full-width u-mbuttom30 u-padding-bottom-25 u-padding-top-15">
-                    
-            <div class="mdl-card__title">
+
+                <div class="mdl-card__title">
                     المعلومات الشخصية
                 </div>
                 <div class="mdl-grid ">
@@ -57,13 +67,13 @@
                 </div>
                 <div class="u-center">
                     <!-- <button type="button" class="mdl-button">دخول</button> -->
-                    
+
                     <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored u-center u-min-width-180">حفظ التغيرات</button>
                 </div>
             </div>
 
         </form>
-        <form id="example-form" class="wizard-form"  method="POST" action="myAccount/updatePassword">
+        <form id="example-form" class="wizard-form" method="POST" action="myAccount/updatePassword">
             {{ csrf_field() }}
             <div class="mdl-card mdl-shadow--2dp u-full-width u-mbuttom30 u-padding-bottom-25 u-padding-top-15">
                 <div class="mdl-card__title">
@@ -99,7 +109,9 @@
         </form>
     </div>
 
-
+    <my-upload field="avatar" @crop-success="cropSuccess" @crop-upload-success="cropUploadSuccess" @crop-upload-fail="cropUploadFail"
+    v-model="show" :width="300" :height="300" url="/api/v1/user/avatar/upload" :params="params" :headers="headers"
+    lang-type="ar" img-format="png"></my-upload>
 </div>
 
 @endsection

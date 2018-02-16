@@ -107,7 +107,7 @@
                 <div class="user-menu--header">
                     <i class="material-icons collapse-icon"></i>
                     <div class="user-menu--avatar mdl-avatar">
-                        <img class="" src={{ asset ( 'images/face.png') }} alt="">
+                        <img :src="imgDataUrl">
                     </div>
                     <div class="user-info">
                         <div class="user-name"> {{ Auth::user()->name }}</div>

@@ -23,6 +23,7 @@ use App\PropertyOffer;
 use App\PropertyReport;
 use App\Period;
 use App\MapView;
+use App\ReportingReason;
 
 class AllData extends Seeder
 {
@@ -107,6 +108,17 @@ class AllData extends Seeder
             $add = new PaymentMethod;
             $add->name_ar = $value;
             $add->name_en = $paymentMethods_en[$key];
+            $add->order = $key+1;
+            $add->save();
+        }
+        
+        //Seed ReportingReasons
+        $reportingReasons_ar=['غش بالبيع','لا يتم التجاوب'];
+        $reportingReasons_en=['Cheating on selling','Not Responding'];
+        foreach($reportingReasons_ar as $key=>$value){
+            $add = new ReportingReason;
+            $add->name_ar = $value;
+            $add->name_en = $reportingReasons_en[$key];
             $add->order = $key+1;
             $add->save();
         }

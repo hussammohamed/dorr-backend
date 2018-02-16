@@ -83,7 +83,7 @@
   <div class="mdl-cell mdl-cell--2-col">
     <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width   mdl-textfield--floating-label  getmdl-select getmdl-select__fix-height">
       <input class="mdl-textfield__input  regions" type="text" id="city2" value="" readonly tabIndex="-1">
-      <input  type="hidden" class="hidden-input"  value=""  name="city">
+      <input  type="hidden"  class="hidden-input"  value=""  name="city">
       <label for="city2">
         <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
       </label>
@@ -98,7 +98,7 @@
   <div class="mdl-cell mdl-cell--2-col">
     <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select__city getmdl-select getmdl-select__fix-height">
       <input class="mdl-textfield__input" type="text" id="sample13" value="" readonly tabIndex="-1">
-      <input  type="hidden"  value="" >
+      <input  type="hidden" name="district"  value="" >
       <label for="sample13">
         <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
       </label>

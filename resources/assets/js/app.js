@@ -59,8 +59,8 @@ const app = new Vue({
          * [param] field
          */
         cropSuccess(imgDataUrl, field){
-            console.log('-------- crop success --------');
-            this.imgDataUrl = imgDataUrl;
+     
+           // this.imgDataUrl = imgDataUrl;
         },
         /**
          * upload success
@@ -69,9 +69,8 @@ const app = new Vue({
          * [param] field
          */
         cropUploadSuccess(jsonData, field){
-            console.log('-------- upload success --------');
-            console.log(jsonData);
-            console.log('field: ' + field);
+            console.log(jsonData)
+            this.imgDataUrl =  jsonData.avatar;
         },
         /**
          * upload fail
@@ -80,9 +79,7 @@ const app = new Vue({
          * [param] field
          */
         cropUploadFail(status, field){
-            console.log('-------- upload fail --------');
-            console.log(status);
-            console.log('field: ' + field);
+
         },
         priceChange: function(value){
            this.currenPrice = value.path["0"].value  + " " + "ريال";

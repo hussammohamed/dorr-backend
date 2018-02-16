@@ -184,6 +184,12 @@ $cardImageHeight : 220px;
             width: 45%;
             a{
                 margin: 0 20px;
+                width: 30%;
+                display: inline-block;
+                img{
+                    max-width: 100%;
+                    
+                }
             }
         }
 }
@@ -630,4 +636,7 @@ transition: all .2s ease-in-out;
         text-align: center;
         color: rgba(0, 0, 0, .54);
     }
+}
+.map-link{
+    padding: 30px 12px;
 }

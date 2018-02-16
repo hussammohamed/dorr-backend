@@ -28,47 +28,71 @@
         </div>
         <div class="mdl-grid">
             <div class="mdl-cell mdl-cell--12-col">
-                <div class="mdl-card mdl-shadow--2dp u-full-width mdl-grid u-mbuttom30">
-                    <div class="mdl-cell mdl-cell--12-col p-y-1">
-                        <div class=" m-b-1">
-                            <div class="form-group inputDnD">
-                                <i class="material-icons">add_a_photo</i>
-                                <input type="file" class="form-control-file text-primary font-weight-bold" id="inputFile" accept="image/*" onchange="readUrl(this)"
-                                    data-title="اسحب الصورة هنا للإضافة" name="attachment[]" multiple>
-                                <button type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored" onclick="document.getElementById('inputFile').click()">او إرفاق صور</button>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div id="files" class="mdl-cell mdl-cell--12-col">
-                        @foreach($propertyImages as $propertyImage)
-                        <div class="pip" id="{{$propertyImage->id}}">
-                            <img class="imageThumb" src="{{ asset ('/upload/properties') }}/{{$propertyImage->path}}" />
-                            <br/>
-                            <div class="remove" @click="deleteImage({{$propertyImage->id}})">
-                                <i class="material-icons">delete</i>
-                            </div>
-                        </div>
-                        @endforeach
-
-                    </div>
-                </div>
-                <div class="mdl-card mdl-shadow--2dp u-full-width mdl-grid u-mbuttom30 u-height-auto">
-                    <div class="mdl-cell mdl-cell--12-col">
-                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
-                            <input class="mdl-textfield__input" name="youtube" value="{{$property->youtube}}" type="text" id="youtube">
-                            <label class="mdl-textfield__label" for="youtube">رابط الفيديو (يوتيوب) </label>
-                        </div>
-                    </div>
-                </div>
                 <div class="mdl-card over-flow-hidden  mdl-shadow--2dp u-auto-width u-height-auto u-padding-top-45 u-padding-bottom-15 u-mbuttom16 u-padding-side-20">
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
                         <textarea class="mdl-textfield__input" required name="description" type="text" rows="5" id="sample5">{{$property->description}}</textarea>
                         <label class="mdl-textfield__label" for="sample5">تفاصيل الأعلان</label>
                     </div>
                     <span class="card-label top-label-right has-primary-base-bg">التفاصيل</span>
-
                 </div>
+                <div class="mdl-card mdl-shadow--2dp u-full-width mdl-grid u-mbuttom30">
+                        <div class="mdl-cell mdl-cell--6-col">
+                            <div class="mdl-textfield mdl-js-textfield u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
+                                <input class="mdl-textfield__input city_id_js" required type="text" id="cityId" value="" readonly tabIndex="-1">
+                                <input value="" class="hidden-input" type="hidden" />
+                                <label for="cityId">
+                                    <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                                </label>
+                                <label for="cityId" class="mdl-textfield__label">المدينة</label>
+                                <ul for="cityId" id="cityContianer" class="mdl-menu mdl-menu--bottom-left u-full-width mdl-js-menu">
+                                    @foreach($cities as $city)
+                                    <li class="mdl-menu__item" data-lat='{{$city->lat}}' data-long='{{$city->long}}' data-val="{{$city->id}}">{{$city->$name}}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet">
+                            <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label  getmdl-select__city  getmdl-select getmdl-select__fix-height">
+                                <input class="mdl-textfield__input" required type="text" id="district" value="" readonly tabIndex="-1">
+                                <input type="hidden" name="region" required value="">
+                                <label for="district">
+                                    <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                                </label>
+                                <label for="district" class="mdl-textfield__label">الحي</label>
+                                <ul for="district" id="districtContianer" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+    
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="mdl-cell mdl-cell--8-col">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
+                                <input class="mdl-textfield__input" required name="address" type="text" id="mapSearch" placeholder="">
+                                <label class="mdl-textfield__label" for="mapSearch">العنوان بالتفصيل</label>
+                                <input class="mdl-textfield__input" required type="hidden" name="lat" id="lat" placeholder="">
+                                <input class="mdl-textfield__input" required type="hidden" id="long" name="long" placeholder="">
+                            </div>
+                        </div>
+                        <div class="mdl-cell mdl-cell--4-col">
+                            <div class="mdl-textfield mdl-js-textfield u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
+                                <input class="mdl-textfield__input" required type="text" id="map_view" value="" readonly tabIndex="-1">
+                                <input value="" class="hidden-input" type="hidden" name="map_view" />
+                                <label for="map_view">
+                                    <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                                </label>
+                                <label for="map_view" class="mdl-textfield__label">طريقة ظهور العقار</label>
+                                <ul for="map_view" class="mdl-menu mdl-menu--bottom-left u-full-width mdl-js-menu">
+                                    @foreach($mapViews as $mapView)
+                                    <li class="mdl-menu__item" data-val="{{$mapView->id}}">{{$mapView->$name}}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                        <div id="map"></div>
+                        <div class="map-link">
+                            يمكنك تحديد العنوان من موقع
+                            <a href="https://maps.address.gov.sa/" target="_blank"> خرائط العنوان الوطني السعودي</a>
+                        </div>
+                    </div>
                 <div class="mdl-card over-visable mdl-shadow--2dp u-auto-width u-mbuttom30  u-padding-side-20">
                     <table class="mdl-data-table u-full-width u-no-border">
                         <tbody>
@@ -174,7 +198,7 @@
                             <tr>
                                 <td class="u-no-border-top header" width="8%">تطل علي</td>
                                 <td class="u-no-border-top">
-                                        
+
                                     <div class="dropdown-mul-2">
                                         <input type="hidden" id="overlooks" name="overlooks">
                                         <select style="display:none" id="mul-2" multiple>
@@ -389,15 +413,37 @@
 
                 </div>
                 <div class="mdl-card mdl-shadow--2dp u-full-width mdl-grid u-mbuttom30">
+                    <div class="mdl-cell mdl-cell--12-col p-y-1">
+                        <div class=" m-b-1">
+                            <div class="form-group inputDnD">
+                                <i class="material-icons">add_a_photo</i>
+                                <input type="file" class="form-control-file text-primary font-weight-bold" id="inputFile" accept="image/*" onchange="readUrl(this)"
+                                    data-title="اسحب الصورة هنا للإضافة" name="attachment[]" multiple>
+                                <button type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored" onclick="document.getElementById('inputFile').click()">او إرفاق صور</button>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div id="files" class="mdl-cell mdl-cell--12-col">
+                        @foreach($propertyImages as $propertyImage)
+                        <div class="pip" id="{{$propertyImage->id}}">
+                            <img class="imageThumb" src="{{ asset ('/upload/properties') }}/{{$propertyImage->path}}" />
+                            <br/>
+                            <div class="remove" @click="deleteImage({{$propertyImage->id}})">
+                                <i class="material-icons">delete</i>
+                            </div>
+                        </div>
+                        @endforeach
+
+                    </div>
+                </div>
+                <div class="mdl-card mdl-shadow--2dp u-full-width mdl-grid u-mbuttom30 u-height-auto">
                     <div class="mdl-cell mdl-cell--12-col">
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
-                            <input class="mdl-textfield__input" required name="address" value="{{$property->address}}" type="text" id="mapSearch" placeholder="">
-                            <label class="mdl-textfield__label" for="mapSearch">عنوان العقار</label>
-                            <input class="mdl-textfield__input" value="{{$property->lat}}" type="hidden" name="lat" id="lat" placeholder="">
-                            <input class="mdl-textfield__input" value="{{$property->long}}" type="hidden" id="long" name="long" placeholder="">
+                            <input class="mdl-textfield__input" name="youtube" value="{{$property->youtube}}" type="text" id="youtube">
+                            <label class="mdl-textfield__label" for="youtube">رابط الفيديو (يوتيوب) </label>
                         </div>
                     </div>
-                    <div id="map"></div>
                 </div>
             </div>
         </div>
@@ -429,15 +475,15 @@
             error.insertAfter(element);
         }
     });
-    $('#submitInput').click(function(){
-            if (form.valid()) {
-                var overlooks = ($("#mul-2").val()).toString()
-                $("#overlooks").val(overlooks)
-                $("#properties-form").submit();
-            } else {
-                return false;
-            }
-        });
+    $('#submitInput').click(function () {
+        if (form.valid()) {
+            var overlooks = ($("#mul-2").val()).toString()
+            $("#overlooks").val(overlooks)
+            $("#properties-form").submit();
+        } else {
+            return false;
+        }
+    });
     function initMap() {
         var uluru = new google.maps.LatLng(23.128363, 37.199707);
         var map = new google.maps.Map(document.getElementById('map'), {
@@ -537,48 +583,48 @@
 <script src={{ asset( 'js/jquery.dropdown.min.js') }}></script>
 <script>
 
-     
-        $(document).ready(function () {
-                var overlooks = '{{$property->overlooks}}';
-                var ovelooksArr = overlooks.split(",");
-                $("#mul-2").val(ovelooksArr)
-                $('.dropdown-mul-2').dropdown({
-                    limitCount: 5,
-                    searchable: false
-                });
-                $(".city_id_js").change(function () {
-                    var value = $(this).parent().find(".hidden-input").val();
-                    $.ajax({
-                        url: '/api/v1/regions/' + value + '',
-                        type: "GET",
-                        success: function (_response) {
-                            self.cities = _response.data
-                            var districtContianer = $('#districtContianer')
-                            var currentRegion = $('#currentRegion').val();
-                            if (districtContianer.length) {
-                                districtContianer.empty();
-                                for (let i = 0; i < self.cities.length; i++) {
-                                    if (self.cities[i].id == currentRegion) {
-                                        districtContianer.append('<li class="mdl-menu__item" data-long=' + self.cities[i].location.long + ' data-lat=' + self.cities[i].location.lat + ' data-val=' + self.cities[i].id + ' data-selected="true">' + self.cities[i].title + '</li>');
-                                    } else {
-                                        districtContianer.append('<li class="mdl-menu__item"  data-long=' + self.cities[i].location.long + ' data-lat=' + self.cities[i].location.lat + ' data-val=' + self.cities[i].id + '>' + self.cities[i].title + '</li>');
-                                    }
-                                }
+
+    $(document).ready(function () {
+        var overlooks = '{{$property->overlooks}}';
+        var ovelooksArr = overlooks.split(",");
+        $("#mul-2").val(ovelooksArr)
+        $('.dropdown-mul-2').dropdown({
+            limitCount: 5,
+            searchable: false
+        });
+        $(".city_id_js").change(function () {
+            var value = $(this).parent().find(".hidden-input").val();
+            $.ajax({
+                url: '/api/v1/regions/' + value + '',
+                type: "GET",
+                success: function (_response) {
+                    self.cities = _response.data
+                    var districtContianer = $('#districtContianer')
+                    var currentRegion = $('#currentRegion').val();
+                    if (districtContianer.length) {
+                        districtContianer.empty();
+                        for (let i = 0; i < self.cities.length; i++) {
+                            if (self.cities[i].id == currentRegion) {
+                                districtContianer.append('<li class="mdl-menu__item" data-long=' + self.cities[i].location.long + ' data-lat=' + self.cities[i].location.lat + ' data-val=' + self.cities[i].id + ' data-selected="true">' + self.cities[i].title + '</li>');
+                            } else {
+                                districtContianer.append('<li class="mdl-menu__item"  data-long=' + self.cities[i].location.long + ' data-lat=' + self.cities[i].location.lat + ' data-val=' + self.cities[i].id + '>' + self.cities[i].title + '</li>');
                             }
+                        }
+                    }
 
-                        },
-                        complete: function (_response) {
+                },
+                complete: function (_response) {
 
-                            getmdlSelect.init('.getmdl-select__city');
+                    getmdlSelect.init('.getmdl-select__city');
 
 
-                        },
-                    });
-                });
+                },
+            });
+        });
 
-            })
-        
-       
+    })
+
+
 
     function readUrl(input) {
         var files = event.target.files;

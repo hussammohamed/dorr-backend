@@ -7,8 +7,8 @@
             <h5 class="apps--card__content">حمل تطبيق دور على موبيايلك وتمتع بجميع خدمات دور</h5>
     </div>
     <div class="apps--card__links">
-        <a href="#/"><img src={{ asset('images/playstore.png') }} alt=""></a>
-        <a href="#/"><img src={{ asset('images/app-store.png') }} alt=""></a>
+        <a href="#/"><img src={{ asset('images/playstore.svg') }} alt="" ></a>
+        <a href="#/"><img src={{ asset('images/app-store.svg') }} alt="" ></a>
     </div>
    
 </div>

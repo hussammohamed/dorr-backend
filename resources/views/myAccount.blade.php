@@ -7,7 +7,8 @@
         <form id="example-form" class="wizard-form" action="myAccount/update" method="post">
             {{ csrf_field() }}
             <div class="mdl-card mdl-shadow--2dp u-full-width u-mbuttom30 u-padding-bottom-25 u-padding-top-15">
-                <div class="mdl-card__title">
+                    
+            <div class="mdl-card__title">
                     المعلومات الشخصية
                 </div>
                 <div class="mdl-grid ">

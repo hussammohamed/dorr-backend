@@ -34,8 +34,8 @@
                     <h3>تطبيق دور</h3>
                     <h4>حمل تطبيق دور على هاتفك وتمتع بجميع خدمات دور</h4>
                     <div class="footer--item__links">
-                        <a href="#/"><img src={{ asset('images/playstore.png') }} alt=""></a>
-                        <a href="#/"><img src={{ asset('images/app-store.png') }} alt=""></a>
+                        <a href="#/"><img src={{ asset('images/playstore.svg') }} alt=""></a>
+                        <a href="#/"><img src={{ asset('images/app-store.svg') }} alt=""></a>
                     </div>
                 
                 </div>

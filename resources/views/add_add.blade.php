@@ -28,7 +28,7 @@
                             <label for="type">
                                 <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
                             </label>
-                            <label for="type" class="mdl-textfield__label">النوع</label>
+                            <label for="type" class="mdl-textfield__label">نوع العقار</label>
                             <ul for="type" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
                                 @foreach($types as $type)
                                 <li class="mdl-menu__item" data-val="{{$type->id}}">{{$type->$name}}</li>
@@ -44,7 +44,7 @@
                             <label for="purpose">
                                 <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
                             </label>
-                            <label for="purpose" class="mdl-textfield__label">القسم</label>
+                            <label for="purpose" class="mdl-textfield__label">الغرض من العرض</label>
                             <ul for="purpose" id="purposesContainer" class="mdl-menu mdl-menu--bottom-left u-full-width mdl-js-menu">
                                 @foreach($purposes as $purpose)
                                 <li class="mdl-menu__item" data-val="{{$purpose->id}}">{{$purpose->$name}}</li>
@@ -56,164 +56,6 @@
             </section>
             <h3 class="hidden">second_step</h3>
             <section class="u-hidden">
-                <div class="section-header">
-                    <h3>تفاصيل الأعلان</h3>
-                </div>
-
-                <div class="mdl-card mdl-shadow--2dp u-full-width mdl-grid u-mbuttom30">
-                    <div class="mdl-cell mdl-cell--12-col">
-                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
-                            <input class="mdl-textfield__input" required name="title" type="text" id="sample20">
-                            <label class="mdl-textfield__label" for="sample20">عنوان الأعلان</label>
-                        </div>
-                    </div>
-                    <div class="mdl-cell mdl-cell--12-col">
-                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
-                            <textarea class="mdl-textfield__input" required name="description" type="text" rows="5" id="sample5"></textarea>
-                            <label class="mdl-textfield__label" for="sample5">تفاصيل الأعلان</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="section-header">
-                    <h3>تفاصيل العقار</h3>
-                </div>
-
-                <div class="mdl-card mdl-shadow--2dp u-full-width mdl-grid u-mbuttom30">
-                    <div class="mdl-cell mdl-cell--3-col">
-                        <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-                            <input class="mdl-textfield__input" required type="text" id="advertiser_type" value="" readonly tabIndex="-1">
-                            <input value="" type="hidden" name="advertiser_type" />
-                            <label for="advertiser_type">
-                                <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-                            </label>
-                            <label for="advertiser_type" class="mdl-textfield__label">العلاقة بالعقار</label>
-                            <ul for="advertiser_type" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                                @foreach($advertiserTypes as $advertiserType)
-                                <li class="mdl-menu__item" data-val="{{$advertiserType->id}}">{{$advertiserType->$name}}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="mdl-cell mdl-cell--3-col">
-                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
-                            <input class="mdl-textfield__input" required name="area" type="number" id="sample9">
-                            <label class="mdl-textfield__label" for="sample9">المساحة بالمتر المربع</label>
-                        </div>
-                    </div>
-                    <div class="mdl-cell mdl-cell--3-col">
-                        <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-                            <input class="mdl-textfield__input" required type="text" id="sample12" value="" readonly tabIndex="-1">
-                            <input value="" type="hidden" name="payment_methods" />
-                            <label for="sample1">
-                                <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-                            </label>
-                            <label for="sample12" class="mdl-textfield__label">طريقة الدفع</label>
-                            <ul for="sample12" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                                @foreach($paymentMethods as $paymentMethod)
-                                <li class="mdl-menu__item" data-val="{{$paymentMethod->id}}">{{$paymentMethod->$name}}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="mdl-cell mdl-cell--3-col">
-                        <div class="dropdown-mul-2">
-                            <input type="hidden" id="overlooks" name="overlooks">
-                            <select style="display:none" id="mul-2" multiple placeholder="تطل علي">
-                                @foreach($overlooks as $overlook)
-                                <option value="{{$overlook->id}}">{{$overlook->$name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-
-                    </div>
-                    <div class="mdl-cell mdl-cell--3-col">
-                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
-                            <input class="mdl-textfield__input" required name="price" type="number" id="price">
-                            <label class="mdl-textfield__label" for="price">السعر</label>
-                        </div>
-                    </div>
-                    <div class="mdl-cell mdl-cell--3-col">
-                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
-                            <input class="mdl-textfield__input" required name="bid_price" type="number" id="bid_price">
-                            <label class="mdl-textfield__label" for="bid_price">سعر السوم</label>
-                        </div>
-                    </div>
-                    <div class="mdl-cell mdl-cell--3-col mdl-checkbox-col">
-                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="price_view">
-                            <input type="hidden" name="price_view" value="0" />
-                            <input type="checkbox" id="price_view" value="1" name="price_view" class="mdl-checkbox__input">
-                            <span class="price_view">إخفاء السعر</span>
-                        </label>
-                    </div>
-                    <div class="mdl-cell mdl-cell--3-col target-hidden hidden">
-                        <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-                            <input class="mdl-textfield__input" name="typeLabel" type="text" id="income_period" value="" readonly>
-                            <input value="" type="hidden" name="income_period" />
-                            <label for="income_period">
-                                <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-                            </label>
-                            <label for="income_period" class="mdl-textfield__label">فترة الدخل</label>
-                            <ul for="income_period" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                                @foreach($incomePeriods as $incomePeriod)
-                                <li class="mdl-menu__item" data-val="{{$incomePeriod->id}}">{{$incomePeriod->$name}}</li>
-                                @endforeach
-
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="mdl-cell mdl-cell--3-col target-hidden hidden">
-                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
-                            <input class="mdl-textfield__input" name="income" type="number" id="income">
-                            <label class="mdl-textfield__label" for="income">الدخل</label>
-                        </div>
-                    </div>
-
-
-                    <div class="mdl-cell mdl-cell--3-col">
-                        <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" required name="rooms" type="number" id="rooms" value="">
-                            <label for="rooms" class="mdl-textfield__label">عدد الغرف</label>
-                        </div>
-                    </div>
-                    <div class="mdl-cell mdl-cell--3-col">
-                        <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" required name="floor" type="number" id="floor" value="">
-                            <label for="floor" class="mdl-textfield__label">الطابق</label>
-                        </div>
-                    </div>
-                    <div class="mdl-cell mdl-cell--3-col">
-                        <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" required name="bathrooms" type="number" id="bathrooms" value="">
-                            <label for="bathrooms" class="mdl-textfield__label">الحمامات</label>
-                        </div>
-                    </div>
-                    <div class="mdl-cell mdl-cell--3-col">
-                        <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label ">
-                            <input class="mdl-textfield__input" required name="year_of_construction" type="number" id="sampl6" value="">
-
-                            <label for="sampl6" class="mdl-textfield__label">سنة البناء</label>
-
-                        </div>
-                    </div>
-                    <div class="mdl-cell mdl-cell--3-col">
-                        <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-
-                            <input class="mdl-textfield__input" required type="text" id="sampl7" value="" readonly tabIndex="-1">
-                            <input value="" type="hidden" name="finish_type" />
-                            <label for="sampl7">
-                                <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-                            </label>
-                            <label for="sampl7" class="mdl-textfield__label">نوع التشطيب</label>
-                            <ul for="sampl7" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                                @foreach($finishTypes as $finishType)
-                                <li class="mdl-menu__item" data-val="{{$finishType->id}}">{{$finishType->$name}}</li>
-                                @endforeach
-                            </ul>
-
-                        </div>
-                    </div>
-                </div>
                 <div class="section-header">
                     <h3>تفاصيل العنوان</h3>
                 </div>
@@ -250,27 +92,185 @@
                     <div class="mdl-cell mdl-cell--8-col">
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
                             <input class="mdl-textfield__input" required name="address" type="text" id="mapSearch" placeholder="">
-                            <label class="mdl-textfield__label" for="mapSearch">عنوان العقار</label>
-                            <input class="mdl-textfield__input" type="hidden" name="lat" id="lat" placeholder="">
-                            <input class="mdl-textfield__input" type="hidden" id="long" name="long" placeholder="">
+                            <label class="mdl-textfield__label" for="mapSearch">العنوان بالتفصيل</label>
+                            <input class="mdl-textfield__input" required type="hidden" name="lat" id="lat" placeholder="">
+                            <input class="mdl-textfield__input" required type="hidden" id="long" name="long" placeholder="">
                         </div>
                     </div>
                     <div class="mdl-cell mdl-cell--4-col">
                         <div class="mdl-textfield mdl-js-textfield u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
                             <input class="mdl-textfield__input" required type="text" id="map_view" value="" readonly tabIndex="-1">
-                            <input value="" class="hidden-input" type="hidden" name="map_view"/>
+                            <input value="" class="hidden-input" type="hidden" name="map_view" />
                             <label for="map_view">
                                 <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
                             </label>
-                            <label for="map_view" class="mdl-textfield__label">ظهور العقار علي الخريطة</label>
-                            <ul for="map_view"  class="mdl-menu mdl-menu--bottom-left u-full-width mdl-js-menu">
+                            <label for="map_view" class="mdl-textfield__label">طريقة ظهور العقار</label>
+                            <ul for="map_view" class="mdl-menu mdl-menu--bottom-left u-full-width mdl-js-menu">
                                 @foreach($mapViews as $mapView)
-                                <li class="mdl-menu__item"  data-val="{{$mapView->id}}">{{$mapView->$name}}</li>
+                                <li class="mdl-menu__item" data-val="{{$mapView->id}}">{{$mapView->$name}}</li>
                                 @endforeach
                             </ul>
                         </div>
                     </div>
                     <div id="map"></div>
+                    <div class="map-link">
+                        يمكنك تحديد العنوان من موقع
+                        <a href="https://maps.address.gov.sa/" target="_blank"> خرائط العنوان الوطني السعودي</a>
+                    </div>
+                </div>
+                <div class="section-header">
+                    <h3>تفاصيل العقار</h3>
+                </div>
+
+                <div class="mdl-card mdl-shadow--2dp u-full-width mdl-grid u-mbuttom30">
+                    <div class="mdl-cell mdl-cell--3-col">
+                        <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
+                            <input class="mdl-textfield__input" required type="text" id="advertiser_type" value="" readonly tabIndex="-1">
+                            <input value="" type="hidden" name="advertiser_type" />
+                            <label for="advertiser_type">
+                                <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                            </label>
+                            <label for="advertiser_type" class="mdl-textfield__label">العلاقة بالعقار</label>
+                            <ul for="advertiser_type" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                                @foreach($advertiserTypes as $advertiserType)
+                                <li class="mdl-menu__item" data-val="{{$advertiserType->id}}">{{$advertiserType->$name}}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mdl-cell mdl-cell--3-col">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
+                            <input class="mdl-textfield__input" required name="area" type="number" id="sample9">
+                            <label class="mdl-textfield__label" for="sample9">المساحة بالمتر المربع</label>
+                        </div>
+                    </div>
+                    <!-- <div class="mdl-cell mdl-cell--3-col">
+                        <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
+                            <input class="mdl-textfield__input" required type="text" id="sample12" value="" readonly tabIndex="-1">
+                            <input value="" type="hidden" name="payment_methods" />
+                            <label for="sample1">
+                                <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                            </label>
+                            <label for="sample12" class="mdl-textfield__label">طريقة الدفع</label>
+                            <ul for="sample12" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                                @foreach($paymentMethods as $paymentMethod)
+                                <li class="mdl-menu__item" data-val="{{$paymentMethod->id}}">{{$paymentMethod->$name}}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div> -->
+                    <div class="mdl-cell mdl-cell--6-col">
+                        <div class="dropdown-mul-2">
+                            <input type="hidden" id="overlooks" name="overlooks">
+                            <select style="display:none" id="mul-2" multiple placeholder="تطل علي">
+                                @foreach($overlooks as $overlook)
+                                <option value="{{$overlook->id}}">{{$overlook->$name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+
+                    </div>
+                    <div class="mdl-cell mdl-cell--3-col target-sale">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
+                            <input class="mdl-textfield__input"  name="bid_price" type="number" id="bid_price">
+                            <label class="mdl-textfield__label" for="bid_price">سعر السوم</label>
+                        </div>
+                    </div>
+                    <div class="mdl-cell mdl-cell--3-col target-rent hidden">
+                            <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
+                                <input class="mdl-textfield__input" name="typeLabel" type="text" id="income_period" value="" readonly>
+                                <input value="" type="hidden" name="income_period" />
+                                <label for="income_period">
+                                    <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                                </label>
+                                <label for="income_period" class="mdl-textfield__label">الأيجار</label>
+                                <ul for="income_period" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                                    @foreach($incomePeriods as $incomePeriod)
+                                    <li class="mdl-menu__item" data-val="{{$incomePeriod->id}}">{{$incomePeriod->$name}}</li>
+                                    @endforeach
+    
+                                </ul>
+                            </div>
+                        </div>
+                    <div class="mdl-cell mdl-cell--3-col">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
+                                <input class="mdl-textfield__input" required name="price" type="number" id="price">
+                                <label class="mdl-textfield__label target-sale " for="price">السعر المطلوب للبيع</label>
+                                <label class="mdl-textfield__label target-rent" for="price">السعر المطلوب للأيجار</label>
+                            </div>
+                        </div>
+                    <div class="mdl-cell mdl-cell--3-col mdl-checkbox-col target-sale">
+                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="price_view">
+                            <input type="hidden" name="price_view" value="0" />
+                            <input type="checkbox" id="price_view" value="1" name="price_view" class="mdl-checkbox__input">
+                            <span class="price_view">إخفاء السعر</span>
+                        </label>
+                    </div>
+
+
+                    <div class="mdl-cell mdl-cell--3-col">
+                        <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input"  name="rooms" type="number" id="rooms" value="">
+                            <label for="rooms" class="mdl-textfield__label">عدد الغرف</label>
+                        </div>
+                    </div>
+                    <div class="mdl-cell mdl-cell--3-col">
+                            <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label">
+                                <input class="mdl-textfield__input" required name="bathrooms" type="number" id="bathrooms" value="">
+                                <label for="bathrooms" class="mdl-textfield__label"> عدد الحمامات</label>
+                            </div>
+                        </div>
+                    <div class="mdl-cell mdl-cell--3-col">
+                        <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input"  name="floor" type="number" id="floor" value="">
+                            <label for="floor" class="mdl-textfield__label">الطابق</label>
+                        </div>
+                    </div>
+                   
+                    <div class="mdl-cell mdl-cell--3-col">
+                        <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label ">
+                            <input class="mdl-textfield__input"  name="year_of_construction" type="number" id="sampl6" value="">
+
+                            <label for="sampl6" class="mdl-textfield__label">سنة البناء</label>
+
+                        </div>
+                    </div>
+                    <!-- <div class="mdl-cell mdl-cell--3-col">
+                        <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
+
+                            <input class="mdl-textfield__input" required type="text" id="sampl7" value="" readonly tabIndex="-1">
+                            <input value="" type="hidden" name="finish_type" />
+                            <label for="sampl7">
+                                <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                            </label>
+                            <label for="sampl7" class="mdl-textfield__label">نوع التشطيب</label>
+                            <ul for="sampl7" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                                @foreach($finishTypes as $finishType)
+                                <li class="mdl-menu__item" data-val="{{$finishType->id}}">{{$finishType->$name}}</li>
+                                @endforeach
+                            </ul>
+
+                        </div>
+                    </div> -->
+                </div>
+                <div class="section-header">
+                    <h3>تفاصيل الأعلان</h3>
+                </div>
+
+                <div class="mdl-card mdl-shadow--2dp u-full-width mdl-grid u-mbuttom30">
+                    <div class="mdl-cell mdl-cell--12-col">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
+                            <input class="mdl-textfield__input" required name="title" type="text" id="sample20">
+                            <label class="mdl-textfield__label" for="sample20">عنوان الأعلان</label>
+                        </div>
+                    </div>
+                    <div class="mdl-cell mdl-cell--12-col">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
+                            <textarea class="mdl-textfield__input"  name="description" type="text" rows="5" id="sample5"></textarea>
+                            <label class="mdl-textfield__label" for="sample5">تفاصيل الأعلان</label>
+                        </div>
+                    </div>
                 </div>
             </section>
             <h3 class="hidden">third_step</h3>
@@ -554,10 +554,12 @@
     }
     $("#purpose").change(function () {
         var purposeId = $("#purposesContainer").find(".selected").attr("data-val");
-        if (purposeId == "1") {
-            $(".target-hidden").removeClass('hidden');
+        if (purposeId == "2") {
+            $(".target-sale").addClass('hidden');
+            $(".target-rent").removeClass('hidden');
         } else {
-            $(".target-hidden").addClass('hidden');
+            $(".target-rent").addClass('hidden');
+            $(".target-sale").removeClass('hidden');
         }
     });
 

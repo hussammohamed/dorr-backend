@@ -28,7 +28,6 @@ class PropertyVaildator extends FormRequest
         return [
             'type' => 'required',
             'purpose' => 'required',
-            'title' => 'required',
             'address' => 'required',
             'region' => 'required',
             'lat' => 'required',

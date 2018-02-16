@@ -19,6 +19,7 @@ use App\PropertyOffer;
 use App\FilterMenu;
 use App\Period;
 use App\MapView;
+use App\ReportingReason;
 
 use App\Http\Resources\TypesResource;
 use App\Http\Resources\PurposesResource;
@@ -31,6 +32,7 @@ use App\Http\Resources\OverlookResource;
 use App\Http\Resources\PaymentMethodResource;
 use App\Http\Resources\PeriodResource;
 use App\Http\Resources\MapViewResource;
+use App\Http\Resources\ReportingReasonResource;
 //use App\Http\Resources\PropertyCollection;
 
 use Illuminate\Http\Response;
@@ -370,14 +372,14 @@ class PropertiesController extends Controller
             $property->price_view = $data['price_view'];
             if(isset($data['bid_price'])){ $property->bid_price = $data['bid_price']; }else{ $property->bid_price = null;};
             if(isset($data['period'])){ $property->period = $data['period']; }else{ $property->period = null;};
-            if(isset($data['income'])){ $property->income = $data['income']; }else{ $property->income = null;};
+            //if(isset($data['income'])){ $property->income = $data['income']; }else{ $property->income = null;};
             $property->year_of_construction =  $data['year_of_construction'];
             $property->advertiser_type =  $data['advertiser_type'];
             $property->area =  $data['area'];
             $property->floor =  $data['floor'];
-            $property->finish_type =  $data['finish_type'];
+            //$property->finish_type =  $data['finish_type'];
             $property->overlooks =  $data['overlooks'];
-            $property->payment_methods =  $data['payment_methods'];
+            //$property->payment_methods =  $data['payment_methods'];
             $property->rooms =  $data['rooms'];
             $property->bathrooms =  $data['bathrooms'];
             $property->youtube = $data['youtube'];
@@ -510,14 +512,14 @@ class PropertiesController extends Controller
                     $property->price_view = $data['price_view'];
                     if(isset($data['bid_price'])){ $property->bid_price = $data['bid_price']; }else{ $property->bid_price = null;};
                     if(isset($data['period'])){ $property->period = $data['period']; }else{ $property->period = null;};
-                    if(isset($data['income'])){ $property->income = $data['income']; }else{ $property->income = null;};
+                    //if(isset($data['income'])){ $property->income = $data['income']; }else{ $property->income = null;};
                     $property->year_of_construction =  $data['year_of_construction'];
                     $property->advertiser_type =  $data['advertiser_type'];
                     $property->area =  $data['area'];
                     $property->floor =  $data['floor'];
-                    $property->finish_type =  $data['finish_type'];
+                    //$property->finish_type =  $data['finish_type'];
                     $property->overlooks =  $data['overlooks'];
-                    $property->payment_methods =  $data['payment_methods'];
+                    //$property->payment_methods =  $data['payment_methods'];
                     $property->rooms =  $data['rooms'];
                     $property->bathrooms =  $data['bathrooms'];
                     $property->youtube = $data['youtube'];
@@ -767,22 +769,24 @@ class PropertiesController extends Controller
         $purposes = Purpose::where('active',1)->where('deleted',0)->orderby('order')->get();
         $regions = Region::where('type',1)->where('active',1)->where('deleted',0)->orderby('order')->get();
         $advertisers = Advertiser::where('active',1)->where('deleted',0)->orderby('order')->get();
-        $finish_types = FinishType::where('active',1)->where('deleted',0)->orderby('order')->get();
+        //$finish_types = FinishType::where('active',1)->where('deleted',0)->orderby('order')->get();
         $overlooks = Overlook::where('active',1)->where('deleted',0)->orderby('order')->get();
-        $payment_methods = PaymentMethod::where('active',1)->where('deleted',0)->orderby('order')->get();
+        //$payment_methods = PaymentMethod::where('active',1)->where('deleted',0)->orderby('order')->get();
         $periods = Period::where('active',1)->where('deleted',0)->orderby('order')->get();
         $map_views = MapView::where('active',1)->where('deleted',0)->orderby('order')->get();
+        $reporting_reasons = ReportingReason::where('active',1)->where('deleted',0)->orderby('order')->get();
 
         return [
             "types" => TypesResource::collection($types),
             "purposes" => PurposesResource::collection($purposes),
             "regions" => RegionResource::collection($regions),
             "advertisers" => AdvertiserResource::collection($advertisers),
-            "finish_types" => FinishTypeResource::collection($finish_types),
+            //"finish_types" => FinishTypeResource::collection($finish_types),
             "overlooks" => OverlookResource::collection($overlooks),
-            "payment_methods" => PaymentMethodResource::collection($payment_methods),
+            //"payment_methods" => PaymentMethodResource::collection($payment_methods),
             "periods" => PeriodResource::collection($periods),
             "map_views" => MapViewResource::collection($map_views),
+            "reporting_reasons" => ReportingReasonResource::collection($reporting_reasons),
         ];
     }
 }

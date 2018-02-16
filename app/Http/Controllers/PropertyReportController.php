@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App;
 use App\PropertyReport;
+use App\ReportingReason;
 use App\User;
 use Auth;
 use Illuminate\Http\Request;
@@ -49,6 +51,7 @@ class PropertyReportController extends Controller
         
             $report = new PropertyReport;
             $report->property_id = $request->property_id;
+            $report->reason = $request->reason;
             $report->comment = $request->comment;
             $report->user_id = Auth::user()->id;
             
@@ -59,19 +62,25 @@ class PropertyReportController extends Controller
     }
 
 
-    public function storeAPI(Request $request)
+    public function storeAPI(Request $request, $id)
     {
         //
         if (Auth::check()) {
             $report = new PropertyReport;
-            $report->property_id = $request->property_id;
+            $report->property_id = $id;
+            $report->reason = $request->reason;
             $report->comment = $request->comment;
             $report->user_id = Auth::user()->id;
             
             $report->save();
 
+            $name = 'name_'.App::getLocale();
             return [
                 'report_id' => $report->id,
+                "reason" => [
+                    "id" => $report->reason,
+                    "name" => ReportingReason::find($report->reason)->$name,
+                ],
                 'comment' => $report->comment,
                 'User' =>[
                     'id'=> Auth::user()->id,

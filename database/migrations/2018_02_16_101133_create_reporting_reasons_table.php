@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePropertyReportsTable extends Migration
+class CreateReportingReasonsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreatePropertyReportsTable extends Migration
      */
     public function up()
     {
-        Schema::create('property_reports', function (Blueprint $table) {
+        Schema::create('reporting_reasons', function (Blueprint $table) {
             $table->increments('id');
-		    $table->integer('property_id');
-            $table->integer('user_id');
-            $table->integer('reason')->nullable();
-		    $table->text('comment');
+		    $table->string('name_ar');
+		    $table->string('name_en');
+            $table->integer('order')->default('0');
 		    $table->boolean('active')->default('1');
 		    $table->boolean('deleted')->default('0');
             $table->timestamps();
@@ -32,6 +31,6 @@ class CreatePropertyReportsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('property_reports');
+        Schema::dropIfExists('reporting_reasons');
     }
 }

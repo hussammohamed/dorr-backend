@@ -116,8 +116,8 @@
                             <td class="u-no-border-top header" width="8%">الوجهات</td>
                             <td class="u-no-border-top">
                             @if ($property->overlooks != "")
-                                @foreach(explode(',', $property->overlooks) as $overlook) 
-                                {{$overlook}}
+                                @foreach(explode(',', $property->overlooks) as $overlook)
+                                {{ \App\Overlook::find($overlook)->$name }}, 
                                 @endforeach
                                 @endif
                             </td>
@@ -130,6 +130,7 @@
                             </td>
 
                         </tr>
+                        @if($property->purpose == "1" )
                         <tr>
                             <td class="u-no-border-top header" width="8%">سعر السوم</td>
                             <td class="u-no-border-top">
@@ -144,8 +145,22 @@
                             </td>
 
                         </tr>
-                       
-                       
+                        @else
+                        <tr>
+                            <td class="u-no-border-top header" width="8%">الأيجار</td>
+                            <td class="u-no-border-top">
+                            {{ \App\Period::find($property->period)->$name }} 
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td class="u-no-border-top header" width="8%">السعر المطلوب</td>
+                            <td class="u-no-border-top">
+                            {{ $property->price}} 
+                            </td>
+
+                        </tr>
+                       @endif
                        
                         <tr>
                             <td class="u-no-border-top header" width="8%"> عدد الغرف</td>
@@ -259,7 +274,7 @@
                         </tr>
                     </tbody>
                     </table>
-                    @if($property->price_view == "0")
+                    @if($property->price_view == "0" || $property->purpose == "2")
                     <span class="card-label bottom-label-left has-secondary-base-bg">{{ $property->price }} ريال</span>
                     @endif
             </div>

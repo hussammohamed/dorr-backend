@@ -199,6 +199,7 @@
                                 <label class="mdl-textfield__label target-sale " for="price">السعر المطلوب للبيع</label>
                                 <label class="mdl-textfield__label target-rent" for="price">السعر المطلوب للأيجار</label>
                             </div>
+                            <span class="mdl-color-text--grey-500 u-text-size-10"> مهم لظهور عقارك بالبحث ولن يظهر في العرض</span>
                         </div>
                     <div class="mdl-cell mdl-cell--3-col mdl-checkbox-col target-sale">
                         <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="price_view">

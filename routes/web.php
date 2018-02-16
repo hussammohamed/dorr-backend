@@ -49,6 +49,9 @@ Route::group(['middleware'=>'language'],function(){
         Route::get('/sucsess', function () {
             return view('sucsess');
         });
+        Route::get('/reset-sucsess', function () {
+            return view('sucsessReset');
+        });
 
     Route::get('myAccount', 'UserController@edit');
     Route::get('myAccount/Properties','UserController@getUserProperties');

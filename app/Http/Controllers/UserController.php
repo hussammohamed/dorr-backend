@@ -207,8 +207,8 @@ class UserController extends Controller
         if (Auth::check()) {
             $avatar = Auth::user()->avatar;
             if($avatar!=""){
-                if(file_exists( public_path() . '/upload/users/'.Auth::user()->avatar)) {
-                    return $avatar;
+                if(file_exists( public_path() . '/upload/users/'.$avatar)) {
+                    return response()->json(["avatar"=> '/upload/users/'.$avatar]);
                 }else{
                     return response()->json(["error"=>"This avatar is not exist"], Response::HTTP_NOT_FOUND);
                 }
@@ -228,8 +228,8 @@ class UserController extends Controller
         }else{
             $avatar = $user->avatar;
             if($avatar!=""){
-                if(file_exists( public_path() . '/upload/users/'.$user->avatar)) {
-                    return $avatar;
+                if(file_exists( public_path() . '/upload/users/'.$avatar)) {
+                    return response()->json(["avatar"=> '/upload/users/'.$avatar]);
                 }else{
                     return response()->json(["error"=>"This avatar is not exist"], Response::HTTP_NOT_FOUND);
                 }

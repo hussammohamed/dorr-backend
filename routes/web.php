@@ -80,6 +80,7 @@ Route::post('api/v1/users/create', 'Auth\RegisterController@newUser');
 Route::post('api/v1/users/login', 'Auth\LoginController@setLogin');
 Route::post('api/v1/user/update', 'UserController@updateUser');
 Route::post('api/v1/user/update_password', 'UserController@updatePasswordAPI');
+Route::post('api/v1/user/reset_link','Auth\ForgotPasswordController@sendResetLink');
 Route::post('api/v1/user/avatar/upload', 'UserController@uploadAvatar');
 Route::get('api/v1/user/avatar', 'UserController@getAvatar');
 Route::get('api/v1/user/avatar/{id}', 'UserController@getAvatarByUserID');
@@ -116,6 +117,7 @@ Route::get('api/v1/regions', 'RegionsController@getCities');
 Route::get('api/v1/filters', 'FilterMenuController@getFilterMenus');
 Route::get('api/v1/types', 'TypesController@getTypes');
 Route::get('api/v1/purposes', 'PurposesController@getPurposes');
+
 
 Route::post('api/v1/val', 'PropertiesController@val');
 Route::post('api/v1/test/{id}', 'PropertiesController@test');

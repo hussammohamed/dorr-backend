@@ -205,8 +205,7 @@ const app = new Vue({
     beforeCreate(){
         var self = this;
         $.get('/api/v1/user/avatar', function (data) {
-            console.log(this)
-            self.imgDataUrl =   "/upload/users/" + data;
+            self.imgDataUrl =    data.avatar;
         }).fail(function() {
             self.imgDataUrl =  "/images/face.png";
           })

@@ -191,7 +191,7 @@ class PropertiesController extends Controller
     public function getByLoginedUser()
     {
         if (Auth::check()) {
-            $property = Property::where('user_id','=', Auth::user()->id)->where('deleted','=', 0)->get();
+            $property = Property::where('user_id','=', Auth::user()->id)->where('deleted','=', 0)->orderBy('id', 'desc')->get();
             if (count($property) < 1) {
                 //return response()->json(["error"=>"There is no properties for you"], Response::HTTP_NOT_FOUND);
             }else{
@@ -209,7 +209,7 @@ class PropertiesController extends Controller
         if (count($user) < 1) {
             //return response()->json(["error"=>"This user is not exists"], Response::HTTP_NOT_FOUND);
         }else{
-            $property = Property::where('user_id','=', $user_id)->where('deleted','=', 0)->get();
+            $property = Property::where('user_id','=', $user_id)->where('deleted','=', 0)->orderBy('id', 'desc')->get();
             if (count($property) < 1) {
                 return response()->json(["error"=>"There is no properties for this user"], Response::HTTP_NOT_FOUND);
             }else{
@@ -322,21 +322,21 @@ class PropertiesController extends Controller
             $property->description = $request->description;
             $property->price = $request->price;
             $property->price_view = $request->price_view;
-            $property->bid_price = $request->bid_price;
-            $property->period = $request->period;
-            $property->income = $request->income;
-            $property->year_of_construction = $request->year_of_construction;
-            $property->advertiser_type = $request->advertiser_type;
+            //$property->bid_price = $request->bid_price;
+            if(isset($request->bid_price) && $request->bid_price!=""){ $property->bid_price = $request->bid_price; }else{ $property->bid_price = null;};
+            if(isset($request->period) && $request->period!=""){ $property->period = $request->period; }else{ $property->period = null;};
+            if(isset($request->income) && $request->income!=""){ $property->income = $request->income; }else{ $property->income = null;};
+            if(isset($request->year_of_construction) && $request->year_of_construction!=""){ $property->year_of_construction = $request->year_of_construction; }else{ $property->year_of_construction = null;};
+            if(isset($request->advertiser_type) && $request->advertiser_type!=""){ $property->advertiser_type = $request->advertiser_type; }else{ $property->advertiser_type = null;};
             $property->area = $request->area;
-            $property->floor = $request->floor;
-            // $property->finish_type = $request->finish_type;
-            $property->overlooks = $request->overlooks;
-            // $property->payment_methods = $request->payment_methods;
-            $property->rooms = $request->rooms;
-            $property->bathrooms = $request->bathrooms;
+            if(isset($request->floor) && $request->floor!=""){ $property->floor = $request->floor; }else{ $property->floor = null;};
+            if(isset($request->overlooks) && $request->overlooks!=""){ $property->overlooks = $request->overlooks; }else{ $property->overlooks = null;};
+            if(isset($request->rooms) && $request->rooms!=""){ $property->rooms = $request->rooms; }else{ $property->rooms = null;};
+            if(isset($request->bathrooms) && $request->bathrooms!=""){ $property->bathrooms = $request->bathrooms; }else{ $property->bathrooms = null;};
+            if(isset($request->map_view) && $request->map_view!=""){ $property->map_view = $request->map_view; }else{ $property->map_view = null;};
+            
             $property->ad_id = time();
             $property->youtube = $request->youtube;
-            $property->map_view = $request->map_view;
             $property->startDate = date("Y-m-d h:i:s");
 
             $property->save();
@@ -360,6 +360,7 @@ class PropertiesController extends Controller
 
             $property = new Property;
             $property->user_id = Auth::user()->id;
+            
             $property->type =  $data['type'];
             $property->purpose =  $data['purpose'];
             $property->title =  $data['title'];
@@ -367,24 +368,24 @@ class PropertiesController extends Controller
             $property->region =  $data['district'];
             $property->lat =  $data['lat'];
             $property->long =  $data['long'];
-            $property->description =  $data['description'];
+            if(isset($data['description'])){ $property->description = $data['description']; }else{ $property->description = null;};
             $property->price = $data['price'];
             $property->price_view = $data['price_view'];
-            if(isset($data['bid_price'])){ $property->bid_price = $data['bid_price']; }else{ $property->bid_price = null;};
+            if(isset($data['bid_price']) || $data['bid_price']==""){ $property->bid_price = $data['bid_price']; }else{ $property->bid_price = null;};
             if(isset($data['period'])){ $property->period = $data['period']; }else{ $property->period = null;};
             //if(isset($data['income'])){ $property->income = $data['income']; }else{ $property->income = null;};
-            $property->year_of_construction =  $data['year_of_construction'];
-            $property->advertiser_type =  $data['advertiser_type'];
-            $property->area =  $data['area'];
-            $property->floor =  $data['floor'];
+            if(isset($data['year_of_construction'])){ $property->year_of_construction = $data['year_of_construction']; }else{ $property->year_of_construction = null;};
+            if(isset($data['advertiser_type'])){ $property->advertiser_type = $data['advertiser_type']; }else{ $property->advertiser_type = null;};
+            if(isset($data['area'])){ $property->area = $data['area']; }else{ $property->area = null;};
+            if(isset($data['floor'])){ $property->floor = $data['floor']; }else{ $property->floor = null;};
             //$property->finish_type =  $data['finish_type'];
-            $property->overlooks =  $data['overlooks'];
+            if(isset($data['overlooks'])){ $property->overlooks = $data['overlooks']; }else{ $property->overlooks = null;};
             //$property->payment_methods =  $data['payment_methods'];
-            $property->rooms =  $data['rooms'];
-            $property->bathrooms =  $data['bathrooms'];
-            $property->youtube = $data['youtube'];
-            $property->ad_id = time();
+            if(isset($data['rooms'])){ $property->rooms = $data['rooms']; }else{ $property->rooms = null;};
+            if(isset($data['bathrooms'])){ $property->bathrooms = $data['bathrooms']; }else{ $property->bathrooms = null;};
+            if(isset($data['youtube'])){ $property->youtube = $data['youtube']; }else{ $property->youtube = null;};
             if(isset($data['map_view'])){ $property->map_view = $data['map_view']; }else{ $property->map_view = null;};
+            $property->ad_id = time();
             $property->startDate = date("Y-m-d h:i:s");
 
             $property->save();
@@ -508,24 +509,24 @@ class PropertiesController extends Controller
                     $property->region =  $data['district'];
                     $property->lat =  $data['lat'];
                     $property->long =  $data['long'];
-                    $property->description =  $data['description'];
+                    if(isset($data['description'])){ $property->description = $data['description']; }else{ $property->description = null;};
                     $property->price = $data['price'];
                     $property->price_view = $data['price_view'];
-                    if(isset($data['bid_price'])){ $property->bid_price = $data['bid_price']; }else{ $property->bid_price = null;};
+                    if(isset($data['bid_price']) || $data['bid_price']==""){ $property->bid_price = $data['bid_price']; }else{ $property->bid_price = null;};
                     if(isset($data['period'])){ $property->period = $data['period']; }else{ $property->period = null;};
                     //if(isset($data['income'])){ $property->income = $data['income']; }else{ $property->income = null;};
-                    $property->year_of_construction =  $data['year_of_construction'];
-                    $property->advertiser_type =  $data['advertiser_type'];
-                    $property->area =  $data['area'];
-                    $property->floor =  $data['floor'];
+                    if(isset($data['year_of_construction'])){ $property->year_of_construction = $data['year_of_construction']; }else{ $property->year_of_construction = null;};
+                    if(isset($data['advertiser_type'])){ $property->advertiser_type = $data['advertiser_type']; }else{ $property->advertiser_type = null;};
+                    if(isset($data['area'])){ $property->area = $data['area']; }else{ $property->area = null;};
+                    if(isset($data['floor'])){ $property->floor = $data['floor']; }else{ $property->floor = null;};
                     //$property->finish_type =  $data['finish_type'];
-                    $property->overlooks =  $data['overlooks'];
+                    if(isset($data['overlooks'])){ $property->overlooks = $data['overlooks']; }else{ $property->overlooks = null;};
                     //$property->payment_methods =  $data['payment_methods'];
-                    $property->rooms =  $data['rooms'];
-                    $property->bathrooms =  $data['bathrooms'];
-                    $property->youtube = $data['youtube'];
+                    if(isset($data['rooms'])){ $property->rooms = $data['rooms']; }else{ $property->rooms = null;};
+                    if(isset($data['bathrooms'])){ $property->bathrooms = $data['bathrooms']; }else{ $property->bathrooms = null;};
+                    if(isset($data['youtube'])){ $property->youtube = $data['youtube']; }else{ $property->youtube = null;};
                     if(isset($data['map_view'])){ $property->map_view = $data['map_view']; }else{ $property->map_view = null;};
-
+                    
                     $property->save();
 
                     for($x=1;$x<11;$x++){
@@ -618,21 +619,19 @@ class PropertiesController extends Controller
                     $property->description =  $request->description;
                     $property->price = $request->price;
                     $property->price_view = $request->price_view;
-                    $property->bid_price = $request->bid_price;
-                    // $property->period = $request->period;
-                    $property->income = $request->income;
-                    $property->year_of_construction =  $request->year_of_construction;
-                    $property->advertiser_type =  $request->advertiser_type;
-                    $property->area =  $request->area;
-                    $property->floor =  $request->floor;
-                    // $property->finish_type =  $request->finish_type;
-                    $property->overlooks =  $request->overlooks;
-                    // $property->payment_methods =  $request->payment_methods;
-                    $property->rooms =  $request->rooms;
-                    $property->bathrooms =  $request->bathrooms;
+                    if(isset($request->bid_price) && $request->bid_price!=""){ $property->bid_price = $request->bid_price; }else{ $property->bid_price = null;};
+                    if(isset($request->period) && $request->period!=""){ $property->period = $request->period; }else{ $property->period = null;};
+                    if(isset($request->income) && $request->income!=""){ $property->income = $request->income; }else{ $property->income = null;};
+                    if(isset($request->year_of_construction) && $request->year_of_construction!=""){ $property->year_of_construction = $request->year_of_construction; }else{ $property->year_of_construction = null;};
+                    if(isset($request->advertiser_type) && $request->advertiser_type!=""){ $property->advertiser_type = $request->advertiser_type; }else{ $property->advertiser_type = null;};
+                    $property->area = $request->area;
+                    if(isset($request->floor) && $request->floor!=""){ $property->floor = $request->floor; }else{ $property->floor = null;};
+                    if(isset($request->overlooks) && $request->overlooks!=""){ $property->overlooks = $request->overlooks; }else{ $property->overlooks = null;};
+                    if(isset($request->rooms) && $request->rooms!=""){ $property->rooms = $request->rooms; }else{ $property->rooms = null;};
+                    if(isset($request->bathrooms) && $request->bathrooms!=""){ $property->bathrooms = $request->bathrooms; }else{ $property->bathrooms = null;};
+                    if(isset($request->map_view) && $request->map_view!=""){ $property->map_view = $request->map_view; }else{ $property->map_view = null;};
+            
                     $property->youtube = $request->youtube;
-                    $property->map_view =  $request->map_view;
-
                     $property->save();
 
                     if ($request->hasFile('attachment')) {

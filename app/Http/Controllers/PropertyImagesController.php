@@ -57,14 +57,17 @@ class PropertyImagesController extends Controller
             $sy = imagesy($stamp);
 
             $tmp_w = imagesx($im)/2;
-            return $tmp_w;
+            //return $tmp_w;
             $tmp_h = (imagesx($im)/2)*imagesy($stamp)/ imagesx($stamp);
-
+            //return $sx." - ".$sy;
             $tmp = imagecreatetruecolor($tmp_w, $tmp_h);
+            imagealphablending( $tmp, false );
+            imagesavealpha( $tmp, true );
             imagecopyresampled($tmp, $stamp, 0, 0, 0, 0, $tmp_w, $tmp_h, $sx, $sy);
-
+            
+            
             //imagecopy($im, $stamp, imagesx($im) - $sx - $marge_right, imagesy($im) - $sy - $marge_bottom, 0, 0, imagesx($stamp), imagesy($stamp));
-            imagecopy($im, $stamp, (imagesx($im) - $tmp_w)/2, (imagesy($im) - $tmp_h)/2, 0, 0, imagesx($stamp), imagesy($stamp));
+            imagecopy($im, $tmp, (imagesx($im) - $tmp_w)/2, (imagesy($im) - $tmp_h)/2, 0, 0, $tmp_w, $tmp_h);
             imagejpeg($im, $folderpath ."/". $fileName, 100);
             imagedestroy($stamp);
             imagedestroy($im);
@@ -76,6 +79,7 @@ class PropertyImagesController extends Controller
             $img->order = $key+1;
             $img->save();
         }
+
     }
 
     public function storeNew( $property_id, $files )

@@ -179,13 +179,13 @@
                     </div>
                     <div class="mdl-cell mdl-cell--3-col target-rent hidden">
                             <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-                                <input class="mdl-textfield__input" name="typeLabel" type="text" id="income_period" value="" readonly>
-                                <input value="" type="hidden" name="income_period" />
-                                <label for="income_period">
+                                <input class="mdl-textfield__input" name="typeLabel" type="text" id="period" value="" readonly>
+                                <input value="" type="hidden" name="period" />
+                                <label for="period">
                                     <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
                                 </label>
-                                <label for="income_period" class="mdl-textfield__label">الأيجار</label>
-                                <ul for="income_period" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                                <label for="period" class="mdl-textfield__label">الأيجار</label>
+                                <ul for="period" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
                                     @foreach($incomePeriods as $incomePeriod)
                                     <li class="mdl-menu__item" data-val="{{$incomePeriod->id}}">{{$incomePeriod->$name}}</li>
                                     @endforeach

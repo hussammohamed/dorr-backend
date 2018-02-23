@@ -218,7 +218,7 @@
                     </div>
                     <div class="mdl-cell mdl-cell--3-col">
                             <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label">
-                                <input class="mdl-textfield__input" required name="bathrooms" type="number" id="bathrooms" value="">
+                                <input class="mdl-textfield__input"  name="bathrooms" type="number" id="bathrooms" value="">
                                 <label for="bathrooms" class="mdl-textfield__label"> عدد الحمامات</label>
                             </div>
                         </div>
@@ -374,6 +374,8 @@
             } else if (newIndex < currentIndex) {
                 return true;
             } else {
+                $("#district").valid()
+                $(".is-invalid:first>input").focus();
                 return false;
             }
 
@@ -383,7 +385,7 @@
             var currentStep = form.children("div").steps("getStep", currentIndex);
             window.location.hash = currentStep.title;
             initMap();
-
+            $("html, body").animate({ scrollTop: 0 }, 800);
             $(".city_id_js").change(function () {
                 var value = $(this).parent().find(".hidden-input").val();
                 $.ajax({
@@ -430,6 +432,11 @@
 
         }
     });
+    $("#bid_price").bind('input', function(){
+        if($("#price").val()){
+            $("#price").valid();
+        }
+    })
     var $wizard = form.children("div");
     $(window).bind('hashchange', function (e) {
         var hash = location.hash.replace("#", "");

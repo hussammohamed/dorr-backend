@@ -136,6 +136,10 @@
                   location.reload();
                 },
                 complete: function (_response) {
+                  if(_response.status == 200){
+                    console.log("ddd")
+                    location.reload();
+                  }
                   if (_response.status == 422) {
                     self.errors = JSON.parse(_response.responseText).errors;
                   } else {

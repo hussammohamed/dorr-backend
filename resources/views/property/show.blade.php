@@ -108,7 +108,9 @@
                         <tr>
                             <td class="u-no-border-top header" width="8%">العلاقة بالعقار</td>
                             <td class="u-no-border-top">
+                                @if($property->advertiser_type)
                             {{ \App\Advertiser::find($property->advertiser_type)->$name }}
+                            @endif
                             </td>
 
                         </tr>

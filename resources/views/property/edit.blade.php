@@ -30,7 +30,7 @@
             <div class="mdl-cell mdl-cell--12-col">
                 <div class="mdl-card over-flow-hidden  mdl-shadow--2dp u-auto-width u-height-auto u-padding-top-45 u-padding-bottom-15 u-mbuttom16 u-padding-side-20">
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
-                        <textarea class="mdl-textfield__input" required name="description" type="text" rows="5" id="sample5">{{$property->description}}</textarea>
+                        <textarea class="mdl-textfield__input" name="description" type="text" rows="5" id="sample5">{{$property->description}}</textarea>
                         <label class="mdl-textfield__label" for="sample5">تفاصيل الأعلان</label>
                     </div>
                     <span class="card-label top-label-right has-primary-base-bg">التفاصيل</span>
@@ -211,7 +211,7 @@
                                             <td class="u-no-border-top header" width="8%">سعر السوم</td>
                                             <td class="u-no-border-top">
                                                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
-                                                    <input class="mdl-textfield__input" required name="bid_price" type="number" value="{{$property->bid_price}}" id="bid_price">
+                                                    <input class="mdl-textfield__input"  name="bid_price" type="number" value="{{$property->bid_price}}" id="bid_price">
                                                     <label class="mdl-textfield__label" for="bid_price"></label>
                                                 </div>
                                             </td>
@@ -312,7 +312,7 @@
                                 <td class="u-no-border-top header" width="8%">عدد الغرف</td>
                                 <td class="u-no-border-top">
                                     <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label">
-                                        <input class="mdl-textfield__input" required name="rooms" type="number" value="{{$property->rooms}}" id="rooms" value="">
+                                        <input class="mdl-textfield__input"  name="rooms" type="number" value="{{$property->rooms}}" id="rooms" value="">
                                         <label for="rooms" class="mdl-textfield__label"> </label>
                                     </div>
                                 </td>
@@ -323,7 +323,7 @@
                                 <td class="u-no-border-top header" width="8%">عدد الحمامات</td>
                                 <td class="u-no-border-top">
                                     <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label">
-                                        <input class="mdl-textfield__input" required name="bathrooms" type="number" value="{{$property->bathrooms}}" id="bathrooms"
+                                        <input class="mdl-textfield__input"  name="bathrooms" type="number" value="{{$property->bathrooms}}" id="bathrooms"
                                             value="">
                                         <label for="bathrooms" class="mdl-textfield__label"></label>
                                     </div>
@@ -333,7 +333,7 @@
                                     <td class="u-no-border-top header" width="8%">الطابق</td>
                                     <td class="u-no-border-top">
                                         <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label">
-                                            <input class="mdl-textfield__input" required name="floor" type="number" value="{{$property->floor}}" id="floor" value="">
+                                            <input class="mdl-textfield__input"  name="floor" type="number" value="{{$property->floor}}" id="floor" value="">
                                             <label for="floor" class="mdl-textfield__label"></label>
                                         </div>
                                     </td>

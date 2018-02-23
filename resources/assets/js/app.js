@@ -131,8 +131,8 @@ const app = new Vue({
         mapDialog: function(){
             mapDialog.showModal();
             setTimeout(() => {
-                var lat = parseFloat(this.$children[2]._props.propertylat);
-            var long =  parseFloat(this.$children[2]._props.propertylong);
+                var lat = parseFloat(this.$children[1]._props.propertylat);
+            var long =  parseFloat(this.$children[1]._props.propertylong);
             var mapView = $("#map").attr('data-view');
             var uluru = new google.maps.LatLng(lat, long);
             var map = new google.maps.Map(document.getElementById('mapView'), {

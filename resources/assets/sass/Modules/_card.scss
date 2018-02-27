@@ -439,48 +439,60 @@ $cardImageHeight : 220px;
 }
 .gallery-card{
     padding: 15px;
-    .gallery-img{
-        height: 350px;
-        width: 100%;
-        margin-bottom: 15px;
-        overflow: hidden;
-        border-radius: 8px;
-        overflow: hidden;
-        iframe{
-            width: 100%;
-            height: 100%;
-        }
-        img{
-            height: 100%;
-            width: 100%;
-            
+    iframe{
+        border: none;
+        width: 80%;
+        min-height: 500px;
+    }
+    .light-slider{
+        height: 600px;
+    }
+    .lightSlider{
+        li{
+            display: block;
+            text-align: center;
         }
     }
-    .owl-carousel{
-       .owl-click{
-        position: absolute;
-        height: 100%;
-        width: 100%;    
-        cursor: pointer;
-       }
-        padding-#{$right}: 8px;
-        .item{
-            position: relative;
-            max-width: 80px;
-            max-height: 80px;
-            overflow: hidden;
-            border-radius: 8px; 
-    
-            img{
-                width: 100%;
+    img {
+        margin: auto;       
+        display: block;
+        height: auto;
+        max-height: 500px;
+        max-width: 80%;
+    }
+    .lSAction>a{
+        background-image: none;
+        i{
+            font-size: 30px;
+        }
+    }
+    .lSPager{
+        margin: auto !important;
+        display: block;
+        li{
+            width: 100px;
+            border-radius:5px;
+            &.active{
+                a{
+                    position: relative;
+                    &::before{
+                        position: absolute;
+                        height: 75px;
+                        width: 75px;
+                        top: 0;
+                        left: 0;
+                        content: "";
+                        background-color: rgba($color: #000000, $alpha: .3);
+                        z-index: 1;
+                    }
+                } 
             }
-            iframe{
-                width: 100%;
-                height: 100%;
+            img{
+                height: 70px !important;
+                width: 70px;
             }
         }
-      }
-      
+    }  
 }
 
 .mdl-avatar{

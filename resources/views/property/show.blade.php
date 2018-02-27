@@ -8,43 +8,43 @@
                 <div class="mdl-color-text--grey-500 page-breadcrumb">
                     <!-- شقق للإيجار&gt; الرياض &gt; حى المروج -->
                     {{ (\App\Type::where('id', $property->type)->first()->$name)}}
-                    
+
                     <i class="material-icons u-fix-icon-top">keyboard_arrow_left</i>
-                    
+
                     {{ (\App\Purpose::where('id', $property->purpose)->first()->$name)}}
-                    
+
                     <i class="material-icons u-fix-icon-top">keyboard_arrow_left</i>
-                    <a href="#"  class="mdl-color-text--grey-500"  onclick="event.preventDefault();
+                    <a href="#" class="mdl-color-text--grey-500" onclick="event.preventDefault();
                         document.getElementById('searchByCity').submit();">
-                    {{ (\App\Region::find(\App\Region::find($property->region)->region_id)->$name)}}
-                    <i class="material-icons u-fix-icon-top">keyboard_arrow_left</i>
+                        {{ (\App\Region::find(\App\Region::find($property->region)->region_id)->$name)}}
+                        <i class="material-icons u-fix-icon-top">keyboard_arrow_left</i>
                     </a>
                     <a href="#" class="mdl-color-text--grey-500" onclick="event.preventDefault();
                         document.getElementById('searchByRegoion').submit();">
 
-                    {{ (\App\Region::find($property->region)->$name)}}
+                        {{ (\App\Region::find($property->region)->$name)}}
                     </a>
                     <form id="searchByRegoion" action="/properties/search" method="POST" style="display: none;">
-                                {{ csrf_field() }}
-                                <input type="hidden" name=city value="{{(\App\Region::find(\App\Region::find($property->region)->region_id)->id)}}">
-                                <input type="hidden" name="district" value="{{$property->region}}">
-                            </form>
-                            <form id="searchByCity" action="/properties/search" method="POST" style="display: none;">
-                                {{ csrf_field() }}
-                                <input type="hidden" name=city value="{{(\App\Region::find(\App\Region::find($property->region)->region_id)->id)}}">
-                            </form>
+                        {{ csrf_field() }}
+                        <input type="hidden" name=city value="{{(\App\Region::find(\App\Region::find($property->region)->region_id)->id)}}">
+                        <input type="hidden" name="district" value="{{$property->region}}">
+                    </form>
+                    <form id="searchByCity" action="/properties/search" method="POST" style="display: none;">
+                        {{ csrf_field() }}
+                        <input type="hidden" name=city value="{{(\App\Region::find(\App\Region::find($property->region)->region_id)->id)}}">
+                    </form>
                 </div>
             </div>
             <div class="mdl-cell mdl-cell--3-col mdl-color-text--grey-500 u-text-left">
                 <i class="material-icons u-fix-icon-top">access_time</i>
                 <span v-text="lastUpdate('{{$property->updated_at}}')" class="page-date"></span>
                 <div class="">
-                <i class="material-icons u-fix-icon-top">eye</i>
-               <span>عدد مشاهدات</span>
-               <span>{{$property->hits}}</span>
+                    <i class="material-icons u-fix-icon-top">eye</i>
+                    <span>عدد مشاهدات</span>
+                    <span>{{$property->hits}}</span>
+                </div>
             </div>
-            </div>
-           
+
             <h4 class="page-title mdl-cell mdl-cell--12-col  u-primary-darker-color">{{ $property->title }}</h4>
         </div>
 
@@ -52,7 +52,7 @@
     <div class="mdl-grid sticky-container">
         <div class="mdl-cell mdl-cell--9-col">
             <div class="mdl-card  mdl-shadow--2dp u-auto-width u-mbuttom16 gallery-card">
-                <div class="gallery-img" id="galleryImg">
+                <!-- <div class="gallery-img" id="galleryImg">
                 @foreach($propertyImages as $propertyImage => $value)
                 @if($propertyImage == 0)
                 <img  src="{{ asset ('/upload/properties') }}/{{$value->path}}" alt="">
@@ -76,7 +76,24 @@
                                 </iframe>
                         </div>
                         @endif
+                </div> -->
+                <div class="light-slider">
+                        <ul id="lightSlider">
+                                @if($property->youtube)
+                                <li v-bind:data-thumb="imgYoutube('{{$property->youtube}}')">
+                                  
+                                            <iframe v-bind:src="getYoutube('{{$property->youtube}}')" class="target">
+                                            </iframe>
+                                        </li>
+                                    @endif
+                                @foreach($propertyImages as $propertyImage)
+                            <li data-thumb="{{ asset ('/upload/properties') }}/{{$propertyImage->path}}">
+                                <img class="target" src="{{ asset ('/upload/properties') }}/{{$propertyImage->path}}" alt="">
+                            </li>
+                            @endforeach
+                        </ul>
                 </div>
+              
             </div>
             <div class="mdl-card  mdl-shadow--2dp u-auto-width u-height-auto u-padding-top-45 u-padding-bottom-15 u-mbuttom16 u-padding-side-20">
                 <p class="u-padding-top-25 u-headline-color">{{ $property->description }}</p>
@@ -93,42 +110,37 @@
                         <tr>
                             <td class="u-no-border-top header" width="8%">نوع العقار</td>
                             <td class="u-no-border-top">
-                            {{ \App\Type::find($property->type)->$name }}
+                                {{ \App\Type::find($property->type)->$name }}
                             </td>
 
                         </tr>
                         <tr>
                             <td class="u-no-border-top header" width="8%"> الغرض من العقار</td>
                             <td class="u-no-border-top">
-                            {{ \App\Purpose::find($property->purpose)->$name }}
-                            
+                                {{ \App\Purpose::find($property->purpose)->$name }}
+
                             </td>
 
                         </tr>
                         <tr>
                             <td class="u-no-border-top header" width="8%">العلاقة بالعقار</td>
                             <td class="u-no-border-top">
-                                @if($property->advertiser_type)
-                            {{ \App\Advertiser::find($property->advertiser_type)->$name }}
-                            @endif
+                                @if($property->advertiser_type) {{ \App\Advertiser::find($property->advertiser_type)->$name }} @endif
                             </td>
 
                         </tr>
                         <tr>
                             <td class="u-no-border-top header" width="8%">الوجهات</td>
                             <td class="u-no-border-top">
-                            @if ($property->overlooks != "")
-                                @foreach(explode(',', $property->overlooks) as $overlook)
-                                {{ \App\Overlook::find($overlook)->$name }}, 
-                                @endforeach
-                                @endif
+                                @if ($property->overlooks != "") @foreach(explode(',', $property->overlooks) as $overlook) {{ \App\Overlook::find($overlook)->$name
+                                }}, @endforeach @endif
                             </td>
 
                         </tr>
                         <tr>
                             <td class="u-no-border-top header" width="8%">المساحة بالمتر</td>
                             <td class="u-no-border-top">
-                            {{ $property->area }}
+                                {{ $property->area }}
                             </td>
 
                         </tr>
@@ -136,14 +148,14 @@
                         <tr>
                             <td class="u-no-border-top header" width="8%">سعر السوم</td>
                             <td class="u-no-border-top">
-                            {{ $property->bid_price }}
+                                {{ $property->bid_price }}
                             </td>
 
                         </tr>
                         <tr>
                             <td class="u-no-border-top header" width="8%">سعر المتر</td>
                             <td class="u-no-border-top">
-                            {{ $property->price / $property->area }}
+                                {{ $property->price / $property->area }}
                             </td>
 
                         </tr>
@@ -151,45 +163,45 @@
                         <tr>
                             <td class="u-no-border-top header" width="8%">الأيجار</td>
                             <td class="u-no-border-top">
-                            {{ \App\Period::find($property->period)->$name }} 
+                                {{ \App\Period::find($property->period)->$name }}
                             </td>
 
                         </tr>
                         <tr>
                             <td class="u-no-border-top header" width="8%">السعر المطلوب</td>
                             <td class="u-no-border-top">
-                            {{ $property->price}} 
+                                {{ $property->price}}
                             </td>
 
                         </tr>
-                       @endif
-                       
+                        @endif
+
                         <tr>
                             <td class="u-no-border-top header" width="8%"> عدد الغرف</td>
                             <td class="u-no-border-top">
-                            {{ $property->rooms }}
+                                {{ $property->rooms }}
                             </td>
 
                         </tr>
                         <tr>
                             <td class="u-no-border-top header" width="8%">عدد الحمامات</td>
                             <td class="u-no-border-top">
-                            {{ $property->bathrooms }}
+                                {{ $property->bathrooms }}
                             </td>
 
                         </tr>
                         <tr>
                             <td class="u-no-border-top header" width="8%">الطابق</td>
                             <td class="u-no-border-top">
-                            {{ $property->floor }}
+                                {{ $property->floor }}
                             </td>
 
                         </tr>
-                       
+
                         <tr>
                             <td class="u-no-border-top header" width="8%">سنة البناء</td>
                             <td class="u-no-border-top">
-                            {{ $property->year_of_construction }}
+                                {{ $property->year_of_construction }}
                             </td>
 
                         </tr>
@@ -197,19 +209,19 @@
                         <tr>
                             <td class="u-no-border-top header" width="8%">تاريخ النشر</td>
                             <td class="u-no-border-top">
-                            {{ $property->created_at }}
+                                {{ $property->created_at }}
                             </td>
 
                         </tr>
                         <tr>
                             <td class="u-no-border-top header" width="8%">العنوان</td>
                             <td class="u-no-border-top">
-                           {{$property->address}}  
-                            
+                                {{$property->address}}
+
                             </td>
 
                         </tr>
-                      
+
 
                     </tbody>
                 </table>
@@ -227,7 +239,7 @@
                             <img class="" src={{ asset ( 'images/face.png') }} alt="">
                         </div>
                         <h5 class="u-primary-darker-color">
-                        {{ ($offer->user_id == 0 ) ? 'غير معروف' :\App\User::find($offer->user_id)->name }}
+                            {{ ($offer->user_id == 0 ) ? 'غير معروف' :\App\User::find($offer->user_id)->name }}
                         </h5>
                     </div>
                     <div class="contet">
@@ -236,16 +248,20 @@
 
                     <span class="card-label top-label-left has-secondary-base-bg">عرض السعر {{$offer->price}} ريال</span>
                     @if(!Auth::guest() && (Auth::user()->id == $property->user_id ))
-                    <span class= "card-delete" @click="deleteOffer('{{$offer->id}}')"><i class="material-icons">delete</i></span>
+                    <span class="card-delete" @click="deleteOffer('{{$offer->id}}')">
+                        <i class="material-icons">delete</i>
+                    </span>
                     @elseif (!Auth::guest() && (Auth::user()->id == $offer->user_id ))
-                    <a class= "card-delete" @click="deleteOffer('{{$offer->id}}')"><i class="material-icons">delete</i></a>
+                    <a class="card-delete" @click="deleteOffer('{{$offer->id}}')">
+                        <i class="material-icons">delete</i>
+                    </a>
                     @endif
                 </div>
-              
-              @endforeach
-           
-               
-             
+
+                @endforeach
+
+
+
 
             </div>
         </div>
@@ -275,16 +291,16 @@
                             <td class="u-no-border-top  header">الحمامات</td>
                         </tr>
                     </tbody>
-                    </table>
-                    @if($property->price_view == "0" || $property->purpose == "2")
-                    <span class="card-label bottom-label-left has-secondary-base-bg">{{ $property->price }} ريال</span>
-                    @endif
+                </table>
+                @if($property->price_view == "0" || $property->purpose == "2")
+                <span class="card-label bottom-label-left has-secondary-base-bg">{{ $property->price }} ريال</span>
+                @endif
             </div>
             <div class="mdl-card  mdl-shadow--2dp  u-auto-width  u-mbuttom16 u-height-auto has-actions">
-                    <a @click="mapDialog" class="map-overlay"></a>
-                    <div id="map"  data-view="{{$property->map_view}}" style="height:250px; width:100%;"></div>
-                </div>
-                @if((!Auth::guest() && (Auth::user()->id != $property->user_id )) || Auth::guest())
+                <a @click="mapDialog" class="map-overlay"></a>
+                <div id="map" data-view="{{$property->map_view}}" style="height:250px; width:100%;"></div>
+            </div>
+            @if((!Auth::guest() && (Auth::user()->id != $property->user_id )) || Auth::guest())
             <div class="mdl-card  mdl-shadow--2dp u-padding-side-20 u-auto-width u-padding-bottom-15 u-mbuttom16 u-height-auto has-actions">
                 <table class="mdl-data-table u-full-width u-no-border u-mbuttom16">
                     <tbody>
@@ -296,7 +312,7 @@
 
                             </td>
                             <td class="u-no-border-top" width="2%">
-                            {{ \App\User::find($property->user_id)->name }}  
+                                {{ \App\User::find($property->user_id)->name }}
                             </td>
 
                         </tr>
@@ -311,20 +327,20 @@
                     تواصل مع المعلن
                 </button>
             </div>
-           @endif
-            <div class="mdl-card  mdl-shadow--2dp  u-padding-top-45 u-auto-width u-mbuttom16 u-height-auto  u-padding-side-20 u-padding-bottom-15">
-            @if(!Auth::guest() && (Auth::user()->id != $property->user_id ))
-            <addoffer-component :auth="{{json_encode(Auth::guest())}}" :propertyid="{{json_encode($property->id)}}"></addoffer-component>
-            @elseif (Auth::guest())
-            <addoffer-component :auth="{{json_encode(Auth::guest())}}" :propertyid="{{json_encode($property->id)}}"></addoffer-component>
-            @else
-            <a href="/properties/edit/{{$property->id}}" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored u-center">تعديل</a>    
             @endif
-            
+            <div class="mdl-card  mdl-shadow--2dp  u-padding-top-45 u-auto-width u-mbuttom16 u-height-auto  u-padding-side-20 u-padding-bottom-15">
+                @if(!Auth::guest() && (Auth::user()->id != $property->user_id ))
+                <addoffer-component :auth="{{json_encode(Auth::guest())}}" :propertyid="{{json_encode($property->id)}}"></addoffer-component>
+                @elseif (Auth::guest())
+                <addoffer-component :auth="{{json_encode(Auth::guest())}}" :propertyid="{{json_encode($property->id)}}"></addoffer-component>
+                @else
+                <a href="/properties/edit/{{$property->id}}" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored u-center">تعديل</a>
+                @endif
+
             </div>
             @if(!Auth::guest() && (Auth::user()->id != $property->user_id ))
             <div class="mdl-card  mdl-shadow--2dp  u-padding-top-45 u-auto-width u-mbuttom16 u-height-auto  u-padding-side-20 u-padding-bottom-15">
-            <button @click="reportDialog"  class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored u-center">تبليغ</button>    
+                <button @click="reportDialog" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored u-center">تبليغ</button>
             </div>
             @endif
         </div>
@@ -336,7 +352,7 @@
 
         </div>
         <div class="mdl-grid">
-        @foreach($similarProperties as $property)
+            @foreach($similarProperties as $property)
             <div class="mdl-cell mdl-cell--3-col">
                 @include('components.vCard')
             </div>
@@ -345,32 +361,26 @@
     </div>
 </div>
 
-<report-component  :propertyid="{{json_encode($property->id)}}"></report-component>
-<mapview-component   :propertylat="{{json_encode($property->lat)}}" :regionlat="{{ json_encode(\App\Region::find($property->region)->lat)}}" :regionlong="{{ json_encode(\App\Region::find($property->region)->long)}}" :propertylong="{{json_encode($property->long)}}"></mapview-component>
+<report-component :propertyid="{{json_encode($property->id)}}"></report-component>
+<mapview-component :propertylat="{{json_encode($property->lat)}}" :regionlat="{{ json_encode(\App\Region::find($property->region)->lat)}}"
+    :regionlong="{{ json_encode(\App\Region::find($property->region)->long)}}" :propertylong="{{json_encode($property->long)}}"></mapview-component>
 @endsection @push('scripts')
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script>
-<script type="text/javascript" src={{ asset( 'js/owl.carousel.rtl.js')}} /></script>
-<script>$(".owl-carousel").owlCarouselRtl({
-        margin: 0,
-        loop: false,
-        autoWidth: true,
-        items: 6,
-        center: true,
-    });
-    $(".owl-click").each(function () {
-        $(this).click(function () {
-            var self = $(this);
-
-            $('#galleryImg').empty();
-            self.parent().find('.target').clone().appendTo('#galleryImg');
-
-        })
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightslider/1.1.3/js/lightslider.min.js"></script>
+<script>
+    $('#lightSlider').lightSlider({
+        gallery: true,
+        rtl: true,
+        item: 1,
+        thumbItem: 10,
+        currentPagerPosition: 'middle',
+        thumbMargin: 15,
+        prevHtml: '<i class="material-icons">navigate_before</i>',
+        nextHtml: '<i class="material-icons">navigate_next</i>'
     });
     function initMap() {
         var lat = parseFloat('{{$property->lat}}');
-        var long =  parseFloat('{{$property->long}}');
+        var long = parseFloat('{{$property->long}}');
         var uluru = new google.maps.LatLng(lat, long);
         var mapView = $("#map").attr('data-view');
         var map = new google.maps.Map(document.getElementById('map'), {
@@ -378,42 +388,41 @@
             center: uluru,
             disableDefaultUI: true
         });
-        if(mapView == 1){
+        if (mapView == 1) {
             var marker = new google.maps.Marker({
-            position: uluru,
-            color: '#4ba6a2',
-        });
-        marker.setMap(map);
-        } else if(mapView == 2){
+                position: uluru,
+                color: '#4ba6a2',
+            });
+            marker.setMap(map);
+        } else if (mapView == 2) {
             var cityCircle = new google.maps.Circle({
-            strokeColor: '#4ba6a2',
-            fillColor: '#4ba6a2',
-            strokeWeight: 0,
-            fillOpacity: 0.45,
-            strokeOpacity: 0.35,
-            map: map,
-            center: uluru,
-            radius: 500
-          });
-        } else if(mapView == 3){
-            let regionLat =  parseFloat('{{ (\App\Region::find($property->region)->lat)}}');
-            let regionLong =  parseFloat('{{ (\App\Region::find($property->region)->long)}}');
+                strokeColor: '#4ba6a2',
+                fillColor: '#4ba6a2',
+                strokeWeight: 0,
+                fillOpacity: 0.45,
+                strokeOpacity: 0.35,
+                map: map,
+                center: uluru,
+                radius: 500
+            });
+        } else if (mapView == 3) {
+            let regionLat = parseFloat('{{ (\App\Region::find($property->region)->lat)}}');
+            let regionLong = parseFloat('{{ (\App\Region::find($property->region)->long)}}');
             var regionCenter = new google.maps.LatLng(regionLat, regionLong);
             map.setZoom(10);
             map.setCenter(regionCenter)
         }
-        
+
     }
-    $( document ).ready(function() {
+    $(document).ready(function () {
         initMap();
-        });
+    });
 
-    </script>
-    
+</script>
+
 </script> @endpush @push('styles')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.theme.min.css"> @endpush
-
-@push('begScripts')
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCuaq7NJkSDoz9ORGZzVopdHK6X-m8F6qs&libraries=places&&language=ar"></script>
-@endpush
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.theme.min.css">  -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightslider/1.1.3/css/lightslider.min.css">
+@endpush @push('begScripts')
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCuaq7NJkSDoz9ORGZzVopdHK6X-m8F6qs&libraries=places&&language=ar"></script> @endpush

@@ -89,7 +89,7 @@ class PropertyResource extends Resource
                 "area"=> $this->area,
                 "advertiser_type"=> [
                     "id" => $this->advertiser_type,
-                    "name" => Advertiser::find($this->advertiser_type)->$name
+                    "name" => ($this->advertiser_type == null ) ? null : Advertiser::find($this->advertiser_type)->$name,
                 ],
                 "floor"=> $this->floor, 
                 /*"finish_type" => [

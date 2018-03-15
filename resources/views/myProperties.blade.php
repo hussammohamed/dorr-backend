@@ -22,7 +22,7 @@
                         <i class="material-icons">star</i>
                     </div>
                     @endif
-                @forelse(App\PropertyImage::where('property_id','=', $property->id)->get() as  $image => $value)
+                @forelse(App\PropertyImage::where('property_id','=', $property->id)->where('deleted',0)->get() as  $image => $value)
                     @if($image == 0)
                         <img src={{ asset ('/upload/properties') }}/{{$value->path}} alt="">
                     @endif

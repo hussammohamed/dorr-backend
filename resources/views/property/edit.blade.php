@@ -415,7 +415,7 @@
                     </div>
                     <div id="files" class="mdl-cell mdl-cell--12-col">
                         @foreach($propertyImages as $propertyImage)
-                        <div class="pip" id="{{$propertyImage->id}}">
+                        <div class="pip" id="image{{$propertyImage->id}}">
                             <img class="imageThumb" src="{{ asset ('/upload/properties') }}/{{$propertyImage->path}}" />
                             <br/>
                             <div class="remove" @click="deleteImage({{$propertyImage->id}})">
@@ -444,6 +444,7 @@
     </form>
 </div>
 @endsection @push('scripts')
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
     var form = $("#properties-form");
     form.validate({

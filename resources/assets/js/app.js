@@ -113,28 +113,50 @@ const app = new Vue({
             }
         },
         addCommas(num, begText, endText) {
-                num += '';
-                var x = num.split('.');
-                var x1 = x[0];
-                var x2 = x.length > 1 ? '.' + x[1] : '';
-                var rgx = /(\d+)(\d{3})/;
-                while (rgx.test(x1)) {
-                    x1 = x1.replace(rgx, '$1' + ',' + '$2');
-                }
-                if(begText && endText){
-                    return begText + x1 + x2 + endText;
-                }
-                else if(begText){
-                    return x1 + x2 + begText;
-                }else{
-                    return x1 + x2;
-                }
-                
+            num += '';
+            var x = num.split('.');
+            var x1 = x[0];
+            var x2 = x.length > 1 ? '.' + x[1] : '';
+            var rgx = /(\d+)(\d{3})/;
+            while (rgx.test(x1)) {
+                x1 = x1.replace(rgx, '$1' + ',' + '$2');
+            }
+            if (begText && endText) {
+                return begText + x1 + x2 + endText;
+            }
+            else if (begText) {
+                return x1 + x2 + begText;
+            } else {
+                return x1 + x2;
+            }
+
         },
         deleteImage: function (id) {
-            $.post('/images/' + id + '', function (data) {
+            swal({
+                title: "هل أنت متأكد ؟",
+                text: "",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+                buttons: ["ألغاء", "موافق"],
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        $.ajax({
+                            url: '/api/v1/property/images/' + id + '/delete',
+                            type: 'PUT',
+                            success: function (result) {
+                                swal("تم مسح الصورة بنجاح", {
+                                    button: "موافق",
+                                    icon: "success",
+                                });
+                                $('#image' + id).remove();
+                            }
+                        });
+                    } else {
 
-            });
+                    }
+                });
         },
         reportDialog: function () {
             reportDialog.showModal();

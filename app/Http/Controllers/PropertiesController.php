@@ -457,7 +457,7 @@ class PropertiesController extends Controller
             where('type','=', $property->type)->where('id','!=', $id)->
             where('active','=', 1)->where('deleted','=', 0)->limit(4)->get();
             $propertyOffers = PropertyOffer::where('property_id', '=', $property->id)->get();
-            $propertyImages = PropertyImage::where('property_id', '=', $property->id)->get();
+            $propertyImages = PropertyImage::where('property_id', '=', $property->id)->where('deleted',0)->get();
 
             $property->hits =  $property->hits+1;
             $property->save();
@@ -483,7 +483,7 @@ class PropertiesController extends Controller
         $advertiserTypes = Advertiser::where('active',1)->where('deleted',0)->orderby('order')->get();
         $property = Property::find($id);
         $incomePeriods = Period::where('active',1)->where('deleted',0)->orderby('order')->get();
-        $propertyImages = PropertyImage::where('property_id', '=', $property->id)->get();   
+        $propertyImages = PropertyImage::where('property_id', '=', $property->id)->where('deleted',0)->get();   
         $mapViews = MapView::where('active',1)->where('deleted',0)->orderby('order')->get();
         return view('property.edit',['name'=>'name_'.App::getLocale(),'property'=>$property, 'types'=>$types, 'mapViews'=>$mapViews, 'incomePeriods'=>$incomePeriods, 'purposes'=>$purposes, 'cities'=>$cities, 'finishTypes'=>$finishTypes, 'overlooks'=>$overlooks, 'paymentMethods'=>$paymentMethods, 'advertiserTypes'=>$advertiserTypes,'propertyImages'=>$propertyImages]);
         

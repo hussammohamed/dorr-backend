@@ -12332,7 +12332,27 @@ var app = new Vue({
         },
 
         deleteImage: function deleteImage(id) {
-            $.post('/images/' + id + '', function (data) {});
+            swal(_defineProperty({
+                title: "هل أنت متأكد ؟",
+                text: "",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true
+            }, 'buttons', ["ألغاء", "موافق"])).then(function (willDelete) {
+                if (willDelete) {
+                    $.ajax({
+                        url: '/api/v1/property/images/' + id + '/delete',
+                        type: 'PUT',
+                        success: function success(result) {
+                            swal("تم مسح الصورة بنجاح", {
+                                button: "موافق",
+                                icon: "success"
+                            });
+                            $('#image' + id).remove();
+                        }
+                    });
+                } else {}
+            });
         },
         reportDialog: function (_reportDialog) {
             function reportDialog() {

@@ -192,7 +192,11 @@
 
                         </tr>
                         <tr>
-                            <td class="u-no-border-top header" width="8%">الطابق</td>
+                            @if ($property->type == "1")
+                            <td class="u-no-border-top header " width="8%">الطابق</td>
+                            @else
+                            <td class="u-no-border-top header" width="8%">عدد الطوابق</td>
+                            @endif
                             <td class="u-no-border-top">
                                 {{ $property->floor }}
                             </td>
@@ -209,8 +213,8 @@
 
                         <tr>
                             <td class="u-no-border-top header" width="8%">تاريخ النشر</td>
-                            <td class="u-no-border-top">
-                                {{ $property->created_at }}
+                            <td class="u-no-border-top" v-text="date('{{ $property->created_at }}')">
+                                
                             </td>
 
                         </tr>
@@ -369,6 +373,16 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lightslider/1.1.3/js/lightslider.min.js"></script>
 <script>
+     $(document).ready(function () {
+        var currentTypeId = "{{$property->type}}"
+        if (currentTypeId  == "2") {
+            $(".target-apartment").addClass('hidden');
+            $(".target-villa").removeClass('hidden');
+        } else {
+            $(".target-villa").addClass('hidden');
+            $(".target-apartment").removeClass('hidden');
+        }
+     });
     $('#lightSlider').lightSlider({
         gallery: true,
         rtl: true,

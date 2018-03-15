@@ -87,6 +87,9 @@ const app = new Vue({
         lastUpdate: function (date) {
             return "أخر تحديث في " + " " + moment(date).lang("ar").format(' DD MMMM YYYY');
         },
+        date: function (date){
+            return  moment(date).lang("ar").format(' DD MMMM YYYY');
+        },
         getYoutube: function (url) {
             var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
             var match = url.match(regExp);

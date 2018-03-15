@@ -129,7 +129,7 @@
                                             <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
                                         </label>
                                         <label for="type" class="mdl-textfield__label"></label>
-                                        <ul for="type" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                                        <ul id="typesContainer" for="type" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
                                             @foreach($types as $type) @if ($type->id == $property->type)
                                             <li class="mdl-menu__item" data-val="{{$type->id}}" data-selected="true">{{$type->$name}}</li>
                                             @else
@@ -330,7 +330,8 @@
                                 </td>
                             </tr>
                             <tr>
-                                    <td class="u-no-border-top header" width="8%">الطابق</td>
+                                    <td class="u-no-border-top header target-apartment " width="8%">الطابق</td>
+                                    <td class="u-no-border-top header target-villa" width="8%">عدد الطوابق</td>
                                     <td class="u-no-border-top">
                                         <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label">
                                             <input class="mdl-textfield__input"  name="floor" type="number" value="{{$property->floor}}" id="floor" value="">
@@ -342,7 +343,7 @@
                                 <td class="u-no-border-top header" width="8%">سنة البناء</td>
                                 <td class="u-no-border-top">
                                     <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label ">
-                                        <input class="mdl-textfield__input" required name="year_of_construction" value="{{$property->year_of_construction}}" type="number"
+                                        <input class="mdl-textfield__input"  name="year_of_construction" value="{{$property->year_of_construction}}" type="number"
                                             id="sampl6" value="">
 
                                         <label for="sampl6" class="mdl-textfield__label"> </label>
@@ -584,6 +585,14 @@
             $(".target-rent").addClass('hidden');
             $(".target-sale").removeClass('hidden');
         }
+        var currentTypeId = "{{$property->type}}"
+        if (currentTypeId  == "2") {
+            $(".target-apartment").addClass('hidden');
+            $(".target-villa").removeClass('hidden');
+        } else {
+            $(".target-villa").addClass('hidden');
+            $(".target-apartment").removeClass('hidden');
+        }
         $("#purpose").change(function () {
         var purposeId = $("#purposesContainer").find(".selected").attr("data-val");
 
@@ -593,6 +602,16 @@
         } else {
             $(".target-rent").addClass('hidden');
             $(".target-sale").removeClass('hidden');
+        }
+    });
+    $("#type").change(function () {
+        var typeId = $("#typesContainer").find(".selected").attr("data-val");
+        if (typeId  == "2") {
+            $(".target-apartment").addClass('hidden');
+            $(".target-villa").removeClass('hidden');
+        } else {
+            $(".target-villa").addClass('hidden');
+            $(".target-apartment").removeClass('hidden');
         }
     });
         var overlooks = '{{$property->overlooks}}';

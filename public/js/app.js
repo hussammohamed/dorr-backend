@@ -12289,6 +12289,9 @@ var app = new Vue({
         lastUpdate: function lastUpdate(date) {
             return "أخر تحديث في " + " " + moment(date).lang("ar").format(' DD MMMM YYYY');
         },
+        date: function date(_date) {
+            return moment(_date).lang("ar").format(' DD MMMM YYYY');
+        },
         getYoutube: function getYoutube(url) {
             var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
             var match = url.match(regExp);
@@ -28460,14 +28463,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           data: $("#addOfferForm").serialize(),
           dataType: "json",
           success: function success(_response) {
-            // self.properties = _response.data;
-            // self.bound = true;
-            // if (self.kind != "properties") {
-            //   self.kind = "properties";
-            // } else {
-            //   self.filterMap();
-            // }
-            location.reload();
+            swal("تم أضافة عرض بنجاح", {
+              button: "موافق",
+              icon: "success"
+            }).then(function (value) {
+              location.reload();
+            });
           },
           complete: function complete(_response) {},
           error: function error(_response) {}

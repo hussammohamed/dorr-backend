@@ -147,15 +147,16 @@
                         @if($property->purpose == "1" )
                         <tr>
                             <td class="u-no-border-top header" width="8%">سعر السوم</td>
-                            <td class="u-no-border-top">
-                                {{ $property->bid_price }}
+                            <td class="u-no-border-top" v-text=addCommas('{{ $property->bid_price }}')>
+
+                                
                             </td>
 
                         </tr>
                         <tr>
                             <td class="u-no-border-top header" width="8%">سعر المتر</td>
-                            <td class="u-no-border-top">
-                                {{ $property->price / $property->area }}
+                            <td class="u-no-border-top" v-text=addCommas('{{ $property->price / $property->area }}')>
+                                
                             </td>
 
                         </tr>
@@ -169,8 +170,8 @@
                         </tr>
                         <tr>
                             <td class="u-no-border-top header" width="8%">السعر المطلوب</td>
-                            <td class="u-no-border-top">
-                                {{ $property->price}}
+                            <td class="u-no-border-top" v-text=addCommas('{{ $property->price}}')>
+                                
                             </td>
 
                         </tr>
@@ -246,7 +247,7 @@
                         <p class="u-headline-color">{{$offer->description}} </p>
                     </div>
 
-                    <span class="card-label top-label-left has-secondary-base-bg">عرض السعر {{$offer->price}} ريال</span>
+                    <span class="card-label top-label-left has-secondary-base-bg" v-text="addCommas('{{$offer->price}}', ' عرض السعر ', ' ريال')"></span>
                     @if(!Auth::guest() && (Auth::user()->id == $property->user_id ))
                     <span class="card-delete" @click="deleteOffer('{{$offer->id}}')">
                         <i class="material-icons">delete</i>
@@ -293,7 +294,7 @@
                     </tbody>
                 </table>
                 @if($property->price_view == "0" || $property->purpose == "2")
-                <span class="card-label bottom-label-left has-secondary-base-bg">{{ $property->price }} ريال</span>
+                <span class="card-label bottom-label-left has-secondary-base-bg" v-text="addCommas('{{ $property->price}}', ' ريال')"> </span>
                 @endif
             </div>
             <div class="mdl-card  mdl-shadow--2dp  u-auto-width  u-mbuttom16 u-height-auto has-actions">

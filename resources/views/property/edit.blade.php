@@ -478,7 +478,8 @@
         var map = new google.maps.Map(document.getElementById('map'), {
             zoom: 6,
             center: uluru,
-            disableDefaultUI: true
+            disableDefaultUI: true,
+            zoomControl: true,
         });
         var markersArray = [];
         // Deletes all markers in the array by removing references to them

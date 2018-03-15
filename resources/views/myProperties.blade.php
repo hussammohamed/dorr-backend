@@ -42,8 +42,7 @@
                     </div>
                     <div class="card-footer">
                         <div class="card-footer__price">
-                            <span class="price--text">
-                            {{$property->price}} ريال
+                            <span class="price--text" v-text="addCommas('{{ $property->price}}', ' ريال')">
                             </span>
                         </div>
                         <div class="footer-contet">

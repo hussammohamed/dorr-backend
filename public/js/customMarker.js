@@ -153,7 +153,7 @@ CustomMarker.prototype.drawProperty = function (id) {
 		+ '<div class="card-footer">'
 		+ '<div class="card-footer__price">'
 		+ ' <span class="price--text">'
-		+ '' + self.args.details.price + ' ريال'
+		+ '' + addCommas(self.args.details.price , ' ريال')
 		+ '</span>'
 		+ '</div>'
 		+ '<div class="footer-contet">'
@@ -180,4 +180,25 @@ CustomMarker.prototype.drawProperty = function (id) {
 		propertyCard.style.left = (point.x - 190) + 'px';
 		propertyCard.style.top = (point.y - 155) + 'px';
 	}
+}
+
+function addCommas(num, begText, endText) {
+	debugger
+	num += '';
+	var x = num.split('.');
+	var x1 = x[0];
+	var x2 = x.length > 1 ? '.' + x[1] : '';
+	var rgx = /(\d+)(\d{3})/;
+	while (rgx.test(x1)) {
+		x1 = x1.replace(rgx, '$1' + ',' + '$2');
+	}
+	if(begText && endText){
+		return begText + x1 + x2 + endText;
+	}
+	else if(begText){
+		return x1 + x2 + begText;
+	}else{
+		return x1 + x2;
+	}
+	
 }

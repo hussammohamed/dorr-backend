@@ -12357,6 +12357,20 @@ var app = new Vue({
                 } else {}
             });
         },
+        propertyfeatured: function propertyfeatured(id, text) {
+            $.ajax({
+                url: '/api/v1/properties/' + id + '/featured',
+                type: 'POST',
+                success: function success(result) {
+                    swal(text, {
+                        button: "موافق",
+                        icon: "success"
+                    }).then(function (value) {
+                        location.reload();
+                    });
+                }
+            });
+        },
         reportDialog: function (_reportDialog) {
             function reportDialog() {
                 return _reportDialog.apply(this, arguments);

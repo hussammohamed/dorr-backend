@@ -752,7 +752,10 @@ class PropertiesController extends Controller
                         $property->save();
                         return new PropertyResource($property);
                     }else{
-                        return response()->json(["error"=>"This Proberty is already featured"], Response::HTTP_NOT_MODIFIED);
+                        //return response()->json(["error"=>"This Proberty is already featured"], Response::HTTP_NOT_MODIFIED);
+                        $property->featured = 0;
+                        $property->save();
+                        return new PropertyResource($property);
                     }
                 }else{
                     return response()->json(["error"=>"You are not allowd to feature this property"], Response::HTTP_METHOD_NOT_ALLOWED);

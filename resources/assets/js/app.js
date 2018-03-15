@@ -161,6 +161,20 @@ const app = new Vue({
                     }
                 });
         },
+        propertyfeatured: function(id, text){
+            $.ajax({
+                url: '/api/v1/properties/' + id + '/featured',
+                type: 'POST',
+                success: function (result) {
+                    swal(text, {
+                        button: "موافق",
+                        icon: "success",
+                    }).then(value =>{
+                        location.reload();
+                    })
+                }
+            });
+        },
         reportDialog: function () {
             reportDialog.showModal();
         },

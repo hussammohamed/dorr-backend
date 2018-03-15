@@ -14,7 +14,12 @@
             <ul class="mdl-menu mdl-menu--bottom-left mdl-menu--custom mdl-js-menu mdl-js-ripple-effect"
                 for="{{$property->id}}">
               <li class="mdl-menu__item"><a href="/properties/edit/{{$property->id}}"><i class="material-icons md-18">mode_edit</i> <span>تعديل</span></a> </li>
-              <li class="mdl-menu__item mdl-menu__item--full-bleed-divider"> <i class="material-icons md-18">delete</i><span>حذف</span> </li>
+              <li class="mdl-menu__item "> <i class="material-icons md-18">delete</i><span>حذف</span> </li>
+              @if($property->featured == 0)
+              <li class="mdl-menu__item mdl-menu__item--full-bleed-divider" @click="propertyfeatured('{{$property->id}}', 'تم تمييز العقار بنجاح')"> <i class="material-icons md-18">star</i><span>تمييز</span> </li>
+              @else
+              <li class="mdl-menu__item mdl-menu__item--full-bleed-divider" @click="propertyfeatured('{{$property->id}}', 'تم ألغاء التمييز بنجاح')"> <i class="material-icons md-18">star</i><span>ألغاء التمييز</span> </li>
+             @endif
             </ul>
                 <div class="card-image">
                 @if($property->featured == 1)
@@ -60,3 +65,6 @@
 </div>
 
 @endsection
+@push('scripts')
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+@endpush

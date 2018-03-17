@@ -17,7 +17,7 @@ class CreatePropertyOffersTable extends Migration
             $table->increments('id');
 		    $table->integer('property_id');
 		    $table->text('description');
-		    $table->integer('price');
+		    $table->integer('price')->nullable();
             $table->integer('user_id')->default('0');
 		    $table->boolean('active')->default('1');
 		    $table->boolean('deleted')->default('0');

@@ -64,24 +64,29 @@ class PropertyOfferController extends Controller
     public function storeAPI(Request $request)
     {
         //
-        $offer = new PropertyOffer;
-        $offer->property_id = $request->property_id;
-        $offer->description = $request->description;
-        $offer->price = $request->price;
-        (Auth::check())? $offer->user_id = Auth::user()->id : $offer->user_id = 0 ;
-        
-        $offer->save();
+        if (Auth::check()) {
+            $offer = new PropertyOffer;
+            $offer->property_id = $request->property_id;
+            $offer->description = $request->description;
+            $offer->price = $request->price;
+            $offer->user_id = Auth::user()->id;
+            
+            $offer->save();
 
-        return [
-            'offer_id' => $offer->id,
-            'description' => $offer->description,
-            'price' => $offer->price,
-            'offerOwner' =>[
-                'id'=> $offer->user_id,
-                'name'=> ($offer->user_id == 0 ) ? 'Unkowen' : Auth::user()->name,
-                'phone'=> ($offer->user_id == 0 ) ? 'Unkowen' : Auth::user()->mobile1,
-            ],
-        ];
+            return [
+                'offer_id' => $offer->id,
+                'description' => $offer->description,
+                'price' => $offer->price,
+                'offerOwner' =>[
+                    'id'=> $offer->user_id,
+                    'name'=> ($offer->user_id == 0 ) ? 'Unkowen' : Auth::user()->name,
+                    'phone'=> ($offer->user_id == 0 ) ? 'Unkowen' : Auth::user()->mobile1,
+                ],
+            ];
+            
+        }else{
+            return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
+        }
     }
 
     /**

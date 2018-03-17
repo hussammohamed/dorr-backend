@@ -52,7 +52,11 @@ class PropertyImagesController extends Controller
                 
                 // - Add Watermark 
                 $stamp = imagecreatefrompng('images/dorr_watermark.png');
-                $im = imagecreatefromjpeg($folderpath ."/". $fileName);
+                if($extension=="png"){
+                    $im = imagecreatefrompng($folderpath ."/". $fileName);
+                }else{
+                    $im = imagecreatefromjpeg($folderpath ."/". $fileName);
+                }
 
                 //$marge_right = 20;
                 //$marge_bottom = 20;

@@ -43,41 +43,48 @@ class PropertyImagesController extends Controller
         //
         foreach($files as $key=>$file){
             $extension = $file->getClientOriginalExtension();
-            $fileName = $property_id."-".time()."-".str_random(6).".".$extension;
-            $folderpath  = 'upload/properties/';
-            $file->move($folderpath , $fileName);
-            
-            // - Add Watermark 
-            $stamp = imagecreatefrompng('images/dorr_watermark.png');
-            $im = imagecreatefromjpeg($folderpath ."/". $fileName);
+            $allowed =  array('jpg' ,'jpeg' ,'png');
+            if(in_array($extension,$allowed) ) {
+                
+                $fileName = $property_id."-".time()."-".str_random(6).".".$extension;
+                $folderpath  = 'upload/properties/';
+                $file->move($folderpath , $fileName);
+                
+                // - Add Watermark 
+                $stamp = imagecreatefrompng('images/dorr_watermark.png');
+                $im = imagecreatefromjpeg($folderpath ."/". $fileName);
 
-            //$marge_right = 20;
-            //$marge_bottom = 20;
-            $sx = imagesx($stamp);
-            $sy = imagesy($stamp);
+                //$marge_right = 20;
+                //$marge_bottom = 20;
+                $sx = imagesx($stamp);
+                $sy = imagesy($stamp);
 
-            $tmp_w = imagesx($im)/2;
-            //return $tmp_w;
-            $tmp_h = (imagesx($im)/2)*imagesy($stamp)/ imagesx($stamp);
-            //return $sx." - ".$sy;
-            $tmp = imagecreatetruecolor($tmp_w, $tmp_h);
-            imagealphablending( $tmp, false );
-            imagesavealpha( $tmp, true );
-            imagecopyresampled($tmp, $stamp, 0, 0, 0, 0, $tmp_w, $tmp_h, $sx, $sy);
-            
-            
-            //imagecopy($im, $stamp, imagesx($im) - $sx - $marge_right, imagesy($im) - $sy - $marge_bottom, 0, 0, imagesx($stamp), imagesy($stamp));
-            imagecopy($im, $tmp, (imagesx($im) - $tmp_w)/2, (imagesy($im) - $tmp_h)/2, 0, 0, $tmp_w, $tmp_h);
-            imagejpeg($im, $folderpath ."/". $fileName, 100);
-            imagedestroy($stamp);
-            imagedestroy($im);
-            // ---------------------------------------------------------
+                $tmp_w = imagesx($im)/2;
+                //return $tmp_w;
+                $tmp_h = (imagesx($im)/2)*imagesy($stamp)/ imagesx($stamp);
+                //return $sx." - ".$sy;
+                $tmp = imagecreatetruecolor($tmp_w, $tmp_h);
+                imagealphablending( $tmp, false );
+                imagesavealpha( $tmp, true );
+                imagecopyresampled($tmp, $stamp, 0, 0, 0, 0, $tmp_w, $tmp_h, $sx, $sy);
+                
+                
+                //imagecopy($im, $stamp, imagesx($im) - $sx - $marge_right, imagesy($im) - $sy - $marge_bottom, 0, 0, imagesx($stamp), imagesy($stamp));
+                imagecopy($im, $tmp, (imagesx($im) - $tmp_w)/2, (imagesy($im) - $tmp_h)/2, 0, 0, $tmp_w, $tmp_h);
+                imagejpeg($im, $folderpath ."/". $fileName, 100);
+                imagedestroy($stamp);
+                imagedestroy($im);
+                // ---------------------------------------------------------
 
-            $img = new PropertyImage;
-            $img->property_id = $property_id;
-            $img->path = $fileName;
-            $img->order = $key+1;
-            $img->save();
+                $img = new PropertyImage;
+                $img->property_id = $property_id;
+                $img->path = $fileName;
+                $img->order = $key+1;
+                $img->save();
+
+            }else{
+                return response()->json(["error"=>"The image type should be JPG or PNG"], Response::HTTP_BAD_REQUEST);
+            }
         }
 
     }

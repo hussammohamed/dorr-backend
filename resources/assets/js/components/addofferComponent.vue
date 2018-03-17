@@ -46,14 +46,13 @@ export default {
           data: $("#addOfferForm").serialize(),
           dataType: "json",
           success: function(_response) {
-            // self.properties = _response.data;
-            // self.bound = true;
-            // if (self.kind != "properties") {
-            //   self.kind = "properties";
-            // } else {
-            //   self.filterMap();
-            // }
-            location.reload();
+            swal("تم أضافة عرض بنجاح", {
+              button: "موافق",
+              icon: "success",
+            }).then( value =>{
+              location.reload();
+            })
+           
           },
           complete: function(_response) {},
           error: function(_response) {}

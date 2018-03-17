@@ -29,7 +29,7 @@
                                 <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
                             </label>
                             <label for="type" class="mdl-textfield__label">نوع العقار</label>
-                            <ul for="type" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                            <ul for="type" id="typesContainer" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
                                 @foreach($types as $type)
                                 <li class="mdl-menu__item" data-val="{{$type->id}}">{{$type->$name}}</li>
                                 @endforeach
@@ -225,7 +225,9 @@
                     <div class="mdl-cell mdl-cell--3-col">
                         <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label">
                             <input class="mdl-textfield__input"  name="floor" type="number" id="floor" value="">
-                            <label for="floor" class="mdl-textfield__label">الطابق</label>
+                            <label class="mdl-textfield__label target-villa " for="price">عدد الطوابق</label>
+                                <label class="mdl-textfield__label target-apartment" for="price">الطابق</label>
+                            <label for="floor" class="mdl-textfield__label"></label>
                         </div>
                     </div>
                    
@@ -471,7 +473,8 @@
         var map = new google.maps.Map(document.getElementById('map'), {
             zoom: 6,
             center: uluru,
-            disableDefaultUI: true
+            disableDefaultUI: true,
+            zoomControl: true,
         });
         var markersArray = [];
         // Deletes all markers in the array by removing references to them
@@ -579,6 +582,16 @@
         } else {
             $(".target-rent").addClass('hidden');
             $(".target-sale").removeClass('hidden');
+        }
+    });
+    $("#type").change(function () {
+        var typeId = $("#typesContainer").find(".selected").attr("data-val");
+        if (typeId  == "2") {
+            $(".target-apartment").addClass('hidden');
+            $(".target-villa").removeClass('hidden');
+        } else {
+            $(".target-villa").addClass('hidden');
+            $(".target-apartment").removeClass('hidden');
         }
     });
 

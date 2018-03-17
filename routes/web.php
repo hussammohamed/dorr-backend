@@ -95,6 +95,7 @@ Route::post('api/v1/property/{id}/update', 'PropertiesController@updateAPI');
 Route::put('api/v1/property/{id}/delete', 'PropertiesController@delete');
 Route::delete('api/v1/property/{id}/destroy', 'PropertiesController@destroy');
 Route::get('api/v1/properties/featured', 'PropertiesController@getFeatured');
+Route::post('api/v1/properties/{id}/featured', 'PropertiesController@setFeatured');
 Route::get('api/v1/properties/latest', 'PropertiesController@getLatest');
 Route::get('api/v1/properties/region/{region_id}', 'PropertiesController@getListByRegion');
 Route::get('api/v1/property/{id}', 'PropertiesController@getProperty');

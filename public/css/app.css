@@ -16602,6 +16602,7 @@ ol {
 
 .mdl-button {
   padding: 0 25px;
+  font-family: "Noto Kufi Arabic", sans-serif;
 }
 
 .mdl-button.mdl-button--colored {
@@ -18034,6 +18035,12 @@ address {
 
 .avatar-item-circle img {
   width: 100%;
+}
+
+.user-mobile {
+  color: rgba(0, 0, 0, 0.84);
+  font-size: 20px;
+  padding: 24px 0;
 }
 
 .sort-container {

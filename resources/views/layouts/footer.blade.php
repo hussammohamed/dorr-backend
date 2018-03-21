@@ -42,7 +42,7 @@
             </div>
 
             <div class="footer__bottom">
-                <div class="">جميع الحقوق محفوظة - تطبيق عقار 2018</div>
+                <div class="">جميع الحقوق محفوظة - تطبيق دور 2018</div>
             </div>
 
     </footer>

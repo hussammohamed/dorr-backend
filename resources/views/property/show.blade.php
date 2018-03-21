@@ -323,9 +323,18 @@
                         </tr>
                     </tbody>
                 </table>
-                <button class="mdl-button  mdl-js-button mdl-js-ripple-effect mdl-button--colored ">
+                <div class="showMobile user-mobile hidden">
+                    {{ \App\User::find($property->user_id)->mobile1 }}
+                </div>
+                <button id="showUserMobile" class="mdl-button  mdl-js-button mdl-js-ripple-effect mdl-button--colored ">
                     <i class="material-icons md-18">call</i>
+                    <span class="showMobile">
                     اتصل الأن
+                    </span>
+                    <span class="showMobile hidden">
+                        أخفاء الأتصال
+                        </span>
+                   
                 </button>
                 <button class="mdl-button  mdl-js-button mdl-js-ripple-effect  mdl-button--borded">
                     <i class="material-icons md-18">chat</i>
@@ -432,7 +441,9 @@
     $(document).ready(function () {
         initMap();
     });
-
+    $('#showUserMobile').click(function(){
+        $('.showMobile').toggleClass('hidden');
+    })
 </script>
 
 </script> @endpush @push('styles')

@@ -183,7 +183,6 @@ CustomMarker.prototype.drawProperty = function (id) {
 }
 
 function addCommas(num, begText, endText) {
-	debugger
 	num += '';
 	var x = num.split('.');
 	var x1 = x[0];

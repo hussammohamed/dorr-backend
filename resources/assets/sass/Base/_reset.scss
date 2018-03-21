@@ -159,6 +159,7 @@ ul,ol{
 }
 .mdl-button{
   padding: 0 25px;
+  font-family: $font-family;
   &.mdl-button--colored{
     background-color: $primary-base;
     color: $text-color;

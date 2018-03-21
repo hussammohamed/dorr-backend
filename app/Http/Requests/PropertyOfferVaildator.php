@@ -26,7 +26,7 @@ class PropertyOfferVaildator extends FormRequest
         return [
             'property_id' => 'required',
             'description' => 'required',
-            'price' => 'required',
+            //'price' => 'required',
             'user_id' => 'required',
         ];
     }
@@ -36,7 +36,7 @@ class PropertyOfferVaildator extends FormRequest
         return [
             'property_id.required' => 'يجب تحديد عقار',
             'description.required' => 'يجب ادخل تعليق للعرض',
-            'price.required' => 'يجب ادخل سعر للعرض',
+            //'price.required' => 'يجب ادخل سعر للعرض',
             'user_id.required' => 'يجب تحديد مستخدم',
         ];
     }

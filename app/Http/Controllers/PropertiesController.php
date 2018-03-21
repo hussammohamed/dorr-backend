@@ -336,7 +336,20 @@ class PropertiesController extends Controller
             if(isset($request->map_view) && $request->map_view!=""){ $property->map_view = $request->map_view; }else{ $property->map_view = null;};
             
             $property->ad_id = time();
-            $property->youtube = $request->youtube;
+            //$property->youtube = $request->youtube;
+            if(isset($request->youtube)){ 
+                $rx = "/(youtube.com|youtu.be)\/(watch)?(\?v=)?([^&]{11})?/";
+                $match;
+                    $url = $request->youtube;
+                if(preg_match($rx, $url, $match)){
+                    parse_str( parse_url( $url, PHP_URL_QUERY ), $my_array_of_vars );
+                    $property->youtube = $my_array_of_vars['v'];
+                }
+            }else{
+                $property->youtube = null;
+            }
+
+
             $property->startDate = date("Y-m-d h:i:s");
 
             $property->save();
@@ -383,7 +396,17 @@ class PropertiesController extends Controller
             //$property->payment_methods =  $data['payment_methods'];
             if(isset($data['rooms'])){ $property->rooms = $data['rooms']; }else{ $property->rooms = null;};
             if(isset($data['bathrooms'])){ $property->bathrooms = $data['bathrooms']; }else{ $property->bathrooms = null;};
-            if(isset($data['youtube'])){ $property->youtube = $data['youtube']; }else{ $property->youtube = null;};
+            if(isset($data['youtube'])){ 
+                $rx = "/(youtube.com|youtu.be)\/(watch)?(\?v=)?([^&]{11})?/";
+                $match;
+                    $url = $data['youtube'];
+                if(preg_match($rx, $url, $match)){
+                    parse_str( parse_url( $url, PHP_URL_QUERY ), $my_array_of_vars );
+                    $property->youtube = $my_array_of_vars['v'];
+                }
+            }else{
+                $property->youtube = null;
+            }
             if(isset($data['map_view'])){ $property->map_view = $data['map_view']; }else{ $property->map_view = null;};
             $property->ad_id = time();
             $property->startDate = date("Y-m-d h:i:s");
@@ -396,41 +419,57 @@ class PropertiesController extends Controller
                     //return 1;
                     $file = $request->file('picture'.$x);
                     $extension = $file->getClientOriginalExtension();
-                    $fileName = $property->id."-".time()."-".str_random(6).".".$extension;
-                    $folderpath  = 'upload/properties/';
-                    $file->move($folderpath , $fileName);
-                    
-                    // - Add Watermark 
-                    $stamp = imagecreatefrompng('images/dorr_watermark.png');
-                    $im = imagecreatefromjpeg($folderpath ."/". $fileName);
+
+                    $allowed =  array('jpg' ,'jpeg' ,'png');
+                    if(in_array($extension,$allowed) ) {
+
+                        $fileName = $property->id."-".time()."-".str_random(6).".".$extension;
+                        $folderpath  = 'upload/properties/';
+                        $file->move($folderpath , $fileName);
+                        
+                        // - Add Watermark 
+                        $stamp = imagecreatefrompng('images/dorr_watermark.png');
+                        if($extension=="png"){
+                            $im = imagecreatefrompng($folderpath ."/". $fileName);
+                        }else{
+                            $im = imagecreatefromjpeg($folderpath ."/". $fileName);
+                        }
         
-                    //$marge_right = 20;
-                    //$marge_bottom = 20;
-                    $sx = imagesx($stamp);
-                    $sy = imagesy($stamp);
-        
-                    $tmp_w = imagesx($im)/2;
-                    //return $tmp_w;
-                    $tmp_h = (imagesx($im)/2)*imagesy($stamp)/ imagesx($stamp);
-                    //return $sx." - ".$sy;
-                    $tmp = imagecreatetruecolor($tmp_w, $tmp_h);
-                    imagealphablending( $tmp, false );
-                    imagesavealpha( $tmp, true );
-                    imagecopyresampled($tmp, $stamp, 0, 0, 0, 0, $tmp_w, $tmp_h, $sx, $sy);
-                    
-                    
-                    //imagecopy($im, $stamp, imagesx($im) - $sx - $marge_right, imagesy($im) - $sy - $marge_bottom, 0, 0, imagesx($stamp), imagesy($stamp));
-                    imagecopy($im, $tmp, (imagesx($im) - $tmp_w)/2, (imagesy($im) - $tmp_h)/2, 0, 0, $tmp_w, $tmp_h);
-                    imagejpeg($im, $folderpath ."/". $fileName, 100);
-                    imagedestroy($stamp);
-                    imagedestroy($im);
-                    // ---------------------------------------------------------
-                    
-                    $img = new PropertyImage;
-                    $img->property_id = $property->id;
-                    $img->path = $fileName;
-                    $img->order = 1;
-                    $img->save();
+                        //$marge_right = 20;
+                        //$marge_bottom = 20;
+                        $sx = imagesx($stamp);
+                        $sy = imagesy($stamp);
+            
+                        $tmp_w = imagesx($im)/2;
+                        //return $tmp_w;
+                        $tmp_h = (imagesx($im)/2)*imagesy($stamp)/ imagesx($stamp);
+                        //return $sx." - ".$sy;
+                        $tmp = imagecreatetruecolor($tmp_w, $tmp_h);
+                        imagealphablending( $tmp, false );
+                        imagesavealpha( $tmp, true );
+                        imagecopyresampled($tmp, $stamp, 0, 0, 0, 0, $tmp_w, $tmp_h, $sx, $sy);
+                        
+                        
+                        //imagecopy($im, $stamp, imagesx($im) - $sx - $marge_right, imagesy($im) - $sy - $marge_bottom, 0, 0, imagesx($stamp), imagesy($stamp));
+                        imagecopy($im, $tmp, (imagesx($im) - $tmp_w)/2, (imagesy($im) - $tmp_h)/2, 0, 0, $tmp_w, $tmp_h);
+                        imagejpeg($im, $folderpath ."/". $fileName, 100);
+                        imagedestroy($stamp);
+                        imagedestroy($im);
+                        // ---------------------------------------------------------
+                        
+                        $img = new PropertyImage;
+                        $img->property_id = $property->id;
+                        $img->path = $fileName;
+                        $img->order = 1;
+                        $img->save();
+                    }else{
+                        return response()->json(["error"=>"The image type should be JPG or PNG"], Response::HTTP_BAD_REQUEST);
+                    }
+
+
+
+
+
                 }
             }
             $property = Property::find($property->id);
@@ -524,7 +563,18 @@ class PropertiesController extends Controller
                     //$property->payment_methods =  $data['payment_methods'];
                     if(isset($data['rooms'])){ $property->rooms = $data['rooms']; }else{ $property->rooms = null;};
                     if(isset($data['bathrooms'])){ $property->bathrooms = $data['bathrooms']; }else{ $property->bathrooms = null;};
-                    if(isset($data['youtube'])){ $property->youtube = $data['youtube']; }else{ $property->youtube = null;};
+                    //if(isset($data['youtube'])){ $property->youtube = $data['youtube']; }else{ $property->youtube = null;};
+                    if(isset($data['youtube'])){ 
+                        $rx = "/(youtube.com|youtu.be)\/(watch)?(\?v=)?([^&]{11})?/";
+                        $match;
+                            $url = $data['youtube'];
+                        if(preg_match($rx, $url, $match)){
+                            parse_str( parse_url( $url, PHP_URL_QUERY ), $my_array_of_vars );
+                            $property->youtube = $my_array_of_vars['v'];
+                        }
+                    }else{
+                        $property->youtube = null;
+                    }
                     if(isset($data['map_view'])){ $property->map_view = $data['map_view']; }else{ $property->map_view = null;};
                     
                     $property->save();
@@ -535,50 +585,73 @@ class PropertiesController extends Controller
                             //return 1;
                             $file = $request->file('picture'.$x);
                             $extension = $file->getClientOriginalExtension();
-                            $fileName = $property->id."-".time()."-".str_random(6).".".$extension;
-                            $folderpath  = 'upload/properties/';
-                            $file->move($folderpath , $fileName);
-
-                            // - Add Watermark 
-                            $stamp = imagecreatefrompng('images/dorr_watermark.png');
-                            $im = imagecreatefromjpeg($folderpath ."/". $fileName);
-                
-                            //$marge_right = 20;
-                            //$marge_bottom = 20;
-                            $sx = imagesx($stamp);
-                            $sy = imagesy($stamp);
-                
-                            $tmp_w = imagesx($im)/2;
-                            //return $tmp_w;
-                            $tmp_h = (imagesx($im)/2)*imagesy($stamp)/ imagesx($stamp);
-                            //return $sx." - ".$sy;
-                            $tmp = imagecreatetruecolor($tmp_w, $tmp_h);
-                            imagealphablending( $tmp, false );
-                            imagesavealpha( $tmp, true );
-                            imagecopyresampled($tmp, $stamp, 0, 0, 0, 0, $tmp_w, $tmp_h, $sx, $sy);
                             
+                            $allowed =  array('jpg' ,'jpeg' ,'png');
+                            if(in_array($extension,$allowed) ) {
                             
-                            //imagecopy($im, $stamp, imagesx($im) - $sx - $marge_right, imagesy($im) - $sy - $marge_bottom, 0, 0, imagesx($stamp), imagesy($stamp));
-                            imagecopy($im, $tmp, (imagesx($im) - $tmp_w)/2, (imagesy($im) - $tmp_h)/2, 0, 0, $tmp_w, $tmp_h);
-                            imagejpeg($im, $folderpath ."/". $fileName, 100);
-                            imagedestroy($stamp);
-                            imagedestroy($im);
-                            // ---------------------------------------------------------
+                                $fileName = $property->id."-".time()."-".str_random(6).".".$extension;
+                                $folderpath  = 'upload/properties/';
+                                $file->move($folderpath , $fileName);
+                                
+                                // - Add Watermark 
+                                $stamp = imagecreatefrompng('images/dorr_watermark.png');
+                                if($extension=="png"){
+                                    $im = imagecreatefrompng($folderpath ."/". $fileName);
+                                }else{
+                                    $im = imagecreatefromjpeg($folderpath ."/". $fileName);
+                                }
+                
+                                //$marge_right = 20;
+                                //$marge_bottom = 20;
+                                $sx = imagesx($stamp);
+                                $sy = imagesy($stamp);
+                                
+                                $tmp_w = imagesx($im)/2;
+                                //return $tmp_w;
+                                $tmp_h = (imagesx($im)/2)*imagesy($stamp)/ imagesx($stamp);
+                                //return $sx." - ".$sy;
+                                $tmp = imagecreatetruecolor($tmp_w, $tmp_h);
+                                imagealphablending( $tmp, false );
+                                imagesavealpha( $tmp, true );
+                                imagecopyresampled($tmp, $stamp, 0, 0, 0, 0, $tmp_w, $tmp_h, $sx, $sy);
+                                
+                                
+                                //imagecopy($im, $stamp, imagesx($im) - $sx - $marge_right, imagesy($im) - $sy - $marge_bottom, 0, 0, imagesx($stamp), imagesy($stamp));
+                                imagecopy($im, $tmp, (imagesx($im) - $tmp_w)/2, (imagesy($im) - $tmp_h)/2, 0, 0, $tmp_w, $tmp_h);
+                                imagejpeg($im, $folderpath ."/". $fileName, 100);
+                                imagedestroy($stamp);
+                                imagedestroy($im);
+                                // ---------------------------------------------------------
+                            
+                                $img = Image::make($file->getRealPath());
+                                $watermark = Image::make(public_path('images/dorr_watermark.png'));                
+                                $img->insert($watermark, 'bottom-right', 50, 50);
+                                $img->save($folderpath.'/'.$fileName);
+                                
 
-                            $img = Image::make($file->getRealPath());
-                            $watermark = Image::make(public_path('images/dorr_watermark.png'));                
-                            $img->insert($watermark, 'bottom-right', 50, 50);
-                            $img->save($folderpath.'/'.$fileName);
+                                $img = new PropertyImage;
+                                $img->property_id = $property->id;
+                                $img->path = $fileName;
+                                $img->order = 1;
+                                $img->save();
 
-
-                            $img = new PropertyImage;
-                            $img->property_id = $property->id;
-                            $img->path = $fileName;
-                            $img->order = 1;
-                            $img->save();
+                            }else{
+                                return response()->json(["error"=>"The image type should be JPG or PNG"], Response::HTTP_BAD_REQUEST);
+                            }
+                            
                         }
                     }
+                    /*
+                    $existingImages = (array) json_decode($request->request->get('existingImages'));
 
+                    $images = PropertyImageResource::collection(Property::find($id)->images);
+                    
+
+                    //$result = $images->diff($existingImages);
+
+                    //$result=array_diff($images,$existingImages);
+                    return $existingImages;
+                    */
                     $property = Property::find($property->id);
                     return new PropertyResource($property);
 
@@ -631,7 +704,22 @@ class PropertiesController extends Controller
                     if(isset($request->bathrooms) && $request->bathrooms!=""){ $property->bathrooms = $request->bathrooms; }else{ $property->bathrooms = null;};
                     if(isset($request->map_view) && $request->map_view!=""){ $property->map_view = $request->map_view; }else{ $property->map_view = null;};
             
-                    $property->youtube = $request->youtube;
+                    //$property->youtube = $request->youtube;
+                    
+                    if(isset($request->youtube)){ 
+                        $rx = "/(youtube.com|youtu.be)\/(watch)?(\?v=)?([^&]{11})?/";
+                        $match;
+                            $url = $request->youtube;
+                        if(preg_match($rx, $url, $match)){
+                            parse_str( parse_url( $url, PHP_URL_QUERY ), $my_array_of_vars );
+                            $property->youtube = $my_array_of_vars['v'];
+                        }
+                    }else{
+                        $property->youtube = null;
+                    }
+                    
+                    
+                    
                     $property->save();
 
                     if ($request->hasFile('attachment')) {
@@ -640,14 +728,22 @@ class PropertiesController extends Controller
 
                         foreach($request->file('attachment') as $key=>$file){
                             $extension = $file->getClientOriginalExtension();
+                            
+                            $allowed =  array('jpg' ,'jpeg' ,'png');
+                            if(in_array($extension,$allowed) ) {
+                            
                             $fileName = $request->id."-".time()."-".str_random(6).".".$extension;
                             $folderpath  = 'upload/properties/';
                             $file->move($folderpath , $fileName);
                             
                             // - Add Watermark 
                             $stamp = imagecreatefrompng('images/dorr_watermark.png');
-                            $im = imagecreatefromjpeg($folderpath ."/". $fileName);
-                
+                            if($extension=="png"){
+                                $im = imagecreatefrompng($folderpath ."/". $fileName);
+                            }else{
+                                $im = imagecreatefromjpeg($folderpath ."/". $fileName);
+                            }
+            
                             //$marge_right = 20;
                             //$marge_bottom = 20;
                             $sx = imagesx($stamp);
@@ -675,6 +771,10 @@ class PropertiesController extends Controller
                             $img->path = $fileName;
                             $img->order = $key+1;
                             $img->save();
+
+                        }else{
+                            return response()->json(["error"=>"The image type should be JPG or PNG"], Response::HTTP_BAD_REQUEST);
+                        }
                         }
                     }
 

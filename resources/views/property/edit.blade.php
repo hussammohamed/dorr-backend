@@ -407,7 +407,7 @@
                         <div class=" m-b-1">
                             <div class="form-group inputDnD">
                                 <i class="material-icons">add_a_photo</i>
-                                <input type="file" class="form-control-file text-primary font-weight-bold" id="inputFile" accept="image/*" onchange="readUrl(this)"
+                                <input type="file" accept="image/jpeg, image/png" class="form-control-file text-primary font-weight-bold" id="inputFile" accept="image/*" onchange="readUrl(this)"
                                     data-title="اسحب الصورة هنا للإضافة" name="attachment[]" multiple>
                                 <button type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored" onclick="document.getElementById('inputFile').click()">او إرفاق صور</button>
                             </div>

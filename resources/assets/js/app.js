@@ -91,29 +91,33 @@ const app = new Vue({
             return  moment(date).lang("ar").format(' DD MMMM YYYY');
         },
         getYoutube: function (url) {
-            var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-            var match = url.match(regExp);
+            // var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+            // var match = url.match(regExp);
 
-            if (match && match[2].length == 11) {
-                var videoId = match[2];
-                var iframeMarkup = '//www.youtube.com/embed/' + videoId;
-                return iframeMarkup;
-            } else {
-                return 'error';
-            }
+            // if (match && match[2].length == 11) {
+            //     var videoId = match[2];
+            //     var iframeMarkup = '//www.youtube.com/embed/' + videoId;
+            //     return iframeMarkup;
+            // } else {
+            //     return 'error';
+            // }
+            var iframeMarkup = '//www.youtube.com/embed/' + url;
+             return iframeMarkup;
 
         },
         imgYoutube: function (url) {
-            var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-            var match = url.match(regExp);
+            // var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+            // var match = url.match(regExp);
 
-            if (match && match[2].length == 11) {
-                var videoId = match[2];
-                var iframeMarkup = 'http://img.youtube.com/vi/' + videoId + '/0.jpg';
-                return iframeMarkup;
-            } else {
-                return 'error';
-            }
+            // if (match && match[2].length == 11) {
+            //     var videoId = match[2];
+            //     var iframeMarkup = 'http://img.youtube.com/vi/' + videoId + '/0.jpg';
+            //     return iframeMarkup;
+            // } else {
+            //     return 'error';
+            // }
+            var iframeMarkup = 'http://img.youtube.com/vi/' + url + '/0.jpg';
+             return iframeMarkup;
         },
         addCommas(num, begText, endText) {
             num += '';

@@ -1,5 +1,5 @@
 <header class="mdl-layout__header l-header">
-    <div class="topbar">
+    <div class="topbar mdl-cell--hide-phone">
         <!-- <div class="topbar--item topbar--item__lang ">
             <div class="topbar--item--bg "></div>
             
@@ -11,7 +11,7 @@
 
 
         </div> -->
-        <div class="topbar--item topbar--item__social">
+        <div class="topbar--item topbar--item__social mdl-cell--hide-phone">
             <div class="topbar--item--bg"></div>
             <nav class="navigation--social__link">
                 <a href="#" class="social--icon social--icon__f">
@@ -61,7 +61,7 @@
                 </a>
             </nav>
         </div>
-        <div class="topbar--item topbar--item__actions">
+        <div class="topbar--item topbar--item__actions mdl-cell--hide-phone">
             <nav class="mdl-navigation">
                 @guest
                 <!-- <a  href={{ asset( '/zakah')}} class="action--link">
@@ -96,13 +96,13 @@
         </div>
     </div>
     <div class="m-header">
-        <div class="m-header--item m-header--item__user">
+        <div class="m-header--item m-header--item__user mdl-cell--hide-phone">
             @guest
             <button @click="loginDialog" id="loginBtn" class="mdl-button hover-effect mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored">
                 تسجيل دخول
             </button>
             @else
-            <div class="user-menu" id="userMenu">
+            <div class="user-menu mdl-cell--hide-phone" id="userMenu">
                 <div class="user-menu--overlay"></div>
                 <div class="user-menu--header">
                     <i class="material-icons collapse-icon"></i>

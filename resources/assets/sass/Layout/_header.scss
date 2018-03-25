@@ -17,6 +17,9 @@ $m-header-height: 75px;
 	background-color: $header-backgroundColor;
 	height: $header-height;
 	border-bottom: $border-color 1px solid; 
+	display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
 }
 .topbar{
 	height: $topbar-height;

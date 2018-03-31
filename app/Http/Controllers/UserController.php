@@ -208,7 +208,7 @@ class UserController extends Controller
             $avatar = Auth::user()->avatar;
             if($avatar!=""){
                 if(file_exists( public_path() . '/upload/users/'.$avatar)) {
-                    return response()->json(["avatar"=> '/upload/users/'.$avatar]);
+                    return response()->json(["avatar"=> url('/').'/upload/users/'.$avatar]);
                 }else{
                     return response()->json(["error"=>"This avatar is not exist"], Response::HTTP_NOT_FOUND);
                 }

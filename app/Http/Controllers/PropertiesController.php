@@ -338,12 +338,10 @@ class PropertiesController extends Controller
             $property->ad_id = time();
             //$property->youtube = $request->youtube;
             if(isset($request->youtube)){ 
-                $rx = "/(youtube.com|youtu.be)\/(watch)?(\?v=)?([^&]{11})?/";
-                $match;
-                    $url = $request->youtube;
-                if(preg_match($rx, $url, $match)){
-                    parse_str( parse_url( $url, PHP_URL_QUERY ), $my_array_of_vars );
-                    $property->youtube = $my_array_of_vars['v'];
+                $rx = "#(?<=v=)[a-zA-Z0-9-]+(?=&)|(?<=v\/)[^&\n]+(?=\?)|(?<=v=)[^&\n]+|(?<=youtu.be/)[^&\n]+#";
+                $url = $request->youtube;
+                if(preg_match($rx, $url, $matches)){
+                    $property->youtube = $matches[0];
                 }
             }else{
                 $property->youtube = null;
@@ -396,17 +394,17 @@ class PropertiesController extends Controller
             //$property->payment_methods =  $data['payment_methods'];
             if(isset($data['rooms'])){ $property->rooms = $data['rooms']; }else{ $property->rooms = null;};
             if(isset($data['bathrooms'])){ $property->bathrooms = $data['bathrooms']; }else{ $property->bathrooms = null;};
+            
             if(isset($data['youtube'])){ 
-                $rx = "/(youtube.com|youtu.be)\/(watch)?(\?v=)?([^&]{11})?/";
-                $match;
-                    $url = $data['youtube'];
-                if(preg_match($rx, $url, $match)){
-                    parse_str( parse_url( $url, PHP_URL_QUERY ), $my_array_of_vars );
-                    $property->youtube = $my_array_of_vars['v'];
+                $rx = "#(?<=v=)[a-zA-Z0-9-]+(?=&)|(?<=v\/)[^&\n]+(?=\?)|(?<=v=)[^&\n]+|(?<=youtu.be/)[^&\n]+#";
+                $url = $data['youtube'];
+                if(preg_match($rx, $url, $matches)){
+                    $property->youtube = $matches[0];
                 }
             }else{
                 $property->youtube = null;
             }
+            
             if(isset($data['map_view'])){ $property->map_view = $data['map_view']; }else{ $property->map_view = null;};
             $property->ad_id = time();
             $property->startDate = date("Y-m-d h:i:s");
@@ -565,12 +563,10 @@ class PropertiesController extends Controller
                     if(isset($data['bathrooms'])){ $property->bathrooms = $data['bathrooms']; }else{ $property->bathrooms = null;};
                     //if(isset($data['youtube'])){ $property->youtube = $data['youtube']; }else{ $property->youtube = null;};
                     if(isset($data['youtube'])){ 
-                        $rx = "/(youtube.com|youtu.be)\/(watch)?(\?v=)?([^&]{11})?/";
-                        $match;
-                            $url = $data['youtube'];
-                        if(preg_match($rx, $url, $match)){
-                            parse_str( parse_url( $url, PHP_URL_QUERY ), $my_array_of_vars );
-                            $property->youtube = $my_array_of_vars['v'];
+                        $rx = "#(?<=v=)[a-zA-Z0-9-]+(?=&)|(?<=v\/)[^&\n]+(?=\?)|(?<=v=)[^&\n]+|(?<=youtu.be/)[^&\n]+#";
+                        $url = $data['youtube'];
+                        if(preg_match($rx, $url, $matches)){
+                            $property->youtube = $matches[0];
                         }
                     }else{
                         $property->youtube = null;
@@ -707,12 +703,10 @@ class PropertiesController extends Controller
                     //$property->youtube = $request->youtube;
                     
                     if(isset($request->youtube)){ 
-                        $rx = "/(youtube.com|youtu.be)\/(watch)?(\?v=)?([^&]{11})?/";
-                        $match;
-                            $url = $request->youtube;
-                        if(preg_match($rx, $url, $match)){
-                            parse_str( parse_url( $url, PHP_URL_QUERY ), $my_array_of_vars );
-                            $property->youtube = $my_array_of_vars['v'];
+                        $rx = "#(?<=v=)[a-zA-Z0-9-]+(?=&)|(?<=v\/)[^&\n]+(?=\?)|(?<=v=)[^&\n]+|(?<=youtu.be/)[^&\n]+#";
+                        $url = $request->youtube;
+                        if(preg_match($rx, $url, $matches)){
+                            $property->youtube = $matches[0];
                         }
                     }else{
                         $property->youtube = null;

@@ -37,7 +37,7 @@ class PropertyVaildator extends FormRequest
             //'area' => 'required|numeric',
             'rooms' => 'numeric',
             'bathrooms' => 'numeric',
-            'youtube' => ['url', new ValidYouTube],
+            //'youtube' => ['url', new ValidYouTube],
         ];
     }
 

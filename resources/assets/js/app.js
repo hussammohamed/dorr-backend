@@ -101,7 +101,8 @@ const app = new Vue({
             // } else {
             //     return 'error';
             // }
-            var iframeMarkup = '//www.youtube.com/embed/' + url;
+            var iframeMarkup = '//www.youtube.com/embed/' + url + '?enablejsapi=1';
+            console.log(iframeMarkup)
              return iframeMarkup;
 
         },

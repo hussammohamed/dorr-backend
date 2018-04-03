@@ -1,6 +1,8 @@
 <template>
    <div id="mapConainer" class="map-container no-search">
-
+  <div v-if="isloading" class="message"><span>جاري التحميل ...</span></div>
+  <div v-if="isEmpty" class="message"><span>لا يوجد أعلانات </span></div>
+  <div v-if="isloadingDom" class="loading"></div>
 <div id="map" class="map">
  
 </div>
@@ -136,6 +138,9 @@ export default {
   props: ["form", "cities", "uproperties"],
   data() {
     return {
+      isloadingDom: true,
+      isloading: true,
+      isEmpty: false,
       map: {},
       FormData: {},
       regions: [],
@@ -151,6 +156,16 @@ export default {
     };
   },
   watch: {
+    properties:{
+      handler: function(val, oldVal){
+        if(val.length){
+          this.isEmpty = false;
+        }else{
+          this.isEmpty = true;
+        }
+        this.isloading = false;
+      },
+    },
     filterMethod: {
       handler: function(val, oldVal) {
         this.filterMap();
@@ -159,10 +174,9 @@ export default {
     },
     kind: {
       handler: function(val, oldVal) {
-        console.log(this.kind);
         this.filterMap();
       }
-    }
+    },
   },
   methods: {
     filterMap() {
@@ -192,17 +206,17 @@ export default {
             );
             bounds.extend(overlay.getPosition());
           });
-          if (self.bound && arr.length) {
-            self.map.fitBounds(bounds);
-            setTimeout(() => {
-              if(self.map.zoom > 15){
-                 self.map.setZoom(15);
-              }else if (self.map.zoom < 11){
-                self.map.setZoom(11);
-              }
+          // if (self.bound && arr.length) {
+          //   self.map.fitBounds(bounds);
+          //   setTimeout(() => {
+          //     if(self.map.zoom > 15){
+          //        self.map.setZoom(15);
+          //     }else if (self.map.zoom < 11){
+          //       self.map.setZoom(11);
+          //     }
              
-            }, 150);
-          }
+          //   }, 150);
+          // }
           if (
             self.$parent.$children[2].$vnode.componentOptions.tag ==
             "properties-component"
@@ -231,7 +245,12 @@ export default {
                 self.map.getCenter().lng() +
                 "",
               function(data) {
-                console.log(data)
+                 self.isloading = false;
+                if(data.data.length){
+                  self.isEmpty = false;
+                }else{
+                  self.isEmpty = true;
+                }
                 self.citiesGet = data.data;
                 data.data.forEach(function(el) {
                   var overlay = new CustomMarker(
@@ -314,7 +333,11 @@ export default {
             
         }
       });
-
+        google.maps.event.addListenerOnce(map, 'idle', function(){
+          self.isloading = false;
+          self.isloadingDom = false;
+      
+      });
       map.addListener("click", function() {
         $(".property-card")
           .fadeOut()
@@ -322,6 +345,9 @@ export default {
         $(".marker-hidden").removeClass("marker-hidden");
       });
       map.addListener("dragend", function() {
+        self.isEmpty = false;
+        self.isloading = true;
+
         self.bound = false;
         let zoom = map.getZoom();
         if (zoom >= 7 && zoom <= 10) {
@@ -343,15 +369,23 @@ export default {
             success: function(_response) {
               $(".map-marker,.property-card")
                 .fadeOut()
-                .remove();
+                .remove(); 
               self.properties = _response.data;
+            },
+            complete: function(_response){
+              self.isloading = false;
               if (self.kind != "properties") {
                 self.kind = "properties";
               } else {
                 self.filterMap();
               }
+              if(!_response){
+                 self.properties = [];
+              }
             }
           });
+        }else{
+          self.isloading = false;
         }
       });
       map.addListener("center_changed", function() {

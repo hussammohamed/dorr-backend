@@ -52,15 +52,23 @@ CustomMarker.prototype.draw = function () {
 			if (type == "region") {
 				if(self.component){
 					self.component.properties = [];
+					// self.component.isLoading = true;
 				}
 				$.get('/api/v1/regions/' + id + '', function (data) {
-					data.data.forEach(function (el) {
-						var overlay = new CustomMarker(new google.maps.LatLng(el.location.lat, el.location.long), self.map, el, 'district', self.component);
-						bounds.extend(overlay.getPosition());
-						
-					});
-					self.map.fitBounds(bounds);
-					self.map.setZoom(10);
+					if(data.data.length){
+						data.data.forEach(function (el) {
+							var overlay = new CustomMarker(new google.maps.LatLng(el.location.lat, el.location.long), self.map, el, 'district', self.component);
+							bounds.extend(overlay.getPosition());
+							
+						});
+						self.map.fitBounds(bounds);
+						self.map.setZoom(10);
+					}else{
+						self.component.isEmpty = true;
+						self.map.setCenter(new google.maps.LatLng(self.latlng.lat(), (self.latlng.lng())));
+						self.map.setZoom(10);
+					}
+					
 				})
 
 				$(".map-marker,.property-card")
@@ -68,20 +76,22 @@ CustomMarker.prototype.draw = function () {
 					.remove();
 			}
 			if (type == "district") {
+				self.component.isLoading = true;
 				$.get('/api/v1/properties/region/' + id + '', function (data) {
-					if(self.component){
+					if(data.data){
 						self.component.properties = data.data;
-						self.component.kind = "properties"
-					}else{
-						data.data.forEach(function (el) {
-							var overlay = new CustomMarker(new google.maps.LatLng(el.location.lat, el.location.long), self.map, el, 'property');
-							bounds.extend(overlay.getPosition());
-						});
-						//self.map.fitBounds(bounds);
+						self.component.isEmpty = false;
 					}
+					else{
+						self.component.isEmpty = true;
+						self.component.properties = [];
+						
+					}
+					self.component.kind = "properties"
+					self.component.isLoading = false;
+					self.map.setCenter(new google.maps.LatLng(self.latlng.lat(), (self.latlng.lng())));
+					self.map.setZoom(12);
 					
-					//self.map.setCenter(new google.maps.LatLng(self.latlng.lat(), (self.latlng.lng())));
-					//self.map.setZoom(16);
 				})
 				$(".map-marker,.property-card")
 					.fadeOut()

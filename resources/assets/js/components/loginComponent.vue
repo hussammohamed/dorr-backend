@@ -51,6 +51,32 @@ export default {
     };
   },
   methods: {
+    getDomainName: function(){
+       var hostname;
+        //find & remove protocol (http, ftp, etc.) and get hostname
+        debugger
+        if (location.host.indexOf("://") > -1) {
+            hostname = location.host.split('/')[2];
+        }
+        else {
+            hostname = location.host.split('/')[0];
+        }
+    
+        //find & remove port number
+        hostname = hostname.split(':')[0];
+        //find & remove "?"
+        hostname = hostname.split('?')[0];
+          if(hostname.split(".").length> 2) {
+            hostname = hostname.split(".")["1"] + "." + hostname.split(".")["2"]
+            }
+        return hostname;
+    },
+    saveSession: function(data){
+      let domainName = this.getDomainName();
+      document.cookie = 'userId='+ data.id +'; domain='+ domainName +'';
+      document.cookie = 'token='+ data.api_token +'; domain='+ domainName +''
+
+    },
     forgotPassword: function () {
       this.$root.forgoPasswordDialog();
     },
@@ -101,13 +127,15 @@ export default {
             data: form.serialize(),
             dataType: "json",
             success: function(_response) {
+              self.saveSession(_response)
               if (self.$parent.url.length) {
                 location.pathname = self.$parent.url;
               } else {
-                location.reload();
+                //location.reload();
               }
             },
-            complete: function(_response) {},
+            complete: function(_response) {
+            },
             error: function(_response) {
               //this.errors = JSON.parse(_response.responseText).errors
               self.errors = {

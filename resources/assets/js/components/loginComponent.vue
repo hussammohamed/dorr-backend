@@ -74,8 +74,7 @@ export default {
     saveSession: function(data){
       let domainName = this.getDomainName();
       document.cookie = 'userId='+ data.id +'; domain='+ domainName +'';
-      document.cookie = 'token='+ data.api_token +'; domain='+ domainName +''
-
+      document.cookie = 'token='+ data.api_token +'; domain='+ domainName +'';
     },
     forgotPassword: function () {
       this.$root.forgoPasswordDialog();
@@ -131,7 +130,7 @@ export default {
               if (self.$parent.url.length) {
                 location.pathname = self.$parent.url;
               } else {
-                //location.reload();
+                location.reload();
               }
             },
             complete: function(_response) {

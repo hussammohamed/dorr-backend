@@ -26138,7 +26138,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
               if (self.$parent.url.length) {
                 location.pathname = self.$parent.url;
               } else {
-                //location.reload();
+                location.reload();
               }
             },
             complete: function complete(_response) {},

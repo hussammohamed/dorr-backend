@@ -2,11 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+use App;
 use App\IdType;
+
+use App\Http\Requests\IdTypeRequest;
+use App\Http\Resources\IdTypeResource;
+
+use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 
 class IdTypeController extends Controller
 {
+
+    /*public function __construct()
+    {
+        $this->middleware('auth:api')->except('index','show');
+    }*//////
+
+
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +29,7 @@ class IdTypeController extends Controller
      */
     public function index()
     {
-        //
+        return IdTypeResource::collection(IdType::paginate(5));
     }
 
     /**
@@ -33,9 +48,21 @@ class IdTypeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(IdTypeRequest $request)
     {
         //
+        if (Auth::check()) {
+            $idType = new IdType;
+            $idType->name =$request->name;
+            $idType->order =1;
+            
+            $idType->save();
+            
+            return response(['data' => new IdTypeResource($idType)],Response::HTTP_CREATED);
+
+        }else{
+            return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
+        }
     }
 
     /**
@@ -46,7 +73,7 @@ class IdTypeController extends Controller
      */
     public function show(IdType $idType)
     {
-        //
+        return new IdTypeResource($idType);
     }
 
     /**
@@ -70,6 +97,12 @@ class IdTypeController extends Controller
     public function update(Request $request, IdType $idType)
     {
         //
+        if (Auth::check()) {
+                $idType->update($request->all());
+                return response(['data' => new IdTypeResource($idType)],Response::HTTP_CREATED);
+        }else{
+            return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
+        }
     }
 
     /**
@@ -80,6 +113,33 @@ class IdTypeController extends Controller
      */
     public function destroy(IdType $idType)
     {
-        //
+        $idType->delete();
+        return response(null,Response::HTTP_NO_CONTENT);
     }
+
+    public function delete($id)
+    {
+        //
+        if (Auth::check()) {
+            $idType = IdType::find($id);
+            if (count($idType) < 1) {
+                return response()->json(["error"=>"This is not exists"], Response::HTTP_NO_CONTENT);
+            }else{
+                if(Auth::user()->id == 2){
+                    if($idType->deleted == 0 ){
+                        $idType->deleted = 1;
+                        $idType->save();
+                        return response(null,Response::HTTP_NO_CONTENT);
+                    }else{
+                        return response()->json(["error"=>"This is already deleted"], Response::HTTP_BAD_REQUEST);
+                    }
+                }else{
+                    return response()->json(["error"=>"You are not allowd to delete this"], Response::HTTP_METHOD_NOT_ALLOWED);
+                }
+            }
+        }else{
+            return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
+        }
+    }
+
 }

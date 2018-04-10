@@ -2,11 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+use App;
 use App\Nationality;
+
+use App\Http\Requests\NationalityRequest;
+use App\Http\Resources\NationalityResource;
+
+use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 
 class NationalityController extends Controller
 {
+
+    /*public function __construct()
+    {
+        $this->middleware('auth:api')->except('index','show');
+    }*//////
+
+
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +29,7 @@ class NationalityController extends Controller
      */
     public function index()
     {
-        //
+        return NationalityResource::collection(Nationality::where('active',1)->where('deleted',0)->paginate(5));
     }
 
     /**
@@ -33,9 +48,21 @@ class NationalityController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(NationalityRequest $request)
     {
         //
+        if (Auth::check()) {
+            $nationality = new Nationality;
+            $nationality->name =$request->name;
+            $nationality->order =1;
+            
+            $nationality->save();
+            
+            return response(['data' => new NationalityResource($nationality)],Response::HTTP_CREATED);
+
+        }else{
+            return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
+        }
     }
 
     /**
@@ -46,7 +73,7 @@ class NationalityController extends Controller
      */
     public function show(Nationality $nationality)
     {
-        //
+        return new NationalityResource($nationality);
     }
 
     /**
@@ -70,6 +97,12 @@ class NationalityController extends Controller
     public function update(Request $request, Nationality $nationality)
     {
         //
+        if (Auth::check()) {
+                $nationality->update($request->all());
+                return response(['data' => new NationalityResource($nationality)],Response::HTTP_CREATED);
+        }else{
+            return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
+        }
     }
 
     /**
@@ -80,6 +113,33 @@ class NationalityController extends Controller
      */
     public function destroy(Nationality $nationality)
     {
-        //
+        $nationality->delete();
+        return response(null,Response::HTTP_NO_CONTENT);
     }
+
+    public function delete($id)
+    {
+        //
+        if (Auth::check()) {
+            $nationality = Nationality::find($id);
+            if (count($nationality) < 1) {
+                return response()->json(["error"=>"This is not exists"], Response::HTTP_NO_CONTENT);
+            }else{
+                if(Auth::user()->id == 2){
+                    if($nationality->deleted == 0 ){
+                        $nationality->deleted = 1;
+                        $nationality->save();
+                        return response(null,Response::HTTP_NO_CONTENT);
+                    }else{
+                        return response()->json(["error"=>"This is already deleted"], Response::HTTP_BAD_REQUEST);
+                    }
+                }else{
+                    return response()->json(["error"=>"You are not allowd to delete this"], Response::HTTP_METHOD_NOT_ALLOWED);
+                }
+            }
+        }else{
+            return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
+        }
+    }
+
 }

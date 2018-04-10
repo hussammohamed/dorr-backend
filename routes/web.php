@@ -134,9 +134,13 @@ Route::group(['middleware'=>'auth:api'], function(){
 Route::group(['prefix'=>'api/v1'],function(){
 	Route::apiResource('/mproperties','MPropertyController');
 	Route::apiResource('/banks','BankController');
-	/*Route::apiResource('/id_types','IdTypeController');
-	Route::apiResource('/nationalities','NationalityController');
-	Route::apiResource('/types','TypesController');
+    Route::patch('/banks/{id}/delete', 'BankController@delete');
+	Route::apiResource('/id_types','IdTypeController');
+    Route::patch('/id_types/{id}/delete', 'IdTypeController@delete');
+    Route::apiResource('/nationalities','NationalityController');
+    Route::patch('/nationalities/{id}/delete', 'NationalityController@delete');
+    
+	/*Route::apiResource('/types','TypesController');
 	Route::apiResource('/advertisers','AdvertiserController');
 	Route::apiResource('/filter_menus','FilterMenuController');
 	Route::apiResource('/finish_types','FinishTypesController');

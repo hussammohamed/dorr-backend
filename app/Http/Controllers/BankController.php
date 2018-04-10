@@ -15,12 +15,10 @@ use Illuminate\Http\Request;
 class BankController extends Controller
 {
 
-    /*
-    public function __construct()
+    /*public function __construct()
     {
         $this->middleware('auth:api')->except('index','show');
-    }
-    */
+    }*//////
 
 
 
@@ -118,4 +116,30 @@ class BankController extends Controller
         $bank->delete();
         return response(null,Response::HTTP_NO_CONTENT);
     }
+
+    public function delete($id)
+    {
+        //
+        if (Auth::check()) {
+            $bank = Bank::find($id);
+            if (count($bank) < 1) {
+                return response()->json(["error"=>"This is not exists"], Response::HTTP_NO_CONTENT);
+            }else{
+                if(Auth::user()->id == 2){
+                    if($bank->deleted == 0 ){
+                        $bank->deleted = 1;
+                        $bank->save();
+                        return response(null,Response::HTTP_NO_CONTENT);
+                    }else{
+                        return response()->json(["error"=>"This is already deleted"], Response::HTTP_BAD_REQUEST);
+                    }
+                }else{
+                    return response()->json(["error"=>"You are not allowd to delete this"], Response::HTTP_METHOD_NOT_ALLOWED);
+                }
+            }
+        }else{
+            return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
+        }
+    }
+
 }

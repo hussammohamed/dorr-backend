@@ -52,7 +52,7 @@
       </ul>
     </div>
   </div>
-  <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet">
+  <!-- <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet">
     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
       <input v-model="FormData.priceFrom" class="mdl-textfield__input" name="priceFrom" type="text" id="lowPrice">
       <label class="mdl-textfield__label" for="lowPrice">أقل سعر</label>
@@ -63,7 +63,7 @@
       <input  v-model="FormData.priceTo" class="mdl-textfield__input" name="priceTo" type="text" id="hPrice">
       <label class="mdl-textfield__label" for="hPrice">أعلى سعر</label>
     </div>
-  </div>
+  </div> -->
   <button type="submit" @click="propertySearch" class="mdl-button u-full-width  mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored">
     بحث
   </button>
@@ -80,7 +80,7 @@
       <label class="mdl-textfield__label" for="mapSerach2">بحث</label>
     </div>
   </div>
-  <div class="mdl-cell mdl-cell--2-col">
+  <div class="mdl-cell mdl-cell--4-col">
     <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width   mdl-textfield--floating-label  getmdl-select getmdl-select__fix-height">
       <input class="mdl-textfield__input  regions" type="text" id="city2" value="" readonly tabIndex="-1">
       <input  type="hidden"  class="hidden-input"  value=""  name="city">
@@ -95,7 +95,7 @@
     </div>
   </div>
   
-  <div class="mdl-cell mdl-cell--2-col">
+  <div class="mdl-cell mdl-cell--4-col">
     <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select__city getmdl-select getmdl-select__fix-height">
       <input class="mdl-textfield__input" type="text" id="sample13" value="" readonly tabIndex="-1">
       <input  type="hidden" name="district"  value="" >
@@ -108,7 +108,7 @@
       </ul>
     </div>
   </div>
-  <div class="mdl-cell mdl-cell--2-col">
+  <!-- <div class="mdl-cell mdl-cell--2-col">
     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
       <input v-model="FormData.priceFrom" class="mdl-textfield__input" name="priceFrom" type="text" id="lowPrice2">
       <label class="mdl-textfield__label" for="lowPrice2">أقل سعر</label>
@@ -119,7 +119,7 @@
       <input  v-model="FormData.priceTo" class="mdl-textfield__input" name="priceTo"  type="text" id="hPrice2">
       <label class="mdl-textfield__label" for="hPrice2">أعلى سعر</label>
     </div>
-  </div>
+  </div> -->
   <div class="mdl-cell mdl-cell--2-col">
       <button id=""  @click="propertySearch(this)" class="mdl-button u-full-width mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored">
           بحث

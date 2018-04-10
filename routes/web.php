@@ -130,3 +130,25 @@ Route::group(['middleware'=>'auth:api'], function(){
     });
 });
 */
+
+Route::group(['prefix'=>'api/v1'],function(){
+	Route::apiResource('/mproperties','MPropertyController');
+	Route::apiResource('/banks','BankController');
+	/*Route::apiResource('/id_types','IdTypeController');
+	Route::apiResource('/nationalities','NationalityController');
+	Route::apiResource('/types','TypesController');
+	Route::apiResource('/advertisers','AdvertiserController');
+	Route::apiResource('/filter_menus','FilterMenuController');
+	Route::apiResource('/finish_types','FinishTypesController');
+	Route::apiResource('/map_views','MapViewController');
+	Route::apiResource('/pages','PageController');
+	Route::apiResource('/payment_methods','PaymentMethodsController');
+	Route::apiResource('/periods','PeriodController');
+	Route::apiResource('/purposes','PurposesController');
+	Route::apiResource('/region_types','RegionsTypesController');
+	Route::apiResource('/regions','RegionsController');
+	Route::apiResource('/reporting_reasons','ReportingReasonsController');
+	Route::apiResource('/social_media','SocialMediaController');*/
+});
+
+

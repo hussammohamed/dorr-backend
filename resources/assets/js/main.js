@@ -31,12 +31,21 @@ $(window).scroll(function (e) {
   var stickyEl = $('.sticky-item');
   var Position = stickyContainer.offset();
   var scrollTop = $(this).scrollTop();
+  var windowHeight = $(window).height();
+  var bottom = Position.top + stickyContainer.outerHeight(true);
   if (stickyContainer.length) {
     if (scrollTop > (Position.top + 100) && (scrollTop - Position.top) < (stickyContainer.height() - stickyEl.height() + 380)) {
-      stickyEl.css({ 'top': scrollTop - Position.top - 400 });
+      if(windowHeight < stickyEl.height()){
+        stickyEl.css({ 'top': scrollTop - Position.top - Math.abs(windowHeight - stickyEl.height()) });
+      }else{
+        stickyEl.css({ 'top': scrollTop - Position.top});
+      }
     }
     if ($(this).scrollTop() < Position.top) {
       stickyEl.css({ 'top': 8 });
+    }
+    if($(this).scrollTop() > (bottom - 400)){
+      console.log("ddd")
     }
   }
 });

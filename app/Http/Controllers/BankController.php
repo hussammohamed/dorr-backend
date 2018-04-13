@@ -15,10 +15,10 @@ use Illuminate\Http\Request;
 class BankController extends Controller
 {
 
-    /*public function __construct()
+    public function __construct()
     {
-        $this->middleware('auth:api')->except('index','show');
-    }*//////
+        $this->middleware('auth:api');//->except('index','show');
+    }
 
 
 
@@ -53,7 +53,8 @@ class BankController extends Controller
         //
         if (Auth::check()) {
             $bank = new Bank;
-            $bank->name =$request->name;
+            $bank->name_ar =$request->name_ar;
+            $bank->name_en =$request->name_en;
             $bank->order =1;
             
             $bank->save();

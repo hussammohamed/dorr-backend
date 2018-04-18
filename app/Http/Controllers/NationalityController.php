@@ -15,6 +15,10 @@ use Illuminate\Http\Request;
 class NationalityController extends Controller
 {
 
+    private $modelname = "nationality";
+    private $modelnames = "nationalities";
+
+
     public function __construct()
     {
         $this->middleware('auth:api');//->except('index','show');
@@ -29,7 +33,7 @@ class NationalityController extends Controller
      */
     public function index()
     {
-        return NationalityResource::collection(Nationality::where('active',1)->where('deleted',0)->paginate(5));
+        return [ $this->modelnames => NationalityResource::collection(Nationality::where('active',1)->where('deleted',0)->paginate(5))];
     }
 
     /**
@@ -53,13 +57,13 @@ class NationalityController extends Controller
         //
         if (Auth::check()) {
             $nationality = new Nationality;
-            $bank->name_ar =$request->name_ar;
-            $bank->name_en =$request->name_en;
+            $nationality->name_ar =$request->name_ar;
+            $nationality->name_en =$request->name_en;
             $nationality->order =1;
             
             $nationality->save();
             
-            return response(['data' => new NationalityResource($nationality)],Response::HTTP_CREATED);
+            return response([ $this->modelname => new NationalityResource($nationality)],Response::HTTP_CREATED);
 
         }else{
             return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
@@ -74,7 +78,7 @@ class NationalityController extends Controller
      */
     public function show(Nationality $nationality)
     {
-        return new NationalityResource($nationality);
+        return [ $this->modelname => new NationalityResource($nationality )];
     }
 
     /**
@@ -100,7 +104,7 @@ class NationalityController extends Controller
         //
         if (Auth::check()) {
                 $nationality->update($request->all());
-                return response(['data' => new NationalityResource($nationality)],Response::HTTP_CREATED);
+                return response([ $this->modelname => new NationalityResource($nationality)],Response::HTTP_OK);
         }else{
             return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
         }
@@ -118,11 +122,11 @@ class NationalityController extends Controller
         return response(null,Response::HTTP_NO_CONTENT);
     }
 
-    public function delete($id)
+    public function delete(Request $request)
     {
         //
         if (Auth::check()) {
-            $nationality = Nationality::find($id);
+            $nationality = Nationality::find($request->id);
             if (count($nationality) < 1) {
                 return response()->json(["error"=>"This is not exists"], Response::HTTP_NO_CONTENT);
             }else{

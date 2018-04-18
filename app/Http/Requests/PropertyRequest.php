@@ -6,7 +6,7 @@ use App\Rules\ValidYouTube;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PropertyVaildator extends FormRequest
+class PropertyRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

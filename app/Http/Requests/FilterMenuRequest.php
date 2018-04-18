@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PaymentMethodVaildator extends FormRequest
+class FilterMenuRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,9 @@ class PaymentMethodVaildator extends FormRequest
     {
         return [
             'name_ar' => 'required',
-            'name_en' => 'required'
+            'name_en' => 'required',
+            'purpose' => 'required',
+            'type' => 'required',
         ];
     }
 
@@ -34,6 +36,8 @@ class PaymentMethodVaildator extends FormRequest
         return [
             'name_ar.required' => 'يجب ادخل اسم باللغة العربية',
             'name_en.required' => 'يجب ادخل اسم باللغة الانجليزية',
+            'purpose.required' => 'يجب اختيار الغرض من الاعلان',
+            'type.required' => 'يجب ادخل اختيار نوع العقار',
         ];
     }
 }

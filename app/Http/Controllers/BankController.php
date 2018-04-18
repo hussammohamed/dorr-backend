@@ -15,6 +15,9 @@ use Illuminate\Http\Request;
 class BankController extends Controller
 {
 
+    private $modelname = "bank";
+    private $modelnames = "banks";
+
     public function __construct()
     {
         $this->middleware('auth:api');//->except('index','show');
@@ -29,7 +32,7 @@ class BankController extends Controller
      */
     public function index()
     {
-        return BankResource::collection(Bank::paginate(5));
+        return [ $this->modelnames => BankResource::collection(Bank::paginate(5))];
     }
 
     /**
@@ -59,7 +62,7 @@ class BankController extends Controller
             
             $bank->save();
             
-            return response(['data' => new BankResource($bank)],Response::HTTP_CREATED);
+            return response([ $this->modelname => new BankResource($bank)],Response::HTTP_CREATED);
 
         }else{
             return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
@@ -74,7 +77,7 @@ class BankController extends Controller
      */
     public function show(Bank $bank)
     {
-        return new BankResource($bank);
+        return [ $this->modelname => new BankResource($bank)];
     }
 
     /**
@@ -100,7 +103,7 @@ class BankController extends Controller
         //
         if (Auth::check()) {
                 $bank->update($request->all());
-                return response(['data' => new BankResource($bank)],Response::HTTP_CREATED);
+                return response([ $this->modelname => new BankResource($bank)],Response::HTTP_OK);
         }else{
             return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
         }
@@ -118,11 +121,11 @@ class BankController extends Controller
         return response(null,Response::HTTP_NO_CONTENT);
     }
 
-    public function delete($id)
+    public function delete(Request $request)
     {
         //
         if (Auth::check()) {
-            $bank = Bank::find($id);
+            $bank = Bank::find($request->id);
             if (count($bank) < 1) {
                 return response()->json(["error"=>"This is not exists"], Response::HTTP_NO_CONTENT);
             }else{

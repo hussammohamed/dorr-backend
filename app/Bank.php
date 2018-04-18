@@ -8,6 +8,6 @@ class Bank extends Model
 {
     //
     protected $fillable = [
-        'name', 'order','active','deleted'
+        'name_ar','name_en', 'order','active','deleted'
     ];
 }

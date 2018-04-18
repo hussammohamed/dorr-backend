@@ -15,6 +15,9 @@ use Illuminate\Http\Request;
 class IdTypeController extends Controller
 {
 
+    private $modelname = "id_type";
+    private $modelnames = "id_types";
+
     public function __construct()
     {
         $this->middleware('auth:api');//->except('index','show');
@@ -29,7 +32,7 @@ class IdTypeController extends Controller
      */
     public function index()
     {
-        return IdTypeResource::collection(IdType::paginate(5));
+        return [ $this->modelnames => IdTypeResource::collection(IdType::paginate(5)) ];
     }
 
     /**
@@ -53,13 +56,13 @@ class IdTypeController extends Controller
         //
         if (Auth::check()) {
             $idType = new IdType;
-            $bank->name_ar =$request->name_ar;
-            $bank->name_en =$request->name_en;
+            $idType->name_ar =$request->name_ar;
+            $idType->name_en =$request->name_en;
             $idType->order =1;
             
             $idType->save();
             
-            return response(['data' => new IdTypeResource($idType)],Response::HTTP_CREATED);
+            return response([ $this->modelname => new IdTypeResource($idType)],Response::HTTP_CREATED);
 
         }else{
             return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
@@ -74,7 +77,7 @@ class IdTypeController extends Controller
      */
     public function show(IdType $idType)
     {
-        return new IdTypeResource($idType);
+        return [ $this->modelname => new IdTypeResource($idType) ];
     }
 
     /**
@@ -100,7 +103,7 @@ class IdTypeController extends Controller
         //
         if (Auth::check()) {
                 $idType->update($request->all());
-                return response(['data' => new IdTypeResource($idType)],Response::HTTP_CREATED);
+                return response([ $this->modelname => new IdTypeResource($idType)],Response::HTTP_OK);
         }else{
             return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
         }
@@ -118,11 +121,11 @@ class IdTypeController extends Controller
         return response(null,Response::HTTP_NO_CONTENT);
     }
 
-    public function delete($id)
+    public function delete(Request $request)
     {
         //
         if (Auth::check()) {
-            $idType = IdType::find($id);
+            $idType = IdType::find($request->id);
             if (count($idType) < 1) {
                 return response()->json(["error"=>"This is not exists"], Response::HTTP_NO_CONTENT);
             }else{

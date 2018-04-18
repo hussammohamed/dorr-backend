@@ -31,43 +31,17 @@ class CreateMPropertiesTable extends Migration
 		    $table->date('property_instrument_date')->nullable();
             $table->string('property_instrument_place')->nullable();
             
-		    $table->integer('owner_user_id');
-		    $table->string('owner_name');
-		    $table->integer('owner_nationality');
-		    $table->string('owner_address');
-		    $table->integer('owner_id_type');
-		    $table->string('owner_id_no');
-		    $table->integer('owner_id_issuer');
-		    $table->date('owner_id_date');
-            $table->date('owner_id_exp_date');
-            $table->string('owner_email');
-            $table->string('owner_mobile');
-            $table->integer('owner_bank')->nullable();
-            $table->string('owner_bank_iban')->nullable();
-		    $table->boolean('owner_is_agent')->default('0');
+			$table->integer('owner_user_id');
+			
+		    $table->boolean('owner_is_agent')->default('1');
 
 		    $table->integer('agent_user_id')->nullable();
-		    $table->string('agent_name')->nullable();
-		    $table->integer('agent_nationality')->nullable();
-		    $table->string('agent_address')->nullable();
-		    $table->integer('agent_id_type')->nullable();
-		    $table->string('agent_id_no')->nullable();
-		    $table->integer('agent_id_issuer')->nullable();
-		    $table->date('agent_id_date')->nullable();
-            $table->date('agent_id_exp_date')->nullable();
-		    $table->string('agent_email')->nullable();
-            $table->string('agent_mobile')->nullable();
+			
+			
 		    $table->string('agent_instrument_no')->nullable();
 		    $table->integer('agent_instrument_issuer')->nullable();
 		    $table->date('agent_instrument_date')->nullable();
-            $table->date('agent_instrument_exp_date')->nullable();
-		    $table->integer('agent_bank')->nullable();
-		    $table->string('agent_bank_iban')->nullable();
-            $table->string('commercial_register_name')->nullable();
-            $table->string('commercial_register_no')->nullable();
-		    $table->integer('commercial_register_issuer')->nullable();
-		    $table->date('commercial_register_date')->nullable();
-            $table->date('commercial_register_exp_date')->nullable();
+			$table->date('agent_instrument_exp_date')->nullable();
 
 			$table->integer('created_by');
 			

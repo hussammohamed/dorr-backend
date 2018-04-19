@@ -30132,7 +30132,7 @@ $(window).scroll(function (e) {
       stickyEl.css({ 'top': 8 });
     }
     if ($(this).scrollTop() > bottom - 400) {
-      console.log("ddd");
+      stickyEl.css({ 'top': scrollTop - windowHeight - 100 });
     }
   }
 });

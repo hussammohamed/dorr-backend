@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PropertyImageVaildator extends FormRequest
+class TypeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,12 +24,16 @@ class PropertyImageVaildator extends FormRequest
     public function rules()
     {
         return [
+            'name_ar' => 'required',
+            'name_en' => 'required'
         ];
     }
 
     public function messages()
     {
         return [
+            'name_ar.required' => 'يجب ادخل اسم باللغة العربية',
+            'name_en.required' => 'يجب ادخل اسم باللغة الانجليزية',
         ];
     }
 }

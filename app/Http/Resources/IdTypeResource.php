@@ -2,6 +2,9 @@
 
 namespace App\Http\Resources;
 
+use App;
+use App\IdType;
+
 use Illuminate\Http\Resources\Json\Resource;
 
 class IdTypeResource extends Resource
@@ -14,9 +17,10 @@ class IdTypeResource extends Resource
      */
     public function toArray($request)
     {
+        $name = 'name_'.App::getLocale();
         return [
             'id' => $this->id,
-            'name' => $this->name
+            'name' => $this->$name
         ];
     }
 }

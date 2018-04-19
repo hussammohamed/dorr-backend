@@ -14,6 +14,15 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+
+    private $modelname = "user";
+    private $modelnames = "users";
+
+    public function __construct()
+    {
+        $this->middleware('auth:api');//->except('index','show');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -21,7 +30,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return UserResource::collection(User::paginate(5));
+        return [ $this->modelnames => UserResource::collection(User::paginate(5))];
     }
 
     /**
@@ -42,6 +51,18 @@ class UserController extends Controller
         
     }
     
+    public function searchForUser(Request $request)
+    {
+        //
+        if(Auth::user()){
+            $user = User::where('email',$request->key)->orWhere('mobile1',$request->key)->first();
+            return [ $this->modelname => new UserResource($user)];
+        }else{
+            return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
+        }
+        
+    }
+
     public function getUserProperties(Request $request)
      {
          if (Auth::check()) {
@@ -65,7 +86,40 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if (Auth::check()) {
+            $user = new User;
+            
+            $user->name = $request->name;
+            $user->first_name = $request->first_name;
+            $user->family_name = $request->family_name;
+            $user->email = $request->email;
+            $user->password = $request->password;
+            $user->phone = $request->phone;
+            $user->mobile1 = $request->mobile1;
+            $user->mobile2 = $request->mobile2;
+            $user->api_token = str_random(60);
+
+            
+
+		    $user->nationality = $request->nationality;
+		    $user->address = $request->address;
+		    $user->id_type = $request->id_type;
+		    $user->id_no = $request->id_no;
+		    $user->id_issuer = $request->id_issuer;
+		    $user->id_issued_date = $request->id_issued_date;
+            $user->id_exp_date = $request->id_exp_date;
+            $user->bank = $request->bank;
+			$user->bank_iban = $request->bank_iban;
+
+			$user->registered = $request->registered;
+
+            $user->save();
+            
+            return response([ $this->modelname => new UserResource($user)],Response::HTTP_CREATED);
+            
+        }else{
+            return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
+        }
     }
 
     /**
@@ -105,7 +159,22 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-     public function update(Request $request)
+     
+     
+    public function update(Request $request, User $user)
+    {
+        //
+        if (Auth::check()) {
+                $user->update($request->all());
+                return response([ $this->modelname => new UserResource($user)],Response::HTTP_OK);
+        }else{
+            return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
+        }
+    }
+
+
+
+     public function update_old(Request $request)
      {
          //
          if (Auth::check()) {

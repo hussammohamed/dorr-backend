@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class FinishTypeVaildator extends FormRequest
+class PropertyReportRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,16 +24,18 @@ class FinishTypeVaildator extends FormRequest
     public function rules()
     {
         return [
-            'name_ar' => 'required',
-            'name_en' => 'required'
+            'property_id' => 'required',
+            'comment' => 'required',
+            'user_id' => 'required',
         ];
     }
 
     public function messages()
     {
         return [
-            'name_ar.required' => 'يجب ادخل اسم باللغة العربية',
-            'name_en.required' => 'يجب ادخل اسم باللغة الانجليزية',
+            'property_id.required' => 'يجب تحديد عقار',
+            'comment.required' => 'يجب ادخل تعليق للعرض',
+            'user_id.required' => 'يجب تحديد مستخدم',
         ];
     }
 }

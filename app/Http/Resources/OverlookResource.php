@@ -19,8 +19,8 @@ class OverlookResource extends Resource
     {
         $name = 'name_'.App::getLocale();
         return [
-            'name' => $this->$name,
-            'value' => $this->id
+            'id' => $this->id,
+            'name' => $this->$name
         ];
     }
 }

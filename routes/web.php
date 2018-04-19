@@ -133,60 +133,62 @@ Route::group(['middleware'=>'auth:api'], function(){
 
 Route::group(['prefix'=>'api/v1'],function(){
 
-    
 	Route::apiResource('/users','UserController');
-    //Route::patch('/users/{id}/delete', 'UserController@delete');
+    //Route::post('/users/{id}/delete', 'UserController@delete');
+    Route::post('/users/search', 'UserController@searchForUser'); 
 
     Route::apiResource('/mproperties','MPropertyController');
     
 	Route::apiResource('/banks','BankController');
-    Route::patch('/banks/{id}/delete', 'BankController@delete');
+    Route::post('/banks/delete', 'BankController@delete');
 
 	Route::apiResource('/id_types','IdTypeController');
-    Route::patch('/id_types/{id}/delete', 'IdTypeController@delete');
+    Route::post('/id_types/delete', 'IdTypeController@delete');
 
     Route::apiResource('/nationalities','NationalityController');
-    Route::patch('/nationalities/{id}/delete', 'NationalityController@delete');
+    Route::post('/nationalities/delete', 'NationalityController@delete');
+
+    Route::apiResource('/agencies','AgencyController');
     
     /*
     Route::apiResource('/types','TypesController');
-    Route::patch('/types/{id}/delete', 'TypesController@delete');
+    Route::post('/types/{id}/delete', 'TypesController@delete');
 
 	Route::apiResource('/advertisers','AdvertiserController');
-    Route::patch('/advertisers/{id}/delete', 'AdvertiserController@delete');
+    Route::post('/advertisers/{id}/delete', 'AdvertiserController@delete');
 
 	Route::apiResource('/filter_menus','FilterMenuController');
-    Route::patch('/filter_menus/{id}/delete', 'FilterMenuController@delete');
+    Route::post('/filter_menus/{id}/delete', 'FilterMenuController@delete');
 
 	Route::apiResource('/finish_types','FinishTypesController');
-    Route::patch('/bafinish_typesnks/{id}/delete', 'FinishTypesController@delete');
+    Route::post('/bafinish_typesnks/{id}/delete', 'FinishTypesController@delete');
 
 	Route::apiResource('/map_views','MapViewController');
-    Route::patch('/map_views/{id}/delete', 'MapViewController@delete');
+    Route::post('/map_views/{id}/delete', 'MapViewController@delete');
 
 	Route::apiResource('/pages','PageController');
-    Route::patch('/pages/{id}/delete', 'PageController@delete');
+    Route::post('/pages/{id}/delete', 'PageController@delete');
 
 	Route::apiResource('/payment_methods','PaymentMethodsController');
-    Route::patch('/payment_methods/{id}/delete', 'PaymentMethodsController@delete');
+    Route::post('/payment_methods/{id}/delete', 'PaymentMethodsController@delete');
 
 	Route::apiResource('/periods','PeriodController');
-    Route::patch('/periods/{id}/delete', 'PeriodController@delete');
+    Route::post('/periods/{id}/delete', 'PeriodController@delete');
 
 	Route::apiResource('/purposes','PurposesController');
-    Route::patch('/purposes/{id}/delete', 'PurposesController@delete');
+    Route::post('/purposes/{id}/delete', 'PurposesController@delete');
 
 	Route::apiResource('/region_types','RegionsTypesController');
-    Route::patch('/region_types/{id}/delete', 'RegionsTypesController@delete');
+    Route::post('/region_types/{id}/delete', 'RegionsTypesController@delete');
 
 	Route::apiResource('/regions','RegionsController');
-    Route::patch('/banregionsks/{id}/delete', 'RegionsController@delete');
+    Route::post('/banregionsks/{id}/delete', 'RegionsController@delete');
 
 	Route::apiResource('/reporting_reasons','ReportingReasonsController');
-    Route::patch('/reporting_reasons/{id}/delete', 'ReportingReasonsController@delete');
+    Route::post('/reporting_reasons/{id}/delete', 'ReportingReasonsController@delete');
 
 	Route::apiResource('/social_media','SocialMediaController');
-    Route::patch('/social_media/{id}/delete', 'SocialMediaController@delete');
+    Route::post('/social_media/{id}/delete', 'SocialMediaController@delete');
 */
 });
 

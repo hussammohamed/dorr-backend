@@ -18,32 +18,37 @@ class MSeedData extends Seeder
     {
 
         //Seed ID_Types
-        $id_types=['رقم قومى','إقامة','جواز سفر','سجل تجارى'];
-        foreach($id_types as $key=>$value){
+        $id_types_ar=['هوية وطنية','إقامة','جواز سفر','سجل تجارى'];
+        $id_types_en=['National ID','Stay','Passport','Commercial Register'];
+        foreach($id_types_ar as $key=>$value){
             $add = new IdType;
-            $add->name = $value;
+            $add->name_ar = $value;
+            $add->name_en = $id_types_en[$key];
             $add->order = $key+1;
             $add->save();
         }
         
         //Seed Nationality
-        $nationality=['السعودية','مصر','الامارات','الكويت'];
-        foreach($nationality as $key=>$value){
+        $nationality_ar=['السعودية','مصر','الامارات','الكويت'];
+        $nationality_en=['Saudi','Egypt','UAE','Kuwait'];
+        foreach($nationality_ar as $key=>$value){
             $add = new Nationality;
-            $add->name = $value;
+            $add->name_ar = $value;
+            $add->name_en = $nationality_en[$key];
             $add->order = $key+1;
             $add->save();
         }
         
         //Seed Bank
-        $bank=['NSGB','NSG','QNB','SAB'];
-        foreach($bank as $key=>$value){
+        $bank_ar=['الاهلى سوستيه','مصر','قطر الدولى','السعودى'];
+        $bank_en=['NSGB','Misr','QNB','SAB'];
+        foreach($bank_ar as $key=>$value){
             $add = new Bank;
-            $add->name = $value;
+            $add->name_ar = $value;
+            $add->name_en = $bank_en[$key];
             $add->order = $key+1;
             $add->save();
         }
-        
         
         
         //Seed MProperties
@@ -66,7 +71,7 @@ class MSeedData extends Seeder
         $property->property_instrument_place = "c";
         
         $property->owner_user_id = 2;
-        $property->owner_name = "Mohamed";
+        /*$property->owner_name = "Mohamed";
         $property->owner_nationality = 1;
         $property->owner_address = "address";
         $property->owner_id_type = 1;
@@ -78,10 +83,10 @@ class MSeedData extends Seeder
         $property->owner_mobile = "123456789";
         $property->owner_bank = 1;
         $property->owner_bank_iban = "321654987";
-        $property->owner_is_agent = 0;
+        $property->owner_is_agent = 0;*/
 
         $property->agent_user_id = 1;
-        $property->agent_name = "ahmed";
+        /*$property->agent_name = "ahmed";
         $property->agent_nationality = 1;
         $property->agent_address = "address";
         $property->agent_id_type = 1;
@@ -91,17 +96,18 @@ class MSeedData extends Seeder
         $property->agent_id_exp_date = "2015-05-02";
         $property->agent_email = "kj@fdsf.muk";
         $property->agent_mobile = "123456789";
-        $property->agent_instrument_no = "16461315";
-        $property->agent_instrument_issuer = 1;
-        $property->agent_instrument_date = "2015-05-02";
-        $property->agent_instrument_exp_date = "2015-05-02";
         $property->agent_bank = 1;
         $property->agent_bank_iban = "654321987";
         $property->commercial_register_name = "الحمد للتسويق";
         $property->commercial_register_no = "56464654546";
         $property->commercial_register_issuer = 1;
         $property->commercial_register_date = "2015-05-02";
-        $property->commercial_register_exp_date = "2015-05-02";
+        $property->commercial_register_exp_date = "2015-05-02";*/
+
+        $property->agent_instrument_no = "16461315";
+        $property->agent_instrument_issuer = 1;
+        $property->agent_instrument_date = "2015-05-02";
+        $property->agent_instrument_exp_date = "2015-05-02";
 
         $property->created_by = 2;
         $property->save();

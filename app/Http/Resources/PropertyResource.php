@@ -112,7 +112,7 @@ class PropertyResource extends Resource
             ],
             "pictures" => PropertyImageResource::collection($this->images)
             ,
-            "offers" => PropertyOfferResource::collection($this->offers)
+            "offers" => $this->offers
         ];
     }
 }

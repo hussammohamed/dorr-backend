@@ -14,6 +14,16 @@ use Illuminate\Http\Request;
 
 class MPropertyController extends Controller
 {
+
+    private $modelname = "mproperty";
+    private $modelnames = "mpropertyies";
+
+    public function __construct()
+    {
+        $this->middleware('auth:api');//->except('index','show');
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -21,7 +31,7 @@ class MPropertyController extends Controller
      */
     public function index()
     {
-        return MPropertyResource::collection(MProperty::paginate(5));
+        return [ $this->modelnames => MPropertyResource::collection(MProperty::where('active',1)->where('deleted',0)->get())];
     }
 
     /**
@@ -52,7 +62,7 @@ class MPropertyController extends Controller
             $property->lat = $request->lat;
             $property->long = $request->long;
             $property->floors = $request->floors;
-            $property->units = $request->units;
+            $property->units_no = $request->units_no;
             $property->elevators = $request->elevators;
             $property->parking = $request->parking;
             $property->year_of_construction = $request->year_of_construction;
@@ -62,47 +72,16 @@ class MPropertyController extends Controller
             $property->property_instrument_place = $request->property_instrument_place;
             
             $property->owner_user_id = $request->owner_user_id;
-            $property->owner_name = $request->owner_name;
-            $property->owner_nationality = $request->owner_nationality;
-            $property->owner_address = $request->owner_address;
-            $property->owner_id_type = $request->owner_id_type;
-            $property->owner_id_no = $request->owner_id_no;
-            $property->owner_id_issuer = $request->owner_id_issuer;
-            $property->owner_id_date = $request->owner_id_date;
-            $property->owner_id_exp_date = $request->owner_id_exp_date;
-            $property->owner_email = $request->owner_email;
-            $property->owner_mobile = $request->owner_mobile;
-            $property->owner_bank = $request->owner_bank;
-            $property->owner_bank_iban = $request->owner_bank_iban;
 
             $property->agent_user_id = $request->agent_user_id;
-            $property->agent_name = $request->agent_name;
-            $property->agent_nationality = $request->agent_nationality;
-            $property->agent_address = $request->agent_address;
-            $property->agent_id_type = $request->agent_id_type;
-            $property->agent_id_no = $request->agent_id_no;
-            $property->agent_id_issuer = $request->agent_id_issuer;
-            $property->agent_id_date = $request->agent_id_date;
-            $property->agent_id_exp_date = $request->agent_id_exp_date;
-            $property->agent_email = $request->agent_email;
-            $property->agent_mobile = $request->agent_mobile;
-            $property->agent_instrument_no = $request->agent_instrument_no;
-            $property->agent_instrument_issuer = $request->agent_instrument_issuer;
-            $property->agent_instrument_date = $request->agent_instrument_date;
-            $property->agent_instrument_exp_date = $request->agent_instrument_exp_date;
-            $property->agent_bank = $request->agent_bank;
-            $property->agent_bank_iban = $request->agent_bank_iban;
-            $property->commercial_register_name = $request->commercial_register_name;
-            $property->commercial_register_no = $request->commercial_register_no;
-            $property->commercial_register_issuer = $request->commercial_register_issuer;
-            $property->commercial_register_date = $request->commercial_register_date;
-            $property->commercial_register_exp_date = $request->commercial_register_exp_date;
+            
+            $property->user_relation = $request->user_relation;
 
             $property->created_by = Auth::user()->id;
 
             $property->save();
             
-            return new MPropertyResource($property);
+            return [ $this->modelname => new MPropertyResource($property)];
         }else{
             return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
         }
@@ -116,7 +95,7 @@ class MPropertyController extends Controller
      */
     public function show(MProperty  $mproperty)
     {
-        return new MPropertyResource($mproperty);
+        return [ $this->modelname => new MPropertyResource($mproperty)];
     }
 
     /**
@@ -141,10 +120,10 @@ class MPropertyController extends Controller
     {
         if (Auth::check()) {
             $mproperty->update($request->all());
-            return response(['data' => new MPropertyResource($mproperty)],Response::HTTP_CREATED);
-    }else{
-        return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
-    }
+            return response([ $this->modelname => MPropertyResource($mproperty)],Response::HTTP_CREATED);
+        }else{
+            return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
+        }
     }
 
     /**

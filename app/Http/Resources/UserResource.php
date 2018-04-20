@@ -30,7 +30,7 @@ class UserResource extends Resource
             'mobile1' => $this->mobile1,
             'mobile2' => $this->mobile2,
             'api_token' => $this->api_token,
-            'avatar' => url('/').'/upload/users/'.$this->avatar,
+            'avatar' => ($this->id_image == null ) ? null : url('/').'/upload/users/'.$this->avatar,
             'nationality' => [
                 "id" => $this->nationality,
                 "name" => ($this->nationality == null ) ? null : Nationality::find($this->nationality)->$name
@@ -44,11 +44,12 @@ class UserResource extends Resource
             'id_issuer' => $this->id_issuer,
             'id_issued_date' => $this->id_issued_date,
             'id_exp_date' => $this->id_exp_date,
+            'id_image' => ($this->id_image == null ) ? null : url('/').'/upload/users/'.$this->id_image,
             'bank' => [
                 "id" => $this->bank,
                 "name" => ($this->bank == null ) ? null : Bank::find($this->bank)->$name,
-                'bank_iban' => $this->bank_iban
-            ]
+            ],
+            'bank_iban' => $this->bank_iban
         ];
     }
 }

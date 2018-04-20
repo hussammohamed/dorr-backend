@@ -33,7 +33,7 @@ class AgencyController extends Controller
      */
     public function index()
     {
-        return [ $this->modelnames => AgencyResource::collection(Agency::paginate(5))];
+        return [ $this->modelnames => AgencyResource::collection(Agency::get())];
     }
 
     /**

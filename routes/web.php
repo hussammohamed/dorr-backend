@@ -137,8 +137,6 @@ Route::group(['prefix'=>'api/v1'],function(){
     //Route::post('/users/{id}/delete', 'UserController@delete');
     Route::post('/users/search', 'UserController@searchForUser'); 
 
-    Route::apiResource('/mproperties','MPropertyController');
-    
 	Route::apiResource('/banks','BankController');
     Route::post('/banks/delete', 'BankController@delete');
 
@@ -150,6 +148,10 @@ Route::group(['prefix'=>'api/v1'],function(){
 
     Route::apiResource('/agencies','AgencyController');
     
+    Route::apiResource('/mproperties','MPropertyController');
+    
+	Route::apiResource('/units','UnitController');
+    Route::post('/units/delete', 'UnitController@delete');
     /*
     Route::apiResource('/types','TypesController');
     Route::post('/types/{id}/delete', 'TypesController@delete');

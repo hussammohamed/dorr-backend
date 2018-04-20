@@ -32,7 +32,7 @@ class IdTypeController extends Controller
      */
     public function index()
     {
-        return [ $this->modelnames => IdTypeResource::collection(IdType::paginate(5)) ];
+        return [ $this->modelnames => IdTypeResource::collection(IdType::where('active',1)->where('deleted',0)->get()) ];
     }
 
     /**

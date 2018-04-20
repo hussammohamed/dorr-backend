@@ -21,6 +21,7 @@ class CreateAgenciesTable extends Migration
 		    $table->integer('commercial_register_issuer')->nullable();
 		    $table->date('commercial_register_date')->nullable();
             $table->date('commercial_register_exp_date')->nullable();
+            $table->string('commercial_register_image')->nullable();
             $table->timestamps();
         });
     }

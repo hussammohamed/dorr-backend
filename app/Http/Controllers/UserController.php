@@ -30,7 +30,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return [ $this->modelnames => UserResource::collection(User::paginate(5))];
+        return [ $this->modelnames => UserResource::collection(User::get())];
     }
 
     /**

@@ -6,6 +6,8 @@ use App\IdType;
 use App\Nationality;
 use App\Bank;
 use App\MProperty;
+use App\User;
+use App\Agency;
 
 class MSeedData extends Seeder
 {
@@ -69,48 +71,67 @@ class MSeedData extends Seeder
         $property->property_instrument_issuer = 1;
         $property->property_instrument_date = "2015-05-02";
         $property->property_instrument_place = "c";
-        
-        $property->owner_user_id = 2;
-        /*$property->owner_name = "Mohamed";
-        $property->owner_nationality = 1;
-        $property->owner_address = "address";
-        $property->owner_id_type = 1;
-        $property->owner_id_no = "54684653";
-        $property->owner_id_issuer = 1;
-        $property->owner_id_date = "2015-05-02";
-        $property->owner_id_exp_date = "2015-05-02";
-        $property->owner_email = "a@fdsf.muk";
-        $property->owner_mobile = "123456789";
-        $property->owner_bank = 1;
-        $property->owner_bank_iban = "321654987";
-        $property->owner_is_agent = 0;*/
-
-        $property->agent_user_id = 1;
-        /*$property->agent_name = "ahmed";
-        $property->agent_nationality = 1;
-        $property->agent_address = "address";
-        $property->agent_id_type = 1;
-        $property->agent_id_no = "321321321";
-        $property->agent_id_issuer = 1;
-        $property->agent_id_date = "2015-05-02";
-        $property->agent_id_exp_date = "2015-05-02";
-        $property->agent_email = "kj@fdsf.muk";
-        $property->agent_mobile = "123456789";
-        $property->agent_bank = 1;
-        $property->agent_bank_iban = "654321987";
-        $property->commercial_register_name = "الحمد للتسويق";
-        $property->commercial_register_no = "56464654546";
-        $property->commercial_register_issuer = 1;
-        $property->commercial_register_date = "2015-05-02";
-        $property->commercial_register_exp_date = "2015-05-02";*/
-
-        $property->agent_instrument_no = "16461315";
-        $property->agent_instrument_issuer = 1;
-        $property->agent_instrument_date = "2015-05-02";
-        $property->agent_instrument_exp_date = "2015-05-02";
-
         $property->created_by = 2;
         $property->save();
+
+
+
+        $owner = new User;
+        $owner->name = "Mohamed";
+        $owner->nationality = 1;
+        $owner->address = "address";
+        $owner->id_type = 1;
+        $owner->id_no = "54684653";
+        $owner->id_issuer = 1;
+        $owner->id_issued_date = "2015-05-02";
+        $owner->id_exp_date = "2015-05-02";
+        $owner->email = "a@fdsf.muk";
+        $owner->mobile1 = "1434567895";
+        $owner->bank = 1;
+        $owner->bank_iban = "321654987";
+        $owner->save();
+        
+
+        $property->owner_user_id = $owner->id;
+        $property->save();
+
+
+
+
+        $agent = new User;
+        $agent->name = "ahmed";
+        $agent->nationality = 1;
+        $agent->address = "address";
+        $agent->id_type = 1;
+        $agent->id_no = "321321321";
+        $agent->id_issuer = 1;
+        $agent->id_issued_date = "2015-05-02";
+        $agent->id_exp_date = "2015-05-02";
+        $agent->email = "kj@fdsf.muk";
+        $agent->mobile1 = "1234567890";
+        $agent->bank = 1;
+        $agent->bank_iban = "654321987";
+        $agent->save();
+
+        $property->agent_user_id = $agent->id;
+        $property->save();
+
+
+        $property->agency_instrument_no = "16461315";
+        $property->agency_instrument_issuer = 1;
+        $property->agency_instrument_date = "2015-05-02";
+        $property->agency_instrument_exp_date = "2015-05-02";
+        $property->save();
+
+        $agency = new Agency;
+        $agency->user_id = $agent->id;
+        $agency->commercial_register_name = "الحمد للتسويق";
+        $agency->commercial_register_no = "56464654546";
+        $agency->commercial_register_issuer = 1;
+        $agency->commercial_register_date = "2015-05-02";
+        $agency->commercial_register_exp_date = "2015-05-02";
+        $agency->save();
+
         
     }
 }

@@ -33,7 +33,7 @@ class NationalityController extends Controller
      */
     public function index()
     {
-        return [ $this->modelnames => NationalityResource::collection(Nationality::where('active',1)->where('deleted',0)->paginate(5))];
+        return [ $this->modelnames => NationalityResource::collection(Nationality::where('active',1)->where('deleted',0)->get())];
     }
 
     /**

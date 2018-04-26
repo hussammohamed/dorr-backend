@@ -31,13 +31,16 @@ class CreateUsersTable extends Migration
 		    $table->integer('id_issuer')->nullable();
 		    $table->date('id_issued_date')->nullable();
             $table->date('id_exp_date')->nullable();
+            $table->date('id_exp_date')->nullable();
+            $table->string('id_image')->nullable();
+            
             $table->integer('bank')->nullable();
 			$table->string('bank_iban')->nullable();
 
-			$table->boolean('registered')->default('0');
+			$table->boolean('registered')->default('1');
 
             $table->string('lang')->nullable();
-            $table->string('api_token',60)->unique();
+            $table->string('api_token',60)->unique()->nullable();
             $table->string('avatar')->nullable();
             $table->rememberToken();
             $table->timestamps();

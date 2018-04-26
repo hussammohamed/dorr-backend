@@ -4,19 +4,19 @@ namespace App\Http\Controllers;
 
 use Auth;
 use App;
-use App\Bank;
+use App\Unit;
 
-use App\Http\Requests\BankRequest;
-use App\Http\Resources\BankResource;
+use App\Http\Requests\UnitRequest;
+use App\Http\Resources\UnitResource;
 
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 
-class BankController extends Controller
+class UnitController extends Controller
 {
 
-    private $modelname = "bank";
-    private $modelnames = "banks";
+    private $modelname = "unit";
+    private $modelnames = "units";
 
     public function __construct()
     {
@@ -32,7 +32,7 @@ class BankController extends Controller
      */
     public function index()
     {
-        return [ $this->modelnames => BankResource::collection(Bank::where('active',1)->where('deleted',0)->get())];
+        return [ $this->modelnames => UnitResource::collection(Unit::where('active',1)->where('deleted',0)->get())];
     }
 
     /**
@@ -51,18 +51,32 @@ class BankController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(BankRequest $request)
+    public function store(UnitRequest $request)
     {
         //
         if (Auth::check()) {
-            $bank = new Bank;
-            $bank->name_ar =$request->name_ar;
-            $bank->name_en =$request->name_en;
-            $bank->order =1;
+            $unit = new Unit;
+            $unit->m_property_id =$request->m_property_id;
+            $unit->name =$request->name;
+            $unit->type =$request->type;
+            $unit->floor =$request->floor;
+            $unit->furnished =$request->furnished;
+            $unit->furnished_status =$request->furnished_status;
+            $unit->kitchen_cabinet =$request->kitchen_cabinet;
+            $unit->bed_rooms =$request->bed_rooms;
+            $unit->living_rooms =$request->living_rooms;
+            $unit->reception_rooms =$request->reception_rooms;
+            $unit->bath_rooms =$request->bath_rooms;
+            $unit->split_air_conditioner =$request->split_air_conditioner;
+            $unit->window_air_conditioner =$request->window_air_conditioner;
+            $unit->electricity_meter =$request->electricity_meter;
+            $unit->water_meter =$request->water_meter;
+            $unit->gas_meter =$request->gas_meter;
+            $unit->created_by =$request->created_by;
+
+            $unit->save();
             
-            $bank->save();
-            
-            return response([ $this->modelname => new BankResource($bank)],Response::HTTP_CREATED);
+            return response([ $this->modelname => new UnitResource($unit)],Response::HTTP_CREATED);
 
         }else{
             return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
@@ -72,21 +86,21 @@ class BankController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Bank  $bank
+     * @param  \App\Unit  $unit
      * @return \Illuminate\Http\Response
      */
-    public function show(Bank $bank)
+    public function show(Unit $unit)
     {
-        return [ $this->modelname => new BankResource($bank)];
+        return [ $this->modelname => new UnitResource($unit)];
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Bank  $bank
+     * @param  \App\Unit  $unit
      * @return \Illuminate\Http\Response
      */
-    public function edit(Bank $bank)
+    public function edit(Unit $unit)
     {
         //
     }
@@ -95,15 +109,15 @@ class BankController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Bank  $bank
+     * @param  \App\Unit  $unit
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Bank $bank)
+    public function update(Request $request, Unit $unit)
     {
         //
         if (Auth::check()) {
-                $bank->update($request->all());
-                return response([ $this->modelname => new BankResource($bank)],Response::HTTP_OK);
+                $unit->update($request->all());
+                return response([ $this->modelname => new UnitResource($unit)],Response::HTTP_OK);
         }else{
             return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
         }
@@ -112,12 +126,12 @@ class BankController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Bank  $bank
+     * @param  \App\Unit  $unit
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Bank $bank)
+    public function destroy(Unit $unit)
     {
-        $bank->delete();
+        $unit->delete();
         return response(null,Response::HTTP_NO_CONTENT);
     }
 
@@ -125,14 +139,14 @@ class BankController extends Controller
     {
         //
         if (Auth::check()) {
-            $bank = Bank::find($request->id);
-            if (count($bank) < 1) {
+            $unit = Unit::find($request->id);
+            if (count($unit) < 1) {
                 return response()->json(["error"=>"This is not exists"], Response::HTTP_NO_CONTENT);
             }else{
                 if(Auth::user()->id == 2){
-                    if($bank->deleted == 0 ){
-                        $bank->deleted = 1;
-                        $bank->save();
+                    if($unit->deleted == 0 ){
+                        $unit->deleted = 1;
+                        $unit->save();
                         return response(null,Response::HTTP_NO_CONTENT);
                     }else{
                         return response()->json(["error"=>"This is already deleted"], Response::HTTP_BAD_REQUEST);

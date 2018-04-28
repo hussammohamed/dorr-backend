@@ -8,6 +8,8 @@ use App\Bank;
 use App\MProperty;
 use App\User;
 use App\Agency;
+use App\ContractType;
+use App\UsageType;
 
 class MSeedData extends Seeder
 {
@@ -63,7 +65,7 @@ class MSeedData extends Seeder
         $property->lat = 22.22222;
         $property->long = 42.22222;
         $property->floors = 5;
-        $property->units = 12;
+        $property->units_no = 12;
         $property->elevators = 2;
         $property->parking = 1;
         $property->year_of_construction = 2015;
@@ -71,6 +73,7 @@ class MSeedData extends Seeder
         $property->property_instrument_issuer = 1;
         $property->property_instrument_date = "2015-05-02";
         $property->property_instrument_place = "c";
+        $property->user_relation = 2;
         $property->created_by = 2;
         $property->save();
 
@@ -132,6 +135,30 @@ class MSeedData extends Seeder
         $agency->commercial_register_exp_date = "2015-05-02";
         $agency->save();
 
+        
+
+        //Seed ContractType
+        $contract_type_ar=['العقد الموحد','عقد دور','عقد الوسيط العقاري'];
+        $contract_type_en=['United Contract','Dorr Contract','Agency Contract'];
+        foreach($contract_type_ar as $key=>$value){
+            $add = new ContractType;
+            $add->name_ar = $value;
+            $add->name_en = $contract_type_en[$key];
+            $add->order = $key+1;
+            $add->save();
+        }
+        
+        //Seed UsageType
+        $usage_type_ar=['سكنى عائلى','سكنى أفراد'];
+        $usage_type_en=['Family','Individual'];
+        foreach($usage_type_ar as $key=>$value){
+            $add = new UsageType;
+            $add->name_ar = $value;
+            $add->name_en = $usage_type_en[$key];
+            $add->order = $key+1;
+            $add->save();
+        }
+        
         
     }
 }

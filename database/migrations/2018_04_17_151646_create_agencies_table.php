@@ -17,11 +17,14 @@ class CreateAgenciesTable extends Migration
             $table->increments('id');
 		    $table->integer('user_id')->nullable();
             $table->string('commercial_register_name')->nullable();
+            $table->string('commercial_register_address')->nullable();
             $table->string('commercial_register_no')->nullable();
 		    $table->integer('commercial_register_issuer')->nullable();
 		    $table->date('commercial_register_date')->nullable();
             $table->date('commercial_register_exp_date')->nullable();
             $table->string('commercial_register_image')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('fax')->nullable();
             $table->timestamps();
         });
     }

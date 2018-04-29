@@ -31,7 +31,6 @@ class CreateUsersTable extends Migration
 		    $table->integer('id_issuer')->nullable();
 		    $table->date('id_issued_date')->nullable();
             $table->date('id_exp_date')->nullable();
-            $table->date('id_exp_date')->nullable();
             $table->string('id_image')->nullable();
             
             $table->integer('bank')->nullable();

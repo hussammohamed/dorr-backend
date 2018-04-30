@@ -33,9 +33,16 @@ class MPropertyResource extends Resource
             $agency = Agency::where("user_id",$this->agent_user_id)->first();
         }
 
+        $owner_status = 0;
+        $agent_status = 0;
+        $agency_status = 0;
+        $owner_data = ['owner' =>  []];
+        $agent_data = ['agent' =>  []];
+        $agency_data = ['agency' =>  []];
+
         $name = 'name_'.App::getLocale();
 
-        return [
+        $mproperty = [
             'id' => $this->id,
             'name' => $this->name,
             'type'=> [
@@ -73,41 +80,56 @@ class MPropertyResource extends Resource
                 'mobile1'=> User::find($this->created_by)->mobile1,
                 'avatar'=> (User::find($this->created_by)->avatar == null ) ? null : url('/').'/upload/users/'.User::find($this->created_by)->avatar,
             ],
-            'owner' =>  [
-                'user_id' => $this->owner_user_id,
-                'name' => $owner->name,
-                'address' => $owner->address,
-                'email' => $owner->email,
-                'mobile' => $owner->mobile1,
-                'nationality' => [
-                    'id' => $owner->nationality,
-                    'name' => ($owner->nationality == null ) ? null : Nationality::find($owner->nationality)->$name,
-                ],
-                'owner_id_type' => [
-                    'id' => $owner->id_type,
-                    'name' => ($owner->id_type == null ) ? null : IdType::find($owner->id_type)->$name,
-                ],
-                'owner_id_no' => $owner->id_no,
-                'owner_id_issuer' => [
-                    'id' => $owner->id_issuer,
-                    'name' => ($owner->id_issuer == null ) ? null : Region::find($owner->id_issuer)->$name,
-                ],
-                'owner_id_issued_date' => $owner->id_issued_date,
-                'owner_id_exp_date' => $owner->id_exp_date,
-                'owner_bank' => [
-                    'id' => $owner->bank,
-                    'name' => ($owner->bank == null ) ? null : Bank::find($owner->bank)->$name,
-                ],
-                'owner_bank_iban' => $owner->bank_iban,
-            ],
             
-            $this->mergeWhen(($this->agent_user_id != null), [
-                
+        ];
+        
+        if($this->owner_user_id != null ){
+            $owner_data = [
+                'owner' =>  [
+                    'user_id' => $this->owner_user_id,
+                    'name' => $owner->name,
+                    'address' => $owner->address,
+                    'email' => $owner->email,
+                    'mobile' => $owner->mobile1,
+                    'avatar'=> (User::find($this->owner_user_id)->avatar == null ) ? null : url('/').'/upload/users/'.User::find($this->owner_user_id)->avatar,
+                    'nationality' => [
+                        'id' => $owner->nationality,
+                        'name' => ($owner->nationality == null ) ? null : Nationality::find($owner->nationality)->$name,
+                    ],
+                    'owner_id_type' => [
+                        'id' => $owner->id_type,
+                        'name' => ($owner->id_type == null ) ? null : IdType::find($owner->id_type)->$name,
+                    ],
+                    'owner_id_no' => $owner->id_no,
+                    'owner_id_issuer' => [
+                        'id' => $owner->id_issuer,
+                        'name' => ($owner->id_issuer == null ) ? null : Region::find($owner->id_issuer)->$name,
+                    ],
+                    'owner_id_issued_date' => $owner->id_issued_date,
+                    'owner_id_exp_date' => $owner->id_exp_date,
+                    'owner_bank' => [
+                        'id' => $owner->bank,
+                        'name' => ($owner->bank == null ) ? null : Bank::find($owner->bank)->$name,
+                    ],
+                    'owner_bank_iban' => $owner->bank_iban,
+                ]
+            ];
+
+            if($this->owner_user_id != "" && $owner->name != "" && $owner->address != "" && $owner->email != "" && $owner->mobile1 != "" && $owner->nationality != "" && $owner->id_type != "" && $owner->id_no != "" && $owner->id_issuer != "" && $owner->id_issued_date != "" && $owner->id_exp_date != "" &&  $owner->bank != "" &&  $owner->bank_iban == ""){
+                $owner_status = 1;
+            }
+
+        }
+        
+
+        if($this->agent_user_id != null ){
+            $agent_data = [
                 'agent' =>  [
                     'user_id' => $this->agent_user_id,
                     'name' => $agent->name,
                     'email' => $agent->email,
                     'mobile' => $agent->mobile1,
+                    'avatar'=> (User::find($this->agent_user_id)->avatar == null ) ? null : url('/').'/upload/users/'.User::find($this->agent_user_id)->avatar,
                     'address' => $agent->address,
                     'nationality' => [
                         'id' => $agent->nationality,
@@ -136,23 +158,47 @@ class MPropertyResource extends Resource
                         'name' => ($agent->bank == null ) ? null : Bank::find($agent->bank)->$name,
                     ],
                     'agency_bank_iban' => $agent->bank_iban,
-                    'commercial_register' => [
-                        'name' => $agency->commercial_register_name,
-                        'no' => $agency->commercial_register_no,
-                        'issuer' => [
+                ]
+            ];
+
+            if($this->agent_user_id != "" && $agent->name != "" && $agent->address != "" && $agent->email != "" && $agent->mobile1 != "" && $agent->nationality != "" && $agent->id_type != "" && $agent->id_no != "" && $agent->id_issuer != "" && $agent->id_issued_date != "" && $agent->id_exp_date != "" &&  $agent->bank != "" &&  $agent->bank_iban == ""){
+                $agent_status = 1;
+            }
+
+            if($agency !== null){
+                $agency_data = [
+                    'agency' => [
+                        'commercial_register_name' => $agency->commercial_register_name,
+                        'commercial_register_no' => $agency->commercial_register_no,
+                        'commercial_register_address' => $agency->commercial_register_address,
+                        'commercial_register_issuer' => [
                             'id' => $agency->commercial_register_issuer,
                             'name' => ($agency->commercial_register_issuer == null ) ? null : Region::find($agency->commercial_register_issuer)->$name,
                         ],
-                        'date' => $agency->commercial_register_date,
-                        'exp_date' => $agency->commercial_register_exp_date,
-                    ],
-                ],
+                        'commercial_register_date' => $agency->commercial_register_date,
+                        'commercial_register_exp_date' => $agency->commercial_register_exp_date,
+                    ]
+                ];
+    
+                if($agency->commercial_register_name != "" && $agency->commercial_register_no != "" && $agency->commercial_register_address != "" && $agency->commercial_register_issuer != "" && $agency->commercial_register_date != "" && $agency->commercial_register_exp_date == ""){
+                    $agency_status = 1;
+                }
+            }
+        }
 
-            ]),
-
-            'units' =>  UnitResource::collection($this->units)
-            
+        $data_status = [
+            'data_status' =>[
+                'owner' => $owner_status,
+                'agent' => $agent_status,
+                'agency' => $agency_status
+            ] 
         ];
+
+
+        $units = ['units' =>  UnitResource::collection($this->units)];
+
+        return array_merge($mproperty,$owner_data,$agent_data,$agency_data,$data_status,$units);
+
     }
 }
 

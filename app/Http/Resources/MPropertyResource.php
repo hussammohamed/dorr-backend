@@ -74,7 +74,7 @@ class MPropertyResource extends Resource
                 'avatar'=> (User::find($this->created_by)->avatar == null ) ? null : url('/').'/upload/users/'.User::find($this->created_by)->avatar,
             ],
             'owner' =>  [
-                'user_id' => $this->owner_user_id,
+                'id' => $this->owner_user_id,
                 'name' => $owner->name,
                 'address' => $owner->address,
                 'email' => $owner->email,
@@ -104,7 +104,7 @@ class MPropertyResource extends Resource
             $this->mergeWhen(($this->agent_user_id != null), [
                 
                 'agent' =>  [
-                    'user_id' => $this->agent_user_id,
+                    'id' => $this->agent_user_id,
                     'name' => $agent->name,
                     'email' => $agent->email,
                     'mobile' => $agent->mobile1,
@@ -136,15 +136,16 @@ class MPropertyResource extends Resource
                         'name' => ($agent->bank == null ) ? null : Bank::find($agent->bank)->$name,
                     ],
                     'agency_bank_iban' => $agent->bank_iban,
-                    'commercial_register' => [
-                        'name' => $agency->commercial_register_name,
-                        'no' => $agency->commercial_register_no,
-                        'issuer' => [
+                    'agency' => [
+                        'id' => $agency->id,
+                        'commercial_register_name' => $agency->commercial_register_name,
+                        'commercial_register_no' => $agency->commercial_register_no,
+                        'commercial_register_issuer' => [
                             'id' => $agency->commercial_register_issuer,
                             'name' => ($agency->commercial_register_issuer == null ) ? null : Region::find($agency->commercial_register_issuer)->$name,
                         ],
-                        'date' => $agency->commercial_register_date,
-                        'exp_date' => $agency->commercial_register_exp_date,
+                        'commercial_register_date' => $agency->commercial_register_date,
+                        'commercial_register_exp_date' => $agency->commercial_register_exp_date,
                     ],
                 ],
 

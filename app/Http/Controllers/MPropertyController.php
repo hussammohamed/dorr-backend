@@ -16,7 +16,7 @@ class MPropertyController extends Controller
 {
 
     private $modelname = "mproperty";
-    private $modelnames = "mpropertyies";
+    private $modelnames = "mproperties";
 
     public function __construct()
     {

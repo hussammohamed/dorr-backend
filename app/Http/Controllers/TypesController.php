@@ -95,6 +95,6 @@ class TypesController extends Controller
     public function getTypes()
     {
         $types = Type::where('active','=', 1)->where('deleted','=', 0)->orderby('order')->get();
-        return TypesResource::collection($types);
+        return ['types' => TypesResource::collection($types)];
     }
 }

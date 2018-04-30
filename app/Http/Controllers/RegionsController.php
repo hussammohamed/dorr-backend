@@ -120,7 +120,7 @@ class RegionsController extends Controller
     public function getCities()
     {
         $regions = Region::where('region_id','=', 0)->where('active','=', 1)->where('deleted','=', 0)->orderby('order')->get();
-        return RegionResource::collection($regions);
+        return ['regions' => RegionResource::collection($regions)];
     }
 
 }

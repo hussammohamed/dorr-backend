@@ -56,7 +56,12 @@ class UserController extends Controller
         //
         if(Auth::user()){
             $user = User::where('email',$request->key)->orWhere('mobile1',$request->key)->first();
-            return [ $this->modelname => new UserResource($user)];
+            if($user === null){
+                return response()->json(["error"=>"there is no user for this email or mobile"]);
+            }else{
+                return [ $this->modelname => new UserResource($user)];
+            }
+
         }else{
             return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
         }

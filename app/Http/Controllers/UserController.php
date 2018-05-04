@@ -59,7 +59,7 @@ class UserController extends Controller
         if(Auth::user()){
             $user = User::where('email',$request->key)->orWhere('mobile1',$request->key)->first();
             if($user === null){
-                return response()->json(["error"=>"there is no user for this email or mobile"]);
+                return response()->json(["error"=>"there is no user for this email or mobile"], Response::HTTP_BAD_REQUEST);
             }else{
                 return [ $this->modelname => new UserResource($user)];
             }
@@ -206,7 +206,24 @@ class UserController extends Controller
         //
         if (Auth::check()) {
                 $user->update($request->all());
-                return response([ $this->modelname => new UserResource($user)],Response::HTTP_OK);
+
+                if($request->mproperty_id != null){
+                    $mproperty = MProperty::find($request->mproperty_id);
+    
+                    if($request->user_relation == 1){
+                        $mproperty->owner_user_id = $user->id;
+                    }else{
+                        $mproperty->agent_user_id = $user->id;
+                    }
+    
+                    $mproperty->save();
+                    
+                    return response([ "mproperty" => new MPropertyResource($mproperty)],Response::HTTP_OK);
+    
+                }else{
+                    return response([ $this->modelname => new UserResource($user)],Response::HTTP_OK);
+                }
+
         }else{
             return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
         }

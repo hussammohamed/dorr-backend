@@ -10,6 +10,7 @@ use App\MProperty;
 
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
+use App\Http\Resources\MPropertyResource;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 
@@ -137,19 +138,24 @@ class UserController extends Controller
 
             $user->save();
 
-            if($user->m_property_id != null){
-                $m_property = MProperty::find($user->m_property_id);
+            if($request->mproperty_id != null){
+                $mproperty = MProperty::find($request->mproperty_id);
 
-                if($user->user_relation == 1){
-                    $m_property->owner_id = $user->id;
+                if($request->user_relation == 1){
+                    $mproperty->owner_user_id = $user->id;
                 }else{
-                    $m_property->agent_id = $user->id;
+                    $mproperty->agent_user_id = $user->id;
                 }
 
-                $m_property->save();
+                $mproperty->save();
+                
+                return response([ "mproperty" => new MPropertyResource($mproperty)],Response::HTTP_CREATED);
+
+            }else{
+                return response([ $this->modelname => new UserResource($user)],Response::HTTP_CREATED);
             }
             
-            return response([ $this->modelname => new UserResource($user)],Response::HTTP_CREATED);
+            
             
         }else{
             return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);

@@ -38,7 +38,7 @@ class MPropertyResource extends Resource
         $agency_status = 0;
         $owner_data = ['owner' =>  null];
         $agent_data = ['agent' =>  null];
-        $agency_data = ['agency' =>  null]     ;
+        $agency_data = ['agency' =>  null];
 
         $name = 'name_'.App::getLocale();
 

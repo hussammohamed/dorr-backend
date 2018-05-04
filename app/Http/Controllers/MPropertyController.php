@@ -31,7 +31,7 @@ class MPropertyController extends Controller
      */
     public function index()
     {
-        return [ $this->modelnames => MPropertyResource::collection(MProperty::where('active',1)->where('deleted',0)->get())];
+        return [ $this->modelnames => MPropertyResource::collection(MProperty::orWhere('owner_user_id',Auth::user()->id)->orWhere('agent_user_id',Auth::user()->id)->where('active',1)->where('deleted',0)->get())];
     }
 
     /**

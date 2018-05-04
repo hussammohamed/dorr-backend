@@ -126,10 +126,14 @@ class MPropertyController extends Controller
 //////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////
 
-            $property->owner_user_id = $request->owner_user_id;
+            if($request->user_relation == 1){
+                $property->owner_user_id = Auth::user()->id;
+                $property->agent_user_id = null;
+            }else{
+                $property->owner_user_id = null;
+                $property->agent_user_id = Auth::user()->id;
+            }
 
-            $property->agent_user_id = $request->agent_user_id;
-            
             $property->user_relation = $request->user_relation;
 
             $property->created_by = Auth::user()->id;

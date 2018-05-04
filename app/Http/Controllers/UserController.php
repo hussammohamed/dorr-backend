@@ -206,29 +206,37 @@ class UserController extends Controller
         //
         if (Auth::check()) {
 
-                //if($user->id != Auth::user()->id){
-
-                //}
-
-                $user->update($request->all());
-
-                if($request->mproperty_id != null){
-                    $mproperty = MProperty::find($request->mproperty_id);
-    
-                    if($request->user_relation == 1){
-                        $mproperty->owner_user_id = $user->id;
-                    }else{
-                        $mproperty->agent_user_id = $user->id;
-                    }
-    
-                    $mproperty->save();
+                if($user->id != Auth::user()->id || $user->registered == 0){
                     
-                    //return response([ "mproperty" => new MPropertyResource($mproperty)],Response::HTTP_OK);
-    
-                //}else{
+                    $user->update($request->all());
+
+                    if($request->mproperty_id != null){
+                        $mproperty = MProperty::find($request->mproperty_id);
+        
+                        if($request->user_relation == 1){
+                            $mproperty->owner_user_id = $user->id;
+                        }else{
+                            $mproperty->agent_user_id = $user->id;
+                        }
+        
+                        $mproperty->save();
+                        
+                        //return response([ "mproperty" => new MPropertyResource($mproperty)],Response::HTTP_OK);
+        
+                    //}else{
+                    }
+                    
+                    return response([ $this->modelname => new UserResource($user)],Response::HTTP_OK);
+
+                }else{
+                    
+                    return response()->json(["error"=>"You can't update this user"], Response::HTTP_UNAUTHORIZED);
+                    
                 }
+
+
+
                 
-                return response([ $this->modelname => new UserResource($user)],Response::HTTP_OK);
 
         }else{
             return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);

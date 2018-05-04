@@ -101,7 +101,7 @@ class MPropertyResource extends Resource
                     'name' => $owner->name,
                     'address' => $owner->address,
                     'email' => $owner->email,
-                    'mobile' => $owner->mobile1,
+                    'mobile1' => $owner->mobile1,
                     'avatar'=> (User::find($this->owner_user_id)->avatar == null ) ? null : url('/').'/upload/users/'.User::find($this->owner_user_id)->avatar,
                     'nationality' => ($owner->nationality == null ) ? null : [
                         'id' => $owner->nationality,
@@ -139,7 +139,7 @@ class MPropertyResource extends Resource
                     'user_id' => $this->agent_user_id,
                     'name' => $agent->name,
                     'email' => $agent->email,
-                    'mobile' => $agent->mobile1,
+                    'mobile1' => $agent->mobile1,
                     'avatar'=> (User::find($this->agent_user_id)->avatar == null ) ? null : url('/').'/upload/users/'.User::find($this->agent_user_id)->avatar,
                     'address' => $agent->address,
                     'nationality' => ($agent->nationality == null ) ? null : [

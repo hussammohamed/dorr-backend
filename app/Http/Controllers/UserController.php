@@ -149,13 +149,13 @@ class UserController extends Controller
 
                 $mproperty->save();
                 
-                return response([ "mproperty" => new MPropertyResource($mproperty)],Response::HTTP_CREATED);
+                //return response([ "mproperty" => new MPropertyResource($mproperty)],Response::HTTP_CREATED);
 
-            }else{
-                return response([ $this->modelname => new UserResource($user)],Response::HTTP_CREATED);
+            //}else{
             }
             
             
+                return response([ $this->modelname => new UserResource($user)],Response::HTTP_CREATED);
             
         }else{
             return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
@@ -205,6 +205,11 @@ class UserController extends Controller
     {
         //
         if (Auth::check()) {
+
+                //if($user->id != Auth::user()->id){
+
+                //}
+
                 $user->update($request->all());
 
                 if($request->mproperty_id != null){
@@ -218,11 +223,12 @@ class UserController extends Controller
     
                     $mproperty->save();
                     
-                    return response([ "mproperty" => new MPropertyResource($mproperty)],Response::HTTP_OK);
+                    //return response([ "mproperty" => new MPropertyResource($mproperty)],Response::HTTP_OK);
     
-                }else{
-                    return response([ $this->modelname => new UserResource($user)],Response::HTTP_OK);
+                //}else{
                 }
+                
+                return response([ $this->modelname => new UserResource($user)],Response::HTTP_OK);
 
         }else{
             return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);

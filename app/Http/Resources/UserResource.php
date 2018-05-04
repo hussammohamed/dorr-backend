@@ -31,24 +31,30 @@ class UserResource extends Resource
             'mobile2' => $this->mobile2,
             'api_token' => $this->api_token,
             'avatar' => ($this->id_image == null ) ? null : url('/').'/upload/users/'.$this->avatar,
-            'nationality' => [
-                "id" => $this->nationality,
-                "name" => ($this->nationality == null ) ? null : Nationality::find($this->nationality)->$name
-            ],
+            'nationality' => 
+                ($this->nationality == null ) ? null :
+                [
+                    "id" => $this->nationality,
+                    "name" => Nationality::find($this->nationality)->$name
+                ],
             'address' => $this->address,
-            'id_type' => [
-                "id" => $this->id_type,
-                "name" => ($this->id_type == null ) ? null : IdType::find($this->id_type)->$name
-            ],
+            'id_type' =>
+                ($this->id_type == null ) ? null :
+                [
+                    "id" => $this->id_type,
+                    "name" => IdType::find($this->id_type)->$name
+                ],
             'id_no' => $this->id_no,
             'id_issuer' => $this->id_issuer,
             'id_issued_date' => $this->id_issued_date,
             'id_exp_date' => $this->id_exp_date,
             'id_image' => ($this->id_image == null ) ? null : url('/').'/upload/users/'.$this->id_image,
-            'bank' => [
-                "id" => $this->bank,
-                "name" => ($this->bank == null ) ? null : Bank::find($this->bank)->$name,
-            ],
+            'bank' => 
+                ($this->bank == null ) ? null : 
+                [
+                    "id" => $this->bank,
+                    "name" => Bank::find($this->bank)->$name,
+                ],
             'bank_iban' => $this->bank_iban
         ];
     }

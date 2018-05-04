@@ -149,6 +149,7 @@ Route::group(['prefix'=>'api/v1'],function(){
     Route::apiResource('/agencies','AgencyController');
     
     Route::apiResource('/mproperties','MPropertyController');
+    Route::post('/mproperties/{id}/owner','MPropertyController@addOnwer');
     
 	Route::apiResource('/units','UnitController');
     Route::post('/units/delete', 'UnitController@delete');

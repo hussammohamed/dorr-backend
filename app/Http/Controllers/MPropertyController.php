@@ -70,7 +70,62 @@ class MPropertyController extends Controller
             $property->property_instrument_issuer = $request->property_instrument_issuer;
             $property->property_instrument_date = $request->property_instrument_date;
             $property->property_instrument_place = $request->property_instrument_place;
+
+
+
+//////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
+
+
+            if ($request->hasFile('property_instrument_image')) {
+                $file = $request->file('property_instrument_image');
+                $extension = $file->getClientOriginalExtension();
+                $property_instrument_fileName = str_random(20).".".$extension;
+                $folderpath  = 'upload/mproperty/property_instrument/';
+                $file->move($folderpath , $property_instrument_fileName);
+
+                $property->agency_instrument_image = $property_instrument_fileName;
+            }
+
+//////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
+
             
+		    $property->agency_instrument_no = $request->agency_instrument_no;
+		    $property->agency_instrument_issuer = $request->agency_instrument_issuer;
+		    $property->agency_instrument_date = $request->agency_instrument_date;
+            $property->agency_instrument_exp_date = $request->agency_instrument_exp_date;
+            
+//////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
+
+
+            if ($request->hasFile('agency_instrument_image')) {
+                $file = $request->file('agency_instrument_image');
+                $extension = $file->getClientOriginalExtension();
+                $agency_instrument_fileName = str_random(20).".".$extension;
+                $folderpath  = 'upload/mproperty/agency_instrument/';
+                $file->move($folderpath , $agency_instrument_fileName);
+
+                $property->agency_instrument_image = $agency_instrument_fileName;
+            }
+
+//////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
+
+            if ($request->hasFile('property_management_contract_image')) {
+                $file = $request->file('property_management_contract_image');
+                $extension = $file->getClientOriginalExtension();
+                $property_management_contract_fileName = str_random(20).".".$extension;
+                $folderpath  = 'upload/mproperty/property_management_contract/';
+                $file->move($folderpath , $property_management_contract_fileName);
+
+                $property->property_management_contract_image = $property_management_contract_fileName;
+            }
+
+//////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
+
             $property->owner_user_id = $request->owner_user_id;
 
             $property->agent_user_id = $request->agent_user_id;
@@ -119,6 +174,49 @@ class MPropertyController extends Controller
     public function update(Request $request, MProperty $mproperty)
     {
         if (Auth::check()) {
+
+            //////////////////////////////////////////////////////////
+            //////////////////////////////////////////////////////////
+
+            if ($request->hasFile('property_instrument_image')) {
+                $file = $request->file('property_instrument_image');
+                $extension = $file->getClientOriginalExtension();
+                $property_instrument_fileName = str_random(20).".".$extension;
+                $folderpath  = 'upload/mproperty/property_instrument/';
+                $file->move($folderpath , $property_instrument_fileName);
+
+                $property->agency_instrument_image = $property_instrument_fileName;
+            }
+            
+            //////////////////////////////////////////////////////////
+            //////////////////////////////////////////////////////////
+
+            if ($request->hasFile('agency_instrument_image')) {
+                $file = $request->file('agency_instrument_image');
+                $extension = $file->getClientOriginalExtension();
+                $agency_instrument_fileName = str_random(20).".".$extension;
+                $folderpath  = 'upload/mproperty/agency_instrument/';
+                $file->move($folderpath , $agency_instrument_fileName);
+
+                $property->agency_instrument_image = $agency_instrument_fileName;
+            }
+
+            //////////////////////////////////////////////////////////
+            //////////////////////////////////////////////////////////
+
+            if ($request->hasFile('property_management_contract_image')) {
+                $file = $request->file('property_management_contract_image');
+                $extension = $file->getClientOriginalExtension();
+                $property_management_contract_fileName = str_random(20).".".$extension;
+                $folderpath  = 'upload/mproperty/property_management_contract/';
+                $file->move($folderpath , $property_management_contract_fileName);
+
+                $property->property_management_contract_image = $property_management_contract_fileName;
+            }
+
+            //////////////////////////////////////////////////////////
+            //////////////////////////////////////////////////////////
+
             $mproperty->update($request->all());
             return response([ "$this->modelname" => new MPropertyResource($mproperty)],Response::HTTP_CREATED);
         }else{

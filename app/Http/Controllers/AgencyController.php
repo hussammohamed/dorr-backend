@@ -64,6 +64,9 @@ class AgencyController extends Controller
 		    $agency->commercial_register_issuer = $request->commercial_register_issuer;
 		    $agency->commercial_register_date = $request->commercial_register_date;
             $agency->commercial_register_exp_date = $request->commercial_register_exp_date;
+            $agency->phone = $request->phone;
+            $agency->fax = $request->fax;
+            $agency->commercial_register_image = $request->commercial_register_image;
 
             
             $agency->save();

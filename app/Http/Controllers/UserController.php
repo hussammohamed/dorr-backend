@@ -6,6 +6,7 @@ use App;
 use App\User;
 use Hash;
 use App\Property;
+use App\MProperty;
 
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
@@ -56,7 +57,12 @@ class UserController extends Controller
         //
         if(Auth::user()){
             $user = User::where('email',$request->key)->orWhere('mobile1',$request->key)->first();
-            return [ $this->modelname => new UserResource($user)];
+            if($user === null){
+                return response()->json(["error"=>"there is no user for this email or mobile"]);
+            }else{
+                return [ $this->modelname => new UserResource($user)];
+            }
+
         }else{
             return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
         }
@@ -113,7 +119,35 @@ class UserController extends Controller
 
 			$user->registered = $request->registered;
 
+            //////////////////////////////////////////////////////////
+            //////////////////////////////////////////////////////////
+
+            if ($request->hasFile('id_image')) {
+                $file = $request->file('id_image');
+                $extension = $file->getClientOriginalExtension();
+                $id_fileName = str_random(20).".".$extension;
+                $folderpath  = 'upload/users/id/';
+                $file->move($folderpath , $id_fileName);
+
+                $user->id_image = $id_fileName;
+            }
+
+            //////////////////////////////////////////////////////////
+            //////////////////////////////////////////////////////////
+
             $user->save();
+
+            if($user->m_property_id != null){
+                $m_property = MProperty::find($user->m_property_id);
+
+                if($user->user_relation == 1){
+                    $m_property->owner_id = $user->id;
+                }else{
+                    $m_property->agent_id = $user->id;
+                }
+
+                $m_property->save();
+            }
             
             return response([ $this->modelname => new UserResource($user)],Response::HTTP_CREATED);
             

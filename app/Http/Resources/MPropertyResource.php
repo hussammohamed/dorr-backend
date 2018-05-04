@@ -74,6 +74,17 @@ class MPropertyResource extends Resource
             ],
             'property_instrument_date' => $this->property_instrument_date,
             'property_instrument_place' => $this->property_instrument_place,
+
+
+            'agency_instrument_no' => $this->agency_instrument_no,
+            'agency_instrument_issuer' => [
+                'id' => $this->agency_instrument_issuer,
+                'name' => ($this->agency_instrument_issuer == null ) ? null : Region::find($this->agency_instrument_issuer)->$name,
+            ],
+            'agency_instrument_date' => $this->agency_instrument_date,
+            'agency_instrument_exp_date' => $this->agency_instrument_exp_date,
+
+            
             'created_by' =>  [
                 'id'=> $this->created_by,
                 'name'=> User::find($this->created_by)->name,
@@ -146,13 +157,6 @@ class MPropertyResource extends Resource
                     ],
                     'agent_id_issued_date' => $agent->id_issued_date,
                     'agent_id_exp_date' => $agent->id_exp_date,
-                    'agency_instrument_no' => $this->agency_instrument_no,
-                    'agency_instrument_issuer' => [
-                        'id' => $this->agency_instrument_issuer,
-                        'name' => ($this->agency_instrument_issuer == null ) ? null : Region::find($this->agency_instrument_issuer)->$name,
-                    ],
-                    'agency_instrument_date' => $this->agency_instrument_date,
-                    'agency_instrument_exp_date' => $this->agency_instrument_exp_date,
                     'agency_bank' => [
                         'id' => $agent->bank,
                         'name' => ($agent->bank == null ) ? null : Bank::find($agent->bank)->$name,

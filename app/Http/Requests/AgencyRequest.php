@@ -32,6 +32,7 @@ class AgencyRequest extends FormRequest
 		    'commercial_register_date' => 'required',
             'commercial_register_exp_date' => 'required',
             'commercial_register_image' => 'required',
+            'phone' => 'required',
         ];
     }
 
@@ -45,7 +46,8 @@ class AgencyRequest extends FormRequest
 		    'commercial_register_issuer.required' => 'يجب ادخل مكان الاصدار',
 		    'commercial_register_date.required' => 'يجب ادخل تاريخ الاصدار',
             'commercial_register_exp_date.required' => 'يجب ادخل تاريخ الانتهاء',
-            'commercial_register_image.required' => 'يجب ادخل صورة السجل التجارى'
+            'commercial_register_image.required' => 'يجب ادخل صورة السجل التجارى',
+            'phone.required' => 'يجب ادخل رقم التليفون'
         ];
     }
 }

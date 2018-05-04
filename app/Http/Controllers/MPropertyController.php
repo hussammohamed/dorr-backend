@@ -120,7 +120,7 @@ class MPropertyController extends Controller
     {
         if (Auth::check()) {
             $mproperty->update($request->all());
-            return response([ $this->modelname => MPropertyResource($mproperty)],Response::HTTP_CREATED);
+            return response([ "$this->modelname" => new MPropertyResource($mproperty)],Response::HTTP_CREATED);
         }else{
             return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
         }

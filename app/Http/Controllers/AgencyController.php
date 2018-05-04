@@ -60,6 +60,7 @@ class AgencyController extends Controller
 		    $agency->user_id = $request->user_id;
             $agency->commercial_register_name = $request->commercial_register_name;
             $agency->commercial_register_no = $request->commercial_register_no;
+            $agency->commercial_register_address = $request->commercial_register_address;
 		    $agency->commercial_register_issuer = $request->commercial_register_issuer;
 		    $agency->commercial_register_date = $request->commercial_register_date;
             $agency->commercial_register_exp_date = $request->commercial_register_exp_date;

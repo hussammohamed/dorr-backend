@@ -16,15 +16,16 @@ class CreateContractsTable extends Migration
         Schema::create('contracts', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->string('name');
+            //$table->string('name');
 
-            $table->integer('contarct_type_id');
-            $table->integer('contarct_status');
+            $table->integer('contract_type_id');
+            $table->integer('contract_condition');
+            $table->integer('contract_status');
             $table->integer('contract_calender_type');
             $table->integer('contract_place');
             $table->date('contract_date');
-            $table->date('contact_start_date');
-            $table->date('contact_end_date');
+            $table->date('contract_start_date');
+            $table->date('contract_end_date');
             
             $table->integer('owner_id');
             $table->string('owner_name');
@@ -120,6 +121,7 @@ class CreateContractsTable extends Migration
             $table->integer('rent_payment_due_date');
             $table->integer('rent_payment_amount');
 
+            $table->string('terms');
 
             $table->timestamps();
         });

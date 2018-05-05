@@ -101,32 +101,33 @@ class MPropertyResource extends Resource
                     'name' => $owner->name,
                     'address' => $owner->address,
                     'email' => $owner->email,
-                    'mobile' => $owner->mobile1,
+                    'mobile1' => $owner->mobile1,
                     'avatar'=> (User::find($this->owner_user_id)->avatar == null ) ? null : url('/').'/upload/users/'.User::find($this->owner_user_id)->avatar,
                     'nationality' => ($owner->nationality == null ) ? null : [
                         'id' => $owner->nationality,
                         'name' => Nationality::find($owner->nationality)->$name,
                     ],
-                    'owner_id_type' => ($owner->id_type == null ) ? null : [
+                    'id_type' => ($owner->id_type == null ) ? null : [
                         'id' => $owner->id_type,
                         'name' => IdType::find($owner->id_type)->$name,
                     ],
-                    'owner_id_no' => $owner->id_no,
-                    'owner_id_issuer' => ($owner->id_issuer == null ) ? null : [
+                    'id_no' => $owner->id_no,
+                    'id_issuer' => ($owner->id_issuer == null ) ? null : [
                         'id' => $owner->id_issuer,
                         'name' => Region::find($owner->id_issuer)->$name,
                     ],
-                    'owner_id_issued_date' => $owner->id_issued_date,
-                    'owner_id_exp_date' => $owner->id_exp_date,
-                    'owner_bank' => ($owner->bank == null ) ? null : [
+                    'id_issued_date' => $owner->id_issued_date,
+                    'id_exp_date' => $owner->id_exp_date,
+                    'bank' => ($owner->bank == null ) ? null : [
                         'id' => $owner->bank,
                         'name' => Bank::find($owner->bank)->$name,
                     ],
-                    'owner_bank_iban' => $owner->bank_iban,
+                    'bank_iban' => $owner->bank_iban,
+                    'registered' => $owner->registered,
                 ]
             ];
 
-            if($this->owner_user_id != "" && $owner->name != "" && $owner->address != "" && $owner->email != "" && $owner->mobile1 != "" && $owner->nationality != "" && $owner->id_type != "" && $owner->id_no != "" && $owner->id_issuer != "" && $owner->id_issued_date != "" && $owner->id_exp_date != "" &&  $owner->bank != "" &&  $owner->bank_iban == ""){
+            if($this->owner_user_id != "" && $owner->name != "" && $owner->address != "" && $owner->email != "" && $owner->mobile1 != "" && $owner->nationality != "" && $owner->id_type != "" && $owner->id_no != "" && $owner->id_issuer != "" && $owner->id_issued_date != "" && $owner->id_exp_date != "" &&  $owner->bank != "" &&  $owner->bank_iban != ""){
                 $owner_status = 1;
             }
 
@@ -139,29 +140,29 @@ class MPropertyResource extends Resource
                     'id' => $this->agent_user_id,
                     'name' => $agent->name,
                     'email' => $agent->email,
-                    'mobile' => $agent->mobile1,
+                    'mobile1' => $agent->mobile1,
                     'avatar'=> (User::find($this->agent_user_id)->avatar == null ) ? null : url('/').'/upload/users/'.User::find($this->agent_user_id)->avatar,
                     'address' => $agent->address,
                     'nationality' => ($agent->nationality == null ) ? null : [
                         'id' => $agent->nationality,
                         'name' => Nationality::find($agent->nationality)->$name,
                     ],
-                    'agent_id_type' => ($agent->id_type == null ) ? null : [
+                    'id_type' => ($agent->id_type == null ) ? null : [
                         'id' => $agent->id_type,
                         'name' => IdType::find($agent->id_type)->$name,
                     ],
-                    'agent_id_no' => $agent->id_no,
-                    'agent_id_issuer' => ($agent->id_issuer == null ) ? null : [
+                    'id_no' => $agent->id_no,
+                    'id_issuer' => ($agent->id_issuer == null ) ? null : [
                         'id' => $agent->id_issuer,
                         'name' => Region::find($agent->id_issuer)->$name,
                     ],
-                    'agent_id_issued_date' => $agent->id_issued_date,
-                    'agent_id_exp_date' => $agent->id_exp_date,
-                    'agency_bank' => ($agent->bank == null ) ? null : [
+                    'id_issued_date' => $agent->id_issued_date,
+                    'id_exp_date' => $agent->id_exp_date,
+                    'bank' => ($agent->bank == null ) ? null : [
                         'id' => $agent->bank,
                         'name' => Bank::find($agent->bank)->$name,
                     ],
-                    'agency_bank_iban' => $agent->bank_iban,
+                    'bank_iban' => $agent->bank_iban,
                 ]
             ];
 

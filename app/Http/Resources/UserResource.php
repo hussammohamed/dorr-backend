@@ -55,7 +55,8 @@ class UserResource extends Resource
                     "id" => $this->bank,
                     "name" => Bank::find($this->bank)->$name,
                 ],
-            'bank_iban' => $this->bank_iban
+            'bank_iban' => $this->bank_iban,
+            'registered'=> $this->registered
         ];
     }
 }

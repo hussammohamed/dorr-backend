@@ -6,6 +6,7 @@ use App;
 use App\IdType;
 use App\Bank;
 use App\Nationality;
+use App\Region;
 
 use Illuminate\Http\Resources\Json\Resource;
 
@@ -45,7 +46,12 @@ class UserResource extends Resource
                     "name" => IdType::find($this->id_type)->$name
                 ],
             'id_no' => $this->id_no,
-            'id_issuer' => $this->id_issuer,
+
+            'id_issuer' => ($this->id_issuer == null ) ? null : [
+                'id' => $this->id_issuer,
+                'name' => Region::find($this->id_issuer)->$name,
+            ],
+
             'id_issued_date' => $this->id_issued_date,
             'id_exp_date' => $this->id_exp_date,
             'id_image' => ($this->id_image == null ) ? null : url('/').'/upload/users/'.$this->id_image,

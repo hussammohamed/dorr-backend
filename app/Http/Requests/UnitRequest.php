@@ -24,7 +24,7 @@ class UnitRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
+            'no' => 'required',
             'type'=> 'required',
             'floor' => 'required',
             'furnished' => 'required',
@@ -45,7 +45,7 @@ class UnitRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'يجب ادخال اسم',
+            'no.required' => 'يجب ادخال رقم الوحدة',
             'type.required' => 'يجب ادخال نوع',
             'floor.required' => 'يجب ادخال رقم الدور',
             'furnished.required' => 'يجب اختيار ان كانت مؤثثة ام لا',

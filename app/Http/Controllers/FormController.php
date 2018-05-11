@@ -60,9 +60,9 @@ class FormController extends Controller
         $map_views = MapView::where('active',1)->where('deleted',0)->orderby('order')->get();
         $reporting_reasons = ReportingReason::where('active',1)->where('deleted',0)->orderby('order')->get();
         $nationalities = Nationality::where('active',1)->where('deleted',0)->orderby('order')->get();
-        $id_typies = IdType::where('active',1)->where('deleted',0)->orderby('order')->get();
+        $id_types = IdType::where('active',1)->where('deleted',0)->orderby('order')->get();
         $banks = Bank::where('active',1)->where('deleted',0)->orderby('order')->get();
-        //$contract_typies = ContractType::where('active',1)->where('deleted',0)->orderby('order')->get();
+        //$contract_types = ContractType::where('active',1)->where('deleted',0)->orderby('order')->get();
         //$usage_types = UsageType::where('active',1)->where('deleted',0)->orderby('order')->get();
 
         
@@ -82,9 +82,11 @@ class FormController extends Controller
             "map_views" => MapViewResource::collection($map_views),
             "reporting_reasons" => ReportingReasonResource::collection($reporting_reasons),
             "nationalities" => NationalityResource::collection($nationalities),
-            "id_types" => IdTypeResource::collection($id_typies),
+
+            "id_types" => IdTypeResource::collection($id_types),
+
             "banks" => BankResource::collection($banks),
-            //"contract_typies" => ContractTypeResource::collection($contract_typies),
+            //"contract_types" => ContractTypeResource::collection($contract_types),
             //"usage_types" => UsageTypeResource::collection($usage_types),
             "contract_conditions"=>[
                 [

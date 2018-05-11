@@ -72,7 +72,6 @@ class MPropertyResource extends Resource
             'property_instrument_date' => $this->property_instrument_date,
             'property_instrument_place' => $this->property_instrument_place,
 
-
             'agency_instrument_no' => $this->agency_instrument_no,
             'agency_instrument_issuer' => ($this->agency_instrument_issuer == null ) ? null : [
                 'id' => $this->agency_instrument_issuer,
@@ -81,7 +80,8 @@ class MPropertyResource extends Resource
             'agency_instrument_date' => $this->agency_instrument_date,
             'agency_instrument_exp_date' => $this->agency_instrument_exp_date,
 
-            
+            'user_relation' => $this->user_relation,
+
             'created_by' =>  [
                 'id'=> $this->created_by,
                 'name'=> User::find($this->created_by)->name,
@@ -121,6 +121,7 @@ class MPropertyResource extends Resource
                     ],
                     'bank_iban' => $owner->bank_iban,
                     'registered' => $owner->registered,
+
                 ]
             ];
 
@@ -181,6 +182,8 @@ class MPropertyResource extends Resource
                         ],
                         'commercial_register_date' => $agency->commercial_register_date,
                         'commercial_register_exp_date' => $agency->commercial_register_exp_date,
+                        'phone' => $agency->phone,
+                        'fax' => $agency->fax,
                     ]
                 ];
     
@@ -197,7 +200,6 @@ class MPropertyResource extends Resource
                 'agency' => $agency_status
             ] 
         ];
-
 
         $units = ['units' =>  UnitResource::collection($this->units)];
 

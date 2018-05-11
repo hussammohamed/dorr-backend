@@ -75,7 +75,6 @@ class MPropertyResource extends Resource
             'property_instrument_date' => $this->property_instrument_date,
             'property_instrument_place' => $this->property_instrument_place,
 
-
             'agency_instrument_no' => $this->agency_instrument_no,
             'agency_instrument_issuer' => ($this->agency_instrument_issuer == null ) ? null : [
                 'id' => $this->agency_instrument_issuer,
@@ -84,7 +83,8 @@ class MPropertyResource extends Resource
             'agency_instrument_date' => $this->agency_instrument_date,
             'agency_instrument_exp_date' => $this->agency_instrument_exp_date,
 
-            
+            'user_relation' => $this->user_relation,
+
             'created_by' =>  [
                 'id'=> $this->created_by,
                 'name'=> User::find($this->created_by)->name,
@@ -97,7 +97,7 @@ class MPropertyResource extends Resource
         if($this->owner_user_id != null ){
             $owner_data = [
                 'owner' =>  [
-                    'user_id' => $this->owner_user_id,
+                    'id' => $this->owner_user_id,
                     'name' => $owner->name,
                     'address' => $owner->address,
                     'email' => $owner->email,
@@ -107,26 +107,26 @@ class MPropertyResource extends Resource
                         'id' => $owner->nationality,
                         'name' => Nationality::find($owner->nationality)->$name,
                     ],
-                    'owner_id_type' => ($owner->id_type == null ) ? null : [
+                    'id_type' => ($owner->id_type == null ) ? null : [
                         'id' => $owner->id_type,
                         'name' => IdType::find($owner->id_type)->$name,
                     ],
-                    'owner_id_no' => $owner->id_no,
-                    'owner_id_issuer' => ($owner->id_issuer == null ) ? null : [
+                    'id_no' => $owner->id_no,
+                    'id_issuer' => ($owner->id_issuer == null ) ? null : [
                         'id' => $owner->id_issuer,
                         'name' => Region::find($owner->id_issuer)->$name,
                     ],
-                    'owner_id_issued_date' => $owner->id_issued_date,
-                    'owner_id_exp_date' => $owner->id_exp_date,
-                    'owner_bank' => ($owner->bank == null ) ? null : [
+                    'id_issued_date' => $owner->id_issued_date,
+                    'id_exp_date' => $owner->id_exp_date,
+                    'bank' => ($owner->bank == null ) ? null : [
                         'id' => $owner->bank,
                         'name' => Bank::find($owner->bank)->$name,
                     ],
-                    'owner_bank_iban' => $owner->bank_iban,
+                    'bank_iban' => $owner->bank_iban,
                 ]
             ];
 
-            if($this->owner_user_id != "" && $owner->name != "" && $owner->address != "" && $owner->email != "" && $owner->mobile1 != "" && $owner->nationality != "" && $owner->id_type != "" && $owner->id_no != "" && $owner->id_issuer != "" && $owner->id_issued_date != "" && $owner->id_exp_date != "" &&  $owner->bank != "" &&  $owner->bank_iban == ""){
+            if($this->owner_user_id != "" && $owner->name != "" && $owner->address != "" && $owner->email != "" && $owner->mobile1 != "" && $owner->nationality != "" && $owner->id_type != "" && $owner->id_no != "" && $owner->id_issuer != "" && $owner->id_issued_date != "" && $owner->id_exp_date != "" &&  $owner->bank != "" &&  $owner->bank_iban != ""){
                 $owner_status = 1;
             }
 
@@ -136,7 +136,7 @@ class MPropertyResource extends Resource
         if($this->agent_user_id != null ){
             $agent_data = [
                 'agent' =>  [
-                    'user_id' => $this->agent_user_id,
+                    'id' => $this->agent_user_id,
                     'name' => $agent->name,
                     'email' => $agent->email,
                     'mobile1' => $agent->mobile1,
@@ -146,32 +146,33 @@ class MPropertyResource extends Resource
                         'id' => $agent->nationality,
                         'name' => Nationality::find($agent->nationality)->$name,
                     ],
-                    'agent_id_type' => ($agent->id_type == null ) ? null : [
+                    'id_type' => ($agent->id_type == null ) ? null : [
                         'id' => $agent->id_type,
                         'name' => IdType::find($agent->id_type)->$name,
                     ],
-                    'agent_id_no' => $agent->id_no,
-                    'agent_id_issuer' => ($agent->id_issuer == null ) ? null : [
+                    'id_no' => $agent->id_no,
+                    'id_issuer' => ($agent->id_issuer == null ) ? null : [
                         'id' => $agent->id_issuer,
                         'name' => Region::find($agent->id_issuer)->$name,
                     ],
-                    'agent_id_issued_date' => $agent->id_issued_date,
-                    'agent_id_exp_date' => $agent->id_exp_date,
-                    'agency_bank' => ($agent->bank == null ) ? null : [
+                    'id_issued_date' => $agent->id_issued_date,
+                    'id_exp_date' => $agent->id_exp_date,
+                    'bank' => ($agent->bank == null ) ? null : [
                         'id' => $agent->bank,
                         'name' => Bank::find($agent->bank)->$name,
                     ],
-                    'agency_bank_iban' => $agent->bank_iban,
+                    'bank_iban' => $agent->bank_iban,
                 ]
             ];
 
-            if($this->agent_user_id != "" && $agent->name != "" && $agent->address != "" && $agent->email != "" && $agent->mobile1 != "" && $agent->nationality != "" && $agent->id_type != "" && $agent->id_no != "" && $agent->id_issuer != "" && $agent->id_issued_date != "" && $agent->id_exp_date != "" &&  $agent->bank != "" &&  $agent->bank_iban == ""){
+            if($this->agent_user_id != "" && $agent->name != "" && $agent->address != "" && $agent->email != "" && $agent->mobile1 != "" && $agent->nationality != "" && $agent->id_type != "" && $agent->id_no != "" && $agent->id_issuer != "" && $agent->id_issued_date != "" && $agent->id_exp_date != "" &&  $agent->bank != "" &&  $agent->bank_iban != ""){
                 $agent_status = 1;
             }
 
             if($agency !== null){
                 $agency_data = [
                     'agency' => [
+                        'id' => $agency->id,
                         'commercial_register_name' => $agency->commercial_register_name,
                         'commercial_register_no' => $agency->commercial_register_no,
                         'commercial_register_address' => $agency->commercial_register_address,
@@ -181,10 +182,12 @@ class MPropertyResource extends Resource
                         ],
                         'commercial_register_date' => $agency->commercial_register_date,
                         'commercial_register_exp_date' => $agency->commercial_register_exp_date,
+                        'phone' => $agency->phone,
+                        'fax' => $agency->fax,
                     ]
                 ];
     
-                if($agency->commercial_register_name != "" && $agency->commercial_register_no != "" && $agency->commercial_register_address != "" && $agency->commercial_register_issuer != "" && $agency->commercial_register_date != "" && $agency->commercial_register_exp_date == ""){
+                if($agency->commercial_register_name != "" && $agency->commercial_register_no != "" && $agency->commercial_register_address != "" && $agency->commercial_register_issuer != "" && $agency->commercial_register_date != "" && $agency->commercial_register_exp_date != ""){
                     $agency_status = 1;
                 }
             }
@@ -197,7 +200,6 @@ class MPropertyResource extends Resource
                 'agency' => $agency_status
             ] 
         ];
-
 
         $units = ['units' =>  UnitResource::collection($this->units)];
 

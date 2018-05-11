@@ -6,9 +6,11 @@ use Auth;
 use App;
 use App\Unit;
 
+use App\MProperty;
 use App\Http\Requests\UnitRequest;
 use App\Http\Resources\UnitResource;
 
+use App\Http\Resources\MPropertyResource;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 
@@ -51,32 +53,25 @@ class UnitController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UnitRequest $request)
+    public function store(Request $request)
     {
         //
-        if (Auth::check()) {
-            $unit = new Unit;
-            $unit->m_property_id =$request->m_property_id;
-            $unit->name =$request->name;
-            $unit->type =$request->type;
-            $unit->floor =$request->floor;
-            $unit->furnished =$request->furnished;
-            $unit->furnished_status =$request->furnished_status;
-            $unit->kitchen_cabinet =$request->kitchen_cabinet;
-            $unit->bed_rooms =$request->bed_rooms;
-            $unit->living_rooms =$request->living_rooms;
-            $unit->reception_rooms =$request->reception_rooms;
-            $unit->bath_rooms =$request->bath_rooms;
-            $unit->split_air_conditioner =$request->split_air_conditioner;
-            $unit->window_air_conditioner =$request->window_air_conditioner;
-            $unit->electricity_meter =$request->electricity_meter;
-            $unit->water_meter =$request->water_meter;
-            $unit->gas_meter =$request->gas_meter;
-            $unit->created_by =$request->created_by;
+        //$data = (array) json_decode($request->request->get('data'));
 
-            $unit->save();
+        
+
+        if (Auth::check()) {
             
-            return response([ $this->modelname => new UnitResource($unit)],Response::HTTP_CREATED);
+            $units = $request->json()->all();
+
+            foreach ($units as $unit) {
+                //$unit = new Unit;
+                Unit::create($unit);
+            }
+            
+            $mproperty = MProperty::find($unit["m_property_id"]);
+            //return response([ $this->modelname => new UnitResource($unit)],Response::HTTP_CREATED);
+            return response([ "mproperty" => new MPropertyResource($mproperty)],Response::HTTP_OK);
 
         }else{
             return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);

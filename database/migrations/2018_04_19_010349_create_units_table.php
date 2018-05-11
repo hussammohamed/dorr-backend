@@ -16,7 +16,7 @@ class CreateUnitsTable extends Migration
         Schema::create('units', function (Blueprint $table) {
             $table->increments('id');
 		    $table->integer('m_property_id');
-		    $table->string('name');
+		    $table->string('no');
 		    $table->integer('type');
 		    $table->integer('floor');
 		    $table->boolean('furnished');

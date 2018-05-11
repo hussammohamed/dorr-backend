@@ -23,7 +23,7 @@ class UnitResource extends Resource
         return [
             'id' => $this->id,
             'm_property_id' => $this->m_property_id,
-            'name' => $this->name,
+            'no' => $this->no,
             'type'=> [
                 'id' => $this->type,
                 'name' => Type::find($this->type)->$name

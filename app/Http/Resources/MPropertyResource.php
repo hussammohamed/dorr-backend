@@ -50,10 +50,7 @@ class MPropertyResource extends Resource
                 'name' => Type::find($this->type)->name_ar
             ],
             'address' => $this->address,
-            'district' => [
-                'id' => $this->district,
-                'name' => Region::find($this->district)->name_ar
-            ],
+            'district' =>  $this->district,
             'region' => [
                 'id' => Region::find($this->district)->region_id,
                 'name' => Region::find(Region::find($this->district)->region_id)->name_ar
@@ -173,6 +170,7 @@ class MPropertyResource extends Resource
             if($agency !== null){
                 $agency_data = [
                     'agency' => [
+                        'id' => $agency->id,
                         'commercial_register_name' => $agency->commercial_register_name,
                         'commercial_register_no' => $agency->commercial_register_no,
                         'commercial_register_address' => $agency->commercial_register_address,
@@ -185,7 +183,7 @@ class MPropertyResource extends Resource
                     ]
                 ];
     
-                if($agency->commercial_register_name != "" && $agency->commercial_register_no != "" && $agency->commercial_register_address != "" && $agency->commercial_register_issuer != "" && $agency->commercial_register_date != "" && $agency->commercial_register_exp_date == ""){
+                if($agency->commercial_register_name != "" && $agency->commercial_register_no != "" && $agency->commercial_register_address != "" && $agency->commercial_register_issuer != "" && $agency->commercial_register_date != "" && $agency->commercial_register_exp_date != ""){
                     $agency_status = 1;
                 }
             }

@@ -247,7 +247,6 @@ class PropertiesController extends Controller
             }
         }
     }
-
     
     public function getProperty($id)
     {
@@ -860,30 +859,5 @@ class PropertiesController extends Controller
         }
     }
 
-    public function getFormData ()
-    {
-        $types = Type::where('active',1)->where('deleted',0)->orderby('order')->get();
-        $purposes = Purpose::where('active',1)->where('deleted',0)->orderby('order')->get();
-        $regions = Region::where('type',1)->where('active',1)->where('deleted',0)->orderby('order')->get();
-        $advertisers = Advertiser::where('active',1)->where('deleted',0)->orderby('order')->get();
-        //$finish_types = FinishType::where('active',1)->where('deleted',0)->orderby('order')->get();
-        $overlooks = Overlook::where('active',1)->where('deleted',0)->orderby('order')->get();
-        //$payment_methods = PaymentMethod::where('active',1)->where('deleted',0)->orderby('order')->get();
-        $periods = Period::where('active',1)->where('deleted',0)->orderby('order')->get();
-        $map_views = MapView::where('active',1)->where('deleted',0)->orderby('order')->get();
-        $reporting_reasons = ReportingReason::where('active',1)->where('deleted',0)->orderby('order')->get();
-
-        return [
-            "types" => TypesResource::collection($types),
-            "purposes" => PurposesResource::collection($purposes),
-            "regions" => RegionResource::collection($regions),
-            "advertisers" => AdvertiserResource::collection($advertisers),
-            //"finish_types" => FinishTypeResource::collection($finish_types),
-            "overlooks" => OverlookResource::collection($overlooks),
-            //"payment_methods" => PaymentMethodResource::collection($payment_methods),
-            "periods" => PeriodResource::collection($periods),
-            "map_views" => MapViewResource::collection($map_views),
-            "reporting_reasons" => ReportingReasonResource::collection($reporting_reasons),
-        ];
-    }
+    
 }

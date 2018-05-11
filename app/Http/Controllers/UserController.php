@@ -6,7 +6,7 @@ use App;
 use App\User;
 use Hash;
 use App\Property;
-use App\MProperty;
+use App\MProperty;;
 
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
@@ -63,11 +63,9 @@ class UserController extends Controller
             }else{
                 return [ $this->modelname => new UserResource($user)];
             }
-
         }else{
             return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
         }
-        
     }
 
     public function getUserProperties(Request $request)
@@ -78,7 +76,6 @@ class UserController extends Controller
          }else{
              return redirect('/');
          }
-         
      }
     public function create()
     {
@@ -94,6 +91,17 @@ class UserController extends Controller
     public function store(Request $request)
     {
         if (Auth::check()) {
+
+            $userc = User::where('email','=', $request->email)->get();
+            if (count($userc) > 0) {
+                return response()->json(["error"=>"هذا البريد الالكترونى مستخدم من قبل"], Response::HTTP_CONFLICT);
+            }
+            
+            $userc = User::where('mobile1','=', $request->mobile1)->get();
+            if (count($userc) > 0) {
+                return response()->json(["error"=>"هذا الجوال مستخدم من قبل"], Response::HTTP_CONFLICT);
+            }
+
             $user = new User;
             
             $user->name = $request->name;
@@ -105,8 +113,6 @@ class UserController extends Controller
             $user->mobile1 = $request->mobile1;
             $user->mobile2 = $request->mobile2;
             $user->api_token = str_random(60);
-
-            
 
 		    $user->nationality = $request->nationality;
 		    $user->address = $request->address;
@@ -149,13 +155,13 @@ class UserController extends Controller
 
                 $mproperty->save();
                 
-                //return response([ "mproperty" => new MPropertyResource($mproperty)],Response::HTTP_CREATED);
+                return response([ "mproperty" => new MPropertyResource($mproperty)],Response::HTTP_CREATED);
 
-            //}else{
+            }else{
+                return response([ $this->modelname => new UserResource($user)],Response::HTTP_CREATED);
             }
             
             
-                return response([ $this->modelname => new UserResource($user)],Response::HTTP_CREATED);
             
         }else{
             return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
@@ -204,11 +210,37 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         //
+        //$data = (array) json_decode($request->request->get('data'));
+        //return $request;
+
+        //if ($request->hasFile('id_image')) {
+        //    return "ooooooooooo";
+       // }
         if (Auth::check()) {
 
-                if($user->id != Auth::user()->id || $user->registered == 0){
+                if($user->id == Auth::user()->id || $user->registered == 0){
+                    $userc = User::where('email','=', $request->email)->where('id','!=', $user->id)->get();
+                    if (count($userc) > 0) {
+                        return response()->json(["error"=>"هذا البريد الالكترونى مستخدم من قبل"], Response::HTTP_CONFLICT);
+                    }
                     
+                    $userc = User::where('mobile1','=', $request->mobile1)->where('id','!=', $user->id)->get();
+                    if (count($userc) > 0) {
+                        return response()->json(["error"=>"هذا الجوال مستخدم من قبل"], Response::HTTP_CONFLICT);
+                    }
+
                     $user->update($request->all());
+
+                    if ($request->hasFile('id_image')) {
+                        $file = $request->file('id_image');
+                        $extension = $file->getClientOriginalExtension();
+                        $id_fileName = str_random(20).".".$extension;
+                        $folderpath  = 'upload/users/id/';
+                        $file->move($folderpath , $id_fileName);
+        
+                        $user->id_image = $id_fileName;
+                        $user->save();
+                    }
 
                     if($request->mproperty_id != null){
                         $mproperty = MProperty::find($request->mproperty_id);
@@ -221,22 +253,18 @@ class UserController extends Controller
         
                         $mproperty->save();
                         
-                        //return response([ "mproperty" => new MPropertyResource($mproperty)],Response::HTTP_OK);
+                        return response([ "mproperty" => new MPropertyResource($mproperty)],Response::HTTP_OK);
         
-                    //}else{
+                    }else{
+                        return response([ $this->modelname => new UserResource($user)],Response::HTTP_OK);
                     }
                     
-                    return response([ $this->modelname => new UserResource($user)],Response::HTTP_OK);
 
                 }else{
                     
                     return response()->json(["error"=>"You can't update this user"], Response::HTTP_UNAUTHORIZED);
                     
                 }
-
-
-
-                
 
         }else{
             return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);

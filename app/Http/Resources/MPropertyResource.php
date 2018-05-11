@@ -160,6 +160,7 @@ class MPropertyResource extends Resource
                         'name' => Bank::find($agent->bank)->$name,
                     ],
                     'bank_iban' => $agent->bank_iban,
+                    'registered'=> $agent->registered
                 ]
             ];
 

@@ -82,7 +82,7 @@ class FormController extends Controller
             "map_views" => MapViewResource::collection($map_views),
             "reporting_reasons" => ReportingReasonResource::collection($reporting_reasons),
             "nationalities" => NationalityResource::collection($nationalities),
-            "id_typies" => IdTypeResource::collection($id_typies),
+            "id_types" => IdTypeResource::collection($id_typies),
             "banks" => BankResource::collection($banks),
             //"contract_typies" => ContractTypeResource::collection($contract_typies),
             //"usage_types" => UsageTypeResource::collection($usage_types),

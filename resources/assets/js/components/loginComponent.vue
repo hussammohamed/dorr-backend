@@ -28,6 +28,11 @@
           <label class="mdl-textfield__label" for="password">كلمة المرور</label>
          <span class="mdl-textfield__error"  v-for="email in errors.email" v-text="email"></span>
         </div>
+        <input class="mdl-textfield__input" type="hidden" name="username" id="username">
+        <input class="mdl-textfield__input" type="hidden" name="client_id" value="2" >
+        <input class="mdl-textfield__input" type="hidden" name="client_secret" value="B1atyK18CeTJPSjtOuwtckIMGgYZIj2LIpa7G5LZ" >
+        <input class="mdl-textfield__input" type="hidden" name="grant_type" value="password" >
+        
         <div class="">
           <button type="submit" @click="submit" class="mdl-button u-mtop16 u-full-width mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored u-center">دخول</button>
           <a   @click="forgotPassword" class=" u-full-width u-no-padding mdl-button u-mtop16 u-center">هل نسيت كلمة المرور ؟</a>
@@ -51,32 +56,31 @@ export default {
     };
   },
   methods: {
-    getDomainName: function(){
-       var hostname;
-        //find & remove protocol (http, ftp, etc.) and get hostname
-        debugger
-        if (location.host.indexOf("://") > -1) {
-            hostname = location.host.split('/')[2];
-        }
-        else {
-            hostname = location.host.split('/')[0];
-        }
-    
-        //find & remove port number
-        hostname = hostname.split(':')[0];
-        //find & remove "?"
-        hostname = hostname.split('?')[0];
-          if(hostname.split(".").length> 2) {
-            hostname = hostname.split(".")["1"] + "." + hostname.split(".")["2"]
-            }
-        return hostname;
+    getDomainName: function() {
+      var hostname;
+      //find & remove protocol (http, ftp, etc.) and get hostname
+      if (location.host.indexOf("://") > -1) {
+        hostname = location.host.split("/")[2];
+      } else {
+        hostname = location.host.split("/")[0];
+      }
+
+      //find & remove port number
+      hostname = hostname.split(":")[0];
+      //find & remove "?"
+      hostname = hostname.split("?")[0];
+      if (hostname.split(".").length > 2) {
+        hostname = hostname.split(".")["1"] + "." + hostname.split(".")["2"];
+      }
+      return hostname;
     },
-    saveSession: function(data){
+    saveSession: function(data) {
       let domainName = this.getDomainName();
-      document.cookie = 'userId='+ data.id +'; domain='+ domainName +'';
-      document.cookie = 'token='+ data.api_token +'; domain='+ domainName +'';
+      document.cookie = "userId=" + data.id + "; domain=" + domainName + "";
+      document.cookie =
+        "token=" + data.token_type + " " + data.access_token + "; domain=" + domainName + "";
     },
-    forgotPassword: function () {
+    forgotPassword: function() {
       this.$root.forgoPasswordDialog();
     },
     signupDialog: function(url) {
@@ -113,28 +117,46 @@ export default {
         errorElement: "span",
         errorClass: "mdl-textfield__error",
         errorPlacement: function(error, element) {
-
-            error.insertAfter(element);
+          error.insertAfter(element);
         }
       });
+
       if (form.valid()) {
         form.submit(function(event) {
           event.preventDefault();
+          $('input[name="username"]').val($("#email").val());
           $.ajax({
             url: "/api/v1/users/login",
             type: "post",
             data: form.serialize(),
             dataType: "json",
             success: function(_response) {
-              self.saveSession(_response)
-              if (self.$parent.url.length) {
+              // self.saveSession(_response)
+
+              $.ajax({
+                url: "/oauth/token ",
+                type: "post",
+                data: form.serialize(),
+                dataType: "json",
+                success: function(_response) {
+                  self.saveSession(_response)
+                  if (self.$parent.url.length) {
                 location.pathname = self.$parent.url;
               } else {
                 location.reload();
               }
+                },
+                complete: function(_response) {},
+                error: function(_response) {
+                  //this.errors = JSON.parse(_response.responseText).errors
+                  self.errors = {
+                    email: ["بيانات غير صحيحة"]
+                  };
+                  // Handle error
+                }
+              });
             },
-            complete: function(_response) {
-            },
+            complete: function(_response) {},
             error: function(_response) {
               //this.errors = JSON.parse(_response.responseText).errors
               self.errors = {

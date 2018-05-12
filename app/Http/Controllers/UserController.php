@@ -56,6 +56,8 @@ class UserController extends Controller
     public function searchForUser(Request $request)
     {
         //
+
+        
         if(Auth::user()){
             $user = User::where('email',$request->key)->orWhere('mobile1',$request->key)->first();
             if($user === null){
@@ -90,6 +92,9 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        
+        //return $request;
+
         if (Auth::check()) {
 
             $userc = User::where('email','=', $request->email)->get();
@@ -207,29 +212,29 @@ class UserController extends Controller
      */
      
      
-    public function update(Request $request, User $user)
+    public function update(Request $request, $id)
     {
         //
-        //$data = (array) json_decode($request->request->get('data'));
-        //return $request;
-
-        //if ($request->hasFile('id_image')) {
-        //    return "ooooooooooo";
-       // }
+        $data = (array) json_decode($request->request->get('data'));
+        //return (array) $request->json()->all();
+        //return $data;
+        $user = User::find($id);            
+        
+        //return  $data["name"];
         if (Auth::check()) {
 
                 if($user->id == Auth::user()->id || $user->registered == 0){
-                    $userc = User::where('email','=', $request->email)->where('id','!=', $user->id)->get();
+                    $userc = User::where('email','=', $data["email"])->where('id','!=', $user->id)->get();
                     if (count($userc) > 0) {
                         return response()->json(["error"=>"هذا البريد الالكترونى مستخدم من قبل"], Response::HTTP_CONFLICT);
                     }
                     
-                    $userc = User::where('mobile1','=', $request->mobile1)->where('id','!=', $user->id)->get();
+                    $userc = User::where('mobile1','=', $data["mobile1"])->where('id','!=', $user->id)->get();
                     if (count($userc) > 0) {
                         return response()->json(["error"=>"هذا الجوال مستخدم من قبل"], Response::HTTP_CONFLICT);
                     }
 
-                    $user->update($request->all());
+                    $user->update($data);
 
                     if ($request->hasFile('id_image')) {
                         $file = $request->file('id_image');
@@ -242,10 +247,10 @@ class UserController extends Controller
                         $user->save();
                     }
 
-                    if($request->mproperty_id != null){
-                        $mproperty = MProperty::find($request->mproperty_id);
+                    if($data["mproperty_id"] != null){
+                        $mproperty = MProperty::find($data["mproperty_id"]);
         
-                        if($request->user_relation == 1){
+                        if($data["user_relation"] == 1){
                             $mproperty->owner_user_id = $user->id;
                         }else{
                             $mproperty->agent_user_id = $user->id;

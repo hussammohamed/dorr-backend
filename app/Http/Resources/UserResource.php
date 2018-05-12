@@ -31,37 +31,18 @@ class UserResource extends Resource
             'mobile1' => $this->mobile1,
             'mobile2' => $this->mobile2,
             'api_token' => $this->api_token,
-            'avatar' => ($this->id_image == null ) ? null : url('/').'/upload/users/'.$this->avatar,
-            'nationality' => 
-                ($this->nationality == null ) ? null :
-                [
-                    "id" => $this->nationality,
-                    "name" => Nationality::find($this->nationality)->$name
-                ],
+            'avatar' => ($this->avatar == null ) ? null : url('/').'/upload/users/'.$this->avatar,
+            'nationality' => $this->nationality,
             'address' => $this->address,
-            'id_type' =>
-                ($this->id_type == null ) ? null :
-                [
-                    "id" => $this->id_type,
-                    "name" => IdType::find($this->id_type)->$name
-                ],
+            'id_type' => $this->id_type,
             'id_no' => $this->id_no,
-
-            'id_issuer' => ($this->id_issuer == null ) ? null : [
-                'id' => $this->id_issuer,
-                'name' => Region::find($this->id_issuer)->$name,
-            ],
-
+            'id_issuer' => $this->id_issuer,
             'id_issued_date' => $this->id_issued_date,
             'id_exp_date' => $this->id_exp_date,
-            'id_image' => ($this->id_image == null ) ? null : url('/').'/upload/users/'.$this->id_image,
-            'bank' => 
-                ($this->bank == null ) ? null : 
-                [
-                    "id" => $this->bank,
-                    "name" => Bank::find($this->bank)->$name,
-                ],
-            'bank_iban' => $this->bank_iban
+            'id_image' => ($this->id_image == null ) ? null : url('/').'/upload/users/id/'.$this->id_image,
+            'bank' => $this->bank,
+            'bank_iban' => $this->bank_iban,
+            'registered' => $this->registered,
         ];
     }
 }

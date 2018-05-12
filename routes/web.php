@@ -134,7 +134,7 @@ Route::group(['middleware'=>'auth:api'], function(){
 
 Route::group(['prefix'=>'api/v1'],function(){
 
-	//Route::apiResource('/users','UserController');
+	Route::apiResource('/users','UserController');
     //Route::post('/users/{id}/delete', 'UserController@delete');
     Route::post('/users/search', 'UserController@searchForUser'); 
     Route::post('/users/{id}', 'UserController@update'); 

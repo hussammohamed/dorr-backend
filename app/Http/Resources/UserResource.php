@@ -42,7 +42,6 @@ class UserResource extends Resource
             'id_image' => ($this->id_image == null ) ? null : url('/').'/upload/users/id/'.$this->id_image,
             'bank' => $this->bank,
             'bank_iban' => $this->bank_iban,
-            'registered' => $this->registered,
         ];
     }
 }

@@ -62,7 +62,7 @@ class UnitController extends Controller
 
         if (Auth::check()) {
             
-            $units = $request->json()->all();
+            $units = $request->get('data');
 
             foreach ($units as $unit) {
                 //$unit = new Unit;

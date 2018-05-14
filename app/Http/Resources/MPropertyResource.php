@@ -13,6 +13,7 @@ use App\IdType;
 use App\User;
 use App\Agency;
 
+
 use App\Http\Resources\UnitResource;
 use Illuminate\Http\Resources\Json\Resource;
 
@@ -48,7 +49,7 @@ class MPropertyResource extends Resource
             'type'=> $this->type,
             'address' => $this->address,
             'district' => $this->district,
-            'region' => $this->district,
+            'region' => Region::find($this->district)->region_id,
             'location' => [
                     'lat' => $this->lat,
                     'long' => $this->long,
@@ -80,7 +81,9 @@ class MPropertyResource extends Resource
         
         if($this->owner_user_id != null ){
             $owner_data = [
+
                 'owner' =>  new UserResource(User::find($this->owner_user_id)),
+
             ];
 
             if($this->owner_user_id != "" && $owner->name != "" && $owner->address != "" && $owner->email != "" && $owner->mobile1 != "" && $owner->nationality != "" && $owner->id_type != "" && $owner->id_no != "" && $owner->id_issuer != "" && $owner->id_issued_date != "" && $owner->id_exp_date != "" &&  $owner->bank != "" &&  $owner->bank_iban != ""){
@@ -92,10 +95,12 @@ class MPropertyResource extends Resource
 
         if($this->agent_user_id != null ){
             $agent_data = [
+
                 'agent' => new UserResource(User::find($this->agent_user_id)),
+
             ];
 
-            if($this->agent_user_id != "" && $agent->name != "" && $agent->address != "" && $agent->email != "" && $agent->mobile1 != "" && $agent->nationality != "" && $agent->id_type != "" && $agent->id_no != "" && $agent->id_issuer != "" && $agent->id_issued_date != "" && $agent->id_exp_date != "" &&  $agent->bank != "" &&  $agent->bank_iban != ""){
+            if($this->agent_user_id != "" && $agent->name != "" && $agent->address != "" && $agent->email != "" && $agent->mobile1 != "" && $agent->nationality != "" && $agent->id_type != "" && $agent->id_no != "" && $agent->id_issuer != "" && $agent->id_issued_date != "" && $agent->id_exp_date != "" &&  $agent->bank != "" &&  $agent->bank_iban != "" && $this->agency_instrument_no != ""){
                 $agent_status = 1;
             }
 
@@ -124,4 +129,3 @@ class MPropertyResource extends Resource
 
     }
 }
-

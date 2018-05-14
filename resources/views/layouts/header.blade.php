@@ -125,7 +125,7 @@
                         <a href="{{asset('myAccount/Properties')}}">إعلانتي</a>
                     </li>
                     <li>
-                        <a href="#">إدارة العقارات</a>
+                        <a href="http://pm.bareeqstudio.com/properties/">إدارة العقارات</a>
                     </li>
                     <li>
                         <a href="{{ route('logout') }}" onclick="event.preventDefault();

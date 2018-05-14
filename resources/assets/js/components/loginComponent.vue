@@ -30,7 +30,7 @@
         </div>
         <input class="mdl-textfield__input" type="hidden" name="username" id="username">
         <input class="mdl-textfield__input" type="hidden" name="client_id" value="2" >
-        <input class="mdl-textfield__input" type="hidden" name="client_secret" value="Io39lW5eyWsE5y17tgqR9SipwZepjwEIGvkKv3Vu" >
+        <input class="mdl-textfield__input" type="hidden" name="client_secret" value="B1atyK18CeTJPSjtOuwtckIMGgYZIj2LIpa7G5LZ" >
         <input class="mdl-textfield__input" type="hidden" name="grant_type" value="password" >
         
         <div class="">

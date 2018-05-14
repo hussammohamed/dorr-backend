@@ -27,7 +27,7 @@ class AgencyResource extends Resource
 		    'commercial_register_issuer' => $this->commercial_register_issuer,
 		    'commercial_register_date' => $this->commercial_register_date,
             'commercial_register_exp_date' => $this->commercial_register_exp_date,
-            'commercial_register_image' => $this->commercial_register_image,
+            'commercial_register_image' => ($this->commercial_register_image == null ) ? null : url('/').'/upload/agencies/commercial_register/'.$this->commercial_register_image,
             'phone' => $this->phone,
             'fax' => $this->fax
         ];

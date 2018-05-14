@@ -62,11 +62,15 @@ class MPropertyResource extends Resource
             'property_instrument_issuer' => $this->property_instrument_issuer,
             'property_instrument_date' => $this->property_instrument_date,
             'property_instrument_place' => $this->property_instrument_place,
+            'property_instrument_image' => ($this->property_instrument_image == null ) ? null : url('/').'/upload/mproperties/property_instrument/'.$this->property_instrument_image,
+
 
             'agency_instrument_no' => $this->agency_instrument_no,
             'agency_instrument_issuer' => $this->agency_instrument_issuer,
             'agency_instrument_date' => $this->agency_instrument_date,
             'agency_instrument_exp_date' => $this->agency_instrument_exp_date,
+            'agency_instrument_image' => ($this->agency_instrument_image == null ) ? null : url('/').'/upload/mproperties/agency_instrument/'.$this->agency_instrument_image,
+            'property_management_contract_image' => ($this->property_management_contract_image == null ) ? null : url('/').'/upload/mproperties/property_management_contract/'.$this->property_management_contract_image,
 
             'user_relation' => $this->user_relation,
 

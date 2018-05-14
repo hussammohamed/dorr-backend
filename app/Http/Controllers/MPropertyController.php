@@ -54,7 +54,25 @@ class MPropertyController extends Controller
     {
         //
         if (Auth::check()) {
-            $property = new MProperty;
+
+            $data = (array) json_decode($request->request->get('data'));
+
+            //return $data['name'];
+
+            if($data["user_relation"] == 1){
+                $data["owner_user_id"] = Auth::user()->id;
+                $data["agent_user_id"] = null;
+            }else{
+                $data["owner_user_id"] = null;
+                $data["agent_user_id"] = Auth::user()->id;
+            }
+
+            $data["created_by"] = Auth::user()->id;
+
+
+            $mproperty = MProperty::create($data);
+            
+            /*$property = new MProperty;
             $property->name =$request->name;
             $property->type = $request->type;
             $property->district = $request->district;
@@ -69,7 +87,7 @@ class MPropertyController extends Controller
             $property->property_instrument_no = $request->property_instrument_no;
             $property->property_instrument_issuer = $request->property_instrument_issuer;
             $property->property_instrument_date = $request->property_instrument_date;
-            $property->property_instrument_place = $request->property_instrument_place;
+            $property->property_instrument_place = $request->property_instrument_place;*/
 
 
 
@@ -81,66 +99,42 @@ class MPropertyController extends Controller
                 $file = $request->file('property_instrument_image');
                 $extension = $file->getClientOriginalExtension();
                 $property_instrument_fileName = str_random(20).".".$extension;
-                $folderpath  = 'upload/mproperty/property_instrument/';
+                $folderpath  = 'upload/mproperties/property_instrument/';
                 $file->move($folderpath , $property_instrument_fileName);
 
-                $property->agency_instrument_image = $property_instrument_fileName;
+                $mproperty->property_instrument_image = $property_instrument_fileName;
+                
             }
-
-//////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////
-
-            
-		    $property->agency_instrument_no = $request->agency_instrument_no;
-		    $property->agency_instrument_issuer = $request->agency_instrument_issuer;
-		    $property->agency_instrument_date = $request->agency_instrument_date;
-            $property->agency_instrument_exp_date = $request->agency_instrument_exp_date;
-            
-//////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////
-
 
             if ($request->hasFile('agency_instrument_image')) {
                 $file = $request->file('agency_instrument_image');
                 $extension = $file->getClientOriginalExtension();
                 $agency_instrument_fileName = str_random(20).".".$extension;
-                $folderpath  = 'upload/mproperty/agency_instrument/';
+                $folderpath  = 'upload/mproperties/agency_instrument/';
                 $file->move($folderpath , $agency_instrument_fileName);
 
-                $property->agency_instrument_image = $agency_instrument_fileName;
+                $mproperty->agency_instrument_image = $agency_instrument_fileName;
             }
-
-//////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////
 
             if ($request->hasFile('property_management_contract_image')) {
                 $file = $request->file('property_management_contract_image');
                 $extension = $file->getClientOriginalExtension();
                 $property_management_contract_fileName = str_random(20).".".$extension;
-                $folderpath  = 'upload/mproperty/property_management_contract/';
+                $folderpath  = 'upload/mproperties/property_management_contract/';
                 $file->move($folderpath , $property_management_contract_fileName);
 
-                $property->property_management_contract_image = $property_management_contract_fileName;
+                $mproperty->property_management_contract_image = $property_management_contract_fileName;
             }
 
+            $mproperty->save();
 //////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////
 
-            if($request->user_relation == 1){
-                $property->owner_user_id = Auth::user()->id;
-                $property->agent_user_id = null;
-            }else{
-                $property->owner_user_id = null;
-                $property->agent_user_id = Auth::user()->id;
-            }
-
-            $property->user_relation = $request->user_relation;
-
-            $property->created_by = Auth::user()->id;
-
-            $property->save();
             
-            return [ $this->modelname => new MPropertyResource($property)];
+
+            //$property->save();
+            
+            return [ $this->modelname => new MPropertyResource($mproperty)];
         }else{
             return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
         }
@@ -175,10 +169,14 @@ class MPropertyController extends Controller
      * @param  \App\MProperty  $mProperty
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, MProperty $mproperty)
+    public function update(Request $request, $id)
     {
         if (Auth::check()) {
+            
+            $data = (array) json_decode($request->request->get('data'));
 
+                
+            
             //////////////////////////////////////////////////////////
             //////////////////////////////////////////////////////////
 
@@ -186,10 +184,10 @@ class MPropertyController extends Controller
                 $file = $request->file('property_instrument_image');
                 $extension = $file->getClientOriginalExtension();
                 $property_instrument_fileName = str_random(20).".".$extension;
-                $folderpath  = 'upload/mproperty/property_instrument/';
+                $folderpath  = 'upload/mproperties/property_instrument/';
                 $file->move($folderpath , $property_instrument_fileName);
 
-                $property->agency_instrument_image = $property_instrument_fileName;
+                $data["property_instrument_image"] = $property_instrument_fileName;
             }
             
             //////////////////////////////////////////////////////////
@@ -199,10 +197,10 @@ class MPropertyController extends Controller
                 $file = $request->file('agency_instrument_image');
                 $extension = $file->getClientOriginalExtension();
                 $agency_instrument_fileName = str_random(20).".".$extension;
-                $folderpath  = 'upload/mproperty/agency_instrument/';
+                $folderpath  = 'upload/mproperties/agency_instrument/';
                 $file->move($folderpath , $agency_instrument_fileName);
 
-                $property->agency_instrument_image = $agency_instrument_fileName;
+                $data["agency_instrument_image"] = $agency_instrument_fileName;
             }
 
             //////////////////////////////////////////////////////////
@@ -212,16 +210,17 @@ class MPropertyController extends Controller
                 $file = $request->file('property_management_contract_image');
                 $extension = $file->getClientOriginalExtension();
                 $property_management_contract_fileName = str_random(20).".".$extension;
-                $folderpath  = 'upload/mproperty/property_management_contract/';
+                $folderpath  = 'upload/mproperties/property_management_contract/';
                 $file->move($folderpath , $property_management_contract_fileName);
 
-                $property->property_management_contract_image = $property_management_contract_fileName;
+                $data["property_management_contract_image"] = $property_management_contract_fileName;
             }
 
             //////////////////////////////////////////////////////////
             //////////////////////////////////////////////////////////
+            $mproperty = MProperty::find($id); 
+            $mproperty->update($data);
 
-            $mproperty->update($request->all());
             return response([ "$this->modelname" => new MPropertyResource($mproperty)],Response::HTTP_CREATED);
         }else{
             return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);

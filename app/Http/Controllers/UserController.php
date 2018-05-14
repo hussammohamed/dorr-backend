@@ -95,21 +95,26 @@ class UserController extends Controller
         
         //return $request;
 
+        $data = (array) json_decode($request->request->get('data'));
+
         if (Auth::check()) {
 
-            $userc = User::where('email','=', $request->email)->get();
+            $userc = User::where('email','=', $data["email"])->get();
             if (count($userc) > 0) {
                 return response()->json(["error"=>"هذا البريد الالكترونى مستخدم من قبل"], Response::HTTP_CONFLICT);
             }
             
-            $userc = User::where('mobile1','=', $request->mobile1)->get();
+            $userc = User::where('mobile1','=', $data["mobile1"])->get();
             if (count($userc) > 0) {
                 return response()->json(["error"=>"هذا الجوال مستخدم من قبل"], Response::HTTP_CONFLICT);
             }
-
-            $user = new User;
             
-            $user->name = $request->name;
+            //$data['password'] = bcrypt($data['password']);
+            //$data['api_token'] = str_random(60);
+            
+            $user = User::create($data);
+
+            /*$user->name = $request->name;
             $user->first_name = $request->first_name;
             $user->family_name = $request->family_name;
             $user->email = $request->email;
@@ -130,6 +135,12 @@ class UserController extends Controller
 			$user->bank_iban = $request->bank_iban;
 
 			$user->registered = $request->registered;
+            */
+            
+            
+           // $user->api_token = str_random(60);
+
+            //$user->save();
 
             //////////////////////////////////////////////////////////
             //////////////////////////////////////////////////////////
@@ -142,13 +153,14 @@ class UserController extends Controller
                 $file->move($folderpath , $id_fileName);
 
                 $user->id_image = $id_fileName;
+            $user->save();
             }
 
             //////////////////////////////////////////////////////////
             //////////////////////////////////////////////////////////
 
-            $user->save();
 
+            
             if($request->mproperty_id != null){
                 $mproperty = MProperty::find($request->mproperty_id);
 

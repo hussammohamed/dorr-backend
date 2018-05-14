@@ -52,10 +52,16 @@ class AgencyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(AgencyRequest $request)
+    public function store(Request $request)
     {
         //
         if (Auth::check()) {
+
+            $data = (array) json_decode($request->request->get('data'));
+
+            $agency = Agency::create($data);
+
+            /*
             $agency = new Agency;
 		    $agency->user_id = $request->user_id;
             $agency->commercial_register_name = $request->commercial_register_name;
@@ -66,10 +72,22 @@ class AgencyController extends Controller
             $agency->commercial_register_exp_date = $request->commercial_register_exp_date;
             $agency->phone = $request->phone;
             $agency->fax = $request->fax;
-            $agency->commercial_register_image = $request->commercial_register_image;
+            //$agency->commercial_register_image = $request->commercial_register_image;
 
-            
-            $agency->save();
+            */
+
+            if ($request->hasFile('commercial_register_image')) {
+                $file = $request->file('commercial_register_image');
+                $extension = $file->getClientOriginalExtension();
+                $commercial_register_fileName = str_random(20).".".$extension;
+                $folderpath  = 'upload/agencies/commercial_register/';
+                $file->move($folderpath , $commercial_register_fileName);
+
+                $agency->commercial_register_image = $commercial_register_fileName;
+                $agency->save();
+            }
+
+            //$agency->save();
             
             return response([ $this->modelname => new AgencyResource($agency)],Response::HTTP_CREATED);
 
@@ -107,11 +125,13 @@ class AgencyController extends Controller
      * @param  \App\Agency  $agency
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Agency $agency)
+    public function update(Request $request, $id)
     {
         //
         if (Auth::check()) {
-                $agency->update($request->all());
+                $data = (array) json_decode($request->request->get('data'));
+                $agency = Agency::find($id);  
+                $agency->update($data);
                 return response([ $this->modelname => new AgencyResource($agency)],Response::HTTP_OK);
         }else{
             return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);

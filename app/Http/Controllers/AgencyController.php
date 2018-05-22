@@ -131,6 +131,17 @@ class AgencyController extends Controller
         if (Auth::check()) {
                 $data = (array) json_decode($request->request->get('data'));
                 $agency = Agency::find($id);  
+
+                if ($request->hasFile('commercial_register_image')) {
+                    $file = $request->file('commercial_register_image');
+                    $extension = $file->getClientOriginalExtension();
+                    $commercial_register_fileName = str_random(20).".".$extension;
+                    $folderpath  = 'upload/agencies/commercial_register/';
+                    $file->move($folderpath , $commercial_register_fileName);
+    
+                    $data["commercial_register_image"] = $commercial_register_fileName;
+                    
+                }
                 $agency->update($data);
                 return response([ $this->modelname => new AgencyResource($agency)],Response::HTTP_OK);
         }else{

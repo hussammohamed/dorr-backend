@@ -20,8 +20,8 @@ use App\ReportingReason;
 use App\Nationality;
 use App\IdType;
 use App\Bank;
-//use App\ContractType;
-//use App\UsageType;
+use App\ContractType;
+use App\UsageType;
 
 use App\Http\Resources\TypesResource;
 use App\Http\Resources\PurposesResource;
@@ -86,8 +86,8 @@ class FormController extends Controller
             "id_types" => IdTypeResource::collection($id_types),
 
             "banks" => BankResource::collection($banks),
-            //"contract_types" => ContractTypeResource::collection($contract_types),
-            //"usage_types" => UsageTypeResource::collection($usage_types),
+            "contract_types" => ContractTypeResource::collection($contract_types),
+            "usage_types" => UsageTypeResource::collection($usage_types),
             "contract_conditions"=>[
                 [
                     "id"=>1,

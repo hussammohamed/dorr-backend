@@ -190,8 +190,8 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(User $user)
-    {
-        return new UserResource($user);
+    {   
+        return response([ $this->modelname => new UserResource($user)]);
     }
 
     /**

@@ -159,10 +159,8 @@ class UserController extends Controller
             //////////////////////////////////////////////////////////
             //////////////////////////////////////////////////////////
 
-
-            
-            if($request->mproperty_id != null){
-                $mproperty = MProperty::find($request->mproperty_id);
+            if($data["mproperty_id"] != null){
+                $mproperty = MProperty::find($data["mproperty_id"]);
 
                 if($request->user_relation == 1){
                     $mproperty->owner_user_id = $user->id;

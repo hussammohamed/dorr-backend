@@ -2,11 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+use App;
 use App\Contract;
+
+//use App\Http\Requests\BankRequest;
+use App\Http\Resources\ContractResource;
+
+use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 
 class ContractController extends Controller
 {
+
+    private $modelname = "contract";
+    private $modelnames = "contracts";
+
+    public function __construct()
+    {
+        $this->middleware('auth:api');//->except('index','show');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +29,7 @@ class ContractController extends Controller
      */
     public function index()
     {
-        //
+        return [ $this->modelnames => ContractResource::collection(Contract::orWhere('owner_user_id',Auth::user()->id)->orWhere('agent_user_id',Auth::user()->id)->orWhere('renter_user_id',Auth::user()->id)->where('active',1)->where('deleted',0)->get())];
     }
 
     /**
@@ -35,7 +50,21 @@ class ContractController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        if (Auth::check()) {
+
+            $data = (array) json_decode($request->request->get('data'));
+
+            $data["created_by"] = Auth::user()->id;
+
+
+            $contract = Contract::create($data);
+            
+            return [ $this->modelname => new ContractResource($contract)];
+        }else{
+            return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
+        }
+
     }
 
     /**

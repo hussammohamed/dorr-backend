@@ -38,8 +38,8 @@ use App\Http\Resources\ReportingReasonResource;
 use App\Http\Resources\NationalityResource;
 use App\Http\Resources\IdTypeResource;
 use App\Http\Resources\BankResource;
-//use App\Http\Resources\ContractTypeResource;
-//use App\Http\Resources\UsageTypeResource;
+use App\Http\Resources\ContractTypeResource;
+use App\Http\Resources\UsageTypeResource;
 
 use Illuminate\Http\Request;
 
@@ -62,8 +62,8 @@ class FormController extends Controller
         $nationalities = Nationality::where('active',1)->where('deleted',0)->orderby('order')->get();
         $id_types = IdType::where('active',1)->where('deleted',0)->orderby('order')->get();
         $banks = Bank::where('active',1)->where('deleted',0)->orderby('order')->get();
-        //$contract_types = ContractType::where('active',1)->where('deleted',0)->orderby('order')->get();
-        //$usage_types = UsageType::where('active',1)->where('deleted',0)->orderby('order')->get();
+        $contract_types = ContractType::where('active',1)->where('deleted',0)->orderby('order')->get();
+        $usage_types = UsageType::where('active',1)->where('deleted',0)->orderby('order')->get();
 
         
 

@@ -27,7 +27,7 @@ class CreateContractsTable extends Migration
             $table->date('contract_start_date');
             $table->date('contract_end_date');
             
-            $table->integer('owner_id');
+            $table->integer('owner_user_id');
             $table->string('owner_name');
             $table->integer('owner_nationality');
             $table->integer('owner_id_type');
@@ -36,7 +36,7 @@ class CreateContractsTable extends Migration
             $table->integer('owner_mobile');
             $table->integer('owner_email');
             
-            $table->integer('renter_id');
+            $table->integer('renter_user_id');
             $table->string('renter_name');
             $table->integer('renter_nationality');
             $table->integer('renter_id_type');
@@ -45,14 +45,23 @@ class CreateContractsTable extends Migration
             $table->string('renter_mobile');
             $table->string('renter_email');
             
+
+            $table->string('renter_companion_name')->nullable();
+            $table->integer('renter_companion_nationality')->nullable();
+            $table->integer('renter_companion_id_type')->nullable();
+            $table->integer('renter_companion_id_no')->nullable();
+            $table->string('renter_companion_id_image')->nullable();
+            $table->string('renter_companion_mobile')->nullable();
+            $table->string('renter_companion_email')->nullable();
+
             $table->boolean('is_agent')->default('0');
             
-            $table->integer('agency_id')->nullable();;
-            $table->string('agency_name')->nullable();;
-            $table->string('agency_address')->nullable();;
-            $table->string('agency_comerial_no')->nullable();;
-            $table->string('agency_phone')->nullable();;
-            $table->string('agency_fax')->nullable();;
+            $table->integer('agency_id')->nullable();
+            $table->string('agency_name')->nullable();
+            $table->string('agency_address')->nullable();
+            $table->string('agency_commercial_register_no')->nullable();
+            $table->string('agency_phone')->nullable();
+            $table->string('agency_fax')->nullable();
             
             $table->integer('agent_id')->nullable();;
             $table->string('agent_name')->nullable();;
@@ -76,26 +85,6 @@ class CreateContractsTable extends Migration
             $table->integer('m_property_units_no');
             $table->integer('m_property_elevators');
             $table->integer('m_property_parking');
-            
-            $table->integer('unit_id');
-            $table->integer('unit_type');
-            $table->integer('unit_no');
-            $table->integer('unit_furnished');
-            $table->integer('unit_furnished_status');
-            $table->integer('unit_floor');
-            $table->integer('unit_kitchen_cabinet');
-            $table->integer('unit_bed_rooms');
-            $table->integer('unit_living_rooms');
-            $table->integer('unit_reception_rooms');
-            $table->integer('unit_bath_rooms');
-            $table->integer('unit_split_air_conditioner');
-            $table->integer('unit_window_air_conditioner');
-            $table->integer('unit_electricity_meter');
-            $table->integer('unit_electricity_measurement');
-            $table->integer('unit_water_meter');
-            $table->integer('unit_water_measurement');
-            $table->integer('unit_gas_meter');
-            $table->integer('unit_gas_measurement');
             
             $table->boolean('sublease')->default('0');
             

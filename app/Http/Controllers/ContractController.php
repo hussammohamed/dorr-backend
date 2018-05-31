@@ -38,7 +38,7 @@ class ContractController extends Controller
      */
     public function index()
     {
-        return [ $this->modelnames => ContractResource::collection(Contract::orWhere('owner_user_id',Auth::user()->id)->orWhere('agent_user_id',Auth::user()->id)->orWhere('renter_user_id',Auth::user()->id)->where('active',1)->where('deleted',0)->get())];
+        return [ $this->modelnames => ContractResource::collection(Contract::orWhere('owner_user_id',Auth::user()->id)->orWhere('agent_user_id',Auth::user()->id)->orWhere('renter_user_id',Auth::user()->id)->get())];
     }
 
     /**
@@ -171,10 +171,11 @@ class ContractController extends Controller
             foreach ($data_units as $data_unit) {
                 
                 $unit = Unit::find($data_unit["id"]);
-                
+                if (count($unit) > 0) {
                 $contract_unit = new ContractUnit;
                 $contract_unit->contract_id = $contract->id;
                 $contract_unit->m_property_id = $unit->m_property_id;
+                $contract_unit->unit_id = $data_unit["id"];
                 $contract_unit->no = $unit->no;
                 $contract_unit->type = $unit->type;
                 $contract_unit->floor = $unit->floor;
@@ -195,11 +196,11 @@ class ContractController extends Controller
                 $contract_unit->gas_measurement = $data_unit["gas_measurement"];
                 
                 $contract_unit->save();
-                
+                }
             }
             
             foreach ($data_companions as $data_companion) {
-                
+                if($data_companion["name"]!=null){
                 $companion = new Companion;
                 $companion->contract_id = $contract->id;
                 $companion->renter_user_id = $contract->renter_user_id;
@@ -212,7 +213,7 @@ class ContractController extends Controller
                 $companion->email = $data_companion["email"];
                 
                 $companion->save();
-                
+                }
             }
 
             return [ $this->modelname => new ContractResource($contract)];
@@ -231,6 +232,8 @@ class ContractController extends Controller
     public function show(Contract $contract)
     {
         //
+        return [ $this->modelname => new ContractResource($contract)];
+
     }
 
     /**

@@ -17,6 +17,7 @@ class CreateContractUnitsTable extends Migration
             $table->increments('id');
 		    $table->integer('contract_id');
 		    $table->integer('m_property_id');
+		    $table->integer('unit_id');
 		    $table->string('no');
 		    $table->integer('type');
 		    $table->integer('floor');

@@ -68,6 +68,13 @@ class ContractResource extends Resource
             'agency_fax' => $this->agency_fax,
 
             'm_property_id' => $this->m_property_id,
+            'm_property_address' => $this->m_property_address,
+            'm_property_type' => $this->m_property_type,
+            'm_property_floors' => $this->m_property_floors,
+            'm_property_units_no' => $this->m_property_units_no,
+            'm_property_elevators' => $this->m_property_elevators,
+            'm_property_parking' => $this->m_property_parking,
+            
             'usage_type' => $this->usage_type,
 
             'sublease' => $this->sublease,

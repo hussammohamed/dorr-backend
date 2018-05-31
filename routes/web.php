@@ -157,6 +157,11 @@ Route::group(['prefix'=>'api/v1'],function(){
     
 	Route::apiResource('/units','UnitController');
     Route::post('/units/delete', 'UnitController@delete');
+    
+	Route::apiResource('/contracts','ContractController');
+    Route::post('/contracts/delete', 'ContractController@delete');
+
+
     /*
     Route::apiResource('/types','TypesController');
     Route::post('/types/{id}/delete', 'TypesController@delete');

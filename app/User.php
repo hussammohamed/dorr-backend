@@ -22,6 +22,10 @@ class User extends Authenticatable
         'bank','bank_iban','registered','lang','avatar'
     ];
 
+    protected $casts = [
+        'nationality' => 'integer', 'id_type' => 'integer', 'id_issuer' => 'integer', 'bank' => 'integer', 
+    ];
+
     /**
      * The attributes that should be hidden for arrays.
      *

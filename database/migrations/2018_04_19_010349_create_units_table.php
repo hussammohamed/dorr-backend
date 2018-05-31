@@ -15,7 +15,6 @@ class CreateUnitsTable extends Migration
     {
         Schema::create('units', function (Blueprint $table) {
             $table->increments('id');
-		    $table->integer('contract_id');
 		    $table->integer('m_property_id');
 		    $table->string('no');
 		    $table->integer('type');
@@ -30,11 +29,8 @@ class CreateUnitsTable extends Migration
 		    $table->integer('split_air_conditioner');
 		    $table->integer('window_air_conditioner');
 		    $table->string('electricity_meter');
-            $table->integer('electricity_measurement');
 		    $table->string('water_meter');
-            $table->integer('water_measurement');
 		    $table->string('gas_meter');
-            $table->integer('gas_measurement');
 			$table->integer('created_by');
 		    $table->boolean('active')->default('1');
 		    $table->boolean('deleted')->default('0');

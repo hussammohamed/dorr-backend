@@ -5,9 +5,18 @@ namespace App\Http\Controllers;
 use Auth;
 use App;
 use App\Contract;
+use App\Unit;
+use App\ContractUnit;
+use App\Companion;
+use App\User;
+use App\Agency;
+use App\MProperty;
 
 //use App\Http\Requests\BankRequest;
 use App\Http\Resources\ContractResource;
+use App\Http\Resources\UnitResource;
+use App\Http\Resources\ContractUnitResource;
+use App\Http\Resources\CompanionResource;
 
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
@@ -54,12 +63,158 @@ class ContractController extends Controller
         if (Auth::check()) {
 
             $data = (array) json_decode($request->request->get('data'));
+            
+            $data_units = (array) json_decode($request->request->get('units'), true);
+            $data_companions = (array) json_decode($request->request->get('companions'), true);
 
             $data["created_by"] = Auth::user()->id;
 
+            
+            if ($data["renter_user_id"]==null){
+
+                $user = new User;
+                $user->name = $data["renter_name"];
+                $user->email = $data["renter_email"];
+                $user->mobile1 = $data["renter_mobile"];
+                $user->nationality = $data["renter_nationality"];
+                //$user->address = $data["renter_address"];
+                $user->id_type = $data["renter_id_type"];
+                $user->id_no = $data["renter_id_no"];
+                //$user->id_issuer = $data["renter_id_issuer"];
+                //$user->id_issued_date = $data["renter_id_issued_date"];
+                //$user->id_exp_date = $data["renter_id_exp_date"];
+                
+                $user->save();
+                $data["renter_user_id"] = $user->id;
+            }else{
+
+                $user = User::find($data["renter_user_id"]);
+
+                $data["renter_name"] = $user->name;
+                $data["renter_nationality"] = $user->nationality;
+                //$data["renter_address"] = $user->address;
+                $data["renter_id_type"] = $user->id_type;
+                $data["renter_id_no"] = $user->id_no;
+                //$data["renter_id_issuer"] = $user->id_issuer;
+                //$data["renter_id_issued_date"] = $user->id_issued_date;
+                //$data["renter_id_id_exp_date"] = $user->id_id_exp_date;
+                $data["renter_id_image"] = $user->id_image;
+                $data["renter_mobile"] = $user->mobile;
+                $data["renter_email"] = $user->email;
+
+            }
+
+            if ($data["owner_user_id"]!=null){
+
+                $user = User::find($data["owner_user_id"]);
+
+                $data["owner_name"] = $user->name;
+                $data["owner_nationality"] = $user->nationality;
+                //$data["owner_address"] = $user->address;
+                $data["owner_id_type"] = $user->id_type;
+                $data["owner_id_no"] = $user->id_no;
+                //$data["owner_id_issuer"] = $user->id_issuer;
+                //$data["owner_id_issued_date"] = $user->id_issued_date;
+                //$data["owner_id_id_exp_date"] = $user->id_id_exp_date;
+                $data["owner_id_image"] = $user->id_image;
+                $data["owner_mobile"] = $user->mobile;
+                $data["owner_email"] = $user->email;
+
+            }
+
+            if ($data["agent_user_id"]!=null){
+
+
+                $user = User::find($data["agent_user_id"]);
+
+                $data["agent_name"] = $user->name;
+                $data["agent_nationality"] = $user->nationality;
+                //$data["agent_address"] = $user->address;
+                $data["agent_id_type"] = $user->id_type;
+                $data["agent_id_no"] = $user->id_no;
+                //$data["agent_id_issuer"] = $user->id_issuer;
+                //$data["agent_id_issued_date"] = $user->id_issued_date;
+                //$data["agent_id_id_exp_date"] = $user->id_id_exp_date;
+                $data["agent_id_image"] = $user->id_image;
+                $data["agent_mobile"] = $user->mobile;
+                $data["agent_email"] = $user->email;
+
+                $agency = Agency::where('user_id',$data["agent_user_id"])->first();
+
+                $data["agency_id"] = $agency->id;
+                $data["agency_name"] = $agency->commercial_register_name;
+                $data["agency_address"] = $agency->commercial_register_address;
+                $data["agency_commercial_register_no"] = $agency->commercial_register_no;
+                $data["agency_phone"] = $agency->phone;
+                $data["agency_fax"] = $agency->fax;
+
+                
+
+            }
+
+
+            if ($data["m_property_id"]!=null){
+
+                $m_property = MProperty::find($data["m_property_id"]);
+
+                $data["m_property_address"] = $m_property->address;
+                $data["m_property_type"] = $m_property->type;
+                $data["m_property_floors"] = $m_property->floors;
+                $data["m_property_units_no"] = $m_property->units_no;
+                $data["m_property_elevators"] = $m_property->elevators;
+                $data["m_property_parking"] = $m_property->parking;
+
+            }
 
             $contract = Contract::create($data);
+
+            foreach ($data_units as $data_unit) {
+                
+                $unit = Unit::find($data_unit["id"]);
+                
+                $contract_unit = new ContractUnit;
+                $contract_unit->contract_id = $contract->id;
+                $contract_unit->m_property_id = $unit->m_property_id;
+                $contract_unit->no = $unit->no;
+                $contract_unit->type = $unit->type;
+                $contract_unit->floor = $unit->floor;
+                $contract_unit->furnished = $unit->furnished;
+                $contract_unit->furnished_status = $unit->furnished_status;
+                $contract_unit->kitchen_cabinet = $unit->kitchen_cabinet;
+                $contract_unit->bed_rooms = $unit->bed_rooms;
+                $contract_unit->living_rooms = $unit->living_rooms;
+                $contract_unit->reception_rooms = $unit->reception_rooms;
+                $contract_unit->bath_rooms = $unit->bath_rooms;
+                $contract_unit->split_air_conditioner = $unit->split_air_conditioner;
+                $contract_unit->window_air_conditioner = $unit->window_air_conditioner;
+                $contract_unit->electricity_meter = $unit->electricity_meter;
+                $contract_unit->water_meter = $unit->water_meter;
+                $contract_unit->gas_meter = $unit->gas_meter;
+                $contract_unit->electricity_measurement = $data_unit["electricity_measurement"];
+                $contract_unit->water_measurement = $data_unit["water_measurement"];
+                $contract_unit->gas_measurement = $data_unit["gas_measurement"];
+                
+                $contract_unit->save();
+                
+            }
             
+            foreach ($data_companions as $data_companion) {
+                
+                $companion = new Companion;
+                $companion->contract_id = $contract->id;
+                $companion->renter_user_id = $contract->renter_user_id;
+                $companion->name = $data_companion["name"];
+                $companion->nationality = $data_companion["nationality"];
+                $companion->id_type = $data_companion["id_type"];
+                $companion->id_no = $data_companion["id_no"];
+                $companion->relation = $data_companion["relation"];
+                $companion->mobile = $data_companion["mobile"];
+                $companion->email = $data_companion["email"];
+                
+                $companion->save();
+                
+            }
+
             return [ $this->modelname => new ContractResource($contract)];
         }else{
             return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);

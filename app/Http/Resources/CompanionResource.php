@@ -2,12 +2,9 @@
 
 namespace App\Http\Resources;
 
-use App;
-use App\Type;
-
 use Illuminate\Http\Resources\Json\Resource;
 
-class ContractUnitResource extends Resource
+class CompanionResource extends Resource
 {
     /**
      * Transform the resource into an array.
@@ -17,10 +14,6 @@ class ContractUnitResource extends Resource
      */
     public function toArray($request)
     {
-        $name = 'name_'.App::getLocale();
-
-        return [
-            'id' => $this->id,
-        ];
+        return parent::toArray($request);
     }
 }

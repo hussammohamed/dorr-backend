@@ -18,41 +18,35 @@ class CreateContractsTable extends Migration
 
             //$table->string('name');
 
-            $table->integer('contract_type_id');
-            $table->integer('contract_condition');
-            $table->integer('contract_status');
-            $table->integer('contract_calender_type');
-            $table->integer('contract_place');
-            $table->date('contract_date');
-            $table->date('contract_start_date');
-            $table->date('contract_end_date');
+            $table->integer('contract_type')->nullable();
+            $table->integer('contract_condition')->nullable();
+            $table->integer('contract_status')->nullable();
+            $table->integer('contract_calender_type')->nullable();
+            $table->integer('contract_place')->nullable();
+            $table->date('contract_date')->nullable();
+            $table->date('contract_start_date')->nullable();
+            $table->date('contract_end_date')->nullable();
             
-            $table->integer('owner_user_id');
-            $table->string('owner_name');
-            $table->integer('owner_nationality');
-            $table->integer('owner_id_type');
-            $table->integer('owner_id_no');
-            $table->string('owner_id_image');
-            $table->integer('owner_mobile');
-            $table->integer('owner_email');
+            $table->integer('owner_user_id')->nullable();
+            $table->string('owner_name')->nullable();
+            $table->integer('owner_nationality')->nullable();
+            $table->integer('owner_id_type')->nullable();
+            $table->string('owner_id_no')->nullable();
+            $table->string('owner_id_image')->nullable();
+            $table->string('owner_mobile')->nullable();
+            $table->string('owner_email')->nullable();
             
             $table->integer('renter_user_id');
-            $table->string('renter_name');
-            $table->integer('renter_nationality');
-            $table->integer('renter_id_type');
-            $table->integer('renter_id_no');
-            $table->string('renter_id_image');
-            $table->string('renter_mobile');
-            $table->string('renter_email');
+            $table->string('renter_name')->nullable();
+            $table->integer('renter_nationality')->nullable();
+            $table->integer('renter_id_type')->nullable();
+            $table->string('renter_id_no')->nullable();
+            $table->string('renter_id_image')->nullable();
+            $table->string('renter_mobile')->nullable();
+            $table->string('renter_email')->nullable();
             
 
-            $table->string('renter_companion_name')->nullable();
-            $table->integer('renter_companion_nationality')->nullable();
-            $table->integer('renter_companion_id_type')->nullable();
-            $table->integer('renter_companion_id_no')->nullable();
-            $table->string('renter_companion_id_image')->nullable();
-            $table->string('renter_companion_mobile')->nullable();
-            $table->string('renter_companion_email')->nullable();
+            
 
             $table->boolean('is_agent')->default('0');
             
@@ -63,55 +57,55 @@ class CreateContractsTable extends Migration
             $table->string('agency_phone')->nullable();
             $table->string('agency_fax')->nullable();
             
-            $table->integer('agent_id')->nullable();;
-            $table->string('agent_name')->nullable();;
-            $table->integer('agent_nationality')->nullable();;
-            $table->integer('agent_id_type')->nullable();;
-            $table->integer('agent_id_no')->nullable();;
-            $table->string('agent_id_image')->nullable();;
-            $table->string('agent_mobile')->nullable();;
-            $table->string('agent_email')->nullable();;
+            $table->integer('agent_user_id')->nullable();
+            $table->string('agent_name')->nullable();
+            $table->integer('agent_nationality')->nullable();
+            $table->integer('agent_id_type')->nullable();
+            $table->string('agent_id_no')->nullable();
+            $table->string('agent_id_image')->nullable();
+            $table->string('agent_mobile')->nullable();
+            $table->string('agent_email')->nullable();
             
-            $table->integer('property_instrument_no');
-            $table->integer('property_instrument_issuer');
-            $table->date('property_instrument_date');
-            $table->integer('property_instrument_place');
+            $table->integer('property_instrument_no')->nullable();
+            $table->integer('property_instrument_issuer')->nullable();
+            $table->date('property_instrument_date')->nullable();
+            $table->integer('property_instrument_place')->nullable();
             
-            $table->integer('m_property_id');
-            $table->string('m_property_address');
-            $table->integer('m_property_type');
-            $table->integer('m_property_usage_type');
-            $table->integer('m_property_floors');
-            $table->integer('m_property_units_no');
-            $table->integer('m_property_elevators');
-            $table->integer('m_property_parking');
+            $table->integer('m_property_id')->nullable();
+            $table->string('m_property_address')->nullable();
+            $table->integer('m_property_type')->nullable();
+            $table->integer('m_property_floors')->nullable();
+            $table->integer('m_property_units_no')->nullable();
+            $table->integer('m_property_elevators')->nullable();
+            $table->integer('m_property_parking')->nullable();
+            $table->integer('usage_type')->nullable();
             
             $table->boolean('sublease')->default('0');
             
-            $table->integer('agency_amount');
-            $table->integer('guarantee_amount');
-            $table->integer('electricity_monthly_amount');
-            $table->integer('water_monthly_amount');
-            $table->integer('gas_monthly_amount');
-            $table->integer('parking_monthly_amount');
-            $table->integer('rented_parking_no');
+            $table->integer('agency_amount')->nullable();
+            $table->integer('guarantee_amount')->nullable();
+            $table->integer('electricity_monthly_amount')->nullable();
+            $table->integer('water_monthly_amount')->nullable();
+            $table->integer('gas_monthly_amount')->nullable();
+            $table->integer('parking_monthly_amount')->nullable();
+            $table->integer('rented_parking_no')->nullable();
             
-            $table->integer('rent_monthly_amount');
-            $table->integer('rent_period');
-            $table->integer('rent_period_amount');
-            $table->integer('last_rent_amount');
-            $table->integer('rent_payments');
-            $table->integer('rent_total');
+            $table->integer('rent_monthly_amount')->nullable();
+            $table->integer('rent_period')->nullable();
+            $table->integer('rent_period_amount')->nullable();
+            $table->integer('last_rent_amount')->nullable();
+            $table->integer('rent_payments')->nullable();
+            $table->integer('rent_total')->nullable();
+            
+            $table->integer('rent_payment_no')->nullable();
+            $table->date('rent_payment_issued_date')->nullable();
+            $table->date('rent_payment_due_date')->nullable();
+            $table->integer('rent_payment_amount')->nullable();
+
+            $table->string('terms')->nullable();
+
             
             $table->integer('created_by');
-            
-            $table->integer('rent_payment_no');
-            $table->integer('rent_payment_issued_date');
-            $table->integer('rent_payment_due_date');
-            $table->integer('rent_payment_amount');
-
-            $table->string('terms');
-
             $table->timestamps();
         });
     }

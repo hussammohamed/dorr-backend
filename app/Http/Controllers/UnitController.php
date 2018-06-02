@@ -67,6 +67,7 @@ class UnitController extends Controller
             foreach ($units as $unit) {
                 //return $unit;
                 //$unit = new Unit;
+                $unit["created_by"] = Auth::user()->id;
                 Unit::create($unit);
             }
             

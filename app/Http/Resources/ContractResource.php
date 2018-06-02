@@ -103,6 +103,7 @@ class ContractResource extends Resource
     
             'contract_units' =>  $this->contract_units,
             'companions' =>  $this->companions,
+            'payments' =>  $this->payments,
         ];
 
 

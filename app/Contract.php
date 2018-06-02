@@ -33,9 +33,9 @@ class Contract extends Model
     {
         return $this->hasMany('App\Companion');
     }
-/*
+
     public function payments()
     {
         return $this->hasMany('App\Payment');
-    }*/
+    }
 }

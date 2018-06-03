@@ -128,6 +128,16 @@ class FormController extends Controller
                     "name"=>"لا يوجد",
                 ]
             ],
+            "calender_type"=>[
+                [
+                    "id"=>1,
+                    "name"=>"ميلادى",
+                ],
+                [
+                    "id"=>2,
+                    "name"=>"هجرى",
+                ]
+            ],
         ];
     }
 }

@@ -8,7 +8,7 @@ class Contract extends Model
 {
 
     protected $fillable = [
-        "contract_type","contract_condition","contract_status","contract_calender_type","contract_place","contract_date","contract_start_date","contract_end_date",
+        "contract_type","contract_condition","contract_status","contract_calender_type","contract_place","contract_date","contract_start_date","contract_end_date","contract_image",
         "owner_user_id","owner_name","owner_nationality","owner_id_type","owner_id_no","owner_id_image","owner_mobile","owner_email",
         "renter_user_id","renter_name","renter_nationality","renter_id_type","renter_id_no","renter_id_image","renter_mobile","renter_email",
         "is_agent",

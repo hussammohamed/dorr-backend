@@ -149,6 +149,17 @@ class ContractController extends Controller
                 
                 $user->save();
                 $data["renter_user_id"] = $user->id;
+
+                if ($request->hasFile('renter_id_image')) {
+                    $file = $request->file('renter_id_image');
+                    $extension = $file->getClientOriginalExtension();
+                    $id_fileName = str_random(20).".".$extension;
+                    $folderpath  = 'upload/users/id/';
+                    $file->move($folderpath , $id_fileName);
+                    $user->id_image = $id_fileName;
+                    $user->save();
+                }
+                $data["renter_id_image"] = $id_fileName;
             }else{
 
                 $user = User::find($data["renter_user_id"]);
@@ -167,10 +178,20 @@ class ContractController extends Controller
 
             }
 
-            
-            
-
             $contract = Contract::create($data);
+
+            if ($request->hasFile('contract_image')) {
+                $file = $request->file('contract_image');
+                $extension = $file->getClientOriginalExtension();
+                $contract_fileName = str_random(20).".".$extension;
+                $folderpath  = 'upload/contracts/';
+                $file->move($folderpath , $contract_fileName);
+
+                $contract->contract_image = $contract_fileName;
+                $contract->save();
+            }
+
+
 
             foreach ($data_units as $data_unit) {
                 

@@ -26,7 +26,8 @@ class CreateContractsTable extends Migration
             $table->date('contract_date')->nullable();
             $table->date('contract_start_date')->nullable();
             $table->date('contract_end_date')->nullable();
-            
+            $table->string('contract_image')->nullable();
+
             $table->integer('owner_user_id')->nullable();
             $table->string('owner_name')->nullable();
             $table->integer('owner_nationality')->nullable();

@@ -70,6 +70,7 @@ class ContractController extends Controller
             $data_companions = (array) json_decode($request->request->get('companions'), true);
             $data_payments = (array) json_decode($request->request->get('payments'), true);
 
+            $data["contract_status"] = 0;
             $data["created_by"] = Auth::user()->id;
 
             if ($data["m_property_id"]!=null){
@@ -294,9 +295,51 @@ class ContractController extends Controller
      * @param  \App\Contract  $contract
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Contract $contract)
+    public function update(Request $request, $id)
     {
-        //
+        if (Auth::check()) {
+            
+            $data = (array) json_decode($request->request->get('data'));
+
+                
+            
+            //////////////////////////////////////////////////////////
+            //////////////////////////////////////////////////////////
+
+            
+            if ($request->hasFile('contract_image')) {
+                $file = $request->file('contract_image');
+                $extension = $file->getClientOriginalExtension();
+                $contract_fileName = str_random(20).".".$extension;
+                $folderpath  = 'upload/mproperties/property_instrument/';
+                $file->move($folderpath , $contract_fileName);
+
+                $data["contract_image"] = $contract_fileName;
+            }
+
+            //////////////////////////////////////////////////////////
+            //////////////////////////////////////////////////////////
+            $contract = Contract::find($id); 
+            $contract->update($data);
+
+            return response([ "$this->modelname" => new ContractResource($contract)],Response::HTTP_CREATED);
+        }else{
+            return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
+        }
+    }
+
+    public function changeStatus($id,$status)
+    {
+        if (Auth::check()) {
+            
+            $contract = Contract::find($id); 
+            $contract->contract_status = $status;
+            $contract->save();
+
+            return response([ "$this->modelname" => new ContractResource($contract)],Response::HTTP_OK);
+        }else{
+            return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
+        }
     }
 
     /**

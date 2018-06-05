@@ -138,6 +138,24 @@ class FormController extends Controller
                     "name"=>"هجرى",
                 ]
             ],
+            "owner_response"=>[
+                [
+                    "id"=>1,
+                    "name"=>"سأقوم بالإصلاح",
+                ],
+                [
+                    "id"=>2,
+                    "name"=>"إصلاح من قبل المستأجر",
+                ],
+                [
+                    "id"=>3,
+                    "name"=>"إصلاح من قبل دور",
+                ],
+                [
+                    "id"=>4,
+                    "name"=>"رفض الطلب",
+                ]
+            ],
         ];
     }
 }

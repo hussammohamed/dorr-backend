@@ -24,6 +24,11 @@ class Contract extends Model
         "created_by",'active','deleted'
     ];
 
+
+    protected $casts = [
+        'contract_status' => 'integer',
+    ];
+
     public function contract_units()
     {
         return $this->hasMany('App\ContractUnit');

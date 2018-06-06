@@ -155,6 +155,7 @@ Route::group(['prefix'=>'api/v1'],function(){
     Route::post('/mproperties/{id}/owner','MPropertyController@addOnwer');
     Route::post('/mproperties/{id}', 'MPropertyController@update');
     
+	Route::get('/units/contract','ContractUnitController@contractX');
 	Route::apiResource('/units','UnitController');
     Route::post('/units/delete', 'UnitController@delete');
     

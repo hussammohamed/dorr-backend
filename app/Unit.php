@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Unit extends Model
 {
     //
+    public function contract()
+    {
+        return $this->belongsToMany('App\Contract');
+    }
 
     public function mproperty()
     {

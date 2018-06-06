@@ -53,6 +53,10 @@ class UnitController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+    
+
+    
     public function store(Request $request)
     {
         //
@@ -155,6 +159,13 @@ class UnitController extends Controller
         }else{
             return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
         }
+    }
+
+
+    public function contractX()
+    {
+        $contract = Unit::find(70)->contract;
+        return $contract;
     }
 
 }

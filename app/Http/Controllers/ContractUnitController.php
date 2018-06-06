@@ -82,4 +82,9 @@ class ContractUnitController extends Controller
     {
         //
     }
+    public function contractX()
+    {
+        $contract = ContractUnit::find(70)->contract;
+        return $contract;
+    }
 }

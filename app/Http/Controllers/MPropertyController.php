@@ -57,7 +57,7 @@ class MPropertyController extends Controller
 
             $data = (array) json_decode($request->request->get('data'));
 
-            return $data;
+            //return $data;
 
             if($data["user_relation"] == 1){
                 $data["owner_user_id"] = Auth::user()->id;

@@ -40,7 +40,7 @@ class ContractController extends Controller
      */
     public function index($id)
     {
-        return [ $this->modelnames => ContractResource::collection(Contract::Where('m_property_id',$id)->orWhere('owner_user_id',Auth::user()->id)->orWhere('agent_user_id',Auth::user()->id)->orWhere('renter_user_id',Auth::user()->id)->get())];
+        return [ $this->modelnames => ContractResource::collection(Contract::Where('m_property_id',$id)->Where('owner_user_id',Auth::user()->id)->orWhere('agent_user_id',Auth::user()->id)->orWhere('renter_user_id',Auth::user()->id)->get())];
     }
 
     /**
@@ -351,5 +351,32 @@ class ContractController extends Controller
     public function destroy(Contract $contract)
     {
         //
+        $contract->delete();
+        return response(null,Response::HTTP_NO_CONTENT);
+    }
+
+
+    public function delete($id)
+    {
+        if (Auth::check()) {
+            $contract = Contract::find($id);
+            if (count($contract) < 1) {
+                return response()->json(["error"=>"This Contract is not exists"], Response::HTTP_NO_CONTENT);
+            }else{
+                if($contract->user_id == Auth::user()->id){
+                    if($contract->deleted == 0 ){
+                        $contract->deleted = 1;
+                        $contract->save();
+                        return new ContractResource($contract);
+                    }else{
+                        return response()->json(["error"=>"This Contract is already deleted"], Response::HTTP_NOT_MODIFIED);
+                    }
+                }else{
+                    return response()->json(["error"=>"You are not allowd to delete this contract"], Response::HTTP_METHOD_NOT_ALLOWED);
+                }
+            }
+        }else{
+            return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
+        }
     }
 }

@@ -107,6 +107,8 @@ class CreateContractsTable extends Migration
 
             
             $table->integer('created_by');
+		    $table->boolean('active')->default('1');
+		    $table->boolean('deleted')->default('0');
             $table->timestamps();
         });
     }

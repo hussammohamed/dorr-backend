@@ -38,7 +38,11 @@ class ContractController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index()
+    {
+        return [ $this->modelnames => ContractResource::collection(Contract::get())];
+    }
+    public function indexByMProperty($id)
     {
         return [ $this->modelnames => ContractResource::collection(Contract::Where('m_property_id',$id)->Where('owner_user_id',Auth::user()->id)->orWhere('agent_user_id',Auth::user()->id)->orWhere('renter_user_id',Auth::user()->id)->get())];
     }

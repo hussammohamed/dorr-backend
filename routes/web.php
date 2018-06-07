@@ -166,8 +166,9 @@ Route::group(['prefix'=>'api/v1'],function(){
     Route::post('/contracts/delete', 'ContractController@delete');
 
     
-    Route::get('/mproperties/{id}/contracts', 'ContractController@index');
+    Route::get('/mproperties/{id}/contracts', 'ContractController@indexByMProperty');
 
+    Route::get('/mproperties/{id}/units', 'UnitController@indexByMProperty');
 
     /*
     Route::apiResource('/types','TypesController');

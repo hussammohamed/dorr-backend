@@ -3,7 +3,12 @@
 namespace App\Http\Resources;
 
 use App;
+use App\Unit;
+use App\Contract;
 use App\Type;
+
+use DB;
+use App\ContractUnit;
 
 use Illuminate\Http\Resources\Json\Resource;
 
@@ -15,8 +20,26 @@ class UnitResource extends Resource
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
+
+
+    public function av($id){
+        $contract = DB::table('contracts')
+        ->select('contracts.id')
+        ->join('contract_units','contract_units.contract_id','=','contracts.id')
+        ->where(['contract_units.unit_id' => $this->id, 'contracts.contract_status' => 1])
+        ->where('contracts.contract_end_date','>','2018-06-07')
+        ->get();
+
+        if (count($contract) < 1) {
+            return 1;
+        }else{
+            return 0;
+        }
+    }
     public function toArray($request)
     {
+
+        
 
         $name = 'name_'.App::getLocale();
 
@@ -24,10 +47,7 @@ class UnitResource extends Resource
             'id' => $this->id,
             'm_property_id' => $this->m_property_id,
             'no' => $this->no,
-            'type'=> [
-                'id' => $this->type,
-                'name' => Type::find($this->type)->$name
-            ],
+            'type'=> $this->type,
             'floor' => $this->floor,
             'furnished' => $this->furnished,
             'furnished_status' => $this->furnished_status,
@@ -41,6 +61,7 @@ class UnitResource extends Resource
             'electricity_meter' => $this->electricity_meter,
             'water_meter' => $this->water_meter,
             'gas_meter' => $this->gas_meter,
+            'available' => $this->av($this->id)
         ];
     }
 }

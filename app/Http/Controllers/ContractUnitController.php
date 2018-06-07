@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use App\ContractUnit;
 use Illuminate\Http\Request;
 
@@ -84,7 +85,17 @@ class ContractUnitController extends Controller
     }
     public function contractX()
     {
-        $contract = ContractUnit::find(70)->contract;
-        return $contract;
+        $contract = DB::table('contracts')
+        ->select('contracts.id')
+        ->join('contract_units','contract_units.contract_id','=','contracts.id')
+        ->where(['contract_units.unit_id' => 1, 'contracts.contract_status' => 1])
+        ->where('contracts.contract_end_date','>','2018-06-07')
+        ->get();
+
+        if (count($contract) < 1) {
+            return "sdfsdf";
+        }else{
+            return $contract;
+        }
     }
 }

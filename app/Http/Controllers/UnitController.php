@@ -37,6 +37,13 @@ class UnitController extends Controller
         return [ $this->modelnames => UnitResource::collection(Unit::where('active',1)->where('deleted',0)->get())];
     }
 
+    public function indexByMProperty($id)
+    {
+        return [ $this->modelnames => UnitResource::collection(Unit::Where('m_property_id',$id)->where('active',1)->where('deleted',0)->get())];
+    }
+
+    
+
     /**
      * Show the form for creating a new resource.
      *

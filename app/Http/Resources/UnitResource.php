@@ -20,26 +20,28 @@ class UnitResource extends Resource
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
-
-
-    public function av($id){
-        $contract = DB::table('contracts')
-        ->select('contracts.id')
-        ->join('contract_units','contract_units.contract_id','=','contracts.id')
-        ->where(['contract_units.unit_id' => $this->id, 'contracts.contract_status' => 1])
-        ->where('contracts.contract_end_date','>','2018-06-07')
-        ->get();
-
-        if (count($contract) < 1) {
-            return 1;
-        }else{
-            return 0;
-        }
-    }
     public function toArray($request)
     {
 
-        
+        $contract = DB::table('contracts')
+        ->select('contracts.id','contracts.renter_user_id')
+        ->join('contract_units','contract_units.contract_id','=','contracts.id')
+        ->where(['contract_units.unit_id' => $this->id, 'contracts.contract_status' => 1])
+        ->where('contracts.contract_end_date','>','2018-06-07')
+        ->orderBy('contracts.id', 'DESC')
+        ->first();
+
+        if (count($contract) < 1) {
+            $available = 1;
+            $contract_id = null;
+            $renter_user_id = null;
+        }else{
+            $available = 0;
+            $contract_id = $contract->id;
+            $renter_user_id = $contract->renter_user_id;
+
+
+        }
 
         $name = 'name_'.App::getLocale();
 
@@ -61,7 +63,9 @@ class UnitResource extends Resource
             'electricity_meter' => $this->electricity_meter,
             'water_meter' => $this->water_meter,
             'gas_meter' => $this->gas_meter,
-            'available' => $this->av($this->id)
+            'available' => $available,
+            'contract_id' => $contract_id,
+            'renter_user_id' => $renter_user_id
         ];
     }
 }

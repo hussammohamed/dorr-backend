@@ -38,7 +38,7 @@ class ContractResource extends Resource
             'owner_nationality' => $this->owner_nationality,
             'owner_id_type' => $this->owner_id_type,
             'owner_id_no' => $this->owner_id_no,
-            'owner_id_image' => ($this->owner_id_image == null ) ? null : url('/').'/upload/users/'.$this->owner_id_image,
+            'owner_id_image' => ($this->owner_id_image == null ) ? null : url('/').'/upload/users/id/'.$this->owner_id_image,
             'owner_mobile' => $this->owner_mobile,
             'owner_email' => $this->owner_email,
 
@@ -47,7 +47,7 @@ class ContractResource extends Resource
             'renter_nationality' => $this->renter_nationality,
             'renter_id_type' => $this->renter_id_type,
             'renter_id_no' => $this->renter_id_no,
-            'renter_id_image' => ($this->renter_id_image == null ) ? null : url('/').'/upload/users/'.$this->renter_id_image,
+            'renter_id_image' => ($this->renter_id_image == null ) ? null : url('/').'/upload/users/id/'.$this->renter_id_image,
             'renter_mobile' => $this->renter_mobile,
             'renter_email' => $this->renter_email,
 
@@ -57,7 +57,7 @@ class ContractResource extends Resource
             'agent_nationality' => $this->agent_nationality,
             'agent_id_type' => $this->agent_id_type,
             'agent_id_no' => $this->agent_id_no,
-            'agent_id_image' => ($this->agent_id_image == null ) ? null : url('/').'/upload/users/'.$this->agent_id_image,
+            'agent_id_image' => ($this->agent_id_image == null ) ? null : url('/').'/upload/users/id/'.$this->agent_id_image,
             'agent_mobile' => $this->agent_mobile,
             'agent_email' => $this->agent_email,
 

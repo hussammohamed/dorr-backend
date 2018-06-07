@@ -26,7 +26,7 @@ class UnitResource extends Resource
         $contract = DB::table('contracts')
         ->select('contracts.id','contracts.renter_user_id')
         ->join('contract_units','contract_units.contract_id','=','contracts.id')
-        ->where(['contract_units.unit_id' => $this->id, 'contracts.contract_status' => 1])
+        ->where(['contract_units.unit_id' => $this->id])
         ->where('contracts.contract_end_date','>','2018-06-07')
         ->orderBy('contracts.id', 'DESC')
         ->first();
@@ -39,8 +39,6 @@ class UnitResource extends Resource
             $available = 0;
             $contract_id = $contract->id;
             $renter_user_id = $contract->renter_user_id;
-
-
         }
 
         $name = 'name_'.App::getLocale();

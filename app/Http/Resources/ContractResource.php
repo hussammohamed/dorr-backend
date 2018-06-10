@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App;
+use App\Http\Controllers\CalendarController;
 use App\ContractUnit;
 
 use App\Http\Resources\ContractUnitResource;
@@ -28,9 +29,9 @@ class ContractResource extends Resource
             'contract_status' => $this->contract_status,
             'contract_calender_type' => $this->contract_calender_type ,
             'contract_place' => $this->contract_place,
-            'contract_date' => $this->contract_date ,
-            'contract_start_date' => $this->contract_start_date,
-            'contract_end_date' => $this->contract_end_date,
+            'contract_date' => ($this->contract_calender_type == 2 ) ? CalendarController::dateToHijri($this->contract_date) : $this->contract_date,
+            'contract_start_date' => ($this->contract_calender_type == 2 ) ? CalendarController::dateToHijri($this->contract_start_date) : $this->contract_start_date,
+            'contract_end_date' => ($this->contract_calender_type == 2 ) ? CalendarController::dateToHijri($this->contract_end_date) : $this->contract_end_date,
             'contract_image' => ($this->contract_image == null ) ? null : url('/').'/upload/contracts/'.$this->contract_image,
 
             'owner_user_id' => $this->owner_user_id,
@@ -39,7 +40,7 @@ class ContractResource extends Resource
             'owner_id_type' => $this->owner_id_type,
             'owner_id_no' => $this->owner_id_no,
             'owner_id_image' => ($this->owner_id_image == null ) ? null : url('/').'/upload/users/id/'.$this->owner_id_image,
-            'owner_mobile' => $this->owner_mobile,
+            'owner_mobile1' => $this->owner_mobile,
             'owner_email' => $this->owner_email,
 
             'renter_user_id' => $this->renter_user_id,
@@ -48,7 +49,7 @@ class ContractResource extends Resource
             'renter_id_type' => $this->renter_id_type,
             'renter_id_no' => $this->renter_id_no,
             'renter_id_image' => ($this->renter_id_image == null ) ? null : url('/').'/upload/users/id/'.$this->renter_id_image,
-            'renter_mobile' => $this->renter_mobile,
+            'renter_mobile1' => $this->renter_mobile,
             'renter_email' => $this->renter_email,
 
 
@@ -58,7 +59,7 @@ class ContractResource extends Resource
             'agent_id_type' => $this->agent_id_type,
             'agent_id_no' => $this->agent_id_no,
             'agent_id_image' => ($this->agent_id_image == null ) ? null : url('/').'/upload/users/id/'.$this->agent_id_image,
-            'agent_mobile' => $this->agent_mobile,
+            'agent_mobile1' => $this->agent_mobile,
             'agent_email' => $this->agent_email,
 
             'agency_id' => $this->agency_id,
@@ -96,8 +97,9 @@ class ContractResource extends Resource
             'rent_total' => $this->rent_total,
 
             'rent_payment_no' => $this->rent_payment_no,
-            'rent_payment_issued_date' => $this->rent_payment_issued_date,
-            'rent_payment_due_date' => $this->rent_payment_due_date,
+
+            'rent_payment_issued_date' => ($this->contract_calender_type == 2 ) ? CalendarController::dateToHijri($this->rent_payment_issued_date) : $this->rent_payment_issued_date,
+            'rent_payment_due_date' => ($this->contract_calender_type == 2 ) ? CalendarController::dateToHijri($this->rent_payment_due_date) : $this->rent_payment_due_date,
             'rent_payment_amount' => $this->rent_payment_amount,
 
             'terms' => $this->terms,

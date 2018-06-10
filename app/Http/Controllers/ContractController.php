@@ -13,6 +13,7 @@ use App\User;
 use App\Agency;
 use App\MProperty;
 use App\Payment;
+use App\Http\Controllers\CalendarController;
 
 //use App\Http\Requests\BankRequest;
 use App\Http\Resources\ContractResource;
@@ -45,7 +46,7 @@ class ContractController extends Controller
     }
     public function indexByMProperty($id)
     {
-        return [ $this->modelnames => ContractResource::collection(Contract::Where('m_property_id',$id)->Where('owner_user_id',Auth::user()->id)->orWhere('agent_user_id',Auth::user()->id)->orWhere('renter_user_id',Auth::user()->id)->get())];
+        return [ $this->modelnames => ContractResource::collection(Contract::Where('m_property_id',$id)->get())];
     }
 
     /**
@@ -78,6 +79,16 @@ class ContractController extends Controller
             $data["contract_status"] = 0;
             $data["created_by"] = Auth::user()->id;
 
+
+
+            if ($data["contract_calender_type"] == 2 ){
+                $data["contract_date"] = CalendarController::dateFromHijri($data["contract_date"]);
+                $data["contract_start_date"] = CalendarController::dateFromHijri($data["contract_start_date"]);
+                $data["contract_end_date"] = CalendarController::dateFromHijri($data["contract_end_date"]);
+                $data["rent_payment_issued_date"] = CalendarController::dateFromHijri($data["rent_payment_issued_date"]);
+                $data["rent_payment_due_date"] = CalendarController::dateFromHijri($data["rent_payment_due_date"]);
+            }
+
             if ($data["m_property_id"]!=null){
 
                 $m_property = MProperty::find($data["m_property_id"]);
@@ -107,7 +118,7 @@ class ContractController extends Controller
                 //$data["owner_id_issued_date"] = $user->id_issued_date;
                 //$data["owner_id_id_exp_date"] = $user->id_id_exp_date;
                 $data["owner_id_image"] = $user->id_image;
-                $data["owner_mobile"] = $user->mobile;
+                $data["owner_mobile"] = $user->mobile1;
                 $data["owner_email"] = $user->email;
             }else{
                 return response()->json(["error"=>"There is no Owner"], Response::HTTP_BAD_REQUEST);
@@ -126,7 +137,7 @@ class ContractController extends Controller
                 //$data["agent_id_issued_date"] = $user->id_issued_date;
                 //$data["agent_id_id_exp_date"] = $user->id_id_exp_date;
                 $data["agent_id_image"] = $user->id_image;
-                $data["agent_mobile"] = $user->mobile;
+                $data["agent_mobile"] = $user->mobile1;
                 $data["agent_email"] = $user->email;
 
                 $agency = Agency::where('user_id',$m_property->agent_user_id)->first();
@@ -300,10 +311,13 @@ class ContractController extends Controller
      * @param  \App\Contract  $contract
      * @return \Illuminate\Http\Response
      */
+
+
+    
+
     public function update(Request $request, $id)
     {
-        
-
+       
         if (Auth::check()) {
 
             DB::table('contract_units')->where('contract_id', '=', $id)->delete();
@@ -325,6 +339,13 @@ class ContractController extends Controller
             $data["created_by"] = Auth::user()->id;
 
             
+            if ($data["contract_calender_type"] == 2 ){
+                $data["contract_date"] = CalendarController::dateFromHijri($data["contract_date"]);
+                $data["contract_start_date"] = CalendarController::dateFromHijri($data["contract_start_date"]);
+                $data["contract_end_date"] = CalendarController::dateFromHijri($data["contract_end_date"]);
+                $data["rent_payment_issued_date"] = CalendarController::dateFromHijri($data["rent_payment_issued_date"]);
+                $data["rent_payment_due_date"] = CalendarController::dateFromHijri($data["rent_payment_due_date"]);
+            }
 
             if ($data["m_property_id"]!=null){
 
@@ -570,4 +591,8 @@ class ContractController extends Controller
             return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
         }
     }
+
+    
+
+
 }

@@ -22,8 +22,6 @@ class Payment extends Model
         'owner_user_id' => 'integer',
         'renter_user_id' => 'integer',
         'serial' => 'integer',
-        'issued_date' => 'date',
-        'due_date' => 'date',
         'amount' => 'integer',
         'notification' => 'integer'
     ];

@@ -76,7 +76,7 @@ class ContractController extends Controller
             $data_companions = (array) json_decode($request->request->get('companions'), true);
             $data_payments = (array) json_decode($request->request->get('payments'), true);
 
-            $data["contract_status"] = 0;
+            // $data["contract_status"] = 0;
             $data["created_by"] = Auth::user()->id;
 
 
@@ -345,7 +345,7 @@ class ContractController extends Controller
             $data_companions = (array) json_decode($request->request->get('companions'), true);
             $data_payments = (array) json_decode($request->request->get('payments'), true);
 
-            $data["contract_status"] = 0;
+            // $data["contract_status"] = 0;
             $data["created_by"] = Auth::user()->id;
 
             

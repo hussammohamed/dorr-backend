@@ -320,6 +320,17 @@ class ContractController extends Controller
        
         if (Auth::check()) {
 
+            $data_units = (array) json_decode($request->request->get('units'), true);
+
+            foreach ($data_units as $data_unit) {
+                
+                $unit = Unit::find($data_unit["id"]);
+                if (count($unit) == 0) {
+                    return response()->json(["error"=>"One or more units is not exists"], Response::HTTP_BAD_REQUEST);
+                }
+            }
+
+
             DB::table('contract_units')->where('contract_id', '=', $id)->delete();
             DB::table('companions')->where('contract_id', '=', $id)->delete();
             DB::table('payments')->where('contract_id', '=', $id)->delete();
@@ -331,7 +342,6 @@ class ContractController extends Controller
             
 
             $data = (array) json_decode($request->request->get('data'));
-            $data_units = (array) json_decode($request->request->get('units'), true);
             $data_companions = (array) json_decode($request->request->get('companions'), true);
             $data_payments = (array) json_decode($request->request->get('payments'), true);
 
@@ -526,8 +536,14 @@ class ContractController extends Controller
                     $payment->owner_user_id = $contract->owner_user_id;
                     $payment->renter_user_id = $contract->renter_user_id;
                     $payment->serial = $serial;
-                    $payment->issued_date = $data_payment["issued_date"];
-                    $payment->due_date = $data_payment["due_date"];
+                    if ($data["contract_calender_type"] == 2 ){
+                        $payment->issued_date = CalendarController::dateFromHijri($data_payment["issued_date"]);
+                        $payment->due_date = CalendarController::dateFromHijri($data_payment["due_date"]);
+                    }else{
+                        $payment->issued_date = $data_payment["issued_date"];
+                        $payment->due_date = $data_payment["due_date"];
+                    }
+
                     $payment->amount = $data_payment["amount"];
                     
                     $payment->save();

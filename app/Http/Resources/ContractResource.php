@@ -96,12 +96,6 @@ class ContractResource extends Resource
             'rent_payments' => $this->rent_payments,
             'rent_total' => $this->rent_total,
 
-            'rent_payment_no' => $this->rent_payment_no,
-
-            'rent_payment_issued_date' => ($this->contract_calender_type == 2 ) ? CalendarController::dateToHijri($this->rent_payment_issued_date) : $this->rent_payment_issued_date,
-            'rent_payment_due_date' => ($this->contract_calender_type == 2 ) ? CalendarController::dateToHijri($this->rent_payment_due_date) : $this->rent_payment_due_date,
-            'rent_payment_amount' => $this->rent_payment_amount,
-
             'terms' => $this->terms,
     
             'contract_units' =>  $this->contract_units,

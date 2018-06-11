@@ -98,14 +98,8 @@ class CreateContractsTable extends Migration
             $table->integer('rent_payments')->nullable();
             $table->integer('rent_total')->nullable();
             
-            $table->integer('rent_payment_no')->nullable();
-            $table->date('rent_payment_issued_date')->nullable();
-            $table->date('rent_payment_due_date')->nullable();
-            $table->integer('rent_payment_amount')->nullable();
-
             $table->string('terms')->nullable();
 
-            
             $table->integer('created_by');
 		    $table->boolean('active')->default('1');
 		    $table->boolean('deleted')->default('0');

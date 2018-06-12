@@ -85,8 +85,6 @@ class ContractController extends Controller
                 $data["contract_date"] = CalendarController::dateFromHijri($data["contract_date"]);
                 $data["contract_start_date"] = CalendarController::dateFromHijri($data["contract_start_date"]);
                 $data["contract_end_date"] = CalendarController::dateFromHijri($data["contract_end_date"]);
-                $data["rent_payment_issued_date"] = CalendarController::dateFromHijri($data["rent_payment_issued_date"]);
-                $data["rent_payment_due_date"] = CalendarController::dateFromHijri($data["rent_payment_due_date"]);
             }
 
             if ($data["m_property_id"]!=null){
@@ -353,8 +351,6 @@ class ContractController extends Controller
                 $data["contract_date"] = CalendarController::dateFromHijri($data["contract_date"]);
                 $data["contract_start_date"] = CalendarController::dateFromHijri($data["contract_start_date"]);
                 $data["contract_end_date"] = CalendarController::dateFromHijri($data["contract_end_date"]);
-                $data["rent_payment_issued_date"] = CalendarController::dateFromHijri($data["rent_payment_issued_date"]);
-                $data["rent_payment_due_date"] = CalendarController::dateFromHijri($data["rent_payment_due_date"]);
             }
 
             if ($data["m_property_id"]!=null){

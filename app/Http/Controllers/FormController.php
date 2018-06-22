@@ -22,6 +22,7 @@ use App\IdType;
 use App\Bank;
 use App\ContractType;
 use App\UsageType;
+use App\ServiceType;
 
 use App\Http\Resources\TypesResource;
 use App\Http\Resources\PurposesResource;
@@ -40,6 +41,7 @@ use App\Http\Resources\IdTypeResource;
 use App\Http\Resources\BankResource;
 use App\Http\Resources\ContractTypeResource;
 use App\Http\Resources\UsageTypeResource;
+use App\Http\Resources\ServiceTypeResource;
 
 use Illuminate\Http\Request;
 
@@ -64,7 +66,8 @@ class FormController extends Controller
         $banks = Bank::where('active',1)->where('deleted',0)->orderby('order')->get();
         $contract_types = ContractType::where('active',1)->where('deleted',0)->orderby('order')->get();
         $usage_types = UsageType::where('active',1)->where('deleted',0)->orderby('order')->get();
-
+        $service_types = ServiceType::where('active',1)->where('deleted',0)->orderby('order')->get();
+        
         
 
         
@@ -88,6 +91,7 @@ class FormController extends Controller
             "banks" => BankResource::collection($banks),
             "contract_types" => ContractTypeResource::collection($contract_types),
             "usage_types" => UsageTypeResource::collection($usage_types),
+            "service_types" => ServiceTypeResource::collection($service_types),
             "contract_conditions"=>[
                 [
                     "id"=>1,

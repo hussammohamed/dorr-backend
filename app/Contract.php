@@ -26,6 +26,10 @@ class Contract extends Model
 
 
     protected $casts = [
+        'contract_type' => 'integer',
+        'contract_condition' => 'integer',
+        'contract_calender_type' => 'integer',
+        'contract_place' => 'integer',
         'contract_status' => 'integer',
     ];
 

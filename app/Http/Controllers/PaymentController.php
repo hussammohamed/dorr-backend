@@ -2,11 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+use App;
 use App\Payment;
+
+use App\Http\Requests\PaymentRequest;
+use App\Http\Resources\PaymentResource;
+
+use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 
 class PaymentController extends Controller
 {
+    
+    private $modelname = "payment";
+    private $modelnames = "payments";
+
+    public function __construct()
+    {
+        $this->middleware('auth:api');//->except('index','show');
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +31,12 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        //
+        return [ $this->modelnames => PaymentResource::collection(Payment::get())];
+    }
+
+    public function indexByMProperty($id)
+    {
+        return [ $this->modelnames => PaymentResource::collection(Payment::Where('m_property_id',$id)->get())];
     }
 
     /**
@@ -25,6 +47,7 @@ class PaymentController extends Controller
     public function create()
     {
         //
+        
     }
 
     /**
@@ -36,6 +59,15 @@ class PaymentController extends Controller
     public function store(Request $request)
     {
         //
+        if (Auth::check()) {
+            $data = (array) json_decode($request->request->get('data'));
+
+            $payment = Payment::create($data);            
+
+            return [ $this->modelname => new PaymentResource($payment)];
+        }else{
+            return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
+        }
     }
 
     /**
@@ -47,6 +79,7 @@ class PaymentController extends Controller
     public function show(Payment $payment)
     {
         //
+        return [ $this->modelname => new PaymentResource($payment)];
     }
 
     /**
@@ -67,9 +100,19 @@ class PaymentController extends Controller
      * @param  \App\Payment  $payment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Payment $payment)
+    public function update(Request $request, $id)
     {
         //
+        if (Auth::check()) {
+            $data = (array) json_decode($request->request->get('data'));
+
+            $payment = Payment::find($id); 
+            $payment->update($data);          
+
+            return [ $this->modelname => new PaymentResource($payment)];
+        }else{
+            return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
+        }
     }
 
     /**
@@ -81,5 +124,7 @@ class PaymentController extends Controller
     public function destroy(Payment $payment)
     {
         //
+        $payment->delete();
+        return response(null,Response::HTTP_NO_CONTENT);
     }
 }

@@ -15,6 +15,8 @@ class CreateCompanionsTable extends Migration
     {
         Schema::create('companions', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('contract_id')->nullable();
+            $table->integer('renter_user_id')->nullable();
             $table->string('name')->nullable();
             $table->integer('nationality')->nullable();
             $table->integer('id_type')->nullable();

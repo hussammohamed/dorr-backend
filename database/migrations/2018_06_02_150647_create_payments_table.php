@@ -16,6 +16,7 @@ class CreatePaymentsTable extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('contract_id')->nullable();
+            $table->integer('m_property_id')->nullable();
             $table->integer('owner_user_id')->nullable();
             $table->integer('renter_user_id')->nullable();
             $table->integer('serial')->nullable();
@@ -23,6 +24,8 @@ class CreatePaymentsTable extends Migration
             $table->date('due_date')->nullable();
             $table->integer('amount')->nullable();
             $table->integer('notification')->nullable();
+
+            $table->string('status')->default('0');
             $table->timestamps();
         });
     }

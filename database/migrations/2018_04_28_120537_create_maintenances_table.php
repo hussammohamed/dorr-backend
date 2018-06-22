@@ -15,6 +15,21 @@ class CreateMaintenancesTable extends Migration
     {
         Schema::create('maintenances', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('m_property_id')->nullable();
+            $table->integer('unit_id')->nullable();
+            
+            $table->string('service_type')->nullable();
+            $table->string('service')->nullable();
+            $table->string('description')->nullable();
+
+            $table->integer('owner_response')->nullable();
+            $table->integer('min_fix_amount')->nullable();
+
+            $table->integer('laborer_pay')->nullable();
+            $table->integer('matrials_price')->nullable();
+            $table->string('invoice_image')->nullable();
+
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }

@@ -261,6 +261,7 @@ class ContractController extends Controller
                     $serial++;
                     $payment = new Payment;
                     $payment->contract_id = $contract->id;
+                    $payment->m_property_id = $data["m_property_id"];
                     $payment->owner_user_id = $contract->owner_user_id;
                     $payment->renter_user_id = $contract->renter_user_id;
                     $payment->serial = $serial;

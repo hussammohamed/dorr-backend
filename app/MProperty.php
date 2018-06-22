@@ -14,12 +14,25 @@ class MProperty extends Model
         'agency_instrument_no','agency_instrument_issuer','agency_instrument_date',
         'agency_instrument_exp_date','agency_instrument_image','property_management_contract_image','created_by','active','deleted'
     ];
+
     protected $casts = [
         'type' => 'integer', 'district' => 'integer', 'property_instrument_issuer' => 'integer', 
         'agency_instrument_issuer' => 'integer'
     ];
+
     public function units()
     {
         return $this->hasMany('App\Unit');
     }
+
+    public function maintenances()
+    {
+        return $this->hasMany('App\Maintenance');
+    }
+
+    public function payments()
+    {
+        return $this->hasMany('App\Payment');
+    }
+    
 }

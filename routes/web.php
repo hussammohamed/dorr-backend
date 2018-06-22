@@ -158,17 +158,26 @@ Route::group(['prefix'=>'api/v1'],function(){
 	Route::get('/units/contract','ContractUnitController@contractX');
 	Route::apiResource('/units','UnitController');
     Route::post('/units/delete', 'UnitController@delete');
+    Route::get('/mproperties/{id}/units', 'UnitController@indexByMProperty');
     
 	Route::apiResource('/contracts','ContractController');
     Route::post('/contracts/{id}', 'ContractController@update');
     Route::post('/contracts/{id}/status/{status}', 'ContractController@changeStatus');
-    
     Route::post('/contracts/delete', 'ContractController@delete');
-
-    
     Route::get('/mproperties/{id}/contracts', 'ContractController@indexByMProperty');
 
-    Route::get('/mproperties/{id}/units', 'UnitController@indexByMProperty');
+    
+	Route::apiResource('/maintenances','MaintenanceController');
+    Route::post('/maintenances/{id}', 'MaintenanceController@update');
+    Route::post('/maintenances/{id}/status/{status}', 'MaintenanceController@changeStatus');
+    Route::get('/mproperties/{id}/maintenances', 'MaintenanceController@indexByMProperty');
+
+    
+	Route::apiResource('/payments','PaymentController');
+    Route::post('/payments/{id}', 'PaymentController@update');
+    Route::post('/payments/{id}/status/{status}', 'PaymentController@changeStatus');
+    Route::get('/mproperties/{id}/payments', 'PaymentController@indexByMProperty');
+
 
     /*
     Route::apiResource('/types','TypesController');

@@ -72,6 +72,7 @@ class ContractController extends Controller
 
             $data = (array) json_decode($request->request->get('data'));
             
+            //return $data["renter_mobile1"];
             $data_units = (array) json_decode($request->request->get('units'), true);
             $data_companions = (array) json_decode($request->request->get('companions'), true);
             $data_payments = (array) json_decode($request->request->get('payments'), true);
@@ -116,7 +117,7 @@ class ContractController extends Controller
                 //$data["owner_id_issued_date"] = $user->id_issued_date;
                 //$data["owner_id_id_exp_date"] = $user->id_id_exp_date;
                 $data["owner_id_image"] = $user->id_image;
-                $data["owner_mobile"] = $user->mobile1;
+                $data["owner_mobile1"] = $user->mobile1;
                 $data["owner_email"] = $user->email;
             }else{
                 return response()->json(["error"=>"There is no Owner"], Response::HTTP_BAD_REQUEST);
@@ -135,7 +136,7 @@ class ContractController extends Controller
                 //$data["agent_id_issued_date"] = $user->id_issued_date;
                 //$data["agent_id_id_exp_date"] = $user->id_id_exp_date;
                 $data["agent_id_image"] = $user->id_image;
-                $data["agent_mobile"] = $user->mobile1;
+                $data["agent_mobile1"] = $user->mobile1;
                 $data["agent_email"] = $user->email;
 
                 $agency = Agency::where('user_id',$m_property->agent_user_id)->first();
@@ -153,7 +154,7 @@ class ContractController extends Controller
                 $user = new User;
                 $user->name = $data["renter_name"];
                 $user->email = $data["renter_email"];
-                $user->mobile1 = $data["renter_mobile"];
+                $user->mobile1 = $data["renter_mobile1"];
                 $user->nationality = $data["renter_nationality"];
                 //$user->address = $data["renter_address"];
                 $user->id_type = $data["renter_id_type"];
@@ -163,6 +164,7 @@ class ContractController extends Controller
                 //$user->id_exp_date = $data["renter_id_exp_date"];
                 
                 $user->save();
+
                 $data["renter_user_id"] = $user->id;
 
                 if ($request->hasFile('renter_id_image')) {
@@ -173,8 +175,8 @@ class ContractController extends Controller
                     $file->move($folderpath , $id_fileName);
                     $user->id_image = $id_fileName;
                     $user->save();
+                    $data["renter_id_image"] = $id_fileName;
                 }
-                $data["renter_id_image"] = $id_fileName;
             }else{
 
                 $user = User::find($data["renter_user_id"]);
@@ -188,11 +190,11 @@ class ContractController extends Controller
                 //$data["renter_id_issued_date"] = $user->id_issued_date;
                 //$data["renter_id_id_exp_date"] = $user->id_id_exp_date;
                 $data["renter_id_image"] = $user->id_image;
-                $data["renter_mobile"] = $user->mobile;
+                $data["renter_mobile1"] = $user->mobile1;
                 $data["renter_email"] = $user->email;
 
             }
-
+            
             $contract = Contract::create($data);
 
             if ($request->hasFile('contract_image')) {
@@ -383,7 +385,7 @@ class ContractController extends Controller
                 //$data["owner_id_issued_date"] = $user->id_issued_date;
                 //$data["owner_id_id_exp_date"] = $user->id_id_exp_date;
                 $data["owner_id_image"] = $user->id_image;
-                $data["owner_mobile"] = $user->mobile;
+                $data["owner_mobile1"] = $user->mobile1;
                 $data["owner_email"] = $user->email;
             }else{
                 return response()->json(["error"=>"There is no Owner"], Response::HTTP_BAD_REQUEST);
@@ -402,7 +404,7 @@ class ContractController extends Controller
                 //$data["agent_id_issued_date"] = $user->id_issued_date;
                 //$data["agent_id_id_exp_date"] = $user->id_id_exp_date;
                 $data["agent_id_image"] = $user->id_image;
-                $data["agent_mobile"] = $user->mobile;
+                $data["agent_mobile1"] = $user->mobile1;
                 $data["agent_email"] = $user->email;
 
                 $agency = Agency::where('user_id',$m_property->agent_user_id)->first();
@@ -420,7 +422,7 @@ class ContractController extends Controller
                 $user = new User;
                 $user->name = $data["renter_name"];
                 $user->email = $data["renter_email"];
-                $user->mobile1 = $data["renter_mobile"];
+                $user->mobile1 = $data["renter_mobile1"];
                 $user->nationality = $data["renter_nationality"];
                 //$user->address = $data["renter_address"];
                 $user->id_type = $data["renter_id_type"];
@@ -457,7 +459,7 @@ class ContractController extends Controller
                 //$data["renter_id_issued_date"] = $user->id_issued_date;
                 //$data["renter_id_id_exp_date"] = $user->id_id_exp_date;
                 $data["renter_id_image"] = $user->id_image;
-                $data["renter_mobile"] = $user->mobile;
+                $data["renter_mobile1"] = $user->mobile1;
                 $data["renter_email"] = $user->email;
 
             }

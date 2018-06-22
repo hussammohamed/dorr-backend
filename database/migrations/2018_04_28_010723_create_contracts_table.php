@@ -34,7 +34,7 @@ class CreateContractsTable extends Migration
             $table->integer('owner_id_type')->nullable();
             $table->string('owner_id_no')->nullable();
             $table->string('owner_id_image')->nullable();
-            $table->string('owner_mobile')->nullable();
+            $table->string('owner_mobile1')->nullable();
             $table->string('owner_email')->nullable();
             
             $table->integer('renter_user_id');
@@ -43,7 +43,7 @@ class CreateContractsTable extends Migration
             $table->integer('renter_id_type')->nullable();
             $table->string('renter_id_no')->nullable();
             $table->string('renter_id_image')->nullable();
-            $table->string('renter_mobile')->nullable();
+            $table->string('renter_mobile1')->nullable();
             $table->string('renter_email')->nullable();
             
 
@@ -64,7 +64,7 @@ class CreateContractsTable extends Migration
             $table->integer('agent_id_type')->nullable();
             $table->string('agent_id_no')->nullable();
             $table->string('agent_id_image')->nullable();
-            $table->string('agent_mobile')->nullable();
+            $table->string('agent_mobile1')->nullable();
             $table->string('agent_email')->nullable();
             
             $table->integer('property_instrument_no')->nullable();

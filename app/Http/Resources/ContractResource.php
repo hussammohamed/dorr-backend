@@ -40,7 +40,7 @@ class ContractResource extends Resource
             'owner_id_type' => $this->owner_id_type,
             'owner_id_no' => $this->owner_id_no,
             'owner_id_image' => ($this->owner_id_image == null ) ? null : url('/').'/upload/users/id/'.$this->owner_id_image,
-            'owner_mobile1' => $this->owner_mobile,
+            'owner_mobile1' => $this->owner_mobile1,
             'owner_email' => $this->owner_email,
 
             'renter_user_id' => $this->renter_user_id,
@@ -49,7 +49,7 @@ class ContractResource extends Resource
             'renter_id_type' => $this->renter_id_type,
             'renter_id_no' => $this->renter_id_no,
             'renter_id_image' => ($this->renter_id_image == null ) ? null : url('/').'/upload/users/id/'.$this->renter_id_image,
-            'renter_mobile1' => $this->renter_mobile,
+            'renter_mobile1' => $this->renter_mobile1,
             'renter_email' => $this->renter_email,
 
 
@@ -59,7 +59,7 @@ class ContractResource extends Resource
             'agent_id_type' => $this->agent_id_type,
             'agent_id_no' => $this->agent_id_no,
             'agent_id_image' => ($this->agent_id_image == null ) ? null : url('/').'/upload/users/id/'.$this->agent_id_image,
-            'agent_mobile1' => $this->agent_mobile,
+            'agent_mobile1' => $this->agent_mobile1,
             'agent_email' => $this->agent_email,
 
             'agency_id' => $this->agency_id,
@@ -95,6 +95,8 @@ class ContractResource extends Resource
             'last_rent_amount' => $this->last_rent_amount,
             'rent_payments' => $this->rent_payments,
             'rent_total' => $this->rent_total,
+
+            'created_by' => $this->created_by,
 
             'terms' => $this->terms,
     

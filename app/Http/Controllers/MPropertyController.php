@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Auth;
 use App;
 use App\MProperty;
+use App\Contract;
 
 //use App\Http\Requests\BankRequest;
 use App\Http\Resources\MPropertyResource;
@@ -31,7 +32,24 @@ class MPropertyController extends Controller
      */
     public function index()
     {
-        return [ $this->modelnames => MPropertyResource::collection(MProperty::orWhere('owner_user_id',Auth::user()->id)->orWhere('agent_user_id',Auth::user()->id)->where('active',1)->where('deleted',0)->get())];
+
+        $m_properties = MPropertyResource::collection(MProperty::orWhere('owner_user_id',Auth::user()->id)->orWhere('agent_user_id',Auth::user()->id)->where('active',1)->where('deleted',0)->get());
+
+        $contracts = Contract::Where('renter_user_id',Auth::user()->id)->Where('contract_end_date', '>=', date("Y-m-d"))->get();
+        
+        $m_property;
+
+        foreach ($contracts as $contract) {
+                
+            $m_properties_rented = MPropertyResource::collection(MProperty::Where('id',$contract["m_property_id"])->get());
+            $m_properties = $m_properties->merge($m_properties_rented);
+
+        }
+        
+        //return $m_properties;
+
+
+        return [ $this->modelnames => $m_properties];
     }
 
     /**

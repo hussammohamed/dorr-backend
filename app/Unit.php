@@ -25,7 +25,7 @@ class Unit extends Model
     ];
 
     protected $casts = [
-        'm_property_id' => 'integer', 'type' => 'integer', 'furnished' => 'integer',
+        'id' => 'integer', 'm_property_id' => 'integer', 'type' => 'integer', 'furnished' => 'integer',
         'furnished_status' => 'integer','kitchen_cabinet' => 'integer', 'bed_rooms' => 'integer',
         'living_rooms' => 'integer', 'bath_rooms' => 'integer', 'split_air_conditioner' => 'integer',
         'window_air_conditioner' => 'integer'

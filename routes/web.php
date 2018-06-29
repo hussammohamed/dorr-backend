@@ -178,6 +178,19 @@ Route::group(['prefix'=>'api/v1'],function(){
     Route::post('/payments/{id}/status/{status}', 'PaymentController@changeStatus');
     Route::get('/mproperties/{id}/payments', 'PaymentController@indexByMProperty');
 
+    
+	Route::apiResource('/payment_orders','PaymentOrderController');
+    Route::post('/payment_orders/{id}', 'PaymentOrderController@update');
+    Route::post('/payment_orders/{id}/status/{status}', 'PaymentOrderController@changeStatus');
+    Route::get('/mproperties/{id}/payment_orders', 'PaymentOrderController@indexByMProperty');
+
+    
+	Route::apiResource('/payment_collects','PaymentCollectController');
+    Route::post('/payment_collects/{id}', 'PaymentCollectController@update');
+    Route::post('/payment_collects/{id}/status/{status}', 'PaymentCollectController@changeStatus');
+    Route::get('/payment_orders/{id}/payment_collects', 'PaymentCollectController@indexByPaymentOrder');
+
+    
 
     /*
     Route::apiResource('/types','TypesController');

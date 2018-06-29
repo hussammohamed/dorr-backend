@@ -34,5 +34,10 @@ class MProperty extends Model
     {
         return $this->hasMany('App\Payment');
     }
+
+    public function payment_orders()
+    {
+        return $this->hasMany('App\PaymentOrder');
+    }
     
 }

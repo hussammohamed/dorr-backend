@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources;
 
+use App;
+
 use Illuminate\Http\Resources\Json\Resource;
 
 class ServiceTypeResource extends Resource
@@ -14,6 +16,10 @@ class ServiceTypeResource extends Resource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        $name = 'name_'.App::getLocale();
+        return [
+            'id' => $this->id,
+            'name' => $this->$name,
+        ];
     }
 }

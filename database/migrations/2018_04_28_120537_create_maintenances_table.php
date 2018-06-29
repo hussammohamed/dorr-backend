@@ -29,7 +29,7 @@ class CreateMaintenancesTable extends Migration
             $table->integer('matrials_price')->nullable();
             $table->string('invoice_image')->nullable();
 
-            $table->string('status')->nullable();
+            $table->integer('status')->default('1');
             $table->timestamps();
         });
     }

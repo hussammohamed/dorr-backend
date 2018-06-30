@@ -74,7 +74,7 @@ class PaymentOrderController extends Controller
             }
             
             $data["contract_id"] = $payment->contract_id;  
-            $data["m_property_id"] = $payment->m_property_id;  
+            $data["m_property_id"] = $contract->m_property_id;  
             $data["units"] = $units;
             $data["due_date"] = $payment->due_date;  
             $data["amount"] = $payment->amount;  

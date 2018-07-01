@@ -26,7 +26,7 @@ class PaymentCollectResource extends Resource
             'payment_order_id' => $this->payment_order_id,
             'due_date' => $this->due_date,
             'amount' => $this->amount,
-            'remain' => "ddf",
+            'remain' => $remain,
             'status' => $this->status,
             'notification' => $this->notification
         ];

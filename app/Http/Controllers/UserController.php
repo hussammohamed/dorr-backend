@@ -7,6 +7,10 @@ use App\User;
 use Hash;
 use App\Property;
 use App\MProperty;;
+use App\Region;
+use App\IdType;
+use App\Nationality;
+use App\Bank;
 
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
@@ -205,7 +209,12 @@ class UserController extends Controller
         //
         if (Auth::check()) {
             $user = User::where('id',Auth::user()->id)->get();
-            return view('myAccount',['user'=>$user]);
+            $regions = Region::where('type',1)->where('active',1)->where('deleted',0)->orderby('order')->get();
+            $banks  = Bank::where('active',1)->where('deleted',0)->orderby('order')->get();
+            $idTypes = IdType::where('active',1)->where('deleted',0)->orderby('order')->get();
+            $nationalities = Nationality::where('active',1)->where('deleted',0)->orderby('order')->get();
+
+            return view('myAccount',['name'=>'name_'.App::getLocale(), 'user'=>$user, 'regions'=>$regions, 'banks'=>$banks, 'idTypes'=>$idTypes, 'nationalities'=>$nationalities,]);
         }else{
             return redirect('/');
         }
@@ -300,6 +309,16 @@ class UserController extends Controller
             $user->phone = $request->phone;
             $user->mobile1 = $request->mobile1;
             $user->mobile2 = $request->mobile2;
+            $user->bank = $request->bank;
+            $user->address = $request->address;
+            $user->id_type = $request->id_type;
+            $user->id_no = $request->id_no;
+            $user->id_issuer = $request->id_issuer;
+            $user->id_issued_date = $request->id_issued_date;
+            $user->id_exp_date = $request->id_exp_date;
+            $user->nationality = $request->nationality;
+            $user->bank_iban = $request->bank_iban;
+            $user->bank = $request->bank;
             $user->save();
             return redirect('myAccount');
         }else{

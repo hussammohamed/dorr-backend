@@ -42,7 +42,7 @@
 $(".filter-map").owlCarouselRtl({
         dotsData: false,
         nav: true,
-        items: 14
+        items: 10
     });
 </script> @endpush @push('styles')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css">

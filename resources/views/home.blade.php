@@ -45,7 +45,7 @@ $(".filter-map").owlCarouselRtl({
         center: true,
         stagePadding: 10,
         nav: true,
-        items: 15
+        items: 10
     });
 </script> @endpush @push('styles')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css">

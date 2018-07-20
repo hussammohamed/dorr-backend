@@ -36,6 +36,21 @@
 </div>
 
 @endsection @push('scripts')
+
+<script src="https://www.gstatic.com/firebasejs/5.3.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyDvN0Pywabdl8U8J2hxM0b32h7ErOZuXZ8",
+    authDomain: "dorr-app.firebaseapp.com",
+    databaseURL: "https://dorr-app.firebaseio.com",
+    projectId: "dorr-app",
+    storageBucket: "dorr-app.appspot.com",
+    messagingSenderId: "243311451130"
+  };
+  firebase.initializeApp(config);
+</script>
+
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script>
 <script type="text/javascript" src={{ asset( 'js/owl.carousel.rtl.js')}} /></script>
 <script>$(".owl-carousel").owlCarouselRtl({

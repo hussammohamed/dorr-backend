@@ -50,6 +50,7 @@ class PropertyOfferController extends Controller
         
             $offer = new PropertyOffer;
             $offer->property_id = $request->property_id;
+            $offer->reply_on = $request->reply_on;
             $offer->description = $request->description;
             $offer->price = $request->price;
             (Auth::check())? $offer->user_id = Auth::user()->id : $offer->user_id = 0 ;
@@ -67,6 +68,7 @@ class PropertyOfferController extends Controller
         if (Auth::check()) {
             $offer = new PropertyOffer;
             $offer->property_id = $request->property_id;
+            $offer->reply_on = $request->reply_on;
             $offer->description = $request->description;
             $offer->price = $request->price;
             $offer->user_id = Auth::user()->id;
@@ -75,6 +77,7 @@ class PropertyOfferController extends Controller
 
             return [
                 'offer_id' => $offer->id,
+                'reply_on'=> $offer->reply_on,
                 'description' => $offer->description,
                 'price' => $offer->price,
                 'offerOwner' =>[
@@ -88,6 +91,9 @@ class PropertyOfferController extends Controller
             return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
         }
     }
+
+
+
 
     /**
      * Display the specified resource.

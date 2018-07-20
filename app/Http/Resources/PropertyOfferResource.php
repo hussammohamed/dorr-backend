@@ -16,6 +16,7 @@ class PropertyOfferResource extends Resource
     {
         return [
             'offer_id' => $this->id,
+            'reply_on'=> $this->reply_on,
             'description' => $this->description,
             'price' => $this->price
         ];

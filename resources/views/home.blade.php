@@ -38,26 +38,14 @@
 @endsection @push('scripts')
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script>
 <script type="text/javascript" src={{ asset( 'js/owl.carousel.rtl.js')}} /></script>
-<script>$(".owl-carousel").owlCarouselRtl({
-        margin: 25,
-        loop: true,
+<script>
+$(".filter-map").owlCarouselRtl({
+        dotsData: false,
         autoWidth: true,
-        items: 4,
         center: true,
-        responsive: {
-            0: {
-                items: 1,
-                nav: true
-            },
-            600: {
-                items: 3,
-                nav: false
-            },
-            1024: {
-                items: 3,
-
-            }
-        }
+        stagePadding: 10,
+        nav: true,
+        items: 15
     });
 </script> @endpush @push('styles')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css">

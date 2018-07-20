@@ -1,13 +1,10 @@
 <template>
-  <div class="filter-map">
-    <div class="filter-map__item">
-   
-    <!-- filter-map__selected -->
-    <button v-for="filter in filters" @click="filterFun(filter)"  class="mdl-button mdl-js-button mdl-js-ripple-effect filter-map__button " :class="[filter.active ? 'filter-map__selected' : '']"> 
+  <div class="filter-map owl-theme">
+    <button v-for="filter in filters" @click="filterFun(filter)"  class="item mdl-button mdl-js-button mdl-js-ripple-effect filter-map__button " :class="[filter.active ? 'filter-map__selected' : '']"> 
         {{filter.name_ar}}
     </button>
    
-   </div>
+
 </div>
 </template>
 
@@ -25,18 +22,22 @@ export default {
   methods: {
     filterFun: function(item) {
       this.filters.map(function(obj) {
-         obj.active = false;
+        obj.active = false;
       });
       item.active = true;
-      if( this.$parent.$children[2].$vnode.componentOptions.tag == "properties-component"){ 
-           this.$parent.$children[2].filterMethod.purpose = item.purpose;
-            this.$parent.$children[2].filterMethod.type = item.type;
+      if (
+        this.$parent.$children[2].$vnode.componentOptions.tag ==
+        "properties-component"
+      ) {
+        this.$parent.$children[2].filterMethod.purpose = item.purpose;
+        this.$parent.$children[2].filterMethod.type = item.type;
       }
-      if( this.$parent.$children[1].$vnode.componentOptions.tag == "map-component"){ 
-           this.$parent.$children[1].filterMethod.purpose = item.purpose;
-            this.$parent.$children[1].filterMethod.type = item.type;
+      if (
+        this.$parent.$children[1].$vnode.componentOptions.tag == "map-component"
+      ) {
+        this.$parent.$children[1].filterMethod.purpose = item.purpose;
+        this.$parent.$children[1].filterMethod.type = item.type;
       }
-     
     }
   },
   mounted() {
@@ -45,12 +46,12 @@ export default {
       return obj;
     });
     let all = {
-        "active": true,
-        "id": 0,
-        "name_ar": "الكل",
-        "purpose": null,
-        "type": null,
-    }
+      active: true,
+      id: 0,
+      name_ar: "الكل",
+      purpose: null,
+      type: null
+    };
     this.filters.unshift(all);
   }
 };

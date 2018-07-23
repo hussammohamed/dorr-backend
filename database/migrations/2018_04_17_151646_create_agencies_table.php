@@ -23,8 +23,12 @@ class CreateAgenciesTable extends Migration
 		    $table->date('commercial_register_date')->nullable();
             $table->date('commercial_register_exp_date')->nullable();
             $table->string('commercial_register_image')->nullable();
+            $table->integer('bank')->nullable();
+            $table->string('bank_iban')->nullable();
+            
             $table->string('phone')->nullable();
             $table->string('fax')->nullable();
+            
             $table->timestamps();
         });
     }

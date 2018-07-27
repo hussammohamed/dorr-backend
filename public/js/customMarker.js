@@ -52,7 +52,7 @@ CustomMarker.prototype.draw = function () {
 			if (type == "region") {
 				if(self.component){
 					// self.component.properties = [];
-					self.component.isLoading = true;
+					self.component.isloading = true;
 				}
 				// $.get('/api/v1/regions/' + id + '', function (data) {
 				// 	if(data.data.length){
@@ -90,7 +90,7 @@ CustomMarker.prototype.draw = function () {
 					},
 					complete: function(_response){
 					self.component.kind = "properties"
-					self.component.isLoading = false;
+					self.component.isloading = false;
 					self.map.setCenter(new google.maps.LatLng(self.latlng.lat(), (self.latlng.lng())));
 					self.map.setZoom(9);
 					}

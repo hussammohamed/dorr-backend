@@ -55,7 +55,7 @@ Route::group(['middleware'=>'language'],function(){
 
     Route::get('myAccount', 'UserController@edit');
     Route::get('myAccount/Properties','UserController@getUserProperties');
-    Route::post('myAccount/update', 'UserController@update');
+    Route::post('myAccount/update', 'UserController@update_old');
     Route::post('myAccount/updatePassword', 'UserController@updatePassword');
 
     Route::get('properties/create', 'PropertiesController@create')->name('createProperty');
@@ -86,7 +86,8 @@ Route::get('api/v1/user/avatar', 'UserController@getAvatar');
 Route::get('api/v1/user/avatar/{id}', 'UserController@getAvatarByUserID');
 Route::get('api/v1/user', 'UserController@getUser');
 Route::get('api/v1/properties/searchP', 'PropertiesController@porpertySearchByPoint');
-Route::get('api/v1/properties/getFormData', 'PropertiesController@getFormData');
+Route::get('api/v1/properties/getFormData', 'FormController@getFormData');
+Route::get('api/v1/forms/getFormData', 'FormController@getFormData');
 Route::post('api/v1/properties/search', 'PropertiesController@getSearch');
 Route::get('api/v1/properties/user', 'PropertiesController@getByLoginedUser');
 Route::get('api/v1/properties/user/{user_id}', 'PropertiesController@getByUser');
@@ -130,3 +131,107 @@ Route::group(['middleware'=>'auth:api'], function(){
     });
 });
 */
+
+Route::group(['prefix'=>'api/v1'],function(){
+
+	Route::apiResource('/users','UserController');
+    //Route::post('/users/{id}/delete', 'UserController@delete');
+    Route::post('/users/search', 'UserController@searchForUser'); 
+    Route::post('/users/{id}', 'UserController@update'); 
+
+	Route::apiResource('/banks','BankController');
+    Route::post('/banks/delete', 'BankController@delete');
+
+	Route::apiResource('/id_types','IdTypeController');
+    Route::post('/id_types/delete', 'IdTypeController@delete');
+
+    Route::apiResource('/nationalities','NationalityController');
+    Route::post('/nationalities/delete', 'NationalityController@delete');
+
+    Route::apiResource('/agencies','AgencyController');
+    Route::post('/agencies/{id}', 'AgencyController@update'); 
+    
+    Route::apiResource('/mproperties','MPropertyController');
+    Route::post('/mproperties/{id}/owner','MPropertyController@addOnwer');
+    Route::post('/mproperties/{id}', 'MPropertyController@update');
+    
+	Route::get('/units/contract','ContractUnitController@contractX');
+	Route::apiResource('/units','UnitController');
+    Route::post('/units/delete', 'UnitController@delete');
+    Route::get('/mproperties/{id}/units', 'UnitController@indexByMProperty');
+    
+	Route::apiResource('/contracts','ContractController');
+    Route::post('/contracts/{id}', 'ContractController@update');
+    Route::post('/contracts/{id}/status/{status}', 'ContractController@changeStatus');
+    Route::post('/contracts/delete', 'ContractController@delete');
+    Route::get('/mproperties/{id}/contracts', 'ContractController@indexByMProperty');
+
+    
+	Route::apiResource('/maintenances','MaintenanceController');
+    Route::post('/maintenances/{id}', 'MaintenanceController@update');
+    Route::post('/maintenances/{id}/status/{status}', 'MaintenanceController@changeStatus');
+    Route::get('/mproperties/{id}/maintenances', 'MaintenanceController@indexByMProperty');
+
+    
+	Route::apiResource('/payments','PaymentController');
+    Route::post('/payments/{id}', 'PaymentController@update');
+    Route::post('/payments/{id}/status/{status}', 'PaymentController@changeStatus');
+    Route::get('/mproperties/{id}/payments', 'PaymentController@indexByMProperty');
+
+    
+	Route::apiResource('/payment_orders','PaymentOrderController');
+    Route::post('/payment_orders/{id}', 'PaymentOrderController@update');
+    Route::post('/payment_orders/{id}/status/{status}', 'PaymentOrderController@changeStatus');
+    Route::get('/mproperties/{id}/payment_orders', 'PaymentOrderController@indexByMProperty');
+
+    
+	Route::apiResource('/payment_collects','PaymentCollectController');
+    Route::post('/payment_collects/{id}', 'PaymentCollectController@update');
+    Route::post('/payment_collects/{id}/status/{status}', 'PaymentCollectController@changeStatus');
+    Route::get('/payment_orders/{id}/payment_collects', 'PaymentCollectController@indexByPaymentOrder');
+
+    
+
+    /*
+    Route::apiResource('/types','TypesController');
+    Route::post('/types/{id}/delete', 'TypesController@delete');
+
+	Route::apiResource('/advertisers','AdvertiserController');
+    Route::post('/advertisers/{id}/delete', 'AdvertiserController@delete');
+
+	Route::apiResource('/filter_menus','FilterMenuController');
+    Route::post('/filter_menus/{id}/delete', 'FilterMenuController@delete');
+
+	Route::apiResource('/finish_types','FinishTypesController');
+    Route::post('/bafinish_typesnks/{id}/delete', 'FinishTypesController@delete');
+
+	Route::apiResource('/map_views','MapViewController');
+    Route::post('/map_views/{id}/delete', 'MapViewController@delete');
+
+	Route::apiResource('/pages','PageController');
+    Route::post('/pages/{id}/delete', 'PageController@delete');
+
+	Route::apiResource('/payment_methods','PaymentMethodsController');
+    Route::post('/payment_methods/{id}/delete', 'PaymentMethodsController@delete');
+
+	Route::apiResource('/periods','PeriodController');
+    Route::post('/periods/{id}/delete', 'PeriodController@delete');
+
+	Route::apiResource('/purposes','PurposesController');
+    Route::post('/purposes/{id}/delete', 'PurposesController@delete');
+
+	Route::apiResource('/region_types','RegionsTypesController');
+    Route::post('/region_types/{id}/delete', 'RegionsTypesController@delete');
+
+	Route::apiResource('/regions','RegionsController');
+    Route::post('/banregionsks/{id}/delete', 'RegionsController@delete');
+
+	Route::apiResource('/reporting_reasons','ReportingReasonsController');
+    Route::post('/reporting_reasons/{id}/delete', 'ReportingReasonsController@delete');
+
+	Route::apiResource('/social_media','SocialMediaController');
+    Route::post('/social_media/{id}/delete', 'SocialMediaController@delete');
+*/
+});
+
+

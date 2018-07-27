@@ -10,6 +10,7 @@ window.$ = window.jQuery = require('jquery');
 window.Vue = require('vue');
 require('jquery-validation');
 require('./../../../node_modules/jquery-validation/dist/localization/messages_ar')
+require('../js/carousel.js')
 import myUpload from 'vue-image-crop-upload';
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -101,7 +102,8 @@ const app = new Vue({
             // } else {
             //     return 'error';
             // }
-            var iframeMarkup = '//www.youtube.com/embed/' + url;
+            var iframeMarkup = '//www.youtube.com/embed/' + url + '?enablejsapi=1';
+            console.log(iframeMarkup)
              return iframeMarkup;
 
         },

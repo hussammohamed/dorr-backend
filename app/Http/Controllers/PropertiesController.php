@@ -247,7 +247,6 @@ class PropertiesController extends Controller
             }
         }
     }
-
     
     public function getProperty($id)
     {
@@ -338,12 +337,10 @@ class PropertiesController extends Controller
             $property->ad_id = time();
             //$property->youtube = $request->youtube;
             if(isset($request->youtube)){ 
-                $rx = "/(youtube.com|youtu.be)\/(watch)?(\?v=)?([^&]{11})?/";
-                $match;
-                    $url = $request->youtube;
-                if(preg_match($rx, $url, $match)){
-                    parse_str( parse_url( $url, PHP_URL_QUERY ), $my_array_of_vars );
-                    $property->youtube = $my_array_of_vars['v'];
+                $rx = "#(?<=v=)[a-zA-Z0-9-]+(?=&)|(?<=v\/)[^&\n]+(?=\?)|(?<=v=)[^&\n]+|(?<=youtu.be/)[^&\n]+#";
+                $url = $request->youtube;
+                if(preg_match($rx, $url, $matches)){
+                    $property->youtube = $matches[0];
                 }
             }else{
                 $property->youtube = null;
@@ -396,17 +393,17 @@ class PropertiesController extends Controller
             //$property->payment_methods =  $data['payment_methods'];
             if(isset($data['rooms'])){ $property->rooms = $data['rooms']; }else{ $property->rooms = null;};
             if(isset($data['bathrooms'])){ $property->bathrooms = $data['bathrooms']; }else{ $property->bathrooms = null;};
+            
             if(isset($data['youtube'])){ 
-                $rx = "/(youtube.com|youtu.be)\/(watch)?(\?v=)?([^&]{11})?/";
-                $match;
-                    $url = $data['youtube'];
-                if(preg_match($rx, $url, $match)){
-                    parse_str( parse_url( $url, PHP_URL_QUERY ), $my_array_of_vars );
-                    $property->youtube = $my_array_of_vars['v'];
+                $rx = "#(?<=v=)[a-zA-Z0-9-]+(?=&)|(?<=v\/)[^&\n]+(?=\?)|(?<=v=)[^&\n]+|(?<=youtu.be/)[^&\n]+#";
+                $url = $data['youtube'];
+                if(preg_match($rx, $url, $matches)){
+                    $property->youtube = $matches[0];
                 }
             }else{
                 $property->youtube = null;
             }
+            
             if(isset($data['map_view'])){ $property->map_view = $data['map_view']; }else{ $property->map_view = null;};
             $property->ad_id = time();
             $property->startDate = date("Y-m-d h:i:s");
@@ -565,12 +562,10 @@ class PropertiesController extends Controller
                     if(isset($data['bathrooms'])){ $property->bathrooms = $data['bathrooms']; }else{ $property->bathrooms = null;};
                     //if(isset($data['youtube'])){ $property->youtube = $data['youtube']; }else{ $property->youtube = null;};
                     if(isset($data['youtube'])){ 
-                        $rx = "/(youtube.com|youtu.be)\/(watch)?(\?v=)?([^&]{11})?/";
-                        $match;
-                            $url = $data['youtube'];
-                        if(preg_match($rx, $url, $match)){
-                            parse_str( parse_url( $url, PHP_URL_QUERY ), $my_array_of_vars );
-                            $property->youtube = $my_array_of_vars['v'];
+                        $rx = "#(?<=v=)[a-zA-Z0-9-]+(?=&)|(?<=v\/)[^&\n]+(?=\?)|(?<=v=)[^&\n]+|(?<=youtu.be/)[^&\n]+#";
+                        $url = $data['youtube'];
+                        if(preg_match($rx, $url, $matches)){
+                            $property->youtube = $matches[0];
                         }
                     }else{
                         $property->youtube = null;
@@ -707,12 +702,10 @@ class PropertiesController extends Controller
                     //$property->youtube = $request->youtube;
                     
                     if(isset($request->youtube)){ 
-                        $rx = "/(youtube.com|youtu.be)\/(watch)?(\?v=)?([^&]{11})?/";
-                        $match;
-                            $url = $request->youtube;
-                        if(preg_match($rx, $url, $match)){
-                            parse_str( parse_url( $url, PHP_URL_QUERY ), $my_array_of_vars );
-                            $property->youtube = $my_array_of_vars['v'];
+                        $rx = "#(?<=v=)[a-zA-Z0-9-]+(?=&)|(?<=v\/)[^&\n]+(?=\?)|(?<=v=)[^&\n]+|(?<=youtu.be/)[^&\n]+#";
+                        $url = $request->youtube;
+                        if(preg_match($rx, $url, $matches)){
+                            $property->youtube = $matches[0];
                         }
                     }else{
                         $property->youtube = null;
@@ -866,30 +859,5 @@ class PropertiesController extends Controller
         }
     }
 
-    public function getFormData ()
-    {
-        $types = Type::where('active',1)->where('deleted',0)->orderby('order')->get();
-        $purposes = Purpose::where('active',1)->where('deleted',0)->orderby('order')->get();
-        $regions = Region::where('type',1)->where('active',1)->where('deleted',0)->orderby('order')->get();
-        $advertisers = Advertiser::where('active',1)->where('deleted',0)->orderby('order')->get();
-        //$finish_types = FinishType::where('active',1)->where('deleted',0)->orderby('order')->get();
-        $overlooks = Overlook::where('active',1)->where('deleted',0)->orderby('order')->get();
-        //$payment_methods = PaymentMethod::where('active',1)->where('deleted',0)->orderby('order')->get();
-        $periods = Period::where('active',1)->where('deleted',0)->orderby('order')->get();
-        $map_views = MapView::where('active',1)->where('deleted',0)->orderby('order')->get();
-        $reporting_reasons = ReportingReason::where('active',1)->where('deleted',0)->orderby('order')->get();
-
-        return [
-            "types" => TypesResource::collection($types),
-            "purposes" => PurposesResource::collection($purposes),
-            "regions" => RegionResource::collection($regions),
-            "advertisers" => AdvertiserResource::collection($advertisers),
-            //"finish_types" => FinishTypeResource::collection($finish_types),
-            "overlooks" => OverlookResource::collection($overlooks),
-            //"payment_methods" => PaymentMethodResource::collection($payment_methods),
-            "periods" => PeriodResource::collection($periods),
-            "map_views" => MapViewResource::collection($map_views),
-            "reporting_reasons" => ReportingReasonResource::collection($reporting_reasons),
-        ];
-    }
+    
 }

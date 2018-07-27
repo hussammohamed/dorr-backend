@@ -19,6 +19,7 @@ class TypesResource extends Resource
     {
         $name = 'name_'.App::getLocale();
         return [
+            'id' => $this->id,
             'name' => $this->$name,
             'value' => $this->id
         ];

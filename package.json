@@ -25,6 +25,8 @@
     "mdl-ext": "^0.17.1",
     "mdl-stepper": "^1.1.6",
     "moment": "^2.20.1",
+    "v-owl-carousel": "^1.0.2",
+    "vue-carousel": "^0.9.0",
     "vue-image-crop-upload": "^2.2.3"
   }
 }

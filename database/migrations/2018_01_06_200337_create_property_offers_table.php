@@ -16,6 +16,7 @@ class CreatePropertyOffersTable extends Migration
         Schema::create('property_offers', function (Blueprint $table) {
             $table->increments('id');
 		    $table->integer('property_id');
+		    $table->integer('reply_on');
 		    $table->text('description');
 		    $table->integer('price')->nullable();
             $table->integer('user_id')->default('0');

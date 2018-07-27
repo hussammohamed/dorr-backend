@@ -16,6 +16,7 @@ class CreatePropertiesTable extends Migration
         Schema::create('properties', function (Blueprint $table) {
             $table->increments('id');
 		    $table->integer('user_id');
+		    $table->integer('m_property_id')->nullable();
 		    $table->integer('advertiser_type')->nullable();
 		    $table->integer('type');
 		    $table->integer('purpose');

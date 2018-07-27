@@ -78,22 +78,21 @@
                         @endif
                 </div> -->
                 <div class="light-slider">
-                        <ul id="lightSlider">
-                                @if($property->youtube)
-                                <li v-bind:data-thumb="imgYoutube('{{$property->youtube}}')">
-                                  
-                                            <iframe v-bind:src="getYoutube('{{$property->youtube}}')" class="target">
-                                            </iframe>
-                                        </li>
-                                    @endif
-                                @foreach($propertyImages as $propertyImage)
-                            <li data-thumb="{{ asset ('/upload/properties') }}/{{$propertyImage->path}}">
-                                <img class="target" src="{{ asset ('/upload/properties') }}/{{$propertyImage->path}}" alt="">
-                            </li>
-                            @endforeach
-                        </ul>
+                    <ul id="lightSlider">
+                        @if($property->youtube)
+                        <li v-bind:data-thumb="imgYoutube('{{$property->youtube}}')">
+
+                            <iframe v-bind:src="getYoutube('{{$property->youtube}}')" id="youtubeVideo" class="target">
+                            </iframe>
+                        </li>
+                        @endif @foreach($propertyImages as $propertyImage)
+                        <li data-thumb="{{ asset ('/upload/properties') }}/{{$propertyImage->path}}">
+                            <img class="target" src="{{ asset ('/upload/properties') }}/{{$propertyImage->path}}" alt="">
+                        </li>
+                        @endforeach
+                    </ul>
                 </div>
-              
+
             </div>
             <div class="mdl-card  mdl-shadow--2dp u-auto-width u-height-auto u-padding-top-45 u-padding-bottom-15 u-mbuttom16 u-padding-side-20">
                 <p class="u-padding-top-25 u-headline-color">{{ $property->description }}</p>
@@ -147,16 +146,16 @@
                         @if($property->purpose == "1" )
                         <tr>
                             <td class="u-no-border-top header" width="8%">سعر السوم</td>
-                            <td class="u-no-border-top" v-text=addCommas('{{ $property->bid_price }}')>
+                            <td class="u-no-border-top" v-text=addCommas( '{{ $property->bid_price }}')>
 
-                                
+
                             </td>
 
                         </tr>
                         <tr>
                             <td class="u-no-border-top header" width="8%">سعر المتر</td>
-                            <td class="u-no-border-top" v-text=addCommas('{{ $property->price / $property->area }}')>
-                                
+                            <td class="u-no-border-top" v-text=addCommas( '{{ $property->price / $property->area }}')>
+
                             </td>
 
                         </tr>
@@ -170,8 +169,8 @@
                         </tr>
                         <tr>
                             <td class="u-no-border-top header" width="8%">السعر المطلوب</td>
-                            <td class="u-no-border-top" v-text=addCommas('{{ $property->price}}')>
-                                
+                            <td class="u-no-border-top" v-text="addCommas( '{{ $property->price}}')">
+
                             </td>
 
                         </tr>
@@ -214,7 +213,7 @@
                         <tr>
                             <td class="u-no-border-top header" width="8%">تاريخ النشر</td>
                             <td class="u-no-border-top" v-text="date('{{ $property->created_at }}')">
-                                
+
                             </td>
 
                         </tr>
@@ -329,12 +328,12 @@
                 <button id="showUserMobile" class="mdl-button  mdl-js-button mdl-js-ripple-effect mdl-button--colored ">
                     <i class="material-icons md-18">call</i>
                     <span class="showMobile">
-                    اتصل الأن
+                        اتصل الأن
                     </span>
                     <span class="showMobile hidden">
                         أخفاء الأتصال
-                        </span>
-                   
+                    </span>
+
                 </button>
                 <button class="mdl-button  mdl-js-button mdl-js-ripple-effect  mdl-button--borded">
                     <i class="material-icons md-18">chat</i>
@@ -382,16 +381,26 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lightslider/1.1.3/js/lightslider.min.js"></script>
 <script>
-     $(document).ready(function () {
+    var player;
+    // this function gets called when API is ready to use
+    function onYouTubePlayerAPIReady() {
+        // create the global player from the specific iframe (#video)
+        player = new YT.Player('youtubeVideo', {});
+    }
+    var tag = document.createElement('script');
+    tag.src = "//www.youtube.com/player_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    $(document).ready(function () {
         var currentTypeId = "{{$property->type}}"
-        if (currentTypeId  == "2") {
+        if (currentTypeId == "2") {
             $(".target-apartment").addClass('hidden');
             $(".target-villa").removeClass('hidden');
         } else {
             $(".target-villa").addClass('hidden');
             $(".target-apartment").removeClass('hidden');
         }
-     });
+    });
     $('#lightSlider').lightSlider({
         gallery: true,
         rtl: true,
@@ -400,7 +409,20 @@
         currentPagerPosition: 'middle',
         thumbMargin: 15,
         prevHtml: '<i class="material-icons">navigate_before</i>',
-        nextHtml: '<i class="material-icons">navigate_next</i>'
+        nextHtml: '<i class="material-icons">navigate_next</i>',
+        onAfterSlide: function (el) {
+            if(player){
+                if(el.getCurrentSlideCount() == 1){
+                    if(player.j.playerState == 2){
+                        player.playVideo();
+                    }
+                }
+                else{
+                    player.pauseVideo();
+                    console.log()
+                }
+            }
+        },
     });
     function initMap() {
         var lat = parseFloat('{{$property->lat}}');
@@ -441,7 +463,7 @@
     $(document).ready(function () {
         initMap();
     });
-    $('#showUserMobile').click(function(){
+    $('#showUserMobile').click(function () {
         $('.showMobile').toggleClass('hidden');
     })
 </script>
@@ -449,6 +471,5 @@
 </script> @endpush @push('styles')
 <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.theme.min.css">  -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightslider/1.1.3/css/lightslider.min.css">
-@endpush @push('begScripts')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightslider/1.1.3/css/lightslider.min.css"> @endpush @push('begScripts')
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCuaq7NJkSDoz9ORGZzVopdHK6X-m8F6qs&libraries=places&&language=ar"></script> @endpush

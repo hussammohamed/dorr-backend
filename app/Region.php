@@ -12,6 +12,10 @@ class Region extends Model
         'name_ar','name_en', 'region_id', 'type', 'lat', 'long', 'order','active','deleted'
     ];
 
+    protected $casts = [
+        'type' => 'integer'
+    ];
+
     public function districts()
     {
         return $this->hasMany('App\Region');

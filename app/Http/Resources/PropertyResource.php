@@ -51,7 +51,8 @@ class PropertyResource extends Resource
                 "name"=> User::find($this->user_id)->name,
                 "phone"=> User::find($this->user_id)->phone,
                 "mobile1"=> User::find($this->user_id)->mobile1,
-                "mobile2"=> User::find($this->user_id)->mobile2
+                "mobile2"=> User::find($this->user_id)->mobile2,
+                "avatar"=> (User::find($this->user_id)->avatar == null ) ? null : url('/').'/upload/users/'.User::find($this->user_id)->avatar,
             ],
             "district" => [
                 "id" => $this->region,
@@ -111,7 +112,7 @@ class PropertyResource extends Resource
             ],
             "pictures" => PropertyImageResource::collection($this->images)
             ,
-            "offers" => PropertyOfferResource::collection($this->offers)
+            "offers" => $this->offers
         ];
     }
 }

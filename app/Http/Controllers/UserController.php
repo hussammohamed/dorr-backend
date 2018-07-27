@@ -6,12 +6,30 @@ use App;
 use App\User;
 use Hash;
 use App\Property;
+use App\MProperty;;
+use App\Region;
+use App\IdType;
+use App\Nationality;
+use App\Bank;
 
+use App\Http\Requests\UserRequest;
+use App\Http\Resources\UserResource;
+use App\Http\Resources\MPropertyResource;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+
+    private $modelname = "user";
+    private $modelnames = "users";
+
+    public function __construct()
+    {
+        $this->middleware('auth:api');//->except('index','show');
+        $this->middleware('auth');//->except('index','show');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -19,7 +37,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return [ $this->modelnames => UserResource::collection(User::get())];
     }
 
     /**
@@ -40,6 +58,23 @@ class UserController extends Controller
         
     }
     
+    public function searchForUser(Request $request)
+    {
+        //
+
+        
+        if(Auth::user()){
+            $user = User::where('email',$request->key)->orWhere('mobile1',$request->key)->first();
+            if($user === null){
+                return response()->json(["error"=>"there is no user for this email or mobile"], Response::HTTP_BAD_REQUEST);
+            }else{
+                return [ $this->modelname => new UserResource($user)];
+            }
+        }else{
+            return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
+        }
+    }
+
     public function getUserProperties(Request $request)
      {
          if (Auth::check()) {
@@ -48,7 +83,6 @@ class UserController extends Controller
          }else{
              return redirect('/');
          }
-         
      }
     public function create()
     {
@@ -63,7 +97,95 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        //return $request;
+
+        $data = (array) json_decode($request->request->get('data'));
+
+        if (Auth::check()) {
+
+            $userc = User::where('email','=', $data["email"])->get();
+            if (count($userc) > 0) {
+                return response()->json(["error"=>"هذا البريد الالكترونى مستخدم من قبل"], Response::HTTP_CONFLICT);
+            }
+            
+            $userc = User::where('mobile1','=', $data["mobile1"])->get();
+            if (count($userc) > 0) {
+                return response()->json(["error"=>"هذا الجوال مستخدم من قبل"], Response::HTTP_CONFLICT);
+            }
+            
+            //$data['password'] = bcrypt($data['password']);
+            //$data['api_token'] = str_random(60);
+            
+            $user = User::create($data);
+
+            /*$user->name = $request->name;
+            $user->first_name = $request->first_name;
+            $user->family_name = $request->family_name;
+            $user->email = $request->email;
+            $user->password = $request->password;
+            $user->phone = $request->phone;
+            $user->mobile1 = $request->mobile1;
+            $user->mobile2 = $request->mobile2;
+            $user->api_token = str_random(60);
+
+		    $user->nationality = $request->nationality;
+		    $user->address = $request->address;
+		    $user->id_type = $request->id_type;
+		    $user->id_no = $request->id_no;
+		    $user->id_issuer = $request->id_issuer;
+		    $user->id_issued_date = $request->id_issued_date;
+            $user->id_exp_date = $request->id_exp_date;
+            $user->bank = $request->bank;
+			$user->bank_iban = $request->bank_iban;
+
+			$user->registered = $request->registered;
+            */
+            
+            
+           // $user->api_token = str_random(60);
+
+            //$user->save();
+
+            //////////////////////////////////////////////////////////
+            //////////////////////////////////////////////////////////
+
+            if ($request->hasFile('id_image')) {
+                $file = $request->file('id_image');
+                $extension = $file->getClientOriginalExtension();
+                $id_fileName = str_random(20).".".$extension;
+                $folderpath  = 'upload/users/id/';
+                $file->move($folderpath , $id_fileName);
+
+                $user->id_image = $id_fileName;
+            $user->save();
+            }
+
+            //////////////////////////////////////////////////////////
+            //////////////////////////////////////////////////////////
+
+            if($data["mproperty_id"] != null){
+                $mproperty = MProperty::find($data["mproperty_id"]);
+
+                if($request->user_relation == 1){
+                    $mproperty->owner_user_id = $user->id;
+                }else{
+                    $mproperty->agent_user_id = $user->id;
+                }
+
+                $mproperty->save();
+                
+                return response([ "mproperty" => new MPropertyResource($mproperty)],Response::HTTP_CREATED);
+
+            }else{
+                return response([ $this->modelname => new UserResource($user)],Response::HTTP_CREATED);
+            }
+            
+            
+            
+        }else{
+            return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
+        }
     }
 
     /**
@@ -72,9 +194,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
+    public function show(User $user)
+    {   
+        return response([ $this->modelname => new UserResource($user)]);
     }
 
     /**
@@ -88,7 +210,12 @@ class UserController extends Controller
         //
         if (Auth::check()) {
             $user = User::where('id',Auth::user()->id)->get();
-            return view('myAccount',['user'=>$user]);
+            $regions = Region::where('type',1)->where('active',1)->where('deleted',0)->orderby('order')->get();
+            $banks  = Bank::where('active',1)->where('deleted',0)->orderby('order')->get();
+            $idTypes = IdType::where('active',1)->where('deleted',0)->orderby('order')->get();
+            $nationalities = Nationality::where('active',1)->where('deleted',0)->orderby('order')->get();
+
+            return view('myAccount',['name'=>'name_'.App::getLocale(), 'user'=>$user, 'regions'=>$regions, 'banks'=>$banks, 'idTypes'=>$idTypes, 'nationalities'=>$nationalities,]);
         }else{
             return redirect('/');
         }
@@ -103,7 +230,75 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-     public function update(Request $request)
+     
+     
+    public function update(Request $request, $id)
+    {
+        //
+        $data = (array) json_decode($request->request->get('data'));
+        //return (array) $request->json()->all();
+        //return $data;
+        $user = User::find($id);            
+        
+        //return  $data["name"];
+        if (Auth::check()) {
+
+                if($user->id == Auth::user()->id || $user->registered == 0){
+                    $userc = User::where('email','=', $data["email"])->where('id','!=', $user->id)->get();
+                    if (count($userc) > 0) {
+                        return response()->json(["error"=>"هذا البريد الالكترونى مستخدم من قبل"], Response::HTTP_CONFLICT);
+                    }
+                    
+                    $userc = User::where('mobile1','=', $data["mobile1"])->where('id','!=', $user->id)->get();
+                    if (count($userc) > 0) {
+                        return response()->json(["error"=>"هذا الجوال مستخدم من قبل"], Response::HTTP_CONFLICT);
+                    }
+
+                    $user->update($data);
+
+                    if ($request->hasFile('id_image')) {
+                        $file = $request->file('id_image');
+                        $extension = $file->getClientOriginalExtension();
+                        $id_fileName = str_random(20).".".$extension;
+                        $folderpath  = 'upload/users/id/';
+                        $file->move($folderpath , $id_fileName);
+        
+                        $user->id_image = $id_fileName;
+                        $user->save();
+                    }
+
+                    if($data["mproperty_id"] != null){
+                        $mproperty = MProperty::find($data["mproperty_id"]);
+        
+                        if($data["user_relation"] == 1){
+                            $mproperty->owner_user_id = $user->id;
+                        }else{
+                            $mproperty->agent_user_id = $user->id;
+                        }
+        
+                        $mproperty->save();
+                        
+                        return response([ "mproperty" => new MPropertyResource($mproperty)],Response::HTTP_OK);
+        
+                    }else{
+                        return response([ $this->modelname => new UserResource($user)],Response::HTTP_OK);
+                    }
+                    
+
+                }else{
+                    
+                    return response()->json(["error"=>"You can't update this user"], Response::HTTP_UNAUTHORIZED);
+                    
+                }
+
+        }else{
+            return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
+        }
+    }
+
+
+
+     public function update_old(Request $request)
      {
          //
          if (Auth::check()) {
@@ -115,6 +310,16 @@ class UserController extends Controller
             $user->phone = $request->phone;
             $user->mobile1 = $request->mobile1;
             $user->mobile2 = $request->mobile2;
+            $user->bank = $request->bank;
+            $user->address = $request->address;
+            $user->id_type = $request->id_type;
+            $user->id_no = $request->id_no;
+            $user->id_issuer = $request->id_issuer;
+            $user->id_issued_date = $request->id_issued_date;
+            $user->id_exp_date = $request->id_exp_date;
+            $user->nationality = $request->nationality;
+            $user->bank_iban = $request->bank_iban;
+            $user->bank = $request->bank;
             $user->save();
             return redirect('myAccount');
         }else{
@@ -208,7 +413,7 @@ class UserController extends Controller
             $avatar = Auth::user()->avatar;
             if($avatar!=""){
                 if(file_exists( public_path() . '/upload/users/'.$avatar)) {
-                    return response()->json(["avatar"=> '/upload/users/'.$avatar]);
+                    return response()->json(["avatar"=> url('/').'/upload/users/'.$avatar]);
                 }else{
                     return response()->json(["error"=>"This avatar is not exist"], Response::HTTP_NOT_FOUND);
                 }

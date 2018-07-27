@@ -169,7 +169,7 @@
                         </tr>
                         <tr>
                             <td class="u-no-border-top header" width="8%">السعر المطلوب</td>
-                            <td class="u-no-border-top" v-text=addCommas( '{{ $property->price}}')>
+                            <td class="u-no-border-top" v-text="addCommas( '{{ $property->price}}')">
 
                             </td>
 

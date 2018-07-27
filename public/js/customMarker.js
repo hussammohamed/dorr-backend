@@ -51,26 +51,50 @@ CustomMarker.prototype.draw = function () {
 			let bounds = new google.maps.LatLngBounds();
 			if (type == "region") {
 				if(self.component){
-					self.component.properties = [];
-					// self.component.isLoading = true;
+					// self.component.properties = [];
+					self.component.isLoading = true;
 				}
-				$.get('/api/v1/regions/' + id + '', function (data) {
-					if(data.data.length){
-						data.data.forEach(function (el) {
-							var overlay = new CustomMarker(new google.maps.LatLng(el.location.lat, el.location.long), self.map, el, 'district', self.component);
-							bounds.extend(overlay.getPosition());
+				// $.get('/api/v1/regions/' + id + '', function (data) {
+				// 	if(data.data.length){
+				// 		data.data.forEach(function (el) {
+				// 			var overlay = new CustomMarker(new google.maps.LatLng(el.location.lat, el.location.long), self.map, el, 'district', self.component);
+				// 			bounds.extend(overlay.getPosition());
 							
-						});
-						self.map.fitBounds(bounds);
-						self.map.setZoom(10);
-					}else{
-						self.component.isEmpty = true;
-						self.map.setCenter(new google.maps.LatLng(self.latlng.lat(), (self.latlng.lng())));
-						self.map.setZoom(10);
-					}
+				// 		});
+				// 		self.map.fitBounds(bounds);
+				// 		self.map.setZoom(10);
+				// 	}else{
+				// 		// self.component.isEmpty = true;
+				// 		self.map.setCenter(new google.maps.LatLng(self.latlng.lat(), (self.latlng.lng())));
+				// 		self.map.setZoom(10);
+				// 	}
 					
-				})
-
+				// })
+				$.ajax({
+					url:
+					  "/api/v1/properties/search?lat=" +
+					  self.latlng.lat() +
+					  "&long=" +
+					  self.latlng.lng() +
+					  "",
+					type: "post",
+					dataType: "json",
+					success: function(_response) {
+						if(!_response){
+							self.component.properties = [];
+							self.component.isEmpty = true;
+						 }else{
+						   self.component.properties = _response.data;
+						   self.component.isEmpty = false;
+						 }
+					},
+					complete: function(_response){
+					self.component.kind = "properties"
+					self.component.isLoading = false;
+					self.map.setCenter(new google.maps.LatLng(self.latlng.lat(), (self.latlng.lng())));
+					self.map.setZoom(9);
+					}
+				  });
 				$(".map-marker,.property-card")
 					.fadeOut()
 					.remove();

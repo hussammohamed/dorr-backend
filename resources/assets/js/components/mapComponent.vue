@@ -304,9 +304,9 @@ export default {
         .remove();
     }
     function initMap() {
-      var uluru = new google.maps.LatLng(23.128363, 37.199707);
+      var uluru = new google.maps.LatLng(23.128363, 45.199707);
       var map = new google.maps.Map(document.getElementById("map"), {
-        zoom: 5,
+        zoom: 6,
         center: uluru,
         zoomControl: true,
         mapTypeControl: false,
@@ -320,16 +320,24 @@ export default {
       map.addListener("zoom_changed", function() {
         let center = map.getCenter().lat();
         let zoom = map.getZoom();
-        if (zoom < 7) {
+        if (zoom < 9) {
           self.kind = "regions";
+          self.isEmpty = false;
         }
-        if (zoom >= 7 && zoom <= 10) {
-          if (self.kind != "cities") {
-            self.kind = "cities";
-          } else {
+        // if (zoom >= 7 && zoom <= 10) {
+        //   // if (self.kind != "cities") {
+        //   //   self.kind = "cities";
+        //   // } else {
+        //   //   self.filterMap();
+        //   // }
+        // } else 
+        if (zoom >= 9) {
+          if (self.kind != "properties") {
+            self.kind = "properties";
             self.filterMap();
+          } else {
+             self.filterMap();
           }
-        } else if (zoom > 10) {
             
         }
       });
@@ -350,13 +358,14 @@ export default {
 
         self.bound = false;
         let zoom = map.getZoom();
-        if (zoom >= 7 && zoom <= 10) {
-          if (self.kind != "cities") {
-            self.kind = "cities";
-          } else {
-            self.filterMap();
-          }
-        } else if (zoom > 10) {
+        // if (zoom >= 7 && zoom <= 10) {
+        //   if (self.kind != "cities") {
+        //     self.kind = "cities";
+        //   } else {
+        //     self.filterMap();
+        //   }
+        // }
+          if (zoom >= 9) {
           $.ajax({
             url:
               "/api/v1/properties/search?lat=" +
@@ -371,6 +380,9 @@ export default {
                 .fadeOut()
                 .remove(); 
               self.properties = _response.data;
+               if(!_response){
+                
+              }
             },
             complete: function(_response){
               self.isloading = false;
@@ -381,7 +393,12 @@ export default {
               }
               if(!_response){
                  self.properties = [];
+                 self.isEmpty = true;
               }
+            },
+            error: function(_response){
+               self.properties = [];
+               self.isEmpty = true;
             }
           });
         }else{

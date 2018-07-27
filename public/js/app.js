@@ -28297,9 +28297,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       $(".map-marker,.property-card").fadeOut().remove();
     }
     function initMap() {
-      var uluru = new google.maps.LatLng(23.128363, 37.199707);
+      var uluru = new google.maps.LatLng(23.128363, 45.199707);
       var map = new google.maps.Map(document.getElementById("map"), {
-        zoom: 5,
+        zoom: 6,
         center: uluru,
         zoomControl: true,
         mapTypeControl: false,
@@ -28313,16 +28313,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       map.addListener("zoom_changed", function () {
         var center = map.getCenter().lat();
         var zoom = map.getZoom();
-        if (zoom < 7) {
+        if (zoom < 9) {
           self.kind = "regions";
+          self.isEmpty = false;
         }
-        if (zoom >= 7 && zoom <= 10) {
-          if (self.kind != "cities") {
-            self.kind = "cities";
+        // if (zoom >= 7 && zoom <= 10) {
+        //   // if (self.kind != "cities") {
+        //   //   self.kind = "cities";
+        //   // } else {
+        //   //   self.filterMap();
+        //   // }
+        // } else 
+        if (zoom >= 9) {
+          if (self.kind != "properties") {
+            self.kind = "properties";
+            self.filterMap();
           } else {
             self.filterMap();
           }
-        } else if (zoom > 10) {}
+        }
       });
       google.maps.event.addListenerOnce(map, 'idle', function () {
         self.isloading = false;
@@ -28338,13 +28347,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         self.bound = false;
         var zoom = map.getZoom();
-        if (zoom >= 7 && zoom <= 10) {
-          if (self.kind != "cities") {
-            self.kind = "cities";
-          } else {
-            self.filterMap();
-          }
-        } else if (zoom > 10) {
+        // if (zoom >= 7 && zoom <= 10) {
+        //   if (self.kind != "cities") {
+        //     self.kind = "cities";
+        //   } else {
+        //     self.filterMap();
+        //   }
+        // }
+        if (zoom >= 9) {
           $.ajax({
             url: "/api/v1/properties/search?lat=" + map.getCenter().lat() + "&long=" + map.getCenter().lng() + "",
             type: "post",
@@ -28352,6 +28362,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             success: function success(_response) {
               $(".map-marker,.property-card").fadeOut().remove();
               self.properties = _response.data;
+              if (!_response) {}
             },
             complete: function complete(_response) {
               self.isloading = false;
@@ -28362,7 +28373,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
               }
               if (!_response) {
                 self.properties = [];
+                self.isEmpty = true;
               }
+            },
+            error: function error(_response) {
+              self.properties = [];
+              self.isEmpty = true;
             }
           });
         } else {
@@ -30620,8 +30636,8 @@ $(window).scroll(function (e) {
   var Position = stickyContainer.offset();
   var scrollTop = $(this).scrollTop();
   var windowHeight = $(window).height();
-  var bottom = Position.top + stickyContainer.outerHeight(true);
   if (stickyContainer.length) {
+    var bottom = Position.top + stickyContainer.outerHeight(true);
     if (scrollTop > Position.top + 100 && scrollTop - Position.top < stickyContainer.height() - stickyEl.height() + 380) {
       if (windowHeight < stickyEl.height()) {
         stickyEl.css({ 'top': scrollTop - Position.top - Math.abs(windowHeight - stickyEl.height()) });

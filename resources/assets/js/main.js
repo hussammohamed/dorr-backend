@@ -32,8 +32,8 @@ $(window).scroll(function (e) {
   var Position = stickyContainer.offset();
   var scrollTop = $(this).scrollTop();
   var windowHeight = $(window).height();
-  var bottom = Position.top + stickyContainer.outerHeight(true);
   if (stickyContainer.length) {
+    var bottom = Position.top + stickyContainer.outerHeight(true);
     if (scrollTop > (Position.top + 100) && (scrollTop - Position.top) < (stickyContainer.height() - stickyEl.height() + 380)) {
       if(windowHeight < stickyEl.height()){
         stickyEl.css({ 'top': scrollTop - Position.top - Math.abs(windowHeight - stickyEl.height()) });

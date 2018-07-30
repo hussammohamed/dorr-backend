@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Notifications\Notifiable;
+use App\Notifications\AppNotification;
+
 use Auth;
 use DB;
 use App;
@@ -44,11 +47,20 @@ class ContractController extends Controller
     {
         return [ $this->modelnames => ContractResource::collection(Contract::get())];
     }
+    
     public function indexByMProperty($id)
     {
         return [ $this->modelnames => ContractResource::collection(Contract::Where('m_property_id',$id)->get())];
     }
 
+    public function notify()
+    {
+        $user = User::find(Auth::user()->id);
+        $user->notify(new AppNotification);
+        return "Notifiction had been sent";
+
+        
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -58,6 +70,10 @@ class ContractController extends Controller
     {
         //
     }
+
+
+    
+
 
     /**
      * Store a newly created resource in storage.

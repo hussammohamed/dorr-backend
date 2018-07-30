@@ -160,6 +160,7 @@ Route::group(['prefix'=>'api/v1'],function(){
     Route::post('/units/delete', 'UnitController@delete');
     Route::get('/mproperties/{id}/units', 'UnitController@indexByMProperty');
     
+    Route::get('/contracts/notify', 'ContractController@notify');
 	Route::apiResource('/contracts','ContractController');
     Route::post('/contracts/{id}', 'ContractController@update');
     Route::post('/contracts/{id}/status/{status}', 'ContractController@changeStatus');

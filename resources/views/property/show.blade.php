@@ -146,7 +146,7 @@
                         @if($property->purpose == "1" )
                         <tr>
                             <td class="u-no-border-top header" width="8%">سعر السوم</td>
-                            <td class="u-no-border-top" v-text=addCommas( '{{ $property->bid_price }}')>
+                            <td class="u-no-border-top" v-text='addCommas({{ $property->bid_price }})'>
 
 
                             </td>
@@ -154,7 +154,7 @@
                         </tr>
                         <tr>
                             <td class="u-no-border-top header" width="8%">سعر المتر</td>
-                            <td class="u-no-border-top" v-text=addCommas( '{{ $property->price / $property->area }}')>
+                            <td class="u-no-border-top" v-text='addCommas({{ $property->price / $property->area }})'>
 
                             </td>
 
@@ -169,7 +169,7 @@
                         </tr>
                         <tr>
                             <td class="u-no-border-top header" width="8%">السعر المطلوب</td>
-                            <td class="u-no-border-top" v-text="addCommas( '{{ $property->price}}')">
+                            <td class="u-no-border-top" v-text="addCommas({{ $property->price}})">
 
                             </td>
 
@@ -235,7 +235,7 @@
                 <div class="group-ad__header">
                     <h6 class="group-ad__title">عروض اسعار</h6>
                 </div>
-                @foreach($propertyOffers as $offer)
+                @foreach($propertyOffers as $offer) @if(!$offer->reply_on)
                 <div id="offer{{$offer->id}}" class="mdl-card mdl-card--pro   mdl-shadow--2dp u-auto-width u-mbuttom16 u-height-auto u-padding-top-45">
 
                     <div class="title">
@@ -248,10 +248,7 @@
                     </div>
                     <div class="contet">
                         <p class="u-headline-color">{{$offer->description}} </p>
-                    </div>
-
-                    <span class="card-label top-label-left has-secondary-base-bg" v-text="addCommas('{{$offer->price}}', ' عرض السعر ', ' ريال')"></span>
-                    @if(!Auth::guest() && (Auth::user()->id == $property->user_id ))
+                        @if(!Auth::guest() && (Auth::user()->id == $property->user_id ))
                     <span class="card-delete" @click="deleteOffer('{{$offer->id}}')">
                         <i class="material-icons">delete</i>
                     </span>
@@ -260,10 +257,36 @@
                         <i class="material-icons">delete</i>
                     </a>
                     @endif
+                    </div>
+
+                    <span class="card-label top-label-left has-secondary-base-bg" v-text="addCommas('{{$offer->price}}', ' عرض السعر ', ' ريال')"></span>
+                    
+                    <div class="comments">
+                        @foreach(App\PropertyOffer::where('property_id', '=', $property->id)->where('reply_on', '=', $offer->id)->get() as $subOffer)
+                        <div class="comment">
+                            <div class="title">
+                                <div class="mdl-avatar">
+                                    <img class="" src={{ asset ( 'images/face.png') }} alt="">
+                                </div>
+                                <h5 class="u-primary-darker-color">
+                                    {{ ($subOffer->user_id == 0 ) ? 'غير معروف' :\App\User::find($subOffer->user_id)->name }}
+                                </h5>
+                            </div>
+                            <div class="contet">
+                                <p class="u-headline-color">{{$subOffer->description}} </p>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                    @if(!Auth::guest() && (Auth::user()->id == $property->user_id ))
+                    <add-comment-component :propertyid="{{json_encode($property->id)}}" :offerid="{{json_encode($offer->id)}}"></add-comment-component>
+                    @elseif (!Auth::guest() && (Auth::user()->id == $offer->user_id ))
+                    <add-comment-component :propertyid="{{json_encode($property->id)}}" :offerid="{{json_encode($offer->id)}}"></add-comment-component>
+                    @endif
                 </div>
+                @endif @endforeach
 
-                @endforeach
-
+               
 
 
 
@@ -411,13 +434,13 @@
         prevHtml: '<i class="material-icons">navigate_before</i>',
         nextHtml: '<i class="material-icons">navigate_next</i>',
         onAfterSlide: function (el) {
-            if(player){
-                if(el.getCurrentSlideCount() == 1){
-                    if(player.j.playerState == 2){
+            if (player) {
+                if (el.getCurrentSlideCount() == 1) {
+                    if (player.j.playerState == 2) {
                         player.playVideo();
                     }
                 }
-                else{
+                else {
                     player.pauseVideo();
                     console.log()
                 }

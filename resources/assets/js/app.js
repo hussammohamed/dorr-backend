@@ -11,6 +11,7 @@ window.Vue = require('vue');
 require('jquery-validation');
 require('./../../../node_modules/jquery-validation/dist/localization/messages_ar')
 require('../js/carousel.js')
+window.autosize = require('../js/autosize.min.js')
 import myUpload from 'vue-image-crop-upload';
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -30,6 +31,7 @@ Vue.component('report-component', require('./components/reportComponent.vue'));
 Vue.component('success-component', require('./components/successComponent.vue'));
 Vue.component('mapview-component', require('./components/mapViewComponent.vue'));
 Vue.component('forgot-password-component', require('./components/forgotPasswordComponent.vue'));
+Vue.component('add-comment-component', require('./components/addCommentComponent'));
 const app = new Vue({
     el: '#app',
     data() {

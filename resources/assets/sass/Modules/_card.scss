@@ -524,6 +524,7 @@ $cardImageHeight : 220px;
     }
     .contet{
         margin:-16px 72px 5px 70px;
+        position: relative;
     }
 }
 
@@ -624,8 +625,8 @@ transition: all .2s ease-in-out;
 }
 .card-delete{
     position: absolute;
-    #{$left}: 15px;
-    bottom: 15px;
+    #{$left}: -60px;
+    top: 0;
     color: rgba(0, 0, 0, .54);
     cursor: pointer;
     &:hover{
@@ -670,4 +671,39 @@ transition: all .2s ease-in-out;
     color: rgba($color: #000000, $alpha: .84);
     font-size: 20px;
     padding: 24px 0; 
+}
+
+.comments{
+   background-color: #f7f7f7;
+    margin: 8px;
+    border: 1px solid rgba($color: #000000, $alpha: .12);
+    border-radius: 15px;
+    .comment{
+        padding: 12px 20px;
+        &:not(:first-child){
+            border-top: 1px solid rgba($color: #000000, $alpha: .12);
+        }
+        
+    }
+
+}
+.text-area{
+    display: flex;
+    margin: 8px;
+    .comment-textbox{
+        flex: 1;
+        max-width: 80%;
+        border-radius: 15px;
+        border: 1px solid rgba($color: #000000, $alpha: .12);
+        padding:10px 12px;
+    
+    }
+    .mdl-button{
+        flex: 1;
+        max-width: 20%;
+        margin: 0 16px;
+        border-radius: 15px;
+        height: 100%;
+        padding:4px 12px;
+    }
 }

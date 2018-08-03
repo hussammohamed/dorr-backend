@@ -40,7 +40,7 @@ export default {
               button: "موافق",
               icon: "success"
             }).then(value => {
-                //  location.reload();
+                location.reload();
             });
           },
           complete: function(_response) {},

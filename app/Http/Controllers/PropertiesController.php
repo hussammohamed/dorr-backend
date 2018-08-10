@@ -38,7 +38,7 @@ use App\Http\Resources\ReportingReasonResource;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\PropertyVaildator;
+use App\Http\Requests\PropertyRequest;
 
 class PropertiesController extends Controller
 {

@@ -62,7 +62,7 @@ class AppNotification extends Notification
     }
 
 
-    public function sendNotify($user_id,$web_msg,$mob_msg,$type,$web_url,$web_route)
+    public static function sendNotify($user_id,$web_msg,$mob_msg,$type,$web_url,$web_route)
     {
         $user = User::find($user_id);
         $user->notify(new AppNotification);

@@ -293,6 +293,10 @@ class ContractController extends Controller
                 AppNotification::sendNotify($m_property->owner_user_id,"عزيزى مالك العقار تم إضافة عقار باسمك من الوسيط العقارى","عزيزى مالك العقار تم إضافة عقار باسمك من الوسيط العقارى","contract_add","http://pm.bareeqstudio.com/properties/","index.properties");
             }
 
+            if ($m_property->agent_user_id!=null){
+                AppNotification::sendNotify($m_property->agent_user_id,"عزيزى وكيل العقار تم إضافة عقار باسمك من الوسيط العقارى","عزيزى وكيل العقار تم إضافة عقار باسمك من الوسيط العقارى","contract_add","http://pm.bareeqstudio.com/properties/","index.properties");
+            }
+
             if ($data["renter_user_id"]!=null){
                 AppNotification::sendNotify($data["renter_user_id"],"عزيزى مستأجر العقار تم إضافة عقار باسمك من الوسيط العقارى","عزيزى مستأجر العقار تم إضافة عقار باسمك من الوسيط العقارى","contract_add","http://pm.bareeqstudio.com/properties/","index.properties");
                 }

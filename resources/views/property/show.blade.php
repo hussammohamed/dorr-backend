@@ -231,6 +231,7 @@
                 </table>
 
             </div>
+            @if(!$propertyOffers->isEmpty())
             <div class="group-ad">
                 <div class="group-ad__header">
                     <h6 class="group-ad__title">عروض اسعار</h6>
@@ -293,6 +294,7 @@
 
 
             </div>
+            @endif
         </div>
         <div class="mdl-cell mdl-cell--3-col sticky-item">
             <div class="mdl-card  mdl-shadow--2dp u-auto-width u-mbuttom16 u-padding-bottom-60 u-relative">

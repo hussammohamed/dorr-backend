@@ -305,7 +305,7 @@ class PropertiesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PropertyVaildator $request)
+    public function store(PropertyRequest $request)
     {
         //
         if (Auth::check()) {
@@ -667,7 +667,7 @@ class PropertiesController extends Controller
      * @param  \App\Test  $test
      * @return \Illuminate\Http\Response
      */
-    public function update(PropertyVaildator $request)
+    public function update(PropertyRequest $request)
     {
         if (Auth::check()) {
             $property = Property::find($request->id);

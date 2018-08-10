@@ -62,7 +62,11 @@ class AppNotification extends Notification
     }
 
 
-    public static function sendFCM($user_id,$web_msg,$mob_msg,$type,$web_url,$web_route) {
+    public function sendNotify($user_id,$web_msg,$mob_msg,$type,$web_url,$web_route)
+    {
+        $user = User::find($user_id);
+        $user->notify(new AppNotification);
+        
         $url = 'https://fcm.googleapis.com/fcm/send';
         $fields = array (
             'to' => "/topics/" .$user_id,

@@ -59,13 +59,7 @@ class ContractController extends Controller
     
 
 
-    public function notifyx()
-    {
-        $user = User::find(Auth::user()->id);
-        $user->notify(new AppNotification);
-        AppNotification::sendFCM(8,"web_msg","mob_msg","type","web_url","web_route");
-        return "Notifiction had been sent";
-    }
+    
     /**
      * Show the form for creating a new resource.
      *
@@ -294,6 +288,14 @@ class ContractController extends Controller
                     
                     $payment->save();
             }
+
+            if ($m_property->owner_user_id!=null){
+                AppNotification::sendNotify($m_property->owner_user_id,"عزيزى مالك العقار تم إضافة عقار باسمك من الوسيط العقارى","عزيزى مالك العقار تم إضافة عقار باسمك من الوسيط العقارى","contract_add","http://pm.bareeqstudio.com/properties/","index.properties");
+            }
+
+            if ($data["renter_user_id"]!=null){
+                AppNotification::sendNotify($data["renter_user_id"],"عزيزى مستأجر العقار تم إضافة عقار باسمك من الوسيط العقارى","عزيزى مستأجر العقار تم إضافة عقار باسمك من الوسيط العقارى","contract_add","http://pm.bareeqstudio.com/properties/","index.properties");
+                }
 
             return [ $this->modelname => new ContractResource($contract)];
         }else{

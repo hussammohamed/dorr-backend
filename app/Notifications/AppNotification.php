@@ -60,4 +60,34 @@ class AppNotification extends Notification
 
         ];
     }
+
+
+    public static function sendFCM($user_id,$web_msg,$mob_msg,$type,$web_url,$web_route) {
+        $url = 'https://fcm.googleapis.com/fcm/send';
+        $fields = array (
+            'to' => "/topics/" .$user_id,
+            'data' => array (
+                "web_msg" => $web_msg,
+                "mob_msg" => $mob_msg,
+                "type" => $type,
+                "web_url" => $web_url,
+                "web_route" => $web_route
+            )
+        );
+        $fields = json_encode ( $fields );
+        $headers = array (
+                'Authorization: key=' . "AAAAOKZ-G_o:APA91bFzQNtD1YuE6QQzeEkGNjdy2hFlar2Xoka-SazPEwofFQcJ1_zmYu-pOmpeO9JHnQNq6JU1aiWq-ocrrkDI95MOfS656hfyyijPggVqpZ8EMA5Atxj0JT6EHim4h73ydYb9GtR87sQ0ru9TTDreebLhviMFWw",
+                'Content-Type: application/json'
+        );
+        
+        $ch = curl_init ();
+        curl_setopt ( $ch, CURLOPT_URL, $url );
+        curl_setopt ( $ch, CURLOPT_POST, true );
+        curl_setopt ( $ch, CURLOPT_HTTPHEADER, $headers );
+        curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, true );
+        curl_setopt ( $ch, CURLOPT_POSTFIELDS, $fields );
+        
+        $result = curl_exec ( $ch );
+        curl_close ( $ch );
+    }
 }

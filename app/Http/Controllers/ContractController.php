@@ -56,44 +56,15 @@ class ContractController extends Controller
 
 
     
-    public function sendFCM($mess,$id) {
-        $url = 'https://fcm.googleapis.com/fcm/send';
-        $fields = array (
-                'to' => "/topics/" .$id,
-                'data' => array (
-                        "web_msg" => $mess,
-                        "mob_msg" => $mess,
-                        "type" => "add_property",
-                        "web_url" => "myicon",
-                        "web_route" => "index.properties"
-                )
-                );
-        $fields = json_encode ( $fields );
-        $headers = array (
-                'Authorization: key=' . "AAAAOKZ-G_o:APA91bFzQNtD1YuE6QQzeEkGNjdy2hFlar2Xoka-SazPEwofFQcJ1_zmYu-pOmpeO9JHnQNq6JU1aiWq-ocrrkDI95MOfS656hfyyijPggVqpZ8EMA5Atxj0JT6EHim4h73ydYb9GtR87sQ0ru9TTDreebLhviMFWw",
-                'Content-Type: application/json'
-        );
-        
-        $ch = curl_init ();
-        curl_setopt ( $ch, CURLOPT_URL, $url );
-        curl_setopt ( $ch, CURLOPT_POST, true );
-        curl_setopt ( $ch, CURLOPT_HTTPHEADER, $headers );
-        curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, true );
-        curl_setopt ( $ch, CURLOPT_POSTFIELDS, $fields );
-        
-        $result = curl_exec ( $ch );
-        curl_close ( $ch );
-    }
+    
 
 
-    public function notify()
+    public function notifyx()
     {
         $user = User::find(Auth::user()->id);
         $user->notify(new AppNotification);
-        $this->sendFCM("msg","1");
+        AppNotification::sendFCM(8,"web_msg","mob_msg","type","web_url","web_route");
         return "Notifiction had been sent";
-
-        
     }
     /**
      * Show the form for creating a new resource.

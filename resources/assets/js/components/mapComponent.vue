@@ -204,7 +204,7 @@ export default {
               el,
               "property"
             );
-            bounds.extend(overlay.getPosition());
+            // bounds.extend(overlay.getPosition());
           });
           // if (self.bound && arr.length) {
           //   self.map.fitBounds(bounds);
@@ -217,6 +217,11 @@ export default {
              
           //   }, 150);
           // }
+          if(self.FormData.city){
+            self.map.zoom = 8;
+            let city = self.cities.find(x => x.id ==  self.FormData.city);
+            self.map.setCenter({lat: parseInt(city.lat), lng: parseInt(city.long)});
+          }
           if (
             self.$parent.$children[2].$vnode.componentOptions.tag ==
             "properties-component"
@@ -412,7 +417,7 @@ export default {
         $(".marker-hidden").removeClass("marker-hidden");
       });
        if(location.pathname != "/properties/search"){
-      self.kind = "regions";
+          self.kind = "regions";
        }
     }
 

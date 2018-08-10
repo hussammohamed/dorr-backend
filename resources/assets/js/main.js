@@ -57,3 +57,21 @@ function loginShow(currentUrl){
   }
   loginDialog.showModal();
 }
+
+(function() {
+  function scrollHorizontally(e) {
+      e = window.event || e;
+      var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+      document.getElementById('filterItems').scrollLeft -= (delta*10); // Multiplied by 40
+      e.preventDefault();
+  }
+  if (document.getElementById('filterItems').addEventListener) {
+      // IE9, Chrome, Safari, Opera
+      document.getElementById('filterItems').addEventListener("mousewheel", scrollHorizontally, false);
+      // Firefox
+      document.getElementById('filterItems').addEventListener("DOMMouseScroll", scrollHorizontally, false);
+  } else {
+      // IE 6/7/8
+      document.getElementById('filterItems').attachEvent("onmousewheel", scrollHorizontally);
+  }
+})();

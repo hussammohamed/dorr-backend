@@ -231,6 +231,7 @@
                 </table>
 
             </div>
+            @if(!$propertyOffers->isEmpty())
             <div class="group-ad">
                 <div class="group-ad__header">
                     <h6 class="group-ad__title">عروض اسعار</h6>
@@ -258,9 +259,10 @@
                     </a>
                     @endif
                     </div>
-
+                    @if($offer->price)
                     <span class="card-label top-label-left has-secondary-base-bg" v-text="addCommas('{{$offer->price}}', ' عرض السعر ', ' ريال')"></span>
-                    
+                    @endif
+                    @if(!App\PropertyOffer::where('property_id', '=', $property->id)->where('reply_on', '=', $offer->id)->get()->isEmpty())
                     <div class="comments">
                         @foreach(App\PropertyOffer::where('property_id', '=', $property->id)->where('reply_on', '=', $offer->id)->get() as $subOffer)
                         <div class="comment">
@@ -278,6 +280,7 @@
                         </div>
                         @endforeach
                     </div>
+                    @endif
                     @if(!Auth::guest() && (Auth::user()->id == $property->user_id ))
                     <add-comment-component :propertyid="{{json_encode($property->id)}}" :offerid="{{json_encode($offer->id)}}"></add-comment-component>
                     @elseif (!Auth::guest() && (Auth::user()->id == $offer->user_id ))
@@ -291,6 +294,7 @@
 
 
             </div>
+            @endif
         </div>
         <div class="mdl-cell mdl-cell--3-col sticky-item">
             <div class="mdl-card  mdl-shadow--2dp u-auto-width u-mbuttom16 u-padding-bottom-60 u-relative">
@@ -348,7 +352,7 @@
                 <div class="showMobile user-mobile hidden">
                     {{ \App\User::find($property->user_id)->mobile1 }}
                 </div>
-                <button id="showUserMobile" class="mdl-button  mdl-js-button mdl-js-ripple-effect mdl-button--colored ">
+                <!-- <button  class="mdl-button  mdl-js-button mdl-js-ripple-effect mdl-button--colored ">
                     <i class="material-icons md-18">call</i>
                     <span class="showMobile">
                         اتصل الأن
@@ -357,8 +361,8 @@
                         أخفاء الأتصال
                     </span>
 
-                </button>
-                <button class="mdl-button  mdl-js-button mdl-js-ripple-effect  mdl-button--borded">
+                </button> -->
+                <button id="showUserMobile" class="mdl-button  mdl-js-button mdl-js-ripple-effect  mdl-button--colored u-full-width ">
                     <i class="material-icons md-18">chat</i>
                     تواصل مع المعلن
                 </button>
@@ -381,6 +385,7 @@
             @endif
         </div>
     </div>
+    @if(!$similarProperties->isEmpty())
     <div class="group-ad">
         <div class="group-ad__header">
             <h6 class="group-ad__title">إعلانات مشابهة</h6>
@@ -395,6 +400,7 @@
             @endforeach
         </div>
     </div>
+    @endif
 </div>
 
 <report-component :propertyid="{{json_encode($property->id)}}"></report-component>

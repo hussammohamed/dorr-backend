@@ -17,7 +17,7 @@
               <div v-if="property.details.featured === 1" class="featured">
                 <i class="material-icons">star</i>
               </div>
-              <img v-if="property.pictures[0]" :src="property.pictures[0].path" alt="">
+              <img v-if="property.pictures[0]" :src="property.pictures[0].path" data-src="/images/card1.png"  alt="">
               <img v-else src="/images/card1.png" alt="">
             </div>
             <div class="card-stacked">

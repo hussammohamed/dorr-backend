@@ -24,7 +24,7 @@ class PropertyOfferController extends Controller
 
     public function getPropertyOffers($id)
     {
-        $property_offers = PropertyOffer::where('property_id',$id)->where('active',1)->where('deleted',0)->get();
+        $property_offers = PropertyOffer::where('property_id',$id)->where('active',1)->where('deleted',0)->orderBy('id', 'desc')->get();
         return PropertyOfferCollection::collection($property_offers);
     }
 

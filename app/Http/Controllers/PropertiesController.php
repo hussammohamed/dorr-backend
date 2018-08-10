@@ -449,7 +449,7 @@ class PropertiesController extends Controller
                         
                         //imagecopy($im, $stamp, imagesx($im) - $sx - $marge_right, imagesy($im) - $sy - $marge_bottom, 0, 0, imagesx($stamp), imagesy($stamp));
                         imagecopy($im, $tmp, (imagesx($im) - $tmp_w)/2, (imagesy($im) - $tmp_h)/2, 0, 0, $tmp_w, $tmp_h);
-                        imagejpeg($im, $folderpath ."/". $fileName, 100);
+                        imagejpeg($im, $folderpath ."/". $fileName, 70);
                         imagedestroy($stamp);
                         imagedestroy($im);
                         // ---------------------------------------------------------
@@ -613,7 +613,7 @@ class PropertiesController extends Controller
                                 
                                 //imagecopy($im, $stamp, imagesx($im) - $sx - $marge_right, imagesy($im) - $sy - $marge_bottom, 0, 0, imagesx($stamp), imagesy($stamp));
                                 imagecopy($im, $tmp, (imagesx($im) - $tmp_w)/2, (imagesy($im) - $tmp_h)/2, 0, 0, $tmp_w, $tmp_h);
-                                imagejpeg($im, $folderpath ."/". $fileName, 100);
+                                imagejpeg($im, $folderpath ."/". $fileName, 70);
                                 imagedestroy($stamp);
                                 imagedestroy($im);
                                 // ---------------------------------------------------------
@@ -754,7 +754,7 @@ class PropertiesController extends Controller
                             
                             //imagecopy($im, $stamp, imagesx($im) - $sx - $marge_right, imagesy($im) - $sy - $marge_bottom, 0, 0, imagesx($stamp), imagesy($stamp));
                             imagecopy($im, $tmp, (imagesx($im) - $tmp_w)/2, (imagesy($im) - $tmp_h)/2, 0, 0, $tmp_w, $tmp_h);
-                            imagejpeg($im, $folderpath ."/". $fileName, 100);
+                            imagejpeg($im, $folderpath ."/". $fileName, 70);
                             imagedestroy($stamp);
                             imagedestroy($im);
                             // ---------------------------------------------------------

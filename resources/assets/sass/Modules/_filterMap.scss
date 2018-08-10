@@ -36,7 +36,7 @@
         -moz-user-select: none;
         -ms-user-select: none;
         user-select: none;
-        min-width: initial;
+        min-width: inherit;
         overflow: visible;
         &.filter-map__selected {
             background-color: $primary-base;

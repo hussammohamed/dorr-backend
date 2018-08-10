@@ -59,16 +59,18 @@ class ContractController extends Controller
     public function sendFCM($mess,$id) {
         $url = 'https://fcm.googleapis.com/fcm/send';
         $fields = array (
-                'to' => $id,
-                'notification' => array (
-                        "body" => $mess,
-                        "title" => "Title",
-                        "icon" => "myicon"
+                'to' => "/topics/" .$id,
+                'data' => array (
+                        "web_msg" => $mess,
+                        "mob_msg" => $mess,
+                        "type" => "add_property",
+                        "web_url" => "myicon",
+                        "web_route" => "index.properties"
                 )
-        );
+                );
         $fields = json_encode ( $fields );
         $headers = array (
-                'Authorization: key=' . "AIzaSyDvN0Pywabdl8U8J2hxM0b32h7ErOZuXZ8",
+                'Authorization: key=' . "AAAAOKZ-G_o:APA91bFzQNtD1YuE6QQzeEkGNjdy2hFlar2Xoka-SazPEwofFQcJ1_zmYu-pOmpeO9JHnQNq6JU1aiWq-ocrrkDI95MOfS656hfyyijPggVqpZ8EMA5Atxj0JT6EHim4h73ydYb9GtR87sQ0ru9TTDreebLhviMFWw",
                 'Content-Type: application/json'
         );
         

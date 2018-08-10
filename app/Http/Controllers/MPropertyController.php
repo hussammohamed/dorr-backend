@@ -151,7 +151,24 @@ class MPropertyController extends Controller
             
 
             //$property->save();
-            
+            $curl = curl_init();
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => "https://fcm.googleapis.com/fcm/send",
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 30,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => "POST",
+                CURLOPT_POSTFIELDS => "{\n  \"to\": \"/topics/ddd\",\n  \"data\": {\n    \"message\": \"THIS IS A MESSAGE INSIDE THE DATA\"\n  }\n}",
+                CURLOPT_HTTPHEADER => array(
+                  "authorization: key=AAAAOKZ-G_o:APA91bFzQNtD1YuE6QQzeEkGNjdy2hFlar2Xoka-SazPEwofFQcJ1_zmYu-pOmpeO9JHnQNq6JU1aiWq-ocrrkDI95MOfS656hfyyijPggVqpZ8EMA5Atxj0JT6EHim4h73ydYb9GtR87sQ0ru9TTDreebLhviMFWw",
+                  "cache-control: no-cache",
+                 "content-type: application/json",
+                ),
+              ));
+              $response = curl_exec($curl);
+              $err = curl_error($curl);
             return [ $this->modelname => new MPropertyResource($mproperty)];
         }else{
             return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);

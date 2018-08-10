@@ -258,9 +258,10 @@
                     </a>
                     @endif
                     </div>
-
+                    @if($offer->price)
                     <span class="card-label top-label-left has-secondary-base-bg" v-text="addCommas('{{$offer->price}}', ' عرض السعر ', ' ريال')"></span>
-                    
+                    @endif
+                    @if(!App\PropertyOffer::where('property_id', '=', $property->id)->where('reply_on', '=', $offer->id)->get()->isEmpty())
                     <div class="comments">
                         @foreach(App\PropertyOffer::where('property_id', '=', $property->id)->where('reply_on', '=', $offer->id)->get() as $subOffer)
                         <div class="comment">
@@ -278,6 +279,7 @@
                         </div>
                         @endforeach
                     </div>
+                    @endif
                     @if(!Auth::guest() && (Auth::user()->id == $property->user_id ))
                     <add-comment-component :propertyid="{{json_encode($property->id)}}" :offerid="{{json_encode($offer->id)}}"></add-comment-component>
                     @elseif (!Auth::guest() && (Auth::user()->id == $offer->user_id ))
@@ -381,6 +383,7 @@
             @endif
         </div>
     </div>
+    @if(!$similarProperties->isEmpty())
     <div class="group-ad">
         <div class="group-ad__header">
             <h6 class="group-ad__title">إعلانات مشابهة</h6>
@@ -395,6 +398,7 @@
             @endforeach
         </div>
     </div>
+    @endif
 </div>
 
 <report-component :propertyid="{{json_encode($property->id)}}"></report-component>

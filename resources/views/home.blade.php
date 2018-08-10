@@ -6,6 +6,7 @@
 <map-component :cities="{{json_encode($cities)}}"></map-component>
 
 <div class="content">
+        @if(!$featuredProperties->isEmpty())
     <div class="group-ad">
         <div class="group-ad__header">
             <h6 class="group-ad__title">إعلانات مميزة</h6>
@@ -19,6 +20,8 @@
             @endforeach
         </div>
     </div>
+    @endif
+    @if(!$latestProperties->isEmpty())
     <div class="group-ad">
         <div class="group-ad__header">
             <h6 class="group-ad__title">إحدث العروض</h6>
@@ -32,6 +35,7 @@
             @endforeach
         </div>
     </div>
+    @endif
     @include('components.appsDownload') @include('components.ourServices')
 </div>
 

@@ -17,6 +17,8 @@
     
     @stack('styles')
     <script src='https://www.google.com/recaptcha/api.js'></script> 
+    @stack('headerScript')
+    @stack('scripts')
 </head>
 <body>
     <div id="app" class="app--container">

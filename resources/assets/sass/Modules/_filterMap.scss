@@ -1,27 +1,49 @@
 // ## variables
-
-
 // Component
-
-
 // ## ========================================================================
 // ## styles
-.filter-map{
+.filter-map {
     padding: 15px;
-    .filter-map__item{
-        
+    display: flex;
+    grid-column: span 4;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    flex-direction: row-reverse;
+    position: relative;
+    grid-column: 2/4;
+    .filter-map__item {}
+    .items {
+        grid-column: span 4;
+        white-space: nowrap;
+        align-items: center;
+        overflow-y: hidden;
+        overflow-x: scroll;
+        -webkit-overflow-scrolling: touch;
+        align-self: start;
+        direction: rtl;
+        display: flex;
+        grid-column: 2/4;
+        &::-webkit-scrollbar{display:none}
     }
-    .filter-map__button{
+    .filter-map__button {
         border: $border-color 1px solid;
         color: $text-normal-color;
         border-radius: 2px;
         margin: 0 4px;
-        &.filter-map__selected{
+        --webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        min-width: initial;
+        overflow: visible;
+        &.filter-map__selected {
             background-color: $primary-base;
             color: $text-color;
         }
     }
-    .owl-controls{
+    .owl-controls {
         display: none !important;
     }
 }

@@ -1,8 +1,11 @@
 <template>
-  <div class="filter-map owl-theme">
-    <button v-for="filter in filters" @click="filterFun(filter)"  class="item mdl-button mdl-js-button mdl-js-ripple-effect filter-map__button " :class="[filter.active ? 'filter-map__selected' : '']"> 
+  <div class="filter-map">
+    <div id="filterItems" class="items">
+    <a v-for="filter in filters" @click="filterFun(filter)"  class="item mdl-button  filter-map__button " :class="[filter.active ? 'filter-map__selected' : '']"> 
         {{filter.name_ar}}
-    </button>
+       
+    </a>
+     </div>
    
 
 </div>

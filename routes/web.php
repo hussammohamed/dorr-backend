@@ -191,7 +191,15 @@ Route::group(['prefix'=>'api/v1'],function(){
     Route::post('/payment_collects/{id}/status/{status}', 'PaymentCollectController@changeStatus');
     Route::get('/payment_orders/{id}/payment_collects', 'PaymentCollectController@indexByPaymentOrder');
 
+    Route::apiResource('/transactions','TransactionController');
+    Route::post('/transactions/{id}', 'TransactionController@update');
+    Route::get('/mproperties/{id}/transactions', 'TransactionController@indexByMProperty');
     
+    Route::apiResource('/transfer_requests','TransferRequestController');
+    Route::post('/transfer_requests/{id}', 'TransferRequestController@update');
+    Route::get('/mproperties/{id}/transfer_requests', 'TransferRequestController@indexByMProperty');
+    Route::post('/transfer_requests/{id}/status/{status}', 'TransferRequestController@changeStatus');
+
 
     /*
     Route::apiResource('/types','TypesController');

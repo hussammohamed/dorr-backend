@@ -28,7 +28,7 @@ class Payment extends Model
         'renter_user_id' => 'integer',
         'serial' => 'integer',
         'amount' => 'integer',
-        'status' => 'status',
+        'status' => 'integer',
         'notification' => 'integer'
     ];
 }

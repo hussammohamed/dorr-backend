@@ -38,7 +38,7 @@ class AppServiceProvider extends ServiceProvider
         
 
         // to fix migration error
-        Schema::defaultStringLength(250);
+        Schema::defaultStringLength(191);
     }
 
     /**

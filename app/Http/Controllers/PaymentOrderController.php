@@ -134,7 +134,7 @@ class PaymentOrderController extends Controller
         }
     }
 
-    public function collected($id)
+    public function collected($id, $remaining)
     {
         if (Auth::check()) {
             
@@ -145,7 +145,7 @@ class PaymentOrderController extends Controller
             $transaction = new Transaction;
             $transaction->m_property_id = $payment_order->m_property_id;
             $transaction->type = 1;
-            $transaction->amount = $payment_order->amount;
+            $transaction->amount = $remaining;
             $transaction->method = null;
             $transaction->name = "تحصيل ايجار متأخر";
 

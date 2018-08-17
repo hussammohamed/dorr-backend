@@ -183,7 +183,7 @@ Route::group(['prefix'=>'api/v1'],function(){
     
 	Route::apiResource('/payment_orders','PaymentOrderController');
     Route::post('/payment_orders/{id}', 'PaymentOrderController@update');
-    Route::post('/payment_orders/{id}/collected', 'PaymentOrderController@collected');
+    Route::post('/payment_orders/{id}/collected/{remaining}', 'PaymentOrderController@collected');
     Route::post('/payment_orders/{id}/status/{status}', 'PaymentOrderController@changeStatus');
     Route::get('/mproperties/{id}/payment_orders', 'PaymentOrderController@indexByMProperty');
 

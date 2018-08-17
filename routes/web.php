@@ -177,6 +177,7 @@ Route::group(['prefix'=>'api/v1'],function(){
 	Route::apiResource('/payments','PaymentController');
     Route::post('/payments/{id}', 'PaymentController@update');
     Route::post('/payments/{id}/status/{status}', 'PaymentController@changeStatus');
+    Route::post('/payments/{id}/collected', 'PaymentController@collected');
     Route::get('/mproperties/{id}/payments', 'PaymentController@indexByMProperty');
 
     

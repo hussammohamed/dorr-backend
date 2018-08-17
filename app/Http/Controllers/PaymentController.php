@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Auth;
 use App;
 use App\Payment;
+use App\Transaction;
 
 use App\Http\Requests\PaymentRequest;
 use App\Http\Resources\PaymentResource;
@@ -107,10 +108,34 @@ class PaymentController extends Controller
         if (Auth::check()) {
             $data = (array) json_decode($request->request->get('data'));
 
-            $payment = Payment::find($id); 
+            $ؤ = Payment::find($id); 
             $payment->update($data);          
 
             return [ $this->modelname => new PaymentResource($payment)];
+        }else{
+            return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
+        }
+    }
+
+
+    public function collected($id)
+    {
+        if (Auth::check()) {
+            
+            $payment = Payment::find($id); 
+            $payment->status = 1;
+            $payment->save();
+
+            $transaction = new Transaction;
+            $transaction->m_property_id = $payment->m_property_id;
+            $transaction->type = 1;
+            $transaction->amount = $payment->amount;
+            $transaction->method = null;
+            $transaction->name = "تحصيل ايجار";
+
+            $transaction->save();
+
+            return response([ "$this->modelname" => new PaymentResource($payment)],Response::HTTP_OK);
         }else{
             return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
         }

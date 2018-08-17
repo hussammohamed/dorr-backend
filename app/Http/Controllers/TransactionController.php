@@ -39,6 +39,11 @@ class TransactionController extends Controller
         return [ $this->modelnames => TransactionResource::collection(Transaction::Where('m_property_id',$id)->get())];
     }
 
+    public function filter($id, $filter)
+    {
+        return [ $this->modelnames => TransactionResource::collection(Transaction::Where('m_property_id',$id)->Where('type',$filter)->get())];
+    }
+
     /**
      * Show the form for creating a new resource.
      *

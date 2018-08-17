@@ -160,6 +160,20 @@ class FormController extends Controller
                     "name"=>"رفض الطلب",
                 ]
             ],
+            "transaction_methods"=>[
+                [
+                    "id"=>1,
+                    "name"=>"كاش",
+                ],
+                [
+                    "id"=>2,
+                    "name"=>"شيك",
+                ],
+                [
+                    "id"=>3,
+                    "name"=>"تحويل بنكى",
+                ]
+            ],
         ];
     }
 }

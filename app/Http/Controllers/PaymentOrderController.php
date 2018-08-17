@@ -6,10 +6,11 @@ use App\PaymentOrder;
 use Auth;
 use App\Payment;
 use App\Contract;
-
+use App\Transaction;
 
 use App\Http\Resources\PaymentOrderResource;
 
+use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 
 class PaymentOrderController extends Controller
@@ -128,6 +129,29 @@ class PaymentOrderController extends Controller
             $payment_order->update($data);          
 
             return [ $this->modelname => new PaymentOrderResource($payment_order)];
+        }else{
+            return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
+        }
+    }
+
+    public function collected($id)
+    {
+        if (Auth::check()) {
+            
+            $payment_order = PaymentOrder::find($id); 
+            $payment_order->status = 1;
+            $payment_order->save();
+
+            $transaction = new Transaction;
+            $transaction->m_property_id = $payment_order->m_property_id;
+            $transaction->type = 1;
+            $transaction->amount = $payment_order->amount;
+            $transaction->method = null;
+            $transaction->name = "تحصيل ايجار متأخر";
+
+            $transaction->save();
+
+            return response([ "$this->modelname" => new PaymentOrderResource($payment_order)],Response::HTTP_OK);
         }else{
             return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
         }

@@ -8,9 +8,11 @@ use App\PaymentOrder;
 use Auth;
 use App\Payment;
 use App\Contract;
+use App\Transaction;
 
 use App\Http\Resources\PaymentCollectResource;
 
+use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 
 class PaymentCollectController extends Controller
@@ -61,9 +63,20 @@ class PaymentCollectController extends Controller
         if (Auth::check()) {
             $data = (array) json_decode($request->request->get('data'));
 
-            $payment_order = PaymentCollect::create($data);
+            $payment_collect = PaymentCollect::create($data);
 
-            return [ $this->modelname => new PaymentCollectResource($payment_order)];
+            $payment_order = PaymentOrder::find($data["payment_order_id"]);
+
+            $transaction = new Transaction;
+            $transaction->m_property_id = $payment_order->m_property_id;
+            $transaction->type = 1;
+            $transaction->amount = $payment_collect->amount;
+            $transaction->method = null;
+            $transaction->name = "تحصيل ايجار جزئى";
+
+            $transaction->save();
+
+            return [ $this->modelname => new PaymentCollectResource($payment_collect)];
         }else{
             return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
         }
@@ -113,6 +126,8 @@ class PaymentCollectController extends Controller
             return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
         }
     }
+
+    
 
     /**
      * Remove the specified resource from storage.

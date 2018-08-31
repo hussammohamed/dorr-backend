@@ -170,6 +170,7 @@ Route::group(['prefix'=>'api/v1'],function(){
     
 	Route::apiResource('/maintenances','MaintenanceController');
     Route::post('/maintenances/{id}', 'MaintenanceController@update');
+    Route::post('/maintenances/{id}/close', 'MaintenanceController@close');
     Route::post('/maintenances/{id}/status/{status}', 'MaintenanceController@changeStatus');
     Route::get('/mproperties/{id}/maintenances', 'MaintenanceController@indexByMProperty');
 

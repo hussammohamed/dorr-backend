@@ -23,7 +23,7 @@ class TransactionResource extends Resource
             'method' => $this->method,
             'image' => ($this->image == null ) ? null : url('/').'/upload/transactions/'.$this->image,
             'notes' => $this->notes,
-            'created_at' => $this->created_at
+            'created_at' => $this->created_at->toDateString()
         ];
     }
 }

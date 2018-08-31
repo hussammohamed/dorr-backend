@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Auth;
 use App;
 use App\Maintenance;
+use App\Transaction;
 
 
 use App\Http\Requests\MaintenanceRequest;
@@ -125,6 +126,39 @@ class MaintenanceController extends Controller
         }
     }
 
+    public function close(Request $request, $id){
+        
+        if (Auth::check()) {
+            $data = (array) json_decode($request->request->get('data'));
+
+            if ($request->hasFile('invoice_image')) {
+                $file = $request->file('invoice_image');
+                $extension = $file->getClientOriginalExtension();
+                $invoice_fileName = str_random(20).".".$extension;
+                $folderpath  = 'upload/maintenances/';
+                $file->move($folderpath , $invoice_fileName);
+
+                $data["invoice_image"] = $invoice_fileName;
+            }
+
+            $maintenance = Maintenance::find($id); 
+            $maintenance->update($data);
+            
+            $transaction = new Transaction;
+            $transaction->m_property_id = $maintenance->m_property_id;
+            $transaction->type = 2;
+            $transaction->amount = $maintenance->amount;
+            $transaction->method = null;
+            $transaction->name = "دفع مصاريف صيانة";
+
+            $transaction->save();
+
+            return [ $this->modelname => new MaintenanceResource($maintenance)];
+        }else{
+            return response()->json(["error"=>"There is no logined user"], Response::HTTP_UNAUTHORIZED);
+        }
+        
+    }
     /**
      * Remove the specified resource from storage.
      *

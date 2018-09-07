@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use DB;
 use App;
 use App\Transaction;
 
@@ -141,7 +142,18 @@ class TransactionController extends Controller
 
     public function total($id)
     {
-        return $id;
+        $income = DB::table('transactions')->where('m_property_id' ,'=', $id)->where('type' ,'=', '1')->sum('amount');
+        $outcome = DB::table('transactions')->where('m_property_id' ,'=', $id)->where('type' ,'=', '2')->sum('amount');
+        $withdraws = DB::table('transactions')->where('m_property_id' ,'=', $id)->where('type' ,'=', '3')->sum('amount');
+        return [
+            "total"=>[
+                [
+                    "income"=>$income,
+                    "outcome"=>$outcome,
+                    "withdraws"=>$withdraws
+                ]
+            ]
+        ];
     }
 
     /**

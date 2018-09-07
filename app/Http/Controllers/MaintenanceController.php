@@ -137,7 +137,6 @@ class MaintenanceController extends Controller
                 $invoice_fileName = str_random(20).".".$extension;
                 $folderpath  = 'upload/maintenances/';
                 $file->move($folderpath , $invoice_fileName);
-
                 $data["invoice_image"] = $invoice_fileName;
             }
 
@@ -147,7 +146,12 @@ class MaintenanceController extends Controller
             $transaction = new Transaction;
             $transaction->m_property_id = $maintenance->m_property_id;
             $transaction->type = 2;
-            $transaction->amount = $maintenance->amount;
+            if($maintenance->owner_response==2){
+                $transaction->amount = $maintenance->min_fix_amount;
+            }else{
+                $transaction->amount = $maintenance->laborer_pay + $maintenance->matrials_price;
+            }
+            
             $transaction->method = null;
             $transaction->name = "دفع مصاريف صيانة";
 

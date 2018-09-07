@@ -198,6 +198,7 @@ Route::group(['prefix'=>'api/v1'],function(){
     Route::post('/transactions/{id}', 'TransactionController@update');
     Route::get('/mproperties/{id}/transactions/filter/{filter}', 'TransactionController@filter');
     Route::get('/mproperties/{id}/transactions', 'TransactionController@indexByMProperty');
+    Route::get('/mproperties/{id}/transactions_total', 'TransactionController@total');
     
     Route::apiResource('/transfer_requests','TransferRequestController');
     Route::post('/transfer_requests/{id}', 'TransferRequestController@update');

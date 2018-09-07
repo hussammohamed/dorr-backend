@@ -138,6 +138,12 @@ class TransactionController extends Controller
         }
     }
 
+
+    public function total($id)
+    {
+        return $id;
+    }
+
     /**
      * Remove the specified resource from storage.
      *

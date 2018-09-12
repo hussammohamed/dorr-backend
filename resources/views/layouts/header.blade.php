@@ -72,11 +72,16 @@
                     <span>التقرير العقارى</span>
                     <i class="material-icons">insert_chart</i>
                 </a> -->
+                <a href="http://pm.bareeqstudio.com/properties/" class="action--link">
+                    <span>إضف أعلان</span>
+                    <i class="material-icons">business</i>
+                </a>
+                
+                @else
                 <a @click="loginDialog('/properties/create')" class="action--link">
-                    <span>أضف عقار</span>
+                    <span>إضف أعلان</span>
                     <i class="material-icons">add_box</i>
                 </a>
-                @else
                 <!-- <a href={{ asset( '/zakah')}} class="action--link">
                     <span>{{ trans('ui.zkaka-link')}}</span>
                     <i class="material-icons">%</i>
@@ -87,7 +92,7 @@
                 </a> -->
 
                 <a href={{ asset( '/properties/create')}} class="action--link">
-                    <span>أضف عقار</span>
+                <span>إضف أعلان</span>
                     <i class="material-icons">add_box</i>
                 </a>
                 @endguest

@@ -72,15 +72,15 @@
                     <span>التقرير العقارى</span>
                     <i class="material-icons">insert_chart</i>
                 </a> -->
-                <a href="http://pm.bareeqstudio.com/properties/" class="action--link">
-                    <span>إضف أعلان</span>
-                    <i class="material-icons">business</i>
-                </a>
-                
-                @else
                 <a @click="loginDialog('/properties/create')" class="action--link">
                     <span>إضف أعلان</span>
                     <i class="material-icons">add_box</i>
+                </a>
+                
+                @else
+                <a href="http://pm.bareeqstudio.com/properties/" class="action--link">
+                    <span>إدارة الأملاك</span>
+                    <i class="material-icons">business</i>
                 </a>
                 <!-- <a href={{ asset( '/zakah')}} class="action--link">
                     <span>{{ trans('ui.zkaka-link')}}</span>
@@ -130,7 +130,7 @@
                         <a href="{{asset('myAccount/Properties')}}">إعلانتي</a>
                     </li>
                     <li>
-                        <a href="http://pm.bareeqstudio.com/properties/">إدارة العقارات</a>
+                        <a href="http://pm.bareeqstudio.com/properties/">إدارة الأملاك</a>
                     </li>
                     <li>
                         <a href="{{ route('logout') }}" onclick="event.preventDefault();

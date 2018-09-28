@@ -1,26 +1,31 @@
-var reformNumber = function(n){
-	if(n[n.length-1] === '0'){
-	  return n.substr(0,n.length-2);
+var reformNumber = function (n) {
+	if (n[n.length - 1] === '0') {
+		return n.substr(0, n.length - 2);
 	}
 	return n;
-  }
-  var priceFormatter = function(num){
-	if(num > 999999999)
-	  return reformNumber((num/1000000000).toFixed(1)) + " مليار ";
-	else if(num > 999999)
-	  return reformNumber((num/1000000).toFixed(1))  + " مليون ";
-	else if(num > 999)
-	  return reformNumber((num/1000).toFixed(1))   + " ألف ";
-	else return reformNumber((num/1).toFixed(1)) +  " ريال ";
-  }
+}
+var priceFormatter = function (num) {
+	if (num > 999999999)
+		return reformNumber((num / 1000000000).toFixed(1)) + " مليار ";
+	else if (num > 999999)
+		return reformNumber((num / 1000000).toFixed(1)) + " مليون ";
+	else if (num > 999)
+		return reformNumber((num / 1000).toFixed(1)) + " ألف ";
+	else return reformNumber((num / 1).toFixed(1)) + " ريال ";
+}
 function CustomMarker(latlng, map, args, type, component) {
 	this.latlng = latlng;
-	this.args = args; 
+	this.args = args;
 	this.type = type;
 	this.setMap(map);
 	this.component = component;
 }
+function returnViewPrice (property){
 
+	let price;
+	if(property.price_view  == 1) price = property.price; else price = property.bid_price
+	return addCommas(price, ' ريال')
+}
 CustomMarker.prototype = new google.maps.OverlayView();
 
 CustomMarker.prototype.draw = function () {
@@ -41,7 +46,15 @@ CustomMarker.prototype.draw = function () {
 			div.innerHTML += self.args.title;
 		}
 		if (self.type === "property") {
-			div.innerHTML += priceFormatter(self.args.details.price);
+			console.log(self.args.details)
+			if(self.args.details.price_view  == 1){
+				div.innerHTML += priceFormatter(self.args.details.price);
+			}
+			else{
+				div.innerHTML += priceFormatter(self.args.details.bid_price);
+				div.className += " bid-price"
+			}
+		
 		}
 
 		google.maps.event.addDomListener(div, "click", function (event) {
@@ -50,7 +63,7 @@ CustomMarker.prototype.draw = function () {
 			let id = this.dataset.id;
 			let bounds = new google.maps.LatLngBounds();
 			if (type == "region") {
-				if(self.component){
+				if (self.component) {
 					// self.component.properties = [];
 					self.component.isloading = true;
 				}
@@ -59,7 +72,7 @@ CustomMarker.prototype.draw = function () {
 				// 		data.data.forEach(function (el) {
 				// 			var overlay = new CustomMarker(new google.maps.LatLng(el.location.lat, el.location.long), self.map, el, 'district', self.component);
 				// 			bounds.extend(overlay.getPosition());
-							
+
 				// 		});
 				// 		self.map.fitBounds(bounds);
 				// 		self.map.setZoom(10);
@@ -68,33 +81,33 @@ CustomMarker.prototype.draw = function () {
 				// 		self.map.setCenter(new google.maps.LatLng(self.latlng.lat(), (self.latlng.lng())));
 				// 		self.map.setZoom(10);
 				// 	}
-					
+
 				// })
 				$.ajax({
 					url:
-					  "/api/v1/properties/search?lat=" +
-					  self.latlng.lat() +
-					  "&long=" +
-					  self.latlng.lng() +
-					  "",
+						"/api/v1/properties/search?lat=" +
+						self.latlng.lat() +
+						"&long=" +
+						self.latlng.lng() +
+						"",
 					type: "post",
 					dataType: "json",
-					success: function(_response) {
-						if(!_response){
+					success: function (_response) {
+						if (!_response) {
 							self.component.properties = [];
 							self.component.isEmpty = true;
-						 }else{
-						   self.component.properties = _response.data;
-						   self.component.isEmpty = false;
-						 }
+						} else {
+							self.component.properties = _response.data;
+							self.component.isEmpty = false;
+						}
 					},
-					complete: function(_response){
-					self.component.kind = "properties"
-					self.component.isloading = false;
-					self.map.setCenter(new google.maps.LatLng(self.latlng.lat(), (self.latlng.lng())));
-					self.map.setZoom(9);
+					complete: function (_response) {
+						self.component.kind = "properties"
+						self.component.isloading = false;
+						self.map.setCenter(new google.maps.LatLng(self.latlng.lat(), (self.latlng.lng())));
+						self.map.setZoom(9);
 					}
-				  });
+				});
 				$(".map-marker,.property-card")
 					.fadeOut()
 					.remove();
@@ -102,20 +115,20 @@ CustomMarker.prototype.draw = function () {
 			if (type == "district") {
 				self.component.isLoading = true;
 				$.get('/api/v1/properties/region/' + id + '', function (data) {
-					if(data.data){
+					if (data.data) {
 						self.component.properties = data.data;
 						self.component.isEmpty = false;
 					}
-					else{
+					else {
 						self.component.isEmpty = true;
 						self.component.properties = [];
-						
+
 					}
 					self.component.kind = "properties"
 					self.component.isLoading = false;
 					self.map.setCenter(new google.maps.LatLng(self.latlng.lat(), (self.latlng.lng())));
 					self.map.setZoom(12);
-					
+
 				})
 				$(".map-marker,.property-card")
 					.fadeOut()
@@ -172,7 +185,7 @@ CustomMarker.prototype.drawProperty = function (id) {
 	if (self.args.pictures[0]) {
 		picture = self.args.pictures[0].path;
 	}
-	else{
+	else {
 		picture = "/images/card1.png"
 	}
 	var content = '<div class="card-image">'
@@ -187,7 +200,7 @@ CustomMarker.prototype.drawProperty = function (id) {
 		+ '<div class="card-footer">'
 		+ '<div class="card-footer__price">'
 		+ ' <span class="price--text">'
-		+ '' + addCommas(self.args.details.price , ' ريال')
+		+ '' + returnViewPrice(self.args.details)
 		+ '</span>'
 		+ '</div>'
 		+ '<div class="footer-contet">'
@@ -225,13 +238,13 @@ function addCommas(num, begText, endText) {
 	while (rgx.test(x1)) {
 		x1 = x1.replace(rgx, '$1' + ',' + '$2');
 	}
-	if(begText && endText){
+	if (begText && endText) {
 		return begText + x1 + x2 + endText;
 	}
-	else if(begText){
+	else if (begText) {
 		return x1 + x2 + begText;
-	}else{
+	} else {
 		return x1 + x2;
 	}
-	
+
 }

@@ -59,19 +59,22 @@ function loginShow(currentUrl){
 }
 
 (function() {
+  let filterItems = document.querySelector('#filterItems');
   function scrollHorizontally(e) {
       e = window.event || e;
       var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
-      document.getElementById('filterItems').scrollLeft -= (delta*10); // Multiplied by 40
+      filterItems.scrollLeft -= (delta*10); // Multiplied by 40
       e.preventDefault();
   }
-  if (document.getElementById('filterItems').addEventListener) {
+  if(filterItems){
+  if (filterItems.addEventListener) {
       // IE9, Chrome, Safari, Opera
-      document.getElementById('filterItems').addEventListener("mousewheel", scrollHorizontally, false);
+      filterItems.addEventListener("mousewheel", scrollHorizontally, false);
       // Firefox
-      document.getElementById('filterItems').addEventListener("DOMMouseScroll", scrollHorizontally, false);
+      filterItems.addEventListener("DOMMouseScroll", scrollHorizontally, false);
   } else {
       // IE 6/7/8
-      document.getElementById('filterItems').attachEvent("onmousewheel", scrollHorizontally);
+      filterItems.attachEvent("onmousewheel", scrollHorizontally);
   }
+}
 })();

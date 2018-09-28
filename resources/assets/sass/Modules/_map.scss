@@ -56,6 +56,13 @@ $markerHeight: 24px;
             background-color: $primary-base;
             color: $text-color;
         }
+        &.bid-price{
+            background-color: $secondary-base;
+            color: $text-dark-color;
+            .map-marker__arrow{
+                border-top: 6px solid $secondary-base;
+            }
+        }
     }
     .map-marker__arrow{
         width: 0;

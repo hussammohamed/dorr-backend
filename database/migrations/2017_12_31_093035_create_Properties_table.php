@@ -43,8 +43,12 @@ class CreatePropertiesTable extends Migration
 		    $table->bigInteger('ad_id')->unique();
 		    $table->integer('hits')->default('0');
 		    $table->string('youtube')->nullable();
+		    $table->boolean('allow_comments')->default('1');
+		    $table->boolean('allow_whatsapp')->default('1');
+		    $table->boolean('allow_private')->default('1');
 		    $table->date('startDate')->nullable();
 		    $table->date('endDate')->nullable();
+		    $table->date('data_updated')->nullable();
 		    $table->boolean('marked')->default('1');
 		    $table->boolean('featured')->default('0');
 		    $table->boolean('active')->default('1');

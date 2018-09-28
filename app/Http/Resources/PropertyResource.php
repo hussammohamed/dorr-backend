@@ -109,6 +109,10 @@ class PropertyResource extends Resource
                 ],*/
                 "featured"=> $this->featured,
                 "hits"=> $this->hits,
+                "allow_comments"=> $this->allow_comments,
+                "allow_whatsapp"=> $this->allow_whatsapp,
+                "allow_private"=> $this->allow_private,
+                "data_updated"=> $this->data_updated,
             ],
             "pictures" => PropertyImageResource::collection($this->images)
             ,

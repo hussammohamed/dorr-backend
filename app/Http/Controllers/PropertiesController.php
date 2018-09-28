@@ -321,6 +321,13 @@ class PropertiesController extends Controller
             $property->description = $request->description;
             $property->price = $request->price;
             $property->price_view = $request->price_view;
+
+            
+            $property->allow_comments = $request->allow_comments;
+            $property->allow_whatsapp = $request->allow_whatsapp;
+            $property->allow_private = $request->allow_private;
+            $property->data_updated = date('Y-m-d H:i:s');
+
             //$property->bid_price = $request->bid_price;
             if(isset($request->bid_price) && $request->bid_price!=""){ $property->bid_price = $request->bid_price; }else{ $property->bid_price = null;};
             if(isset($request->period) && $request->period!=""){ $property->period = $request->period; }else{ $property->period = null;};
@@ -393,6 +400,12 @@ class PropertiesController extends Controller
             //$property->payment_methods =  $data['payment_methods'];
             if(isset($data['rooms'])){ $property->rooms = $data['rooms']; }else{ $property->rooms = null;};
             if(isset($data['bathrooms'])){ $property->bathrooms = $data['bathrooms']; }else{ $property->bathrooms = null;};
+            
+            
+            $property->allow_comments = $data['allow_comments'];
+            $property->allow_whatsapp = $data['allow_whatsapp'];
+            $property->allow_private = $data['allow_private'];
+            $property->data_updated = date('Y-m-d H:i:s');
             
             if(isset($data['youtube'])){ 
                 $rx = "#(?<=v=)[a-zA-Z0-9-]+(?=&)|(?<=v\/)[^&\n]+(?=\?)|(?<=v=)[^&\n]+|(?<=youtu.be/)[^&\n]+#";
@@ -548,6 +561,13 @@ class PropertiesController extends Controller
                     if(isset($data['description'])){ $property->description = $data['description']; }else{ $property->description = null;};
                     $property->price = $data['price'];
                     $property->price_view = $data['price_view'];
+
+                    
+                    $property->allow_comments = $data['allow_comments'];
+                    $property->allow_whatsapp = $data['allow_whatsapp'];
+                    $property->allow_private = $data['allow_private'];
+                    $property->data_updated = date('Y-m-d H:i:s');
+                    
                     if(isset($data['bid_price']) || $data['bid_price']==""){ $property->bid_price = $data['bid_price']; }else{ $property->bid_price = null;};
                     if(isset($data['period'])){ $property->period = $data['period']; }else{ $property->period = null;};
                     //if(isset($data['income'])){ $property->income = $data['income']; }else{ $property->income = null;};
@@ -687,6 +707,12 @@ class PropertiesController extends Controller
                     $property->description =  $request->description;
                     $property->price = $request->price;
                     $property->price_view = $request->price_view;
+                    
+                    $property->allow_comments = $request->allow_comments;
+                    $property->allow_whatsapp = $request->allow_whatsapp;
+                    $property->allow_private = $request->allow_private;
+                    $property->data_updated = date('Y-m-d H:i:s');
+                    
                     if(isset($request->bid_price) && $request->bid_price!=""){ $property->bid_price = $request->bid_price; }else{ $property->bid_price = null;};
                     if(isset($request->period) && $request->period!=""){ $property->period = $request->period; }else{ $property->period = null;};
                     if(isset($request->income) && $request->income!=""){ $property->income = $request->income; }else{ $property->income = null;};

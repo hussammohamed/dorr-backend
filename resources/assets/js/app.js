@@ -193,7 +193,13 @@ const app = new Vue({
             if (url) {
                 this.url = url;
             }
-            signupDialog.close();
+            if (! signupDialog.showModal) {
+                dialogPolyfill.registerDialog(signupDialog);
+                dialogPolyfill.registerDialog(loginDialog);
+                dialogPolyfill.registerDialog(forgotPasswordDialog);
+
+              }
+            //signupDialog.close();
             loginDialog.showModal();
 
         },
@@ -274,7 +280,11 @@ const app = new Vue({
         },
         closeDialog: function (el) {
             let rect = el.getBoundingClientRect();
-            let isInDialog = (rect.top <= event.clientY && event.clientY <= rect.top + rect.height && rect.left <= event.clientX && event.clientX <= rect.left + rect.width);
+            var e=window.event || event;
+            let isInDialog;
+                isInDialog = (rect.top <= e.clientY && e.clientY <= rect.top + rect.height && rect.left <= e.clientX && e.clientX <= rect.left + rect.width);
+      
+
             if (!isInDialog) {
                 el.close();
             }

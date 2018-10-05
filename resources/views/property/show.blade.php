@@ -367,7 +367,7 @@
                     <i class="material-icons md-18">chat</i>
                     تواصل مع المعلن
                 </button>
-                <a class="mdl-button  mdl-js-button mdl-js-ripple-effect  mdl-button--colored " href="whatsapp://send?phone=966{{ \App\User::find($property->user_id)->mobile1 }}">
+                <a class="mdl-button  mdl-js-button mdl-js-ripple-effect  mdl-button--colored " target="_blank" href="https://api.whatsapp.com/send?phone=966{{ \App\User::find($property->user_id)->mobile1 }}">
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px"
                         y="0px" width="18px" height="18px" viewBox="0 0 90 90" style="enable-background:new 0 0 90 90;" xml:space="preserve">
                         <g>

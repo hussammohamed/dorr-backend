@@ -31,25 +31,16 @@ $(window).scroll(function (e) {
   var stickyEl = $('.sticky-item');
   var Position = stickyContainer.offset();
   var scrollTop = $(this).scrollTop();
-  var windowHeight = $(window).height();
   if (stickyContainer.length) {
-    var bottom = Position.top + stickyContainer.outerHeight(true);
-    if (scrollTop > (Position.top + 100) && (scrollTop - Position.top) < (stickyContainer.height() - stickyEl.height() + 380)) {
-      if(windowHeight < stickyEl.height()){
-        stickyEl.css({ 'top': scrollTop - Position.top - Math.abs(windowHeight - stickyEl.height()) });
-      }else{
-        stickyEl.css({ 'top': scrollTop - Position.top});
-      }
+    if (scrollTop > (Position.top + 100) && (scrollTop - Position.top) < (stickyContainer.height() - stickyEl.height() + 204)) {
+      stickyEl.css({ 'top': scrollTop - Position.top - 200 });
     }
     if ($(this).scrollTop() < Position.top) {
       stickyEl.css({ 'top': 8 });
     }
-    if($(this).scrollTop() > (bottom - 400)){
-      stickyEl.css({ 'top': scrollTop -  windowHeight - 100});
-    }
   }
 });
-//login 
+  //login 
 
 function loginShow(currentUrl){
   if(currentUrl){

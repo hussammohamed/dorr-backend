@@ -113,6 +113,7 @@
                         </div>
                     </div>
                     <div id="map"></div>
+                    <div class="valid-map mdl-textfield__error hidden" >يجب تحديد الموقع على الخريطه</div>
                     <div class="map-link">
                         يمكنك تحديد العنوان من موقع
                         <a href="https://maps.address.gov.sa/" target="_blank"> خرائط العنوان الوطني السعودي</a>
@@ -390,18 +391,29 @@
         },
         onStepChanging: function (event, currentIndex, newIndex) {
             $(".u-hidden").removeClass('u-hidden');
-            console.log(newIndex, currentIndex)
             if (form.valid() && $("#district").valid()) {
                 $(".is-invalid").removeClass("is-invalid");
-                return true;
+                if (currentIndex == 1 && !$("#long").val() && !$("#lat").val()) {
+                    $('html,body').animate({
+                        scrollTop: $("#map").offset().top - 50
+                    },
+                        500);
+                        $("valid-map").removeClass('hidden');
+
+                    return false;
+                } else {
+                    $("valid-map").addClass('hidden');
+                    return true;
+                }
             } else if (newIndex < currentIndex) {
                 return true;
-            } else {
+            }
+            else {
                 $("#district").valid()
                 $(".is-invalid:first>input").focus();
                 return false;
             }
-
+           
 
         },
         onStepChanged: function (event, currentIndex, newIndex) {
@@ -438,6 +450,7 @@
                     },
                 });
             });
+
 
         },
         onFinished: function (event, currentIndex) {

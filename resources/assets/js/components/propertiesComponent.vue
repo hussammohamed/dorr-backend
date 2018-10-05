@@ -33,7 +33,7 @@
               <div class="card-footer">
                 <div class="card-footer__price">
                   <span class="price--text" v-text="addCommas(property.details.price, ' ريال')">
-                    {{}}ريال
+
                   </span>
                 </div>
                 <div class="footer-contet">
@@ -46,146 +46,147 @@
             </div>
           </div>
         </div>
+        <div class='u-empty-state' v-if="properties.length == 0">
+           عفوا, لايوجد أعلانات بهذا البحث
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-  export default {
-    data() {
-      return {
-        filterMethod: {
-          purpose: null,
-          type: null
+export default {
+  data() {
+    return {
+      filterMethod: {
+        purpose: null,
+        type: null
+      },
+      properties: [],
+      sortItems: [
+        {
+          id: 1,
+          title: "التميز",
+          method: "details.featured",
+          active: false
         },
-        properties: [],
-        sortItems: [
-          {
-            id: 1,
-            title: "التميز",
-            method: "details.featured",
-            active: false
-          },
-          {
-            id: 2,
-            title: "الأحدث",
-            method: "id",
-            active: true
-          },
-          {
-            id: 3,
-            title: "الأقل سعرا",
-            method: "details.price",
-            active: false
-          },
-          {
-            id: 4,
-            title: "الأعلى سعرا",
-            method: "details.price",
-            active: false
-          }
-        ],
-        regions: [],
-        districts: [],
-        map: {}
-      };
+        {
+          id: 2,
+          title: "الأحدث",
+          method: "id",
+          active: true
+        },
+        {
+          id: 3,
+          title: "الأقل سعرا",
+          method: "details.price",
+          active: false
+        },
+        {
+          id: 4,
+          title: "الأعلى سعرا",
+          method: "details.price",
+          active: false
+        }
+      ],
+      regions: [],
+      districts: [],
+      map: {}
+    };
+  },
+  methods: {
+    addCommas(num, begText, endText) {
+      num += "";
+      var x = num.split(".");
+      var x1 = x[0];
+      var x2 = x.length > 1 ? "." + x[1] : "";
+      var rgx = /(\d+)(\d{3})/;
+      while (rgx.test(x1)) {
+        x1 = x1.replace(rgx, "$1" + "," + "$2");
+      }
+      if (begText && endText) {
+        return begText + x1 + x2 + endText;
+      } else if (begText) {
+        return x1 + x2 + begText;
+      } else {
+        return x1 + x2;
+      }
     },
-    methods: {
-      addCommas(num, begText, endText) {
-        num += '';
-        var x = num.split('.');
-        var x1 = x[0];
-        var x2 = x.length > 1 ? '.' + x[1] : '';
-        var rgx = /(\d+)(\d{3})/;
-        while (rgx.test(x1)) {
-          x1 = x1.replace(rgx, '$1' + ',' + '$2');
-        }
-        if (begText && endText) {
-          return begText + x1 + x2 + endText;
-        }
-        else if (begText) {
-          return x1 + x2 + begText;
+    filteredSorted: function(arr) {
+      var self = this;
+      //filter data
+      arr = arr.filter(function(record) {
+        if (self.filterMethod.purpose && self.filterMethod.type) {
+          return (
+            record.details.type.id == self.filterMethod.type &&
+            record.purpose.id == self.filterMethod.purpose
+          );
         } else {
-          return x1 + x2;
+          return record;
         }
+      });
 
-      },
-      filteredSorted: function (arr) {
-        var self = this;
-        //filter data
-        arr = arr.filter(function (record) {
-          if (self.filterMethod.purpose && self.filterMethod.type) {
-            return (
-              record.details.type.id == self.filterMethod.type &&
-              record.purpose.id == self.filterMethod.purpose
-            );
-          } else {
-            return record;
-          }
-        });
-
-        var sortItem = this.sortItems.find(function (record) {
-          return record.active == true;
-        });
-        switch (sortItem.id) {
-          case 1:
-            arr = arr.slice().sort(function (a, b) {
-              return b.details.featured - a.details.featured;
-            });
-            break;
-          case 2:
-            arr = arr.slice().sort(function (a, b) {
-              return b.id - a.id;
-            });
-            break;
-          case 3:
-            arr = arr.slice().sort(function (a, b) {
-              return a.details.price - b.details.price;
-            });
-            break;
-          case 4:
-            arr = arr.slice().sort(function (a, b) {
-              return b.details.price - a.details.price;
-            });
-            break;
-        }
-
-        //map
-        if (self.map.zoom) {
-          $.get("/api/v1/regions", function (data) {
-            data.data.forEach(function (el) {
-              var overlay = new CustomMarker(
-                new google.maps.LatLng(el.location.lat, el.location.long),
-                self.map,
-                el,
-                "region",
-                self
-              );
-            });
-            $(".map-marker,.property-card")
-              .fadeOut()
-              .remove();
+      var sortItem = this.sortItems.find(function(record) {
+        return record.active == true;
+      });
+      switch (sortItem.id) {
+        case 1:
+          arr = arr.slice().sort(function(a, b) {
+            return b.details.featured - a.details.featured;
           });
-        }
-        //return data
-        return arr;
-      },
-      reSorting: function (item) {
-        this.sortItems.map(function (obj) {
-          obj.active = false;
-        });
-        item.active = true;
-      },
-    },
+          break;
+        case 2:
+          arr = arr.slice().sort(function(a, b) {
+            return b.id - a.id;
+          });
+          break;
+        case 3:
+          arr = arr.slice().sort(function(a, b) {
+            return a.details.price - b.details.price;
+          });
+          break;
+        case 4:
+          arr = arr.slice().sort(function(a, b) {
+            return b.details.price - a.details.price;
+          });
+          break;
+      }
 
-    mounted() {
-     
-      this.properties = this.$parent.$children[1].properties.slice().sort(function (a, b) {
+      //map
+      if (self.map.zoom) {
+        $.get("/api/v1/regions", function(data) {
+          data.data.forEach(function(el) {
+            var overlay = new CustomMarker(
+              new google.maps.LatLng(el.location.lat, el.location.long),
+              self.map,
+              el,
+              "region",
+              self
+            );
+          });
+          $(".map-marker,.property-card")
+            .fadeOut()
+            .remove();
+        });
+      }
+      //return data
+      return arr;
+    },
+    reSorting: function(item) {
+      this.sortItems.map(function(obj) {
+        obj.active = false;
+      });
+      item.active = true;
+    }
+  },
+
+  mounted() {
+    this.properties = this.$parent.$children[1].properties
+      .slice()
+      .sort(function(a, b) {
         return b.details.featured - a.details.featured;
       });
-    },
+  },
 
-    updated() {
-    }
-  };
+  updated() {}
+};
 </script>

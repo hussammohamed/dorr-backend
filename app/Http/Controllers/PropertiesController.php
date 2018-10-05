@@ -129,7 +129,7 @@ class PropertiesController extends Controller
             $q->where('region','=', $district);
         }
         $q->whereBetween('price', [$priceFrom, $priceTo]);
-        $property = $q->where('active','=', 1)->where('deleted','=', 0)->get();
+        $property = $q->where('active','=', 1)->where('deleted','=', 0)->orderBy('created_at', 'desc')->get();
         $cities = Region::where('type',1)->where('active',1)->where('deleted',0)->orderby('order')->get();
         return view('searchPage',['name'=>'name_'.App::getLocale(), 'filtermenus'=>$filterMenus, 'properties'=>PropertyResource::collection($property), "cities"=>$cities, 'request'=>['keyword'=>$request->keyword, 'city'=>$request->city, 'district'=>$request->district, 'priceFrom'=>$request->priceFrom, 'priceTo'=>$request->priceTo,] ]);
     }

@@ -241,22 +241,22 @@
                     </div>
                     <div class="mdl-cell mdl-cell--3-col mdl-checkbox-col ">
                         <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="whatsapp_permisson">
-                            <input type="hidden" name="whatsapp_permisson" value="0" />
-                            <input type="checkbox" id="whatsapp_permisson" checked value="1" name="whatsapp_permisson" class="mdl-checkbox__input">
+                            <input type="hidden" name="allow_whatsapp" value="0" />
+                            <input type="checkbox" id="whatsapp_permisson" checked value="1" name="allow_whatsapp" class="mdl-checkbox__input">
                             <span class="price_view">التواصل عبر الواتس</span>
                         </label>
                     </div>
                     <div class="mdl-cell mdl-cell--3-col mdl-checkbox-col ">
                         <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="add_comments">
-                            <input type="hidden" name="add_comments" value="0" />
-                            <input type="checkbox" id="add_comments" value="1" checked name="add_comments" class="mdl-checkbox__input">
+                            <input type="hidden" name="allow_comments" value="0" />
+                            <input type="checkbox" id="add_comments" value="1" checked name="allow_comments" class="mdl-checkbox__input">
                             <span class="price_view">إضافة تعليقات</span>
                         </label>
                     </div>
                     <div class="mdl-cell mdl-cell--3-col mdl-checkbox-col ">
                         <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="privet_chat">
-                            <input type="hidden" name="privet_chat" value="0" />
-                            <input type="checkbox" id="privet_chat" value="1" checked name="privet_chat" class="mdl-checkbox__input">
+                            <input type="hidden" name="allow_private" value="0" />
+                            <input type="checkbox" id="privet_chat" value="1" checked name="allow_private" class="mdl-checkbox__input">
                             <span class="price_view">التواصل على الخاص</span>
                         </label>
                     </div>

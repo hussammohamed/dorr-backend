@@ -64,13 +64,13 @@
             id: 1,
             title: "التميز",
             method: "details.featured",
-            active: true
+            active: false
           },
           {
             id: 2,
             title: "الأحدث",
             method: "id",
-            active: false
+            active: true
           },
           {
             id: 3,
@@ -135,7 +135,7 @@
             break;
           case 2:
             arr = arr.slice().sort(function (a, b) {
-              return a.id - b.id;
+              return b.id - a.id;
             });
             break;
           case 3:

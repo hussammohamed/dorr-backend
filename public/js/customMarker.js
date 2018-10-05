@@ -46,7 +46,6 @@ CustomMarker.prototype.draw = function () {
 			div.innerHTML += self.args.title;
 		}
 		if (self.type === "property") {
-			console.log(self.args.details)
 			if(self.args.details.price_view  == 1){
 				div.innerHTML += priceFormatter(self.args.details.price);
 			}

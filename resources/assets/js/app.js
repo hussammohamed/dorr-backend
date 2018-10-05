@@ -72,7 +72,7 @@ const app = new Vue({
          * [param] field
          */
         cropUploadSuccess(jsonData, field) {
-            console.log(jsonData)
+           
             this.imgDataUrl = jsonData.avatar;
         },
         /**
@@ -105,7 +105,7 @@ const app = new Vue({
             //     return 'error';
             // }
             var iframeMarkup = '//www.youtube.com/embed/' + url + '?enablejsapi=1';
-            console.log(iframeMarkup)
+            
              return iframeMarkup;
 
         },

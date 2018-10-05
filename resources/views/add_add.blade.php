@@ -113,7 +113,7 @@
                         </div>
                     </div>
                     <div id="map"></div>
-                    <div class="valid-map mdl-textfield__error hidden" >يجب تحديد الموقع على الخريطه</div>
+                    <div class="valid-map u-error-color hidden" >يجب تحديد الموقع على الخريطه</div>
                     <div class="map-link">
                         يمكنك تحديد العنوان من موقع
                         <a href="https://maps.address.gov.sa/" target="_blank"> خرائط العنوان الوطني السعودي</a>

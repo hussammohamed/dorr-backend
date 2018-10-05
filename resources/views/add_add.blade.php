@@ -398,11 +398,11 @@
                         scrollTop: $("#map").offset().top - 50
                     },
                         500);
-                        $("valid-map").removeClass('hidden');
+                        $(".valid-map").removeClass('hidden');
 
                     return false;
                 } else {
-                    $("valid-map").addClass('hidden');
+                    $(".valid-map").addClass('hidden');
                     return true;
                 }
             } else if (newIndex < currentIndex) {

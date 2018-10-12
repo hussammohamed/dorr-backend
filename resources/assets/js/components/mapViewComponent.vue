@@ -1,5 +1,5 @@
 <template>
-  <dialog  class="mdl-dialog reportDialog dialog map-dialog" @click="closeDialog" id="mapDialog">
+  <dialog  class="mdl-dialog  map-dialog" @click="closeDialog" id="mapDialog">
       <div class="mdl-dialog__content">
           <div  id="mapView"  style="height:500px; width:100%;"></div>
       </div>

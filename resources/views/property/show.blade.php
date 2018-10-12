@@ -329,7 +329,7 @@
             </div>
             <div class="mdl-card  mdl-shadow--2dp  u-auto-width  u-mbuttom16 u-height-auto has-actions">
                 <a @click="mapDialog" class="map-overlay"></a>
-                <div id="map" data-view="{{$property->map_view}}" style="height:250px; width:100%;"></div>
+                <div id="map" data-view="{{$property->map_view}}" data-lat="{{$property->lat}}" data-long="{{$property->long}}"  style="height:250px; width:100%;"></div>
             </div>
             @if((!Auth::guest() && (Auth::user()->id != $property->user_id )) || Auth::guest())
             <div class="mdl-card  mdl-shadow--2dp u-padding-side-20 u-auto-width u-padding-bottom-15 u-mbuttom16 u-height-auto has-actions">

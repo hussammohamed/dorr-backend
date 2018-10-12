@@ -197,6 +197,7 @@ const app = new Vue({
                 dialogPolyfill.registerDialog(signupDialog);
                 dialogPolyfill.registerDialog(loginDialog);
                 dialogPolyfill.registerDialog(forgotPasswordDialog);
+               
 
               }
             //signupDialog.close();
@@ -213,10 +214,17 @@ const app = new Vue({
             forgotPasswordDialog.showModal();
         },
         mapDialog: function () {
-            mapDialog.showModal();
-            setTimeout(() => {
-                var lat = parseFloat(this.$children[1]._props.propertylat);
-                var long = parseFloat(this.$children[1]._props.propertylong);
+            var self = this;
+            if (! mapDialog.showModal) {
+                dialogPolyfill.registerDialog(forgotPasswordDialog);
+            }
+            var dialogPromise = new Promise(function(resolve, reject){
+                var mapRender =  mapDialog.showModal();
+                resolve(mapRender);
+            });
+            dialogPromise.then(function(){
+                var lat = parseFloat($("#map").attr('data-lat'));
+                var long = parseFloat($("#map").attr('data-long'));
                 var mapView = $("#map").attr('data-view');
                 var uluru = new google.maps.LatLng(lat, long);
                 var map = new google.maps.Map(document.getElementById('mapView'), {
@@ -243,7 +251,9 @@ const app = new Vue({
                 } else if (mapView == 3) {
                     map.setZoom(10);
                 }
-            }, 200);
+            })
+                
+              
         },
         deleteOffer: function (offerId) {
             swal({

@@ -50,6 +50,10 @@ class ContractController extends Controller
     
     public function indexByMProperty($id)
     {
+
+        $contracts = Contract::Where('renter_user_id',Auth::user()->id)->Where('contract_end_date', '>=', date("Y-m-d"))->get();
+        
+        
         return [ $this->modelnames => ContractResource::collection(Contract::Where('m_property_id',$id)->get())];
     }
 

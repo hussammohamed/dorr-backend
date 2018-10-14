@@ -93,6 +93,11 @@ const app = new Vue({
         date: function (date){
             return  moment(date).lang("ar").format(' DD MMMM YYYY');
         },
+        getCookie(name) {
+            var value = "; " + document.cookie;
+            var parts = value.split("; " + name + "=");
+            if (parts.length == 2) return parts.pop().split(";").shift();
+          },
         getYoutube: function (url) {
             // var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
             // var match = url.match(regExp);
@@ -300,17 +305,29 @@ const app = new Vue({
             }
         },
     },
-    beforeCreate() {
+    created() {
         var self = this;
-        $.get('/api/v1/user/avatar', function (data) {
-            self.imgDataUrl = data.avatar;
-        }).fail(function () {
-            self.imgDataUrl = "/images/face.png";
-        })
+        // $.get('/api/v1/user/avatar', function (data) {
+        //     self.imgDataUrl = data.avatar;
+        // }).fail(function () {
+        //     self.imgDataUrl = "/images/face.png";
+        // })
+        var token = this.getCookie('token');
+        this.headers = {"Authorization": token};
+        $.ajax({
+            url: "/api/v1/user/avatar",
+            type: "get",
+            beforeSend: function(xhr){xhr.setRequestHeader('Authorization', token);},
+            success: function(data) {
+                self.imgDataUrl = data.avatar;
+            }
+
+            });
     },
     mounted() {
 
         this.show = !this.show;
+        
     }
 
 });

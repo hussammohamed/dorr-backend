@@ -320,6 +320,9 @@ const app = new Vue({
             beforeSend: function(xhr){xhr.setRequestHeader('Authorization', token);},
             success: function(data) {
                 self.imgDataUrl = data.avatar;
+            },
+            error: function(){
+                self.imgDataUrl = "/images/face.png";
             }
 
             });

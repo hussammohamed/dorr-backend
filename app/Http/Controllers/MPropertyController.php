@@ -37,7 +37,7 @@ class MPropertyController extends Controller
 
         $contracts = Contract::Where('renter_user_id',Auth::user()->id)->Where('contract_end_date', '>=', date("Y-m-d"))->get();
         
-        $m_property;
+        /*$m_property;
 
         foreach ($contracts as $contract) {
                 
@@ -45,11 +45,11 @@ class MPropertyController extends Controller
             $m_properties = $m_properties->merge($m_properties_rented);
 
         }
-        
+        */
         //return $m_properties;
 
 
-        return [ $this->modelnames => $m_properties];
+        return $m_properties;
     }
 
     /**

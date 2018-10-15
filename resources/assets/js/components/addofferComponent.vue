@@ -57,6 +57,7 @@ export default {
             }
            });
       $("#addOfferForm").submit(function(event) {
+        if ($("#addOfferForm").valid()) {
         event.preventDefault();
         $.ajax({
           url: "/api/v1/property/offers/1/store",
@@ -75,6 +76,7 @@ export default {
           complete: function(_response) {},
           error: function(_response) {}
         });
+        }
       });
 
     }

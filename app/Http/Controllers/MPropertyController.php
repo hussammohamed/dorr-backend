@@ -46,7 +46,7 @@ class MPropertyController extends Controller
 
         }
         
-        return $m_properties;
+        return [ $this->modelnames => $m_properties];
 
 
         //return $m_properties;

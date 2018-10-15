@@ -72,11 +72,15 @@
                     <span>التقرير العقارى</span>
                     <i class="material-icons">insert_chart</i>
                 </a> -->
+                <a @click="loginDialog('http://pm.bareeqstudio.com/properties/')" class="action--link">
+                    <span>إدارة الأملاك</span>
+                    <i class="material-icons">business</i>
+                </a>
                 <a @click="loginDialog('/properties/create')" class="action--link">
                     <span>إضف أعلان</span>
                     <i class="material-icons">add_box</i>
                 </a>
-                
+               
                 @else
                 <a href="http://pm.bareeqstudio.com/properties/" class="action--link">
                     <span>إدارة الأملاك</span>

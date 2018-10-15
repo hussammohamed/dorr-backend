@@ -37,7 +37,7 @@
             </div>
             <div class="mdl-cell mdl-cell--3-col mdl-color-text--grey-500 u-text-left">
                 <i class="material-icons u-fix-icon-top">access_time</i>
-                <span v-text="lastUpdate('{{$property->updated_at}}')" class="page-date"></span>
+                <span v-text="lastUpdate('{{$property->data_updated}}')" class="page-date"></span>
                 <div class="">
                     <i class="material-icons u-fix-icon-top">eye</i>
                     <span>عدد مشاهدات</span>
@@ -297,7 +297,7 @@
             @endif
         </div>
         <div class="mdl-cell mdl-cell--3-col sticky-item">
-            <div class="mdl-card  mdl-shadow--2dp u-auto-width u-mbuttom16 u-padding-bottom-60 u-relative">
+            <div class="mdl-card  mdl-shadow--2dp u-auto-width u-mbuttom16 {{ $property->price_view == '0'  ? 'u-padding-bottom-60' : '' }} {{ $property->purpose == '2'  ? 'u-padding-bottom-60':  ' ' }}  u-height-auto u-relative">
                 <table class="mdl-data-table u-full-width u-no-border">
                     <tbody>
                         <tr>

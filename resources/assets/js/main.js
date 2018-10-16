@@ -31,13 +31,17 @@ $(window).scroll(function (e) {
   var stickyEl = $('.sticky-item');
   var Position = stickyContainer.offset();
   var scrollTop = $(this).scrollTop();
+  var bottom = $('.sticky-container').position().top + $('.sticky-container').offset().top + $('.sticky-container').outerHeight(true);
   if (stickyContainer.length) {
     if (scrollTop > (Position.top + 100) && (scrollTop - Position.top) < (stickyContainer.height() - stickyEl.height() + 204)) {
-      stickyEl.css({ 'top': scrollTop - Position.top - 200 });
+      stickyEl.css({ 'top': scrollTop - Position.top });
     }
     if ($(this).scrollTop() < Position.top) {
       stickyEl.css({ 'top': 8 });
     }
+    if (scrollTop > bottom - 1250) {
+      stickyEl.css({ 'top': 'auto', 'bottom': 35 });
+  }
   }
 });
   //login 

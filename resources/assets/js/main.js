@@ -32,19 +32,16 @@ $(window).scroll(function (e) {
   var Position = stickyContainer.offset();
   var scrollTop = $(this).scrollTop();
   var bottom = $('.sticky-container').position().top + $('.sticky-container').offset().top + $('.sticky-container').outerHeight(true);
-  if (scrollTop > bottom - 1230) {
-    stickyEl.css({ 'top': 'auto', 'bottom': 35 });
-}else{
-  stickyEl.css({ 'top': 'auto', 'bottom': 'auto' });
-}
   if (stickyContainer.length) {
     if (scrollTop > (Position.top + 100) && (scrollTop - Position.top) < (stickyContainer.height() - stickyEl.height() + 204)) {
-      stickyEl.css({ 'top': scrollTop - Position.top });
+      stickyEl.css({ 'top': scrollTop - Position.top, 'bottom': 'auto'});
     }
     if ($(this).scrollTop() < Position.top) {
-      stickyEl.css({ 'top': 8 });
+      stickyEl.css({ 'top': 8, 'bottom': 'auto'});
     }
-   
+    if (scrollTop > bottom - 1230) {
+      stickyEl.css({ 'top': 'auto', 'bottom': 35 });
+  }
   }
 });
   //login 

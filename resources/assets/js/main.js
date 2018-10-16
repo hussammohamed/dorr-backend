@@ -32,7 +32,7 @@ $(window).scroll(function (e) {
   var Position = stickyContainer.offset();
   var scrollTop = $(this).scrollTop();
   var bottom = $('.sticky-container').position().top + $('.sticky-container').offset().top + $('.sticky-container').outerHeight(true);
-  if (scrollTop > bottom - 1200) {
+  if (scrollTop > bottom - 1230) {
     stickyEl.css({ 'top': 'auto', 'bottom': 35 });
 }else{
   stickyEl.css({ 'top': 'auto', 'bottom': 'auto' });

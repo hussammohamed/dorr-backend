@@ -141,6 +141,9 @@ export default {
                 success: function(_response) {
                   self.saveSession(_response)
                   if (self.$parent.url.length) {
+                    if(self.$parent.url.includes("http"))
+                     location = self.$parent.url;
+                    else
                 location.pathname = self.$parent.url;
               } else {
                 location.reload();

@@ -351,6 +351,47 @@
                                     </div>
                                 </td>
                             </tr>
+                            <tr>
+                                <td class="u-no-border-top header" width="8%">خيارات إخري</td>
+                                <td class="u-no-border-top">
+                                    <div class="mdl-layout__header-row">
+                                            <div class="mdl-cell mdl-cell--3-col  ">
+                                                    <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="whatsapp_permisson">
+                                                        <input type="hidden" name="allow_whatsapp" value="0" />
+                                                        @if($property->allow_whatsapp == "1" )
+                                                        <input type="checkbox" id="whatsapp_permisson" checked value="1" name="allow_whatsapp" class="mdl-checkbox__input" checked>
+                                                        @else
+                                                        <input type="checkbox" id="whatsapp_permisson" checked value="1" name="allow_whatsapp" class="mdl-checkbox__input" >
+                                                        @endif
+                                                        <span class="price_view">التواصل عبر الواتس</span>
+                                                    </label>
+                                                </div>
+                                                <div class="mdl-cell mdl-cell--3-col  ">
+                                                    <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="add_comments">
+                                                        <input type="hidden" name="allow_comments" value="0" />
+                                                        @if($property->allow_comments == "1" )
+                                                        <input type="checkbox" id="add_comments" value="1" checked name="allow_comments" class="mdl-checkbox__input" checked>
+                                                        @else
+                                                        <input type="checkbox" id="add_comments" value="1" checked name="allow_comments" class="mdl-checkbox__input">
+                                                        @endif
+                                                        <span class="price_view">إضافة تعليقات</span>
+                                                    </label>
+                                                </div>
+                                                <div class="mdl-cell mdl-cell--3-col  ">
+                                                    <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="privet_chat">
+                                                        <input type="hidden" name="allow_private" value="0" />
+                                                        @if($property->privet_chat == "1" )
+                                                        <input type="checkbox" id="privet_chat" value="1" checked name="allow_private" class="mdl-checkbox__input" checked>
+                                                        @else
+                                                        <input type="checkbox" id="privet_chat" value="1" checked name="allow_private" class="mdl-checkbox__input" checked>
+                                                        @endif
+                                                        <span class="price_view">التواصل على الخاص</span>
+                                                    </label>
+                                                </div>
+                                    </div>
+                                  
+                                </td>
+                            </tr>
                          
                            
                             <!-- <tr>

@@ -37,7 +37,7 @@
             </div>
             <div class="mdl-cell mdl-cell--3-col mdl-color-text--grey-500 u-text-left">
                 <i class="material-icons u-fix-icon-top">access_time</i>
-                <span v-text="lastUpdate('{{$property->updated_at}}')" class="page-date"></span>
+                <span v-text="lastUpdate('{{$property->data_updated}}')" class="page-date"></span>
                 <div class="">
                     <i class="material-icons u-fix-icon-top">eye</i>
                     <span>عدد مشاهدات</span>
@@ -297,7 +297,7 @@
             @endif
         </div>
         <div class="mdl-cell mdl-cell--3-col sticky-item">
-            <div class="mdl-card  mdl-shadow--2dp u-auto-width u-mbuttom16 u-padding-bottom-60 u-relative">
+            <div class="mdl-card  mdl-shadow--2dp u-auto-width u-mbuttom16 {{ $property->price_view == '0'  ? 'u-padding-bottom-60' : '' }} {{ $property->purpose == '2'  ? 'u-padding-bottom-60':  ' ' }}  u-height-auto u-relative">
                 <table class="mdl-data-table u-full-width u-no-border">
                     <tbody>
                         <tr>
@@ -367,6 +367,7 @@
                     <i class="material-icons md-18">chat</i>
                     تواصل مع المعلن
                 </button>
+                @if($property->allow_whatsapp == "1")
                 <a class="mdl-button  mdl-js-button mdl-js-ripple-effect  mdl-button--colored " target="_blank" href="https://api.whatsapp.com/send?phone=966{{ \App\User::find($property->user_id)->mobile1 }}">
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px"
                         y="0px" width="18px" height="18px" viewBox="0 0 90 90" style="enable-background:new 0 0 90 90;" xml:space="preserve">
@@ -377,9 +378,11 @@
                     </svg>
                     تواصل عبر الواتساب
                 </a>
+                @endif
                 
             </div>
             @endif
+            @if($property->allow_comments == "1")
             <div class="mdl-card  mdl-shadow--2dp  u-padding-top-45 u-auto-width u-mbuttom16 u-height-auto  u-padding-side-20 u-padding-bottom-15">
                 @if(!Auth::guest() && (Auth::user()->id != $property->user_id ))
                 <addoffer-component :auth="{{json_encode(Auth::guest())}}" :propertyid="{{json_encode($property->id)}}"></addoffer-component>
@@ -390,6 +393,7 @@
                 @endif
 
             </div>
+            @endif
             @if(!Auth::guest() && (Auth::user()->id != $property->user_id ))
             <div class="mdl-card  mdl-shadow--2dp  u-padding-top-45 u-auto-width u-mbuttom16 u-height-auto  u-padding-side-20 u-padding-bottom-15">
                 <button @click="reportDialog" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored u-center">تبليغ</button>

@@ -18,7 +18,7 @@
                         <label class="mdl-textfield__label" for="sample3">السعر</label>
                     </div>
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <textarea class="mdl-textfield__input" type="text" name="description" rows="3" id="sample5"></textarea>
+                        <textarea required class="mdl-textfield__input" type="text" name="description" rows="3" id="sample5"></textarea>
                         <label class="mdl-textfield__label" for="sample5">أضف تعليق</label>
                     </div>
                     <button @click="addOffer" class="mdl-button  mdl-js-button mdl-js-ripple-effect  mdl-button--colored u-full-width">
@@ -38,7 +38,26 @@ export default {
     },
     addOffer() {
          var self = this;
+          $("#addOfferForm").validate({
+               highlight: function (element) {
+                $(element)
+                    .closest(".mdl-textfield,.mdl-checkbox")
+                    .addClass("is-invalid");
+            },
+            unhighlight: function (element) {
+                $(element)
+                    .closest(".mdl-textfield,.mdl-checkbox")
+                    .removeClass("is-invalid");
+            },
+            errorElement: "span",
+            errorClass: "mdl-textfield__error",
+            errorPlacement: function (error, element) {
+    
+                error.insertAfter(element);
+            }
+           });
       $("#addOfferForm").submit(function(event) {
+        if ($("#addOfferForm").valid()) {
         event.preventDefault();
         $.ajax({
           url: "/api/v1/property/offers/1/store",
@@ -57,6 +76,7 @@ export default {
           complete: function(_response) {},
           error: function(_response) {}
         });
+        }
       });
 
     }

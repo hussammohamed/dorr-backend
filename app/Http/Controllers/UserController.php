@@ -253,8 +253,6 @@ class UserController extends Controller
                         return response()->json(["error"=>"هذا الجوال مستخدم من قبل"], Response::HTTP_CONFLICT);
                     }
 
-                    $user->update($data);
-
                     if ($request->hasFile('id_image')) {
                         $file = $request->file('id_image');
                         $extension = $file->getClientOriginalExtension();
@@ -264,7 +262,12 @@ class UserController extends Controller
         
                         $user->id_image = $id_fileName;
                         $user->save();
+                    }else{
+                        unset($data["id_image"]);
                     }
+
+                    $user->update($data);
+                    
 
                     if($data["mproperty_id"] != null){
                         $mproperty = MProperty::find($data["mproperty_id"]);

@@ -253,6 +253,8 @@ class UserController extends Controller
                         return response()->json(["error"=>"هذا الجوال مستخدم من قبل"], Response::HTTP_CONFLICT);
                     }
 
+                    unset($data["id_image"]);
+                    
                     if ($request->hasFile('id_image')) {
                         $file = $request->file('id_image');
                         $extension = $file->getClientOriginalExtension();

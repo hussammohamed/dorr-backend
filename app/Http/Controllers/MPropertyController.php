@@ -133,7 +133,7 @@ class MPropertyController extends Controller
 
                 $mproperty->agency_instrument_image = $agency_instrument_fileName;
             }
-
+            
             if ($request->hasFile('property_management_contract_image')) {
                 $file = $request->file('property_management_contract_image');
                 $extension = $file->getClientOriginalExtension();
@@ -143,6 +143,7 @@ class MPropertyController extends Controller
 
                 $mproperty->property_management_contract_image = $property_management_contract_fileName;
             }
+
 
             $mproperty->save();
 //////////////////////////////////////////////////////////
@@ -223,6 +224,8 @@ class MPropertyController extends Controller
                 $file->move($folderpath , $property_instrument_fileName);
 
                 $data["property_instrument_image"] = $property_instrument_fileName;
+            }else{
+                unset($data["property_instrument_image"]);
             }
             
             //////////////////////////////////////////////////////////
@@ -236,6 +239,8 @@ class MPropertyController extends Controller
                 $file->move($folderpath , $agency_instrument_fileName);
 
                 $data["agency_instrument_image"] = $agency_instrument_fileName;
+            }else{
+                unset($data["agency_instrument_image"]);
             }
 
             //////////////////////////////////////////////////////////
@@ -249,6 +254,8 @@ class MPropertyController extends Controller
                 $file->move($folderpath , $property_management_contract_fileName);
 
                 $data["property_management_contract_image"] = $property_management_contract_fileName;
+            }else{
+                unset($data["property_management_contract_image"]);
             }
 
             //////////////////////////////////////////////////////////

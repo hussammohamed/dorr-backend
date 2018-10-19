@@ -23,7 +23,7 @@ class TransferRequestResource extends Resource
             'image' => ($this->image == null ) ? null : url('/').'/upload/transfer_requests/'.$this->image,
             'notes' => $this->notes,
             'status' => $this->status,
-            'created_at' => $this->created_at
+            'created_at' => $this->created_at->toDateString()
         ];
     }
 }

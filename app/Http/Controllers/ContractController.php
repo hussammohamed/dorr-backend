@@ -168,8 +168,9 @@ class ContractController extends Controller
                 $data["agency_fax"] = $agency->fax;
             }
 
-            if ($data["renter_user_id"]==null){
+            $user = User::where('email',$data["renter_email"])->orWhere('mobile1',$data["renter_mobile1"])->first();
 
+            if($user===null){
                 $user = new User;
                 $user->name = $data["renter_name"];
                 $user->email = $data["renter_email"];
@@ -197,8 +198,11 @@ class ContractController extends Controller
                     $data["renter_id_image"] = $id_fileName;
                 }
             }else{
-
-                $user = User::find($data["renter_user_id"]);
+                $data["renter_user_id"] = $user->id;
+                
+                if($data["renter_user_id"]==$m_property->owner_user_id || $data["renter_user_id"]==$m_property->agent_user_id){
+                    return response()->json(["error"=>"لا يمكن ان يكون المستاجر هو المالك او المدير فى نفس العقد"], Response::HTTP_BAD_REQUEST);
+                }
 
                 $data["renter_name"] = $user->name;
                 $data["renter_nationality"] = $user->nationality;
@@ -211,7 +215,6 @@ class ContractController extends Controller
                 $data["renter_id_image"] = $user->id_image;
                 $data["renter_mobile1"] = $user->mobile1;
                 $data["renter_email"] = $user->email;
-
             }
             
             $contract = Contract::create($data);

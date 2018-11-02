@@ -52,7 +52,9 @@ Route::group(['middleware'=>'language'],function(){
         Route::get('/reset-sucsess', function () {
             return view('sucsessReset');
         });
-
+        Route::get('/logout-session', function () {
+            return view('logout-session');
+        });
     Route::get('myAccount', 'UserController@edit');
     Route::get('myAccount/Properties','UserController@getUserProperties');
     Route::post('myAccount/update', 'UserController@update_old');
@@ -78,7 +80,6 @@ Route::group(['middleware'=>'language'],function(){
 //API
 Route::post('api/v1/users/create', 'Auth\RegisterController@newUser');
 Route::post('api/v1/users/login', 'Auth\LoginController@setLogin');
-Route::post('api/v1/user/logout', 'Auth\LoginController@logout');
 Route::post('api/v1/user/update', 'UserController@updateUser');
 Route::post('api/v1/user/update_password', 'UserController@updatePasswordAPI');
 Route::post('api/v1/user/reset_link','Auth\ForgotPasswordController@sendResetLink');

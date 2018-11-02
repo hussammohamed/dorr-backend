@@ -164,8 +164,8 @@ export default {
                     else
                 location.pathname = self.$parent.url;
               } else {
-              
-                //ocation.reload();
+            
+                location.reload();
                   //self.isLoading = false;
               }
                 },

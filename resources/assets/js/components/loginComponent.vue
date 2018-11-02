@@ -87,9 +87,15 @@ export default {
     },
     saveSession: function(data) {
       let domainName = this.getDomainName();
-      document.cookie = "userId=" + data.id + "; domain=" + domainName + "";
+      if ($('#remember').is(':checked')) {
+      let exp = (new Date()).getTime() + 60 * 24 * 60 * 60 * 1000;
+      console.log(exp)  
+      document.cookie =
+        "token=" + data.token_type + " " + data.access_token + ";expires=" + new Date(exp).toGMTString() + ";domain=" + domainName + "";
+      }else{
       document.cookie =
         "token=" + data.token_type + " " + data.access_token + "; domain=" + domainName + "";
+      }
     },
     forgotPassword: function() {
       this.$root.forgoPasswordDialog();
@@ -159,7 +165,7 @@ export default {
                 location.pathname = self.$parent.url;
               } else {
               
-                location.reload();
+                //ocation.reload();
                   //self.isLoading = false;
               }
                 },

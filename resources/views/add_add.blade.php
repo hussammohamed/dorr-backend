@@ -23,7 +23,7 @@
                 <div class="mdl-card mdl-shadow--2dp u-height-auto u-full-width mdl-grid u-mbuttom30">
                     <div class="mdl-cell mdl-cell--6-col">
                         <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-                            <input class="mdl-textfield__input" required name="typeLabel" type="text" id="type" value=""
+                            <input class="mdl-textfield__input" tabIndex="1" required name="typeLabel" type="text" id="type" value=""
                                 readonly>
                             <input value="" class="select-input__js" type="hidden" name="type" />
                             <label for="type">
@@ -40,7 +40,7 @@
                     </div>
                     <div class="mdl-cell mdl-cell--6-col">
                         <div class="mdl-textfield mdl-js-textfield u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-                            <input class="mdl-textfield__input" required name="purposeLabel" value="" type="text" id="purpose"
+                            <input class="mdl-textfield__input" tabIndex="2" required name="purposeLabel" value="" type="text" id="purpose"
                                 readonly>
                             <input value="" class="select-input__js" type="hidden" name="purpose" />
                             <label for="purpose">
@@ -65,7 +65,7 @@
                 <div class="mdl-card mdl-shadow--2dp u-full-width mdl-grid u-mbuttom30">
                     <div class="mdl-cell mdl-cell--6-col">
                         <div class="mdl-textfield mdl-js-textfield u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-                            <input class="mdl-textfield__input city_id_js" required type="text" id="cityId" value=""
+                            <input class="mdl-textfield__input city_id_js" tabIndex="3" required type="text" id="cityId" value=""
                                 readonly tabIndex="-1">
                             <input value="" class="hidden-input" type="hidden" />
                             <label for="cityId">
@@ -82,7 +82,7 @@
                     </div>
                     <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet">
                         <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label  getmdl-select__city  getmdl-select getmdl-select__fix-height">
-                            <input class="mdl-textfield__input" required type="text" id="district" value="" readonly
+                            <input class="mdl-textfield__input" required tabIndex="4" type="text" id="district" value="" readonly
                                 tabIndex="-1">
                             <input type="hidden" name="region" required value="">
                             <label for="district">
@@ -96,7 +96,7 @@
                     </div>
                     <div class="mdl-cell mdl-cell--8-col">
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
-                            <input class="mdl-textfield__input" required name="address" type="text" id="mapSearch"
+                            <input class="mdl-textfield__input" required tabIndex="5" name="address" type="text" id="mapSearch"
                                 placeholder="">
                             <label class="mdl-textfield__label" for="mapSearch">العنوان بالتفصيل</label>
                             <input class="mdl-textfield__input" required type="hidden" name="lat" id="lat" placeholder="">
@@ -106,7 +106,7 @@
                     </div>
                     <div class="mdl-cell mdl-cell--4-col">
                         <div class="mdl-textfield mdl-js-textfield u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-                            <input class="mdl-textfield__input" required type="text" id="map_view" value="" readonly
+                            <input class="mdl-textfield__input" required  tabIndex="6" type="text" id="map_view" value="" readonly
                                 tabIndex="-1">
                             <input value="" class="hidden-input" type="hidden" name="map_view" />
                             <label for="map_view">
@@ -134,7 +134,7 @@
                 <div class="mdl-card mdl-shadow--2dp u-full-width mdl-grid u-mbuttom30">
                     <div class="mdl-cell mdl-cell--3-col">
                         <div class="mdl-textfield mdl-js-textfield getmdl-select__fullwidth u-full-width  mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-                            <input class="mdl-textfield__input" required type="text" id="advertiser_type" value=""
+                            <input class="mdl-textfield__input" tabIndex="7" required type="text" id="advertiser_type" value=""
                                 readonly tabIndex="-1">
                             <input value="" type="hidden" name="advertiser_type" />
                             <label for="advertiser_type">
@@ -150,7 +150,7 @@
                     </div>
                     <div class="mdl-cell mdl-cell--3-col">
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
-                            <input class="mdl-textfield__input" required name="area" type="number" id="sample9">
+                            <input class="mdl-textfield__input" tabIndex="8" required name="area" type="number" id="sample9">
                             <label class="mdl-textfield__label" for="sample9">المساحة بالمتر المربع</label>
                         </div>
                     </div>
@@ -170,9 +170,9 @@
                         </div>
                     </div> -->
                     <div class="mdl-cell mdl-cell--6-col">
-                        <div class="dropdown-mul-2">
-                            <input type="hidden" id="overlooks" name="overlooks">
-                            <select style="display:none" id="mul-2" multiple placeholder="الوجهات ">
+                        <div class="dropdown-mul-2" tabIndex="9">
+                            <input type="hidden" id="overlooks"  name="overlooks">
+                            <select style="display:none" id="mul-2"  multiple placeholder="الوجهات ">
                                 @foreach($overlooks as $overlook)
                                 <option value="{{$overlook->id}}">{{$overlook->$name}}</option>
                                 @endforeach
@@ -183,7 +183,7 @@
                     </div>
                     <div class="mdl-cell mdl-cell--3-col target-sale">
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
-                            <input class="mdl-textfield__input" name="bid_price" type="number" id="bid_price">
+                            <input class="mdl-textfield__input" tabIndex="10" name="bid_price" type="number" id="bid_price">
                             <label class="mdl-textfield__label" for="bid_price">سعر السوم</label>
                         </div>
                     </div>
@@ -207,15 +207,15 @@
                     <div class="mdl-cell mdl-cell--3-col">
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label u-full-width">
                             <input class="mdl-textfield__input" required name="price" type="number" id="price">
-                            <label class="mdl-textfield__label target-sale " for="price">السعر المطلوب للبيع</label>
-                            <label class="mdl-textfield__label target-rent" for="price">السعر المطلوب للأيجار</label>
+                            <label class="mdl-textfield__label target-sale " tabIndex="11" for="price">السعر المطلوب للبيع</label>
+                            <label class="mdl-textfield__label target-rent" tabIndex="11" for="price">السعر المطلوب للأيجار</label>
                         </div>
                         <span class="mdl-color-text--grey-500 u-text-size-10"> مهم لظهور عقارك بالبحث ولن يظهر في العرض</span>
                     </div>
                     <div class="mdl-cell mdl-cell--3-col mdl-checkbox-col target-sale">
                         <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="price_view">
                             <input type="hidden" name="price_view" value="0" />
-                            <input type="checkbox" id="price_view" value="1" name="price_view" class="mdl-checkbox__input">
+                            <input type="checkbox" id="price_view" tabIndex="12" value="1" name="price_view" class="mdl-checkbox__input">
                             <span class="price_view">إخفاء السعر</span>
                         </label>
                     </div>

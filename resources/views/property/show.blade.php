@@ -217,6 +217,7 @@
                             </td>
 
                         </tr>
+                        @if($property->map_view == 1)
                         <tr>
                             <td class="u-no-border-top header" width="8%">العنوان</td>
                             <td class="u-no-border-top">
@@ -225,6 +226,7 @@
                             </td>
 
                         </tr>
+                        @endif
 
 
                     </tbody>
@@ -423,7 +425,6 @@
 <mapview-component :propertylat="{{json_encode($property->lat)}}" :regionlat="{{ json_encode(\App\Region::find($property->region)->lat)}}"
     :regionlong="{{ json_encode(\App\Region::find($property->region)->long)}}" :propertylong="{{json_encode($property->long)}}"></mapview-component>
 @endsection @push('scripts')
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lightslider/1.1.3/js/lightslider.min.js"></script>
 <script>
     var player;

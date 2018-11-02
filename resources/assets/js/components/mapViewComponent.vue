@@ -1,5 +1,5 @@
 <template>
-  <dialog  class="mdl-dialog  map-dialog" @click="closeDialog" id="mapDialog">
+  <dialog  class="mdl-dialog  map-dialog" id="mapDialog">
       <div class="mdl-dialog__content">
           <div  id="mapView"  style="height:500px; width:100%;"></div>
       </div>
@@ -16,9 +16,6 @@
       cancelDialog: function () {
         this.$el.close();
         this.errors = {};
-      },
-      closeDialog: function () {
-        this.$root.closeDialog(this.$el);
       },
      
     },

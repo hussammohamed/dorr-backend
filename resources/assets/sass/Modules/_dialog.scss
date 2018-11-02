@@ -1,83 +1,168 @@
-.dialog{
-    border-radius: 5px;
-    overflow: hidden;
-    min-width: 375px;
-    
-    .mdl-diaglog__head{
-        background-color:$secondary-base;
-        margin: -14px;
-        display: flex;
-        
-        .mdl-dialog__text{
-            width:65%;
-            color: $text-color;
-            padding: 16px;
-            h5{
+    .dialog {
+        border-radius: 5px;
+        overflow: hidden;
+        min-width: 375px;
+        position: fixed;
+        top: 0px;
+        right: 0px;
+        bottom: 0px;
+        left: 0px;
+        z-index: 1045;
+        background: rgba(0, 0, 0, 0.1);
+        height: 100%;
+        width: 100%;
+        .dialog__container {
+            position: absolute;
+            left: 0;
+            right: 0;
+            width: -moz-fit-content;
+            width: -webkit-fit-content;
+            width: fit-content;
+            height: -moz-fit-content;
+            height: -webkit-fit-content;
+            height: fit-content;
+            margin: auto;
+            border: solid;
+            padding: 1em;
+            background: #fff;
+            min-width: 375px;
+            overflow: hidden;
+            border-radius: 5px;
+            top: 50%;
+            transform: translate(0, -50%);
+            border: none;
+            -webkit-box-shadow: 0 9px 46px 8px rgba(0, 0, 0, .14), 0 11px 15px -7px rgba(0, 0, 0, .12), 0 24px 38px 3px rgba(0, 0, 0, .2);
+            box-shadow: 0 9px 46px 8px rgba(0, 0, 0, .14), 0 11px 15px -7px rgba(0, 0, 0, .12), 0 24px 38px 3px rgba(0, 0, 0, .2);
+            width: 280px;
+        }
+        .mdl-progress {
+            bottom: 0;
+            position: absolute;
+            margin: 0 -16px;
+        }
+        .mdl-progress>.bufferbar {
+            background-image: -webkit-gradient(linear, left top, right top, from(rgba(255, 255, 255, 0.7)), to(rgba(255, 255, 255, 0.7))), -webkit-gradient(linear, left top, right top, from(rgb(220, 220, 220)), to(rgb(220, 220, 220)));
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), linear-gradient(to right, rgb(220, 220, 220), rgb(220, 220, 220));
+        }
+        .mdl-progress.mdl-progress--indeterminate>.bar1,
+        .mdl-progress.mdl-progress__indeterminate>.bar1 {
+            background-color: rgb(0, 169, 163);
+        }
+        .mdl-diaglog__head {
+            background-color: $secondary-base;
+            margin: -14px;
+            display: flex;
+            .mdl-dialog__text {
+                width: 65%;
                 color: $text-color;
-                margin: 0;
+                padding: 16px;
+                h5 {
+                    color: $text-color;
+                    margin: 0;
+                }
+                P {
+                    margin: 0;
+                    font-size: 12px;
+                }
+                a {
+                    color: $text-color;
+                    text-decoration: underline;
+                    font-weight: 700;
+                }
             }
-            P{
-                margin: 0;
-                font-size: 12px;
+            .mdl-dialog__logo {
+                width: 35%;
+                position: relative;
+                .bg {
+                    height: 100%;
+                    width: calc(100% + 27px);
+                    position: absolute;
+                    left: -27px;
+                    top: 0;
+                    @include skew(-30, 0);
+                    background-color: #303D46;
+                    z-index: 1;
+                }
+                img {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    @include translate(-50%, -50%);
+                    z-index: 2;
+                }
+            }
+        }
+        .mdl-dialog__content {
+            padding: 25px 50px;
+        }
+        .mdl-dialog__actions {
+            padding: 0 50px;
+            margin-bottom: 15px;
+        }
+        .mdl-dialog__actions--full-width {
+            &>* {
+                height: auto;
+            }
+        }
+        .card-title {
+            font-size: 16px;
+        }
+        &.custom {
+            .mdl-dialog__logo {
+                width: 30%;
+            }
+            .mdl-dialog__text {
+                width: 70%;
+            }
+            .form-container {
+                padding: 25px 0;
+            }
+        }
+    }
 
-            }
-            a{
-                color: $text-color;
-                text-decoration: underline;
-                font-weight: 700;
-            }
-        } 
-        .mdl-dialog__logo{
-           
-            width: 35%;
-            position: relative;
-            .bg{
-                height: 100%;
-                width: calc(100% + 27px);
-                position: absolute;
-                left: -27px;
-                top: 0;
-                @include skew(-30, 0);
-                background-color: #303D46;
-                z-index: 1;
+    dialog {
+        position: absolute;
+        left: 0;
+        right: 0;
+        width: -moz-fit-content;
+        width: -webkit-fit-content;
+        width: fit-content;
+        height: -moz-fit-content;
+        height: -webkit-fit-content;
+        height: fit-content;
+        margin: auto;
+        border: solid;
+        padding: 1em;
+        background: white;
+        color: black;
+        display: none
+    }
 
-            }
-            img{
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                @include translate(-50%, -50%);
-                z-index: 2;
-            }
-        }
+    dialog[open] {
+        display: block
     }
-    .mdl-dialog__content{
-        padding: 25px 50px;
-    }
-    .mdl-dialog__actions{
-        padding: 0 50px;
-        margin-bottom: 15px;
-    }
-    .mdl-dialog__actions--full-width{
-        & > *{
-            height: auto;
-            
-        }
-    }
-    .card-title{
-        font-size: 16px;
-    }
-    &.custom{
-        .mdl-dialog__logo{
-            width: 30%;
-        }
-        .mdl-dialog__text{
-            width: 70%;
-        }
-        .form-container{
-            padding: 25px 0;
-        }
-    }
-}
 
-dialog{position:absolute;left:0;right:0;width:-moz-fit-content;width:-webkit-fit-content;width:fit-content;height:-moz-fit-content;height:-webkit-fit-content;height:fit-content;margin:auto;border:solid;padding:1em;background:white;color:black;display:none}dialog[open]{display:block}dialog+.backdrop{position:fixed;top:0;right:0;bottom:0;left:0;background:rgba(0,0,0,0.1)}@media screen and (max-width:540px){dialog[_polyfill_modal]{top:0;width:auto;margin:1em}}._dialog_overlay{position:fixed;top:0;right:0;bottom:0;left:0}
+    dialog+.backdrop {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: rgba(0, 0, 0, 0.1)
+    }
+
+    @media screen and (max-width:540px) {
+        dialog[_polyfill_modal] {
+            top: 0;
+            width: auto;
+            margin: 1em
+        }
+    }
+
+    ._dialog_overlay {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0
+    }

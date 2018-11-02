@@ -1,5 +1,6 @@
 <template>
-  <dialog class="mdl-dialog dialog custom" @click="closeDialog" id="forgotPasswordDialog">
+  <dialog class="mdl-dialog dialog custom"  id="forgotPasswordDialog">
+     <div class="dialog__container">
     <div class="mdl-diaglog__head">
       <div class="mdl-dialog__text">
         <h5>إسترجاع كلمة المرور</h5>
@@ -22,11 +23,12 @@
           </div>
         </div>
         <div class="">
-          <button type="submit"  class="mdl-button u-mtop16 u-full-width mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored u-center">إرسال</button>
+          <button :disabled="isLoading" type="submit"  class="mdl-button u-mtop16 u-full-width mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored u-center">إرسال</button>
         </div>
       </form>
     </div>
-
+    <div v-if="isLoading" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+     </div>
 
   </dialog>
 </template>
@@ -38,14 +40,11 @@
         csrf: document
           .querySelector('meta[name="csrf-token"]')
           .getAttribute("content"),
-        errors: {}
+        errors: {},
+        isLoading: false
       };
     },
     methods: {
-      closeDialog: function () {
-        this.errors = {};
-        this.$root.closeDialog(this.$el);
-      },
       submit: function () {
         var self = this;
         var form = $("#forgotPasswordform");
@@ -70,6 +69,7 @@
         if (form.valid()) {
           form.submit(function (event) {
             event.preventDefault();
+            self.isLoading = true;
             $.ajax({
               url: "/password/email",
               type: "post",
@@ -77,6 +77,7 @@
               dataType: "json",
               success: function (_response) {
                 console.log(_response)
+                
               },
               complete: function (_response) { },
               error: function (_response) {
@@ -84,6 +85,7 @@
                 self.errors = {
                   email: ["wrong credentials"]
                 };
+                self.isLoading = false;
                 // Handle error
               }
             });

@@ -56,7 +56,8 @@ class LoginController extends Controller
     }
 
     public function setLogin(Request $request){
-        if(Auth::attempt([$this->userlogin() => $request->email , 'password' => $request->password])){
+        $remember =  ($request->remember === 'true');
+        if(Auth::attempt([$this->userlogin() => $request->email , 'password' => $request->password], $remember)){
             return Auth::User();
         }else{
             return response()->json(["error"=>"Wrong Credentials"], Response::HTTP_UNPROCESSABLE_ENTITY);

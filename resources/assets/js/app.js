@@ -189,10 +189,10 @@ const app = new Vue({
             });
         },
         reportDialog: function () {
-            reportDialog.showModal();
+            reportDialog.show();
         },
         sucssesDialog: function () {
-            successDialog.showModal();
+            successDialog.show();
         },
         loginDialog: function (url) {
             if (url) {
@@ -205,18 +205,23 @@ const app = new Vue({
                
 
               }
-            //signupDialog.close();
-            loginDialog.showModal();
+              if(signupDialog.hasAttribute("open")){
+                signupDialog.close();
+              }
+            
+            loginDialog.show();
 
         },
         signupDialog: function (url) {
+            if(loginDialog.open){
             loginDialog.close();
-            signupDialog.showModal();
+            }
+            signupDialog.show();
 
         },
         forgoPasswordDialog: function () {
             loginDialog.close();
-            forgotPasswordDialog.showModal();
+            forgotPasswordDialog.show();
         },
         mapDialog: function () {
             var self = this;
@@ -294,15 +299,7 @@ const app = new Vue({
 
         },
         closeDialog: function (el) {
-            let rect = el.getBoundingClientRect();
-            var e=window.event || event;
-            let isInDialog;
-                isInDialog = (rect.top <= e.clientY && e.clientY <= rect.top + rect.height && rect.left <= e.clientX && e.clientX <= rect.left + rect.width);
-      
-
-            if (!isInDialog) {
-                el.close();
-            }
+          
         },
     },
     created() {
@@ -326,9 +323,21 @@ const app = new Vue({
             }
 
             });
+           
     },
     mounted() {
+        $( ".mdl-dialog" ).click(function(e) {
+            let rect = $(this).find('.dialog__container')[ 0 ].getBoundingClientRect();
+            let isInDialog;
+                isInDialog = (rect.top <= e.clientY && e.clientY <= rect.top + rect.height && rect.left <= e.clientX && e.clientX <= rect.left + rect.width);
+      
 
+            if (!isInDialog && (!$(e.target).hasClass("mdl-button") || e.type == "submit")) {
+                this.close();
+            }
+
+        
+          });
         this.show = !this.show;
         
     }

@@ -486,7 +486,7 @@
     </form>
 </div>
 @endsection @push('scripts')
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <script>
     var form = $("#properties-form");
     form.validate({

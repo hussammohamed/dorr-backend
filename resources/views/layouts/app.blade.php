@@ -33,6 +33,7 @@
     <!-- Scripts -->
 
     <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
     // Initialize Firebase
     var config = {

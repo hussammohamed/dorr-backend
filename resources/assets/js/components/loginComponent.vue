@@ -1,5 +1,7 @@
 <template>
-  <dialog class="mdl-dialog dialog" @click="closeDialog" id="loginDialog">
+  <dialog class=" mdl-dialog dialog"  id="loginDialog">
+    <div class="dialog__container">
+    <div class="backdrop"></div>
     <div class="mdl-diaglog__head">
       <div class="mdl-dialog__text">
         <h5>تسجيل دخول</h5>
@@ -28,18 +30,26 @@
           <label class="mdl-textfield__label" for="password">كلمة المرور</label>
          <span class="mdl-textfield__error"  v-for="email in errors.email" v-text="email"></span>
         </div>
+        <div class="mdl-cell u-full-width">
+                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="remember">
+                            <input type="hidden" name="remember" value=false />
+                            <input type="checkbox" id="remember" tabIndex="12" value=true name="remember" class="mdl-checkbox__input">
+                            <span class="remember">تذكرني</span>
+                        </label>
+                    </div>
         <input class="mdl-textfield__input" type="hidden" name="username" id="username">
         <input class="mdl-textfield__input" type="hidden" name="client_id" value="2" >
         <input class="mdl-textfield__input" type="hidden" name="client_secret" value="Io39lW5eyWsE5y17tgqR9SipwZepjwEIGvkKv3Vu" >
         <input class="mdl-textfield__input" type="hidden" name="grant_type" value="password" >
         
         <div class="">
-          <button type="submit" @click="submit" class="mdl-button u-mtop16 u-full-width mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored u-center">دخول</button>
+          <button type="submit" :disabled="isLoading" @click="submit" class="mdl-button u-mtop16 u-full-width mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored u-center">دخول</button>
           <a   @click="forgotPassword" class=" u-full-width u-no-padding mdl-button u-mtop16 u-center">هل نسيت كلمة المرور ؟</a>
         </div>
       </form>
     </div>
-
+    <div v-if="isLoading" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+    </div>
 
   </dialog>
 </template>
@@ -52,7 +62,8 @@ export default {
         .querySelector('meta[name="csrf-token"]')
         .getAttribute("content"),
       errorClass: "is-invalid is-dirty",
-      errors: {}
+      errors: {},
+      isLoading: false
     };
   },
   methods: {
@@ -86,11 +97,9 @@ export default {
     signupDialog: function(url) {
       this.$root.signupDialog();
     },
-    closeDialog: function() {
-      this.errors = {};
-      this.$root.closeDialog(this.$el);
-    },
     submit: function() {
+      
+      this.errors = [];
       var self = this;
       var form = $("#loginForm");
       form.validate({
@@ -122,9 +131,12 @@ export default {
       });
 
       if (form.valid()) {
+        
         form.submit(function(event) {
+          
           event.preventDefault();
           $('input[name="username"]').val($("#email").val());
+          self.isLoading = true;
           $.ajax({
             url: "/api/v1/users/login",
             type: "post",
@@ -146,24 +158,32 @@ export default {
                     else
                 location.pathname = self.$parent.url;
               } else {
+              
                 location.reload();
+                  //self.isLoading = false;
               }
                 },
-                complete: function(_response) {},
+                complete: function(_response) {
+                   
+                },
                 error: function(_response) {
                   //this.errors = JSON.parse(_response.responseText).errors
                   self.errors = {
                     email: ["بيانات غير صحيحة"]
                   };
+                  self.isLoading = false;
                   // Handle error
                 }
               });
             },
-            complete: function(_response) {},
+            complete: function(_response) {
+             
+            },
             error: function(_response) {
+                self.isLoading = false;
               //this.errors = JSON.parse(_response.responseText).errors
               self.errors = {
-                email: ["wrong credentials"]
+                email:  ["بيانات غير صحيحة"]
               };
               // Handle error
             }

@@ -1,5 +1,6 @@
 <template>
-  <dialog class="mdl-dialog reportDialog dialog" @click="closeDialog" id="reportDialog">
+  <dialog class="mdl-dialog reportDialog dialog"  id="reportDialog">
+     <div class="dialog__container">
     <form id="reportForm">
       <div class="mdl-dialog__content">
           <input v-model="propertyid" type="hidden" value="" name="property_id"/>
@@ -14,6 +15,7 @@
         <button type="button" @click="cancelDialog" class="mdl-button close">ألغاء</button>
       </div>
     </form>
+     </div>
   </dialog>
 </template>
 
@@ -34,10 +36,9 @@
         this.$el.close();
         this.errors = {};
       },
-      closeDialog: function () {
-        this.$root.closeDialog(this.$el);
-      },
+      
       submit: function () {
+        this.errors = {};
         var self = this;
         var form = $("#reportForm");
         form.validate({

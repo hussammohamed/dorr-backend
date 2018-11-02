@@ -1,5 +1,6 @@
 <template>
-  <dialog class="mdl-dialog reportDialog dialog" @click="closeDialog" id="successDialog">
+  <dialog class="mdl-dialog reportDialog dialog"  id="successDialog">
+     <div class="dialog__container">
       <div class="mdl-dialog__content u-center">
        <div class="card-title">
           تم رفع البلاغ وسيتم مراجعة الأعلان
@@ -9,6 +10,7 @@
       <div class="mdl-dialog__actions">
         <button type="submit" @click="cancelDialog" class="mdl-button">غلق</button>
       </div>
+     </div>
   </dialog>
 </template>
 
@@ -19,9 +21,7 @@
         this.$el.close();
         this.errors = {};
       },
-      closeDialog: function () {
-        this.$root.closeDialog(this.$el);
-      },
+
      
     },
 

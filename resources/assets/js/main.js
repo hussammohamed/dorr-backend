@@ -31,8 +31,8 @@ $(window).scroll(function (e) {
   var stickyEl = $('.sticky-item');
   var Position = stickyContainer.offset();
   var scrollTop = $(this).scrollTop();
-  var bottom = $('.sticky-container').position().top + $('.sticky-container').offset().top + $('.sticky-container').outerHeight(true);
   if (stickyContainer.length) {
+     var bottom = $('.sticky-container').position().top + $('.sticky-container').offset().top + $('.sticky-container').outerHeight(true);
     if (scrollTop > (Position.top + 100) && (scrollTop - Position.top) < (stickyContainer.height() - stickyEl.height() + 204)) {
       stickyEl.css({ 'top': scrollTop - Position.top, 'bottom': 'auto'});
     }

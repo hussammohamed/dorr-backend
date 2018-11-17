@@ -59,6 +59,8 @@ Route::group(['middleware'=>'language'],function(){
     Route::get('myAccount/Properties','UserController@getUserProperties');
     Route::post('myAccount/update', 'UserController@update_old');
     Route::post('myAccount/updatePassword', 'UserController@updatePassword');
+    Route::post('myAccount/updateAgency', 'AgencyController@oldUpdate');
+    Route::post('myAccount/createAgency', 'AgencyController@oldStore');
 
     Route::get('properties/create', 'PropertiesController@create')->name('createProperty');
     Route::post('properties/store', 'PropertiesController@store');

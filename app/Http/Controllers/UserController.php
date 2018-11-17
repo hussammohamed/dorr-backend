@@ -11,6 +11,7 @@ use App\Region;
 use App\IdType;
 use App\Nationality;
 use App\Bank;
+use App\Agency;
 
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
@@ -212,9 +213,10 @@ class UserController extends Controller
             $regions = Region::where('type',1)->where('active',1)->where('deleted',0)->orderby('order')->get();
             $banks  = Bank::where('active',1)->where('deleted',0)->orderby('order')->get();
             $idTypes = IdType::where('active',1)->where('deleted',0)->orderby('order')->get();
+            $agency = Agency::where('user_id', Auth::user()->id)->get();  
             $nationalities = Nationality::where('active',1)->where('deleted',0)->orderby('order')->get();
 
-            return view('myAccount',['name'=>'name_'.App::getLocale(), 'user'=>$user, 'regions'=>$regions, 'banks'=>$banks, 'idTypes'=>$idTypes, 'nationalities'=>$nationalities,]);
+            return view('myAccount',['name'=>'name_'.App::getLocale(), 'user'=>$user, 'agency'=>$agency, 'regions'=>$regions, 'banks'=>$banks, 'idTypes'=>$idTypes, 'nationalities'=>$nationalities,]);
         }else{
             return redirect('/');
         }
@@ -324,6 +326,15 @@ class UserController extends Controller
             $user->nationality = $request->nationality;
             $user->bank_iban = $request->bank_iban;
             $user->bank = $request->bank;
+            if ($request->hasFile('id_image')) {
+            $file = $request->file('id_image');
+            $extension = $file->getClientOriginalExtension();
+            $id_fileName = str_random(20).".".$extension;
+            $folderpath  = 'upload/users/id/';
+            $file->move($folderpath , $id_fileName);
+            $user->id_image = $id_fileName;
+            }
+            
             $user->save();
             return redirect('myAccount');
         }else{

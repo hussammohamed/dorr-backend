@@ -21,7 +21,7 @@ class AgencyController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:api');//->except('index','show');
+        $this->middleware('auth:api')->except('oldStore', 'oldUpdate');
     }
 
 
@@ -52,6 +52,66 @@ class AgencyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+     public function oldStore(Request $request)
+    {
+        if (Auth::check()) {
+            $agency = new Agency;
+		    $agency->user_id = Auth::user()->id;
+            $agency->commercial_register_name = $request->commercial_register_name;
+            $agency->commercial_register_no = $request->commercial_register_no;
+            $agency->commercial_register_address = $request->commercial_register_address;
+		    $agency->commercial_register_issuer = $request->commercial_register_issuer;
+		    $agency->commercial_register_date = $request->commercial_register_date;
+            $agency->commercial_register_exp_date = $request->commercial_register_exp_date;
+            $agency->phone = $request->phone;
+            $agency->fax = $request->fax;
+            if ($request->hasFile('commercial_register_image')) {
+                $file = $request->file('commercial_register_image');
+                $extension = $file->getClientOriginalExtension();
+                $commercial_register_fileName = str_random(20).".".$extension;
+                $folderpath  = 'upload/agencies/commercial_register/';
+                $file->move($folderpath , $commercial_register_fileName);
+
+                $agency->commercial_register_image = $commercial_register_fileName;
+               
+                }
+                $agency->save();
+                return redirect('myAccount');
+            }else{
+                return "no logined user";
+            }
+
+    }
+    public function oldUpdate(Request $request)
+    {
+        if (Auth::check()) {
+            $agency = Agency::where('user_id', Auth::user()->id)->get()[0];
+		    $agency->user_id = Auth::user()->id;
+            $agency->commercial_register_name = $request->commercial_register_name;
+            $agency->commercial_register_no = $request->commercial_register_no;
+            $agency->commercial_register_address = $request->commercial_register_address;
+		    $agency->commercial_register_issuer = $request->commercial_register_issuer;
+		    $agency->commercial_register_date = $request->commercial_register_date;
+            $agency->commercial_register_exp_date = $request->commercial_register_exp_date;
+            $agency->phone = $request->phone;
+            $agency->fax = $request->fax;
+            if ($request->hasFile('commercial_register_image')) {
+                $file = $request->file('commercial_register_image');
+                $extension = $file->getClientOriginalExtension();
+                $commercial_register_fileName = str_random(20).".".$extension;
+                $folderpath  = 'upload/agencies/commercial_register/';
+                $file->move($folderpath , $commercial_register_fileName);
+
+                $agency->commercial_register_image = $commercial_register_fileName;
+               
+                }
+                $agency->save();
+                return redirect('myAccount');
+            }else{
+                return "no logined user";
+            }
+
+    }
     public function store(Request $request)
     {
         //

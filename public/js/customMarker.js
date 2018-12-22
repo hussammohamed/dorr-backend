@@ -23,7 +23,7 @@ function CustomMarker(latlng, map, args, type, component) {
 function returnViewPrice (property){
 
 	let price;
-	if(property.price_view  == 1) price = property.price; else price = property.bid_price
+	if(property.price_view  == 1) price = property.bid_price; else price = property.price;
 	return addCommas(price, ' ريال')
 }
 CustomMarker.prototype = new google.maps.OverlayView();
@@ -47,11 +47,12 @@ CustomMarker.prototype.draw = function () {
 		}
 		if (self.type === "property") {
 			if(self.args.details.price_view  == 1){
-				div.innerHTML += priceFormatter(self.args.details.price);
-			}
-			else{
 				div.innerHTML += priceFormatter(self.args.details.bid_price);
 				div.className += " bid-price"
+				
+			}
+			else{
+				div.innerHTML += priceFormatter(self.args.details.price);
 			}
 		
 		}

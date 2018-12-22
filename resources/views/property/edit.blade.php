@@ -361,7 +361,7 @@
                                                         @if($property->allow_whatsapp == "1" )
                                                         <input type="checkbox" id="whatsapp_permisson" checked value="1" name="allow_whatsapp" class="mdl-checkbox__input" checked>
                                                         @else
-                                                        <input type="checkbox" id="whatsapp_permisson" checked value="1" name="allow_whatsapp" class="mdl-checkbox__input" >
+                                                        <input type="checkbox" id="whatsapp_permisson"  value="1" name="allow_whatsapp" class="mdl-checkbox__input" >
                                                         @endif
                                                         <span class="price_view">التواصل عبر الواتس</span>
                                                     </label>
@@ -372,7 +372,7 @@
                                                         @if($property->allow_comments == "1" )
                                                         <input type="checkbox" id="add_comments" value="1" checked name="allow_comments" class="mdl-checkbox__input" checked>
                                                         @else
-                                                        <input type="checkbox" id="add_comments" value="1" checked name="allow_comments" class="mdl-checkbox__input">
+                                                        <input type="checkbox" id="add_comments" value="1"  name="allow_comments" class="mdl-checkbox__input">
                                                         @endif
                                                         <span class="price_view">إضافة تعليقات</span>
                                                     </label>
@@ -383,7 +383,7 @@
                                                         @if($property->privet_chat == "1" )
                                                         <input type="checkbox" id="privet_chat" value="1" checked name="allow_private" class="mdl-checkbox__input" checked>
                                                         @else
-                                                        <input type="checkbox" id="privet_chat" value="1" checked name="allow_private" class="mdl-checkbox__input" checked>
+                                                        <input type="checkbox" id="privet_chat" value="1"  name="allow_private" class="mdl-checkbox__input" checked>
                                                         @endif
                                                         <span class="price_view">التواصل على الخاص</span>
                                                     </label>

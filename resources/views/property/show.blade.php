@@ -390,10 +390,14 @@
                 <addoffer-component :auth="{{json_encode(Auth::guest())}}" :propertyid="{{json_encode($property->id)}}"></addoffer-component>
                 @elseif (Auth::guest())
                 <addoffer-component :auth="{{json_encode(Auth::guest())}}" :propertyid="{{json_encode($property->id)}}"></addoffer-component>
-                @else
-                <a href="/properties/edit/{{$property->id}}" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored u-center">تعديل</a>
+               
                 @endif
-
+                
+            </div>
+            @endif
+            @if(!Auth::guest() && (Auth::user()->id == $property->user_id ))
+            <div class="mdl-card  mdl-shadow--2dp  u-padding-top-45 u-auto-width u-mbuttom16 u-height-auto  u-padding-side-20 u-padding-bottom-15">
+                <a href="/properties/edit/{{$property->id}}" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored u-center">تعديل</a>
             </div>
             @endif
             @if(!Auth::guest() && (Auth::user()->id != $property->user_id ))
